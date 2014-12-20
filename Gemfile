@@ -45,4 +45,5 @@ group :development, :test do
   gem 'shoulda-matchers', require: false
   gem 'rspec-its', require: false
   gem 'simplecov', '~> 0.9.1', require: false
+  gem 'coveralls', require: false
 end
