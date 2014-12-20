@@ -37,4 +37,14 @@ Rails.application.configure do
 
   # Raises error for missing translations
   config.action_view.raise_on_missing_translations = true
+
+  config.generators do |generate|
+    generate.helper false
+    generate.javascripts false
+    generate.stylesheets false
+    generate.request_specs false
+    generate.routing_specs false
+    generate.view_specs false
+    # generate.test_framework :rspec
+  end
 end
