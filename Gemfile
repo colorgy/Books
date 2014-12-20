@@ -39,4 +39,5 @@ gem 'spring',        group: :development
 # gem 'debugger', group: [:development, :test]
 
 # Logger and Monitoring Tools
+gem 'remote_syslog_logger'
 gem 'newrelic_rpm'
