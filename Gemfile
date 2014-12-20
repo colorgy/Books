@@ -50,4 +50,6 @@ group :development, :test do
   gem 'database_cleaner'
   gem 'formulaic'
   gem 'launchy'
+  gem 'webmock'
+  gem 'timecop'
 end
