@@ -1,0 +1,6 @@
+language:
+  - ruby
+before_install:
+  - "echo 'gem: --no-document' > ~/.gemrc"
+install:
+  - bin/setup
