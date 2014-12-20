@@ -38,3 +38,11 @@ gem 'spring',        group: :development
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
+# RSpec
+group :development, :test do
+  gem 'rspec-rails', '~> 3.0'
+  gem 'factory_girl_rails', '~> 4.5.0'
+  gem 'shoulda-matchers', require: false
+  gem 'rspec-its', require: false
+  gem 'simplecov', '~> 0.9.1', require: false
+end
