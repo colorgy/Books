@@ -39,7 +39,6 @@ gem 'unicorn'
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
-
 # Loads environment variables from `.env`
 gem 'dotenv-rails', :groups => [:development, :test]
 
@@ -70,3 +69,7 @@ group :development, :test do
   gem 'webmock'
   gem 'timecop'
 end
+
+# Logger and Monitoring Tools
+gem 'remote_syslog_logger'
+gem 'newrelic_rpm'
