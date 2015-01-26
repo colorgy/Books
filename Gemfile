@@ -41,12 +41,14 @@ gem 'spring',        group: :development
 # RSpec
 group :development, :test do
   gem 'rspec-rails', '~> 3.0'
+  gem 'spring-commands-rspec'
   gem 'factory_girl_rails', '~> 4.5.0'
   gem 'shoulda-matchers', require: false
   gem 'rspec-its', require: false
   gem 'simplecov', '~> 0.9.1', require: false
   gem 'coveralls', require: false
   gem 'capybara-webkit', '>= 1.2.0'
+  gem 'capybara-screenshot'
   gem 'database_cleaner'
   gem 'formulaic'
   gem 'launchy'

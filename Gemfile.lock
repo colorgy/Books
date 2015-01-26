@@ -36,6 +36,10 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
+    capybara-screenshot (1.0.4)
+      capybara (>= 1.0, < 3)
+      colored
+      launchy
     capybara-webkit (1.3.1)
       capybara (>= 2.0.2, < 2.5.0)
       json
@@ -46,6 +50,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.8.0)
+    colored (1.2)
     coveralls (0.7.1)
       multi_json (~> 1.3)
       rest-client
@@ -149,6 +154,8 @@ GEM
       simplecov-html (~> 0.8.0)
     simplecov-html (0.8.0)
     spring (1.2.0)
+    spring-commands-rspec (1.0.4)
+      spring (>= 0.9.1)
     sprockets (2.12.3)
       hike (~> 1.2)
       multi_json (~> 1.0)
@@ -183,6 +190,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  capybara-screenshot
   capybara-webkit (>= 1.2.0)
   coffee-rails (~> 4.0.0)
   coveralls
@@ -200,6 +208,7 @@ DEPENDENCIES
   shoulda-matchers
   simplecov (~> 0.9.1)
   spring
+  spring-commands-rspec
   sqlite3
   timecop
   turbolinks
