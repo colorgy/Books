@@ -15,5 +15,9 @@
 /log/*.log
 /tmp
 
+/doc
+
 .env
 coverage
+erd.pdf
+erd.dot
