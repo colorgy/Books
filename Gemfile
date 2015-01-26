@@ -41,3 +41,13 @@ gem 'unicorn'
 
 # Loads environment variables from `.env`
 gem 'dotenv-rails', :groups => [:development, :test]
+
+# Development tools
+group :development do
+  gem 'better_errors', '~> 2.0.0'
+  gem 'binding_of_caller', '~> 0.7.2'
+  gem 'meta_request'
+  gem 'letter_opener'
+  # gem 'guard-livereload', require: false
+  # gem 'growl_notify', require: false
+end

@@ -13,8 +13,11 @@ Rails.application.configure do
   config.consider_all_requests_local       = true
   config.action_controller.perform_caching = false
 
-  # Don't care if the mailer can't send.
-  config.action_mailer.raise_delivery_errors = false
+  # Care if the mailer can't send.
+  config.action_mailer.raise_delivery_errors = true
+
+  # Raise on unpermitted parameters.
+  config.action_controller.action_on_unpermitted_parameters = :raise
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
@@ -33,5 +36,15 @@ Rails.application.configure do
   config.assets.raise_runtime_errors = true
 
   # Raises error for missing translations
-  # config.action_view.raise_on_missing_translations = true
+  config.action_view.raise_on_missing_translations = true
+
+  config.generators do |generate|
+    generate.helper false
+    generate.javascripts false
+    generate.stylesheets false
+    generate.request_specs false
+    generate.routing_specs false
+    generate.view_specs false
+    # generate.test_framework :rspec
+  end
 end
