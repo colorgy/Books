@@ -52,6 +52,7 @@ gem 'ruby-pinyin'
 
 gem 'devise', '~> 3.4.0'
 gem 'omniauth', '~> 1.2.2'
+gem 'omniauth-oauth2'
 
 gem 'simple_form', '~> 3.1.0'
 
@@ -87,7 +88,7 @@ group :development, :test do
   gem 'database_cleaner'
   gem 'formulaic'
   gem 'launchy'
-  gem 'webmock'
+  gem 'webmock', require: false
   gem 'timecop'
   gem 'faker'
 end

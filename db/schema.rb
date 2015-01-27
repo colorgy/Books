@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150127081506) do
+ActiveRecord::Schema.define(version: 20150127095249) do
 
   create_table "book_data", force: true do |t|
     t.string   "isbn"
@@ -36,5 +36,30 @@ ActiveRecord::Schema.define(version: 20150127081506) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "users", force: true do |t|
+    t.string   "email",               default: "", null: false
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",       default: 0,  null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+    t.string   "sid"
+    t.string   "username"
+    t.string   "name"
+    t.string   "avatar_url"
+    t.string   "cover_photo_url"
+    t.string   "gender"
+    t.string   "fbid"
+    t.string   "uid"
+    t.string   "identity"
+    t.string   "organization"
+    t.string   "department"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "users", ["email"], name: "index_users_on_email", unique: true
 
 end

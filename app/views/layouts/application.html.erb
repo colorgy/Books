@@ -7,6 +7,17 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+<p class="user-actions">
+  <% if current_user.blank? %>
+    <%= link_to "Sign in with Colorgy", user_omniauth_authorize_path(:colorgy) %>
+  <% else %>
+    Hello, <%= current_user.email %>
+    <%= link_to("Log Out", destroy_user_session_path, method: :delete) %>
+  <% end %>
+</p>
+<% flash.each do |type, message| %>
+  <p class="<%= type %>"><%= message %></p>
+<% end %>
 
 <%= yield %>
 
