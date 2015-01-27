@@ -1,4 +1,4 @@
-class BookDataController < ApplicationController
+class BookDatasController < ApplicationController
   before_action :set_book_data, only: [:show, :edit, :update, :destroy]
 
   # GET /book_datas

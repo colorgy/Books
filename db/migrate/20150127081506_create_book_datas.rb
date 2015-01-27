@@ -7,7 +7,7 @@ class CreateBookDatas < ActiveRecord::Migration
       t.string :author
       t.string :image_url
       t.string :publisher
-      t.string :price
+      t.float :price
 
       t.timestamps
     end

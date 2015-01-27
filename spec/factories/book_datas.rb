@@ -1,12 +1,11 @@
 FactoryGirl.define do
   factory :book_data do
-    isbn "MyString"
-name "MyString"
-edition "MyString"
-author "MyString"
-image_url "MyString"
-publisher "MyString"
-price "MyString"
+    isbn { Faker::Code.isbn }
+    name { Faker::Company.name }
+    edition { Faker::Number.digit }
+    author { Faker::Name.name }
+    image_url "http://placehold.it/400x500"
+    publisher { Faker::Company.name }
+    price { Faker::Commerce.price }
   end
-
 end
