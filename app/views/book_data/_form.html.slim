@@ -1,0 +1,30 @@
+= form_for @book_data do |f|
+  - if @book_data.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@book_data.errors.count, "error")} prohibited this book_data from being saved:"
+      ul
+        - @book_data.errors.full_messages.each do |message|
+          li = message
+
+  .field
+    = f.label :isbn
+    = f.text_field :isbn
+  .field
+    = f.label :name
+    = f.text_field :name
+  .field
+    = f.label :edition
+    = f.text_field :edition
+  .field
+    = f.label :author
+    = f.text_field :author
+  .field
+    = f.label :image_url
+    = f.text_field :image_url
+  .field
+    = f.label :publisher
+    = f.text_field :publisher
+  .field
+    = f.label :price
+    = f.text_field :price
+  .actions = f.submit
