@@ -64,6 +64,7 @@ GEM
     autoprefixer-rails (5.0.0.3)
       execjs
       json
+    awesome_print (1.6.1)
     babosa (1.0.2)
     bcrypt (3.1.9)
     better_errors (2.0.0)
@@ -170,6 +171,10 @@ GEM
       activesupport (>= 3.2, < 5)
     hashie (3.3.2)
     hike (1.2.3)
+    hirb (0.7.2)
+    hirb-unicode (0.0.5)
+      hirb (~> 0.5)
+      unicode-display_width (~> 0.1.1)
     i18n (0.7.0)
     inherited_resources (1.6.0)
       actionpack (>= 3.2, < 5)
@@ -200,6 +205,7 @@ GEM
       callsite (~> 0.0, >= 0.0.11)
       rack-contrib (~> 1.1)
       railties (>= 3.0.0, < 5.0.0)
+    method_source (0.8.2)
     mime-types (2.4.3)
     mini_portile (0.6.2)
     minitest (5.5.1)
@@ -230,6 +236,15 @@ GEM
     orm_adapter (0.5.0)
     polyamorous (1.1.0)
       activerecord (>= 3.0)
+    pry (0.10.1)
+      coderay (~> 1.1.0)
+      method_source (~> 0.8.1)
+      slop (~> 3.4)
+    pry-byebug (2.0.0)
+      byebug (~> 3.4)
+      pry (~> 0.10)
+    pry-rails (0.3.2)
+      pry (>= 0.9.10)
     rack (1.5.2)
     rack-contrib (1.2.0)
       rack (>= 0.9.1)
@@ -358,6 +373,7 @@ GEM
     uglifier (2.7.0)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
+    unicode-display_width (0.1.1)
     unicorn (4.8.3)
       kgio (~> 2.6)
       rack
@@ -376,6 +392,7 @@ PLATFORMS
 DEPENDENCIES
   activeadmin!
   activerecord-import (~> 0.7.0)
+  awesome_print
   babosa
   better_errors (~> 2.0.0)
   binding_of_caller (~> 0.7.2)
@@ -393,6 +410,8 @@ DEPENDENCIES
   faker
   formulaic
   friendly_id (~> 5.0.4)
+  hirb
+  hirb-unicode
   jbuilder (~> 2.0)
   jquery-rails
   launchy
@@ -404,6 +423,8 @@ DEPENDENCIES
   nprogress-rails (~> 0.1.6.5)
   omniauth (~> 1.2.2)
   omniauth-oauth2
+  pry-byebug
+  pry-rails
   railroady
   rails (= 4.1.8)
   rails-erd
