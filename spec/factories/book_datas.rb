@@ -5,7 +5,8 @@ FactoryGirl.define do
     edition { Faker::Number.digit }
     author { Faker::Name.name }
     image_url "http://placehold.it/400x500"
+    url { Faker::Internet.url }
     publisher { Faker::Company.name }
-    price { Faker::Commerce.price }
+    original_price { Faker::Commerce.price }
   end
 end

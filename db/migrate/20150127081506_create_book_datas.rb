@@ -6,10 +6,12 @@ class CreateBookDatas < ActiveRecord::Migration
       t.string :edition
       t.string :author
       t.string :image_url
+      t.string :url
       t.string :publisher
-      t.float :price
-
+      t.float :original_price
+      
       t.timestamps
     end
+    add_index :book_datas, :isbn, unique: true
   end
 end

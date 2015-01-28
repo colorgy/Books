@@ -11,19 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150127095249) do
-
-  create_table "book_data", force: true do |t|
-    t.string   "isbn"
-    t.string   "name"
-    t.string   "edition"
-    t.string   "author"
-    t.string   "image_url"
-    t.string   "publisher"
-    t.string   "price"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
+ActiveRecord::Schema.define(version: 20150128083734) do
 
   create_table "book_datas", force: true do |t|
     t.string   "isbn"
@@ -31,8 +19,35 @@ ActiveRecord::Schema.define(version: 20150127095249) do
     t.string   "edition"
     t.string   "author"
     t.string   "image_url"
+    t.string   "url"
     t.string   "publisher"
+    t.float    "original_price"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "book_datas", ["isbn"], name: "index_book_datas_on_isbn", unique: true
+
+  create_table "books", force: true do |t|
     t.float    "price"
+    t.integer  "book_data_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "books", ["book_data_id"], name: "index_books_on_book_data_id"
+
+  create_table "courses", force: true do |t|
+    t.integer  "year"
+    t.integer  "term"
+    t.string   "name"
+    t.text     "description"
+    t.integer  "credits"
+    t.string   "url"
+    t.string   "book_isbn"
+    t.integer  "user_id"
+    t.boolean  "confirmed",    default: false, null: false
+    t.time     "confirmed_at"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
