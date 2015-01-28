@@ -5,5 +5,4 @@ FactoryGirl.define do
     credits { Faker::Number.between(0, 4) }
     url { Faker::Internet.url }
   end
-
 end

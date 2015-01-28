@@ -8,5 +8,15 @@ FactoryGirl.define do
     url { Faker::Internet.url }
     publisher { Faker::Company.name }
     original_price { Faker::Commerce.price }
+
+    factory :book_data_with_courses do 
+      transient do 
+        courses_count 5
+      end
+
+      after(:create) do |book_data, evaluator|
+        create_list(:course, evaluator.courses_count, book_data: book_data)
+      end
+    end
   end
 end
