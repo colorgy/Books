@@ -1,5 +1,7 @@
 class User < ActiveRecord::Base
   devise :trackable, :omniauthable, :omniauth_providers => [:colorgy]
+  has_many :book_datas
+  has_many :courses
 
   def self.from_core(auth)
     user = where(:sid => auth.sid).first_or_create! do |new_user|

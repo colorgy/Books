@@ -9,6 +9,8 @@ class CreateBookDatas < ActiveRecord::Migration
       t.string :url
       t.string :publisher
       t.float :original_price
+
+      t.integer :user_id
       
       t.timestamps
     end

@@ -22,6 +22,7 @@ ActiveRecord::Schema.define(version: 20150128083734) do
     t.string   "url"
     t.string   "publisher"
     t.float    "original_price"
+    t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
