@@ -176,6 +176,8 @@ GEM
       has_scope (~> 0.6.0.rc)
       railties (>= 3.2, < 5)
       responders
+    isbn_validation (1.2.1)
+      activerecord (>= 3)
     jbuilder (2.2.6)
       activesupport (>= 3.0.0, < 5)
       multi_json (~> 1.2)
@@ -393,6 +395,7 @@ DEPENDENCIES
   faker
   formulaic
   friendly_id (~> 5.0.4)
+  isbn_validation (~> 1.2.1)
   jbuilder (~> 2.0)
   jquery-rails
   launchy
