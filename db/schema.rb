@@ -48,7 +48,7 @@ ActiveRecord::Schema.define(version: 20150128083734) do
     t.string   "book_isbn"
     t.integer  "user_id"
     t.boolean  "confirmed",    default: false, null: false
-    t.time     "confirmed_at"
+    t.datetime "confirmed_at"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

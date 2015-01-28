@@ -12,7 +12,7 @@ class CreateCourses < ActiveRecord::Migration
       t.integer :user_id
 
       t.boolean :confirmed,     null: false, default: false
-      t.time :confirmed_at
+      t.datetime :confirmed_at
 
       t.timestamps
     end

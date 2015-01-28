@@ -9,6 +9,7 @@ class Course < ActiveRecord::Base
     if self.book_data.nil? || self.confirmed == true
       raise Exception.new "Book Data hasn't assigned"
     else
+      self.confirmed_at = Time.now
       self.confirmed = true
       self.user_id = user.id
       self.save 

@@ -12,6 +12,7 @@ RSpec.describe User, :type => :model do
 
     it "can confirm course after assigned book_data" do
       course.book_data = create(:book_data)
+      expect(course.confirmed_at).not_to be_nil
       expect { course.confirm!(user) }.not_to raise_exception
     end
   end
