@@ -98,6 +98,13 @@ end
 gem 'remote_syslog_logger'
 gem 'newrelic_rpm'
 
+# Use Pry as the Rails console
+gem 'pry-rails'
+gem 'pry-byebug'
+gem 'awesome_print', :require => false
+gem 'hirb', :require => false
+gem 'hirb-unicode', :require => false
+
 # Assets related Gems
 gem 'react-rails', '~> 1.0.0.pre', github: 'reactjs/react-rails'
 gem 'normalize-rails', '>= 3.0.1'
