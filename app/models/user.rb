@@ -1,8 +1,9 @@
 class User < ActiveRecord::Base
-  devise :trackable, :omniauthable, :omniauth_providers => [:colorgy]
+  devise :trackable, :timeoutable,
+         :omniauthable, :omniauth_providers => [:colorgy]
 
   def self.from_core(auth)
-    user = where(:sid => auth.sid).first_or_create! do |new_user|
+    user = where(:sid => auth.info.id).first_or_create! do |new_user|
       new_user.email = auth.info.email
     end
 
