@@ -1,17 +1,18 @@
 class Course < ActiveRecord::Base
-  belongs_to :book_data,
-              class_name: :BookData, foreign_key: :book_isbn, primary_key: :isbn
-  belongs_to :user
+  scope :book_confirmed, -> { where(self.confirmed?) }
 
-  scope :confirmed, -> { where(self.confirmed?) }
+  belongs_to :book_data, class_name: :BookData, foreign_key: :book_isbn, primary_key: :isbn
+  belongs_to :lecturer_identity, class_name: :UserIdentity, foreign_key: :lecturer_name, primary_key: :name
 
-  def confirm!(user)
-    self.confirmed_at = Time.now
-    self.user_id = user.id
-    self.save
+  validates :name, presence: true
+  validates :lecturer_name, presence: true
+
+  def confirm_book!
+    self.book_confirmed_at = Time.now
+    save!
   end
 
-  def confirmed?
-    !self.confirmed_at.nil?
+  def book_confirmed?
+    !book_confirmed_at.blank?
   end
 end

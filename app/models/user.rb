@@ -3,8 +3,6 @@ class User < ActiveRecord::Base
          :omniauthable, :omniauth_providers => [:colorgy]
 
   has_many :identities, class_name: :UserIdentity
-  has_many :book_datas
-  has_many :courses
 
   def self.from_core(auth)
     user = where(:sid => auth.info.id).first_or_create! do |new_user|
@@ -25,9 +23,9 @@ class User < ActiveRecord::Base
     user.identities.delete_all
     identities = auth.info.identities
 
-    identities_inserts = identities.map { |i| "(#{user.id}, '#{i[:organization_code]}', '#{i[:department_code]}', '#{i[:uid]}', '#{i[:email]}', '#{i[:identity]}')" }
+    identities_inserts = identities.map { |i| "(#{user.id}, '#{i[:organization_code]}', '#{i[:department_code]}', '#{i[:name]}', '#{i[:uid]}', '#{i[:email]}', '#{i[:identity]}')" }
     if identities_inserts.length > 0
-      sql = "INSERT INTO user_identities (user_id, organization_code, department_code, uid, email, identity) VALUES #{identities_inserts.join(', ')}"
+      sql = "INSERT INTO user_identities (user_id, organization_code, department_code, name, uid, email, identity) VALUES #{identities_inserts.join(', ')}"
       ActiveRecord::Base.connection.execute(sql)
     end
 

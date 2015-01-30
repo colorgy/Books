@@ -1,22 +1,22 @@
 class CreateCourses < ActiveRecord::Migration
   def change
     create_table :courses do |t|
-      t.integer :year
-      t.integer :term
-      t.string :name
-      t.text :description
-      t.integer :credits
+      t.string :organization_code, null: false
+      t.string :department_code
+      t.string :lecturer_name, null: false
+
+      t.integer :year, null: false
+      t.integer :term, null: false
+      t.string :name, null: false
+      t.string :code
       t.string :url
+      t.boolean :required, null: false, default: false
 
       t.string :book_isbn
-      t.integer :user_id
-      t.integer :organization_id
-      t.integer :lecturer_id
 
-      t.datetime :confirmed_at
+      t.datetime :book_confirmed_at
 
       t.timestamps
     end
-
   end
 end

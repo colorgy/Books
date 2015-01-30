@@ -15,15 +15,14 @@ ActiveRecord::Schema.define(version: 20150130105841) do
 
   create_table "book_datas", force: true do |t|
     t.string   "isbn"
-    t.string   "name"
+    t.string   "name",           null: false
     t.string   "edition"
     t.string   "author"
     t.string   "image_url"
     t.string   "url"
     t.string   "publisher"
+    t.string   "original_url"
     t.float    "original_price"
-    t.integer  "user_id"
-    t.integer  "provider_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -31,7 +30,8 @@ ActiveRecord::Schema.define(version: 20150130105841) do
   add_index "book_datas", ["isbn"], name: "index_book_datas_on_isbn", unique: true
 
   create_table "books", force: true do |t|
-    t.float    "price"
+    t.string   "provider"
+    t.float    "price",        null: false
     t.integer  "book_data_id"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -40,28 +40,29 @@ ActiveRecord::Schema.define(version: 20150130105841) do
   add_index "books", ["book_data_id"], name: "index_books_on_book_data_id"
 
   create_table "courses", force: true do |t|
-    t.integer  "year"
-    t.integer  "term"
-    t.string   "name"
-    t.text     "description"
-    t.integer  "credits"
+    t.string   "organization_code",                 null: false
+    t.string   "department_code"
+    t.string   "lecturer_name",                     null: false
+    t.integer  "year",                              null: false
+    t.integer  "term",                              null: false
+    t.string   "name",                              null: false
+    t.string   "code"
     t.string   "url"
+    t.boolean  "required",          default: false, null: false
     t.string   "book_isbn"
-    t.integer  "user_id"
-    t.integer  "organization_id"
-    t.integer  "lecturer_id"
-    t.datetime "confirmed_at"
+    t.datetime "book_confirmed_at"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "user_identities", force: true do |t|
-    t.integer  "user_id"
-    t.string   "organization_code"
+    t.integer  "user_id",           null: false
+    t.string   "organization_code", null: false
     t.string   "department_code"
     t.string   "uid"
+    t.string   "name"
     t.string   "email"
-    t.string   "identity"
+    t.string   "identity",          null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -86,8 +87,8 @@ ActiveRecord::Schema.define(version: 20150130105841) do
     t.string   "fbid"
     t.string   "uid"
     t.string   "identity"
-    t.string   "organization"
-    t.string   "department"
+    t.string   "organization_code"
+    t.string   "department_code"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

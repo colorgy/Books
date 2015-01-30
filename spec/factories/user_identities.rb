@@ -1,11 +1,11 @@
 FactoryGirl.define do
   factory :user_identity do
-    user_id 1
-organization_code "MyString"
-department_code "MyString"
-uid "MyString"
-email "MyString"
-identity "MyString"
+    user
+    organization_code { Faker::Company.name }
+    department_code { Faker::Company.name }
+    uid { Faker::Lorem.characters(10) }
+    email { Faker::Internet.safe_email }
+    identity { ['professor', 'lecturer', 'staff', 'student', 'guest'].sample }
+    name { Faker::Name.name }
   end
-
 end

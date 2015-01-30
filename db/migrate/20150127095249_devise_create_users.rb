@@ -48,8 +48,8 @@ class DeviseCreateUsers < ActiveRecord::Migration
       ## Colorgy identity data
       t.string :uid
       t.string :identity
-      t.string :organization
-      t.string :department
+      t.string :organization_code
+      t.string :department_code
 
 
       t.timestamps
