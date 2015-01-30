@@ -3,6 +3,8 @@ class User < ActiveRecord::Base
          :omniauthable, :omniauth_providers => [:colorgy]
 
   has_many :identities, class_name: :UserIdentity
+  has_many :book_datas
+  has_many :courses
 
   def self.from_core(auth)
     user = where(:sid => auth.info.id).first_or_create! do |new_user|

@@ -49,6 +49,7 @@ gem 'slim-rails'
 gem 'friendly_id', '~> 5.0.4'
 gem 'babosa'
 gem 'ruby-pinyin'
+gem 'isbn_validation', '~> 1.2.1'
 
 gem 'devise', '~> 3.4.0'
 gem 'omniauth', '~> 1.2.2'

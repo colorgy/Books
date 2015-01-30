@@ -19,8 +19,38 @@ ActiveRecord::Schema.define(version: 20150130105841) do
     t.string   "edition"
     t.string   "author"
     t.string   "image_url"
+    t.string   "url"
     t.string   "publisher"
+    t.float    "original_price"
+    t.integer  "user_id"
+    t.integer  "provider_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "book_datas", ["isbn"], name: "index_book_datas_on_isbn", unique: true
+
+  create_table "books", force: true do |t|
     t.float    "price"
+    t.integer  "book_data_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "books", ["book_data_id"], name: "index_books_on_book_data_id"
+
+  create_table "courses", force: true do |t|
+    t.integer  "year"
+    t.integer  "term"
+    t.string   "name"
+    t.text     "description"
+    t.integer  "credits"
+    t.string   "url"
+    t.string   "book_isbn"
+    t.integer  "user_id"
+    t.integer  "organization_id"
+    t.integer  "lecturer_id"
+    t.datetime "confirmed_at"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
