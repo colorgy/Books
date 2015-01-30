@@ -13,18 +13,6 @@
 
 ActiveRecord::Schema.define(version: 20150127095249) do
 
-  create_table "book_data", force: true do |t|
-    t.string   "isbn"
-    t.string   "name"
-    t.string   "edition"
-    t.string   "author"
-    t.string   "image_url"
-    t.string   "publisher"
-    t.string   "price"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "book_datas", force: true do |t|
     t.string   "isbn"
     t.string   "name"
@@ -46,6 +34,9 @@ ActiveRecord::Schema.define(version: 20150127095249) do
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
     t.string   "sid"
+    t.datetime "refreshed_at"
+    t.string   "core_access_token"
+    t.string   "core_refresh_token"
     t.string   "username"
     t.string   "name"
     t.string   "avatar_url"

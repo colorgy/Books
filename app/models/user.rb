@@ -11,7 +11,12 @@ class User < ActiveRecord::Base
 
     attrs = %i(username gender username name avatar_url cover_photo_url gender fbid uid identity organization department)
 
-    user.update!(oauth_params.slice(*attrs).permit(*attrs))
+    user_data = oauth_params.slice(*attrs).permit(*attrs)
+
+    user_data['refreshed_at'] = Time.now
+    user_data['core_access_token'] = auth.credentials.token
+
+    user.update!(user_data)
 
     return user
   end
