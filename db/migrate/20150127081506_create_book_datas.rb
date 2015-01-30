@@ -11,6 +11,7 @@ class CreateBookDatas < ActiveRecord::Migration
       t.float :original_price
 
       t.integer :user_id
+      t.integer :provider_id
       
       t.timestamps
     end

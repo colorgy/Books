@@ -3,16 +3,15 @@ class Course < ActiveRecord::Base
               class_name: :BookData, foreign_key: :book_isbn, primary_key: :isbn
   belongs_to :user
 
-  scope :confirmed, -> { where(confirmed: true) }
+  scope :confirmed, -> { where(self.confirmed?) }
 
   def confirm!(user)
-    if self.book_data.nil? || self.confirmed == true
-      raise Exception.new "Book Data hasn't assigned"
-    else
-      self.confirmed_at = Time.now
-      self.confirmed = true
-      self.user_id = user.id
-      self.save 
-    end
+    self.confirmed_at = Time.now
+    self.user_id = user.id
+    self.save
+  end
+
+  def confirmed?
+    !self.confirmed_at.nil?
   end
 end

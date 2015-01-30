@@ -3,6 +3,6 @@ class Book < ActiveRecord::Base
 
   delegate :name, :author, :isbn, :edition, :image_url,
            :publisher, :original_price,
-           :to => :book_data, :allow_nil => true
+           to: :book_data, allow_nil: true
 
 end

@@ -10,8 +10,9 @@ class CreateCourses < ActiveRecord::Migration
 
       t.string :book_isbn
       t.integer :user_id
+      t.integer :organization_id
+      t.integer :lecturer_id
 
-      t.boolean :confirmed,     null: false, default: false
       t.datetime :confirmed_at
 
       t.timestamps
