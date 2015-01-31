@@ -7,6 +7,10 @@ Rails.application.routes.draw do
   resources :book_datas
   root 'book_datas#index', as: :new_session
 
+  resources :lecturer do
+    resources :courses, controller: :lecturer_courses
+  end
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

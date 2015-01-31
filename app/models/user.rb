@@ -11,7 +11,7 @@ class User < ActiveRecord::Base
 
     oauth_params = ActionController::Parameters.new(auth.info)
 
-    attrs = %i(username gender username name avatar_url cover_photo_url gender fbid uid identity organization department)
+    attrs = %i(username gender username name avatar_url cover_photo_url gender fbid uid identity organization_code department_code)
 
     user_data = oauth_params.slice(*attrs).permit(*attrs)
 
@@ -20,7 +20,7 @@ class User < ActiveRecord::Base
 
     user.update!(user_data)
 
-    user.identities.delete_all
+    user.identities.destroy_all
     identities = auth.info.identities
 
     identities_inserts = identities.map { |i| "(#{user.id}, '#{i[:organization_code]}', '#{i[:department_code]}', '#{i[:name]}', '#{i[:uid]}', '#{i[:email]}', '#{i[:identity]}')" }

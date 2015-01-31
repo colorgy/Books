@@ -13,6 +13,7 @@ class CreateCourses < ActiveRecord::Migration
       t.boolean :required, null: false, default: false
 
       t.string :book_isbn
+      t.string :unknown_book_name
 
       t.datetime :book_confirmed_at
 

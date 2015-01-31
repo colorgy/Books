@@ -1,0 +1,73 @@
+= simple_form_for(@lecturer_course, url: lecturer_courses_path, html: { class: 'form-horizontal' }) do |f|
+  = f.input :department_code
+  = f.input :year
+  = f.input :term
+  = f.input :name
+  = f.input :code
+  = f.input :url
+  = f.input :required
+  = f.input :book_isbn
+  = f.button :submit
+
+javascript:
+
+  function course_book_isbn_format(data) {
+    if (!data.id) return data.text;
+    if (!data.isbn) return data.text;
+    formattedItem = [];
+    if (data.image_url) formattedItem.push('<img style="max-height: 40px;" src="' + data.image_url + '"/>');
+    formattedItem.push('<ul>');
+    formattedItem.push('<li>' + data.text + '</li>');
+    if (data.author) formattedItem.push('<li>' + data.author + '</li>');
+    if (data.publisher) formattedItem.push('<li>' + data.publisher + '</li>');
+    if (data.isbn && data.isbn.substring(0, 5) != 'NEW+>') formattedItem.push('<li>' + data.isbn + '</li>');
+    formattedItem.push('</ul>');
+    return formattedItem.join('');
+  }
+
+  $("#course_book_isbn").select2({
+    formatResult: course_book_isbn_format,
+    formatSelection: course_book_isbn_format,
+    allowClear: true,
+    placeholder: "Select a book",
+    ajax: {
+      url: "/book_datas.json",
+      dataType: 'json',
+      quietMillis: 250,
+      data: function (term, page) {
+        return {
+          q: term,
+        };
+      },
+      results: function (data) {
+        resultData = [];
+        data.forEach(function (item) {
+          itemData = item;
+          itemData.id = item.isbn;
+          itemData.text = item.name;
+          resultData.push(itemData);
+        });
+        return { results: data };
+      },
+      cache: true
+    },
+    initSelection: function(element, callback) {
+      var id = $(element).val();
+      if (id !== "") {
+        if (id.substring(0, 5) != 'NEW+>') {
+          $.ajax("/book_datas/" + id + ".json", {
+            dataType: "json"
+          }).done(function(data) { callback(data); });
+        } else {
+          callback({id: id, text: id.substring(6, 999)});
+          console.log({id: id, text: id.substring(6, 999)});
+        }
+      }
+    },
+    minimumInputLength: 2
+  });
+
+css:
+  .select2-container {
+    width: 300px;
+  }

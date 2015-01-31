@@ -7,6 +7,10 @@ class Course < ActiveRecord::Base
   validates :name, presence: true
   validates :lecturer_name, presence: true
 
+  def book_name
+    (book_data && book_data.name) || unknown_book_name
+  end
+
   def confirm_book!
     self.book_confirmed_at = Time.now
     save!

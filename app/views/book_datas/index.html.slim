@@ -23,11 +23,6 @@ table
         td = book_data.author
         td = book_data.image_url
         td = book_data.publisher
-        td = book_data.price
-        td = link_to 'Show', book_data
-        td = link_to 'Edit', edit_book_data_path(book_data)
-        td = link_to 'Destroy', book_data, data: {:confirm => 'Are you sure?'}, :method => :delete
-
+        td = book_data.original_price
 br
 
-= link_to 'New Book data', new_book_data_path

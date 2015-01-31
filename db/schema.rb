@@ -50,6 +50,7 @@ ActiveRecord::Schema.define(version: 20150130105841) do
     t.string   "url"
     t.boolean  "required",          default: false, null: false
     t.string   "book_isbn"
+    t.string   "unknown_book_name"
     t.datetime "book_confirmed_at"
     t.datetime "created_at"
     t.datetime "updated_at"

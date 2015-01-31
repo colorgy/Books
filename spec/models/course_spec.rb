@@ -6,6 +6,17 @@ RSpec.describe Course, :type => :model do
   it { should validate_presence_of(:name) }
   it { should validate_presence_of(:lecturer_name) }
 
+  describe "#book_name" do
+    subject(:course) { create(:course, :with_book) }
+
+    it "returns the book's name or the unknown_book_name" do
+      expect(course.book_name).to eq course.book_data.name
+      course.book_isbn = nil
+      course.unknown_book_name = "A Book"
+      expect(course.book_name).to eq "A Book"
+    end
+  end
+
   describe "#confirm_book!" do
     subject(:course) { create(:course) }
 

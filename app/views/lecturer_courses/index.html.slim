@@ -1,0 +1,14 @@
+- @lecturer_courses.each do |course|
+  ul
+    li= course.year
+    li= course.term
+    li= course.department_code
+    li= course.name
+    li= course.code
+    li= course.url
+    li= course.required
+    li= course.book_isbn
+    li= course.book_name
+    li= link_to 'Edit', edit_lecturer_course_path(params[:lecturer_id], course)
+
+= link_to 'Add New Course', new_lecturer_course_path

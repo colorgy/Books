@@ -19,9 +19,5 @@ p
   strong Publisher:
   = @book_data.publisher
 p
-  strong Price:
-  = @book_data.price
-
-= link_to 'Edit', edit_book_data_path(@book_data)
-'|
-= link_to 'Back', book_datas_path
+  strong Original Price:
+  = @book_data.original_price

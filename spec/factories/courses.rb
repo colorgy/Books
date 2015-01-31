@@ -10,6 +10,7 @@ FactoryGirl.define do
     code { Faker::Address.building_number }
     url { Faker::Internet.url }
     required { [true, false].sample }
+    unknown_book_name nil
 
     trait :with_book do
       book_isbn { Faker::Code.isbn }
