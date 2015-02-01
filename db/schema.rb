@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(version: 20150130105841) do
     t.string   "publisher"
     t.string   "original_url"
     t.float    "original_price"
+    t.string   "known_provider"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -31,13 +32,13 @@ ActiveRecord::Schema.define(version: 20150130105841) do
 
   create_table "books", force: true do |t|
     t.string   "provider"
-    t.float    "price",        null: false
-    t.integer  "book_data_id"
+    t.float    "price",          null: false
+    t.string   "book_data_isbn"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "books", ["book_data_id"], name: "index_books_on_book_data_id"
+  add_index "books", ["book_data_isbn"], name: "index_books_on_book_data_isbn", unique: true
 
   create_table "courses", force: true do |t|
     t.string   "organization_code",                 null: false

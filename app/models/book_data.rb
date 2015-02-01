@@ -1,8 +1,8 @@
 class BookData < ActiveRecord::Base
-  has_one :book
+  has_one :book, foreign_key: :book_data_isbn, primary_key: :isbn
   has_many :courses, foreign_key: :book_isbn, primary_key: :isbn
 
-  validates :isbn, isbn_format: true, uniqueness: true
+  validates :isbn, uniqueness: true#, isbn_format: true
   validates :name, presence: true
 
   def self.search(query)
