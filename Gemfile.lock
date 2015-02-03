@@ -232,6 +232,7 @@ GEM
       oauth2 (~> 1.0)
       omniauth (~> 1.2)
     orm_adapter (0.5.0)
+    pg (0.18.1)
     polyamorous (1.1.0)
       activerecord (>= 3.0)
     pry (0.10.1)
@@ -422,6 +423,7 @@ DEPENDENCIES
   nprogress-rails (~> 0.1.6.5)
   omniauth (~> 1.2.2)
   omniauth-oauth2
+  pg
   pry-byebug
   pry-rails
   railroady
