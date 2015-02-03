@@ -43,6 +43,8 @@ gem 'unicorn'
 # Loads environment variables from `.env`
 gem 'dotenv-rails', :groups => [:development, :test]
 
+gem 'factory_girl_rails', '~> 4.5.0'
+
 # Add Slim support
 gem 'slim-rails'
 
@@ -80,7 +82,6 @@ end
 group :development, :test do
   gem 'rspec-rails', '~> 3.0'
   gem 'spring-commands-rspec'
-  gem 'factory_girl_rails', '~> 4.5.0'
   gem 'shoulda-matchers', require: false
   gem 'rspec-its', require: false
   gem 'simplecov', '~> 0.9.1', require: false
