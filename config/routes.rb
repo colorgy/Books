@@ -6,7 +6,7 @@ Rails.application.routes.draw do
 
   root 'pages#index'
 
-  get '/index' => 'pages#index', as: :new_session
+  get '/index' => 'pages#index', as: :new_user_session
 
   resources :lecturer do
     resources :courses, controller: :lecturer_courses

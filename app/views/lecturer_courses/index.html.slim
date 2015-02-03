@@ -1,14 +1,37 @@
-- @lecturer_courses.each do |course|
-  ul
-    li= course.year
-    li= course.term
-    li= course.department_code
-    li= course.name
-    li= course.code
-    li= course.url
-    li= course.required
-    li= course.book_isbn
-    li= course.book_name
-    li= link_to 'Edit', edit_lecturer_course_path(params[:lecturer_id], course)
+.container.pro-updte-books-btn
+  .row
+   h1 新增課程與指定用書
+   .col-md-12
+    = link_to '新增課程與指定用書', new_lecturer_course_path,class:'btn-default btn'
 
-= link_to 'Add New Course', new_lecturer_course_path
+- @lecturer_courses.each do |course|
+
+  .container.pro-update-books
+    .row
+      h1 教授上書面板
+      .col-md-12
+       table.table.table-hover
+        thead
+          tr
+            th 學年
+            th 學期
+            th 科系代碼
+            th 課程名稱
+            th 課程代碼
+            th 課程連結
+            th 必修 / 選修
+            th 課本ISBN
+            th 課本名稱
+            th 操作
+        tbody
+          tr
+            td= course.year
+            td= course.term
+            td= course.department_code
+            td= course.name
+            td= course.code
+            td= course.url
+            td= course.required
+            td= course.book_isbn
+            td= course.book_name
+            td= link_to '編輯', edit_lecturer_course_path(params[:lecturer_id], course)

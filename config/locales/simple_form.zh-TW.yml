@@ -1,0 +1,12 @@
+zh-TW:
+  simple_form:
+    labels:
+      course:
+        name: "課程名稱"
+        book_isbn: "指定用書"
+        year: "學年"
+        term: "學期"
+        department_code: "科系代碼"
+        code: "課程代碼"
+        url: "課程網頁連結"
+        required: "必修請打勾"

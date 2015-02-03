@@ -1,13 +1,14 @@
-= simple_form_for(@lecturer_course, url: lecturer_courses_path, html: { class: 'form-horizontal' }) do |f|
-  = f.input :department_code
+= simple_form_for(@lecturer_course, url: lecturer_courses_path, html: { class: '', style: 'margin-bottom: 36px;' }) do |f|
+  = f.input :name
+  = f.input :book_isbn
   = f.input :year
   = f.input :term
-  = f.input :name
   = f.input :code
-  = f.input :url
+  = f.input :department_code
   = f.input :required
-  = f.input :book_isbn
-  = f.button :submit
+  = f.input :url
+  = f.button :submit, style: 'background-color: green; color: #fff; margin-top: 20px;'
+  = link_to '回到上一頁', :back, class:'btn btn-default', style: 'margin-top: 20px; margin-left: 20px'
 
 javascript:
 
@@ -69,5 +70,5 @@ javascript:
 
 css:
   .select2-container {
-    width: 300px;
+    width: 100%;
   }
