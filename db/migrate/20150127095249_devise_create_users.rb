@@ -31,7 +31,7 @@ class DeviseCreateUsers < ActiveRecord::Migration
       # t.datetime :locked_at
 
       ## Colorgy core
-      t.string   :sid  # system id
+      t.integer  :sid  # system id
       t.datetime :refreshed_at  # last data refresh time
       t.string   :core_access_token
       t.string   :core_refresh_token

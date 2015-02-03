@@ -77,7 +77,7 @@ ActiveRecord::Schema.define(version: 20150130105841) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.string   "sid"
+    t.integer  "sid"
     t.datetime "refreshed_at"
     t.string   "core_access_token"
     t.string   "core_refresh_token"
