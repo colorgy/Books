@@ -1,4 +1,7 @@
 class UserIdentity < ActiveRecord::Base
+  extend FriendlyId
+  friendly_id :sid, use: :finders
+
   scope :lecturer, -> { where(identity: ['lecturer', 'professor']) }
 
   belongs_to :user

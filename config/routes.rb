@@ -4,12 +4,15 @@ Rails.application.routes.draw do
     delete 'logout', to: 'devise/sessions#destroy', as: :destroy_user_session
   end
 
-  resources :book_datas
-  root 'book_datas#index', as: :new_session
+  root 'pages#index'
+
+  get '/index' => 'pages#index', as: :new_session
 
   resources :lecturer do
     resources :courses, controller: :lecturer_courses
   end
+
+  resources :book_datas
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

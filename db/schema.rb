@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150130105841) do
+ActiveRecord::Schema.define(version: 20150203135609) do
 
   create_table "book_datas", force: true do |t|
     t.string   "isbn"
@@ -67,7 +67,12 @@ ActiveRecord::Schema.define(version: 20150130105841) do
     t.string   "identity",          null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "sid"
+    t.string   "organization_name"
+    t.string   "department_name"
   end
+
+  add_index "user_identities", ["sid"], name: "index_user_identities_on_sid", unique: true
 
   create_table "users", force: true do |t|
     t.string   "email",               default: "", null: false

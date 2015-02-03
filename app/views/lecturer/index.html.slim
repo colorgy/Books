@@ -1,2 +1,7 @@
-- @ids.each do |id|
-  = link_to id.name, lecturer_path(id)
+- if @ids
+  p 請選擇學校
+  ul
+    - @ids.each do |id|
+      li= link_to id.organization_code, lecturer_path(id)
+- else
+  p 您沒有講師／教授身份

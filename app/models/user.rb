@@ -20,13 +20,18 @@ class User < ActiveRecord::Base
 
     user.update!(user_data)
 
-    user.identities.destroy_all
-    identities = auth.info.identities
+    ActiveRecord::Base.transaction do
+      user.identities.destroy_all
 
-    identities_inserts = identities.map { |i| "(#{user.id}, '#{i[:organization_code]}', '#{i[:department_code]}', '#{i[:name]}', '#{i[:uid]}', '#{i[:email]}', '#{i[:identity]}')" }
-    if identities_inserts.length > 0
-      sql = "INSERT INTO user_identities (user_id, organization_code, department_code, name, uid, email, identity) VALUES #{identities_inserts.join(', ')}"
-      ActiveRecord::Base.connection.execute(sql)
+      identities = auth.info.identities
+      identities_inserts = identities.map { |i| "(#{i[:id]}, #{user.id}, '#{i[:organization_code]}', '#{i[:department_code]}', '#{i[:name]}', '#{i[:uid]}', '#{i[:email]}', '#{i[:identity]}')" }
+      if identities_inserts.length > 0
+        sql = <<-eof
+          INSERT INTO user_identities (sid, user_id, organization_code, department_code, name, uid, email, identity)
+          VALUES #{identities_inserts.join(', ')}
+        eof
+        ActiveRecord::Base.connection.execute(sql)
+      end
     end
 
     return user
