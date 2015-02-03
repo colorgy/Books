@@ -7,6 +7,7 @@ namespace :dev do
     if Rails.env.development?
       include FactoryGirl::Syntax::Methods
 
+      FactoryGirl.create_list(:book_data, 100)
     end
   end
 end
