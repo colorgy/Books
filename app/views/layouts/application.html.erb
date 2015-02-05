@@ -89,7 +89,7 @@
           </ul>
           <% if current_user.blank? %>
             <div class="navbar-form navbar-right">
-              <%= link_to "登入 / 註冊", "#{ENV['CORE_URL']}/login", class: 'btn btn-success home-btn' %>
+              <%= link_to "登入 / 註冊", user_omniauth_authorize_path(:colorgy), class: 'btn btn-success home-btn' %>
             </div>
           <% else %>
             <ul class="nav navbar-nav navbar-right">
