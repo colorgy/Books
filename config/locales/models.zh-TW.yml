@@ -1,0 +1,4 @@
+zh-TW:
+  activerecord:
+    models:
+      course: '課程'

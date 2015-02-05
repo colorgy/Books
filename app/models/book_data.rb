@@ -8,7 +8,7 @@ class BookData < ActiveRecord::Base
   def self.search(query)
     book_datas = where("name LIKE ? OR isbn LIKE ? or publisher LIKE ? OR author LIKE ?", "%#{query}%", "%#{query}%", "%#{query}%", "%#{query}%")
     if book_datas.empty?
-      [new(isbn: "NEW+>#{query}", name: "New: \"#{query}\"")]
+      [new(isbn: "NEW+>#{query}", name: "新增: \"#{query}\" (請儘可能詳述書名、作者、版次、出版社)")]
     else
       book_datas
     end

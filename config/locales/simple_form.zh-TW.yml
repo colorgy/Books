@@ -1,5 +1,8 @@
 zh-TW:
   simple_form:
+    required:
+      text: '必填欄位'
+      mark: '(必填)'
     labels:
       course:
         name: "課程名稱"
