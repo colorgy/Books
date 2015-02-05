@@ -1,37 +1,32 @@
-.container.pro-updte-books-btn
+.container.pro-update-books
   .row
-   h1 新增課程與指定用書
-   .col-md-12
-    = link_to '新增課程與指定用書', new_lecturer_course_path,class:'btn-default btn'
-
-- @lecturer_courses.each do |course|
-
-  .container.pro-update-books
-    .row
-      h1 教授上書面板
-      .col-md-12
-       table.table.table-hover
-        thead
-          tr
-            th 學年
-            th 學期
-            th 科系代碼
-            th 課程名稱
-            th 課程代碼
-            th 課程連結
-            th 必修 / 選修
-            th 課本ISBN
-            th 課本名稱
-            th 操作
-        tbody
+    h1
+      | 課程資訊管理
+      =< link_to '新增課程與指定用書', new_lecturer_course_path, class:'btn-default btn'
+    .col-md-12
+     table.table.table-hover
+      thead
+        tr
+          th 學年
+          th 學期
+          th 科系代碼
+          th 課程名稱
+          th 指定用書名
+          th 指定用書 ISBN
+          th 課程代碼
+          th 必修課
+          th 課程連結
+          th 操作
+      tbody
+        - @lecturer_courses.each do |course|
           tr
             td= course.year
             td= course.term
             td= course.department_code
             td= course.name
-            td= course.code
-            td= course.url
-            td= course.required
-            td= course.book_isbn
             td= course.book_name
+            td= course.book_isbn
+            td= course.code
+            td= course.required
+            td= course.url
             td= link_to '編輯', edit_lecturer_course_path(params[:lecturer_id], course)

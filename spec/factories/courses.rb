@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :course do
-    organization_code { Faker::Company.name }
-    department_code { Faker::Company.name }
+    organization_code { Faker::Company.name.gsub(/[^A-Z0-9]/, '') }
+    department_code { Faker::Address.building_number }
     lecturer_name { Faker::Name.name }
 
     year { Faker::Time.between(5.years.ago, Time.now).year }
