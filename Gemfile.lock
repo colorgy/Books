@@ -1,4 +1,20 @@
 GIT
+  remote: git://github.com/DavyJonesLocker/client_side_validations-simple_form.git
+  revision: 23c617da60008df277876e1bf0e1f455bf6229c9
+  specs:
+    client_side_validations-simple_form (3.1.0)
+      client_side_validations (~> 4.2.0)
+      simple_form (~> 3.1)
+
+GIT
+  remote: git://github.com/DavyJonesLocker/client_side_validations.git
+  revision: 979e6a9c938354ba33a12d32d285ea04f49c9014
+  specs:
+    client_side_validations (4.2.0)
+      jquery-rails (>= 3.1.2, < 5.0.0)
+      rails (>= 4.0.0, < 4.3.0)
+
+GIT
   remote: git://github.com/activeadmin/activeadmin.git
   revision: 15687751fa9ff637a7b39aae36d6b35abdb8fed4
   specs:
@@ -400,6 +416,8 @@ DEPENDENCIES
   capybara-screenshot
   capybara-webkit (>= 1.2.0)
   chosen-rails
+  client_side_validations!
+  client_side_validations-simple_form (~> 3.1.0)!
   coffee-rails (~> 4.0.0)
   coveralls
   database_cleaner

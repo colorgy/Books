@@ -13,6 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
+//= require validations_bootstrap_simple_form
 //= require select2
 //= require select2_locale_zh-TW
 //= require bootstrap-sprockets

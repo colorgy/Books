@@ -1,4 +1,4 @@
-= simple_form_for(@lecturer_course, url: lecturer_courses_path, html: { class: '', style: 'margin-bottom: 36px;' }) do |f|
+= simple_form_for(@lecturer_course, url: lecturer_courses_path, validate: true, html: { class: '', style: 'margin-bottom: 36px;' }) do |f|
   = f.input :name
   = f.input :book_isbn
   = f.input :year
