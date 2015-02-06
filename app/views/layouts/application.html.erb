@@ -117,8 +117,12 @@
 
     <div class="container">
       <footer>
-        <p>&copy; Colorgy 2015</p>
+        <p><a id="uservoice-footer-contact-trigger" href="#">有問題嗎？聯繫我們！</a> &copy; Colorgy 2015</p>
       </footer>
     </div>
+    <%= render "partials/uservoice" %>
+    <%= javascript_tag do %>
+      UserVoice.push(['addTrigger', '#uservoice-footer-contact-trigger', { mode: 'contact' }]);
+    <% end %>
   </body>
 </html>
