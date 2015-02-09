@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
-  before_action :verify_identity_token
+  before_action :verify_identity_token, :set_flash_message_from_params
 
   private
 
@@ -66,5 +66,17 @@ class ApplicationController < ActionController::Base
 
   def identity_token_secret_key
     @site_secret ||= Digest::MD5.hexdigest(ENV['SITE_SECRET'])[0..16]
+  end
+
+  def set_flash_message_from_params
+    referer_uri = request.env["HTTP_REFERER"] ? URI.parse(request.env["HTTP_REFERER"]) : nil
+    return unless params[:flash] && referer_uri && referer_uri.host.ends_with?(core_domain)
+
+    flash[:notice] = params[:flash][:notice] if params[:flash][:notice]
+    flash[:alert] = params[:flash][:alert] if params[:flash][:alert]
+  end
+
+  def core_domain
+    @domain ||= URI.parse(ENV['CORE_URL']).host
   end
 end
