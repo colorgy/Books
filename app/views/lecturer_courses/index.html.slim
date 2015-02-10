@@ -29,4 +29,6 @@
             td= course.code
             td= course.required
             td= course.url
-            td= link_to '編輯', edit_lecturer_course_path(params[:lecturer_id], course)
+            td
+              => link_to '編輯', edit_lecturer_course_path(params[:lecturer_id], course)
+              => link_to '刪除', lecturer_course_path(params[:lecturer_id], course), data: { confirm: '確定要刪除嗎？' }, method: :delete
