@@ -31,7 +31,7 @@ class LecturerCoursesController < ApplicationController
     @id = current_user.identities.find(params[:lecturer_id])
     @lecturer_course = @id.courses.find(params[:id])
 
-    if @lecturer_course.save
+    if @lecturer_course.update(course_params)
       @lecturer_course.confirm_book!
       redirect_to lecturer_courses_path(params[:lecturer_id]), notice: 'Course was successfully updated.'
     else
