@@ -39,6 +39,13 @@ class LecturerCoursesController < ApplicationController
     end
   end
 
+  def destroy
+    @id = current_user.identities.find(params[:lecturer_id])
+    @lecturer_course = @id.courses.find(params[:id])
+    @lecturer_course.destroy
+    redirect_to lecturer_courses_path(params[:lecturer_id]), notice: '課程資料已刪除！'
+  end
+
   private
 
   def course_params
