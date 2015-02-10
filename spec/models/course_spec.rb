@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Course, :type => :model do
+  it_should_behave_like "an acts_as_paranoid model"
   it { should belong_to(:book_data) }
   it { should belong_to(:lecturer_identity) }
   it { should validate_presence_of(:name) }
