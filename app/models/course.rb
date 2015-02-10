@@ -42,9 +42,12 @@ class Course < ActiveRecord::Base
   end
 
   def set_book_before_save
-    return unless book_data.blank? && !book_isbn.blank?
-    self.unknown_book_name = book_isbn.gsub('NEW+>', '')
-    self.book_isbn = nil
+    if book_data.blank? && !book_isbn.blank?
+      self.unknown_book_name = book_isbn.gsub('NEW+>', '')
+      self.book_isbn = nil
+    elsif book_isbn.blank?
+      self.book_isbn = nil
+    end
   end
 
   def set_book_after_save

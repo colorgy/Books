@@ -52,6 +52,19 @@ RSpec.describe Course, :type => :model do
     end
   end
 
+  context "when saved with blank book_isbn" do
+    let(:book_data) { create(:book_data) }
+    subject(:course) { prof_identity.courses.build(name: 'a course') }
+    it "sets the book_isbn to nil" do
+      course.book_isbn = ''
+      course.save
+      expect(course.book_isbn).to be_nil
+
+      created_course = Course.last
+      expect(created_course.book_isbn).to be_nil
+    end
+  end
+
   describe "#to_edit" do
     context "with an unknown book" do
       subject(:course) do
