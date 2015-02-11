@@ -12,6 +12,8 @@ Rails.application.routes.draw do
     resources :courses, controller: :lecturer_courses
   end
 
+  resources :course_books
+
   resources :book_datas
 
   # The priority is based upon order of creation: first created -> highest priority.

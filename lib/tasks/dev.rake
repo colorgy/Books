@@ -8,6 +8,11 @@ namespace :dev do
       include FactoryGirl::Syntax::Methods
 
       FactoryGirl.create_list(:book_data, 100)
+
+      FactoryGirl.create_list(:course, 20, :with_book)
+      FactoryGirl.create_list(:course, 20, :with_book, confirmed_at: Time.now)
+      FactoryGirl.create_list(:course, 20)
+      FactoryGirl.create_list(:course, 10, :with_book, confirmed_at: Time.now)
     end
   end
 end

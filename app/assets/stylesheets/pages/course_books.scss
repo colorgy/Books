@@ -1,0 +1,15 @@
+.page.course_books {
+
+	.select2-container {
+		width: 100%;
+	}
+
+	.row .disabled {
+		opacity: .5;
+		pointer-events: none;
+	}
+
+	.success > label::after {
+		content: " 更新成功！";
+	}
+}
