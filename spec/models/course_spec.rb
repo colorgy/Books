@@ -115,4 +115,25 @@ RSpec.describe Course, :type => :model do
       expect(course).to be_confirmed
     end
   end
+
+  before do
+    create_list(:course, 10)
+    create_list(:course, 10, confirmed_at: Time.now)
+  end
+
+  describe ".confirmed" do
+    it "scopes the confirmed courses" do
+      Course.confirmed.find_each do |course|
+        expect(course).to be_confirmed
+      end
+    end
+  end
+
+  describe ".unconfirmed" do
+    it "scopes the unconfirmed courses" do
+      Course.unconfirmed.find_each do |course|
+        expect(course).not_to be_confirmed
+      end
+    end
+  end
 end

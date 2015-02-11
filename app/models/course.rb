@@ -1,6 +1,7 @@
 class Course < ActiveRecord::Base
   acts_as_paranoid
-  scope :book_confirmed, -> { where(self.confirmed?) }
+  scope :confirmed, -> { where.not(confirmed_at: nil) }
+  scope :unconfirmed, -> { where(confirmed_at: nil) }
 
   belongs_to :book_data, class_name: :BookData, foreign_key: :book_isbn, primary_key: :isbn
   belongs_to :lecturer_identity, class_name: :UserIdentity, foreign_key: :lecturer_name, primary_key: :name
