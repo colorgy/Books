@@ -19,13 +19,13 @@ class Course < ActiveRecord::Base
     (book_data && book_data.name) || unknown_book_name
   end
 
-  def confirm_book!
-    self.book_confirmed_at = Time.now
+  def confirm!
+    self.confirmed_at = Time.now
     save!
   end
 
-  def book_confirmed?
-    !book_confirmed_at.blank?
+  def confirmed?
+    !confirmed_at.blank?
   end
 
   def to_edit

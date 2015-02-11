@@ -104,15 +104,15 @@ RSpec.describe Course, :type => :model do
     end
   end
 
-  describe "#confirm_book!" do
+  describe "#confirm!" do
     subject(:course) { create(:course) }
 
     it "confirms the assigned book" do
       expect do
-        course.confirm_book!
-      end.to change { course.book_confirmed? }.from(false).to(true)
+        course.confirm!
+      end.to change { course.confirmed? }.from(false).to(true)
       course.reload
-      expect(course).to be_book_confirmed
+      expect(course).to be_confirmed
     end
   end
 end

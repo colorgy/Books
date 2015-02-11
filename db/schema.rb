@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150210042528) do
+ActiveRecord::Schema.define(version: 20150211170513) do
 
   create_table "book_datas", force: true do |t|
     t.string   "isbn"
@@ -52,7 +52,7 @@ ActiveRecord::Schema.define(version: 20150210042528) do
     t.boolean  "required",          default: false, null: false
     t.string   "book_isbn"
     t.string   "unknown_book_name"
-    t.datetime "book_confirmed_at"
+    t.datetime "confirmed_at"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "deleted_at"

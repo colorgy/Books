@@ -15,7 +15,7 @@ class LecturerCoursesController < ApplicationController
     @lecturer_course = @id.courses.build(course_params)
 
     if @lecturer_course.save
-      @lecturer_course.confirm_book!
+      @lecturer_course.confirm!
       redirect_to lecturer_courses_path(params[:lecturer_id]), notice: 'Course was successfully created.'
     else
       render :new
@@ -32,7 +32,7 @@ class LecturerCoursesController < ApplicationController
     @lecturer_course = @id.courses.find(params[:id])
 
     if @lecturer_course.update(course_params)
-      @lecturer_course.confirm_book!
+      @lecturer_course.confirm!
       redirect_to lecturer_courses_path(params[:lecturer_id]), notice: 'Course was successfully updated.'
     else
       render :edit
