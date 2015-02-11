@@ -18,13 +18,17 @@
  */
 
 @import "bootstrap";
+@import "components/*";
+@import "pages/*";
 
 .pro-update-books{
 	margin-top: 50px;
 }
+
 .pro-updte-books-btn{
 	padding: 30px;
 }
+
 .updte-book-h3 {
 	margin-left: -20px;
 }

@@ -1,6 +1,6 @@
 = simple_form_for(@lecturer_course, url: (@lecturer_course.new_record? ? lecturer_courses_path : lecturer_course_path(@id, @lecturer_course)), validate: true, html: { class: '', style: 'margin-bottom: 36px;' }) do |f|
   = f.input :name
-  = f.input :book_isbn
+  = f.input :book_isbn, input_html: { class: 'book-select' }
   = f.input :year
   = f.input :term, collection: 1..2
   = f.input :code
@@ -31,6 +31,8 @@ javascript:
     formatSelection: course_book_isbn_format,
     allowClear: true,
     placeholder: "選擇或新增書籍",
+    containerCssClass: 'book-select',
+    dropdownCssClass: 'book-select',
     ajax: {
       url: "/book_datas.json",
       dataType: 'json',
@@ -67,76 +69,3 @@ javascript:
     },
     minimumInputLength: 2
   });
-
-css:
-  .select2-container {
-    width: 100%;
-  }
-  .select2-result-label > ul > li, .select2-chosen > ul > li {
-    display: inline-block;
-    margin: 5px 10px;
-  }
-  .select2-result-label, .select2-chosen{
-    position: relative;
-    width: 100%;
-    min-height: 80px;
-  }
-  .select2-result-label > img, .select2-chosen > img {
-    width: 32px;
-    padding-right: 5px;
-    display: inline-block;
-    vertical-align: middle;
-  }
-  .select2-chosen > img {
-    margin-top: -6px;
-  }
-  .select2-result-label > ul, .select2-chosen > ul {
-    width: calc(100% - 32px);
-    display: inline-block;
-    padding-left: 0px;
-    vertical-align: middle;
-  }
-  .select2-choice {
-    height:40px !important;
-  }
-  @media screen and (max-width:650px) {
-    .select2-result-label > ul > li, .select2-chosen > ul > li {
-      font-size: 10px;
-      margin: 0px;
-      margin-left: 5px !important;
-      margin-right: 5px !important;
-      line-height: 10px;
-    }
-  }
-  .select2-result-label > ul > li:nth-child(2)::before {
-    content:'作者: ';
-    opacity: .5;
-    font-size: 60%;
-  }
-  .select2-result-label > ul > li:nth-child(3)::before {
-    content:'出版社: ';
-    opacity: .5;
-    font-size: 60%;
-  }
-  .select2-result-label > ul > li:nth-child(4)::before {
-    content:'ISBN: ';
-    opacity: .5;
-    font-size: 60%;
-  }
-  .select2-results > li:nth-child(odd) {
-    background-color: #fff;
-  }
-  .select2-results > li:nth-child(even) {
-    background-color: #F0F0F0;
-  }
-  .select2-results .select2-highlighted {
-    background: #28A38C !important;
-  }
-  .select2-results .select2-highlighted ul {
-    background: #28A38C !important;
-    color: #fff !important;
-  }
-  .select2-container .select2-choice .select2-arrow b {
-    position: relative;
-    top: 7px;
-  }

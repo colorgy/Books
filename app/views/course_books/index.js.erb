@@ -1,0 +1,71 @@
+$('#list-area').html("<%= j(render partial: 'list') %>");
+
+function course_book_isbn_format(data) {
+  if (!data.id) return data.name;
+  if (!data.isbn) return data.name;
+  formattedItem = [];
+  if (data.image_url) formattedItem.push('<img style="max-height: 40px;" src="' + data.image_url + '"/>');
+  formattedItem.push('<ul>');
+  formattedItem.push('<li>' + data.name + '</li>');
+  if (data.author) formattedItem.push('<li>' + data.author + '</li>');
+  if (data.publisher) formattedItem.push('<li>' + data.publisher + '</li>');
+  if (data.isbn && data.isbn.substring(0, 5) != 'NEW+>') formattedItem.push('<li>' + data.isbn + '</li>');
+  formattedItem.push('</ul>');
+  return formattedItem.join('');
+}
+
+
+$(".book-select").select2({
+  formatResult: course_book_isbn_format,
+  formatSelection: course_book_isbn_format,
+  allowClear: true,
+  placeholder: "選擇或新增書籍",
+  containerCssClass: 'book-select',
+  dropdownCssClass: 'book-select',
+  ajax: {
+    url: "/book_datas.json",
+    dataType: 'json',
+    quietMillis: 250,
+    data: function (term, page) {
+      return {
+        q: term,
+      };
+    },
+    results: function (data) {
+      resultData = [];
+      data.forEach(function (item) {
+        itemData = item;
+        itemData.id = item.isbn;
+        itemData.text = item.name;
+        resultData.push(itemData);
+      });
+      return { results: data };
+    },
+    cache: true
+  },
+  initSelection: function(element, callback) {
+    var id = $(element).val();
+    if (id !== "") {
+      if (id.substring(0, 5) != 'NEW+>') {
+        $.ajax("/book_datas/" + id + ".json", {
+          dataType: "json"
+        }).done(function(data) { callback(data); });
+      } else {
+        callback({id: id, text: id.substring(5, 999), name: id.substring(5, 999)});
+      }
+    }
+  },
+  minimumInputLength: 2
+});
+
+$('input[data-attr-name]').change(function(e) {
+  data = {};
+  data['course[' + $(this).data('attr-name') + ']'] = $(this).val();
+  $.ajax('/course_books/' + $(this).data('id') + ".json", {
+    dataType: "json",
+    type: 'PATCH',
+    data: data,
+  }).done(function(data) {
+    $(this).parent().addClass('success');
+  }.bind(this));
+});

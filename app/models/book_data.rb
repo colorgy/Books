@@ -6,7 +6,7 @@ class BookData < ActiveRecord::Base
   validates :name, presence: true
 
   def self.search(query)
-    book_datas = where("name LIKE ? OR isbn LIKE ? or publisher LIKE ? OR author LIKE ?", "%#{query}%", "%#{query}%", "%#{query}%", "%#{query}%")
+    book_datas = where("name LIKE ? OR isbn LIKE ? or publisher LIKE ? OR author LIKE ?", "%#{query}%", "%#{query}%", "%#{query}%", "%#{query}%").limit(100)
     if book_datas.empty?
       [new(isbn: "NEW+>#{query}", name: "新增: \"#{query}\" (請儘可能詳述書名、作者、版次、出版社)")]
     else

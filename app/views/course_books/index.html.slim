@@ -1,0 +1,30 @@
+= javascript_include_tag 'pages/course_books/index'
+
+.container.page.course_books
+  .row
+    .col-md-4.step-1
+      h2
+        | Step 1
+        small< 選擇學校
+      select(id="org-select")
+        option(selected disabled hidden value="")
+        option(value="NTUST") 臺灣科技大學
+        option(value="NTU") 臺灣大學
+        option(value="NTHU") 清華大學
+        option(value="TTU") 大同大學
+      p
+      p 先選擇學校。
+    .col-md-4.step-2
+      h2
+        | Step 2
+        small< 選擇老師
+      input(id="lecturer-select")
+      p
+      p 老師好！
+    .col-md-4.step-3
+      h2
+        | Step 3
+        small< 確認用書
+      #list-area
+      p
+      p 感謝！

@@ -39,8 +39,8 @@ class Course < ActiveRecord::Base
   def set_default_values
     self.year ||= (Time.now.month > 6) ? Time.now.year : Time.now.year - 1
     self.term ||= (Time.now.month > 6) ? 1 : 2
-    self.organization_code = lecturer_identity.organization_code if lecturer_identity
-    self.department_code = lecturer_identity.department_code if lecturer_identity
+    self.organization_code = lecturer_identity.organization_code if organization_code.blank? && lecturer_identity
+    self.department_code = lecturer_identity.department_code if department_code.blank? &&lecturer_identity
   end
 
   def set_book_before_save
