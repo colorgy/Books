@@ -21,7 +21,10 @@
 	}
 
 	.list-item {
-		padding: 18px 4px;
+		padding: 4px 4px 18px 4px;
+		margin: 20px 0;
+		background: #F5F4F4;
+		box-shadow: 1px 1px 2px rgba(0,0,0,.4);
 	}
 
 	.list-item:nth-child(2n){
@@ -34,11 +37,21 @@
 		box-shadow: 1px 1px 2px rgba(0,0,0,0.3);
 		color: #28A38C;
 		background-color: #F5F4F4;
+		letter-spacing: 0.5px;
 	}
 	.ps{
 		background-color: #28A38C;
 		padding: 20px;
 		color: #fff;
 		float: right;
+	}
+	.label-title{
+		padding: 5px;
+		color: #fff;
+		background-color: #28A38C;
+		width: 100%;
+		margin: 10px 0px;
+		margin-top: 0;
+		text-align: center;
 	}
 }

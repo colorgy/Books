@@ -1,16 +1,17 @@
 - if @courses.present?
   - @courses.each do |course|
     .list-item
+      h4.label-title 課程
       - if course.confirmed?
         .form-group.course_name
-          label.control-label(for="course_name-#{course.id}") 課程
+          label.control-label(for="course_name-#{course.id}") 課程名稱
           p= course.name
         .form-group.course_name
           label.control-label(for="course_book_isbn-#{course.id}") 用的書是
           p= course.book_name
       - else
         .form-group.course_name
-          label.control-label(for="course_name-#{course.id}") 課程
+          label.control-label(for="course_name-#{course.id}") 課程名稱
           input.string.form-control(id="course_name-#{course.id}" data-attr-name="name" data-id=course.id value=course.name)
         .form-group.course_name
           label.control-label(for="course_book_isbn-#{course.id}") 用的書是
