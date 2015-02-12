@@ -1,5 +1,6 @@
 class Course < ActiveRecord::Base
   acts_as_paranoid
+  has_paper_trail
   scope :confirmed, -> { where.not(confirmed_at: nil) }
   scope :unconfirmed, -> { where(confirmed_at: nil) }
 
@@ -13,7 +14,7 @@ class Course < ActiveRecord::Base
   validates :organization_code, presence: true
 
   after_initialize :set_default_values
-  before_save :set_book_before_save
+  before_save :set_book_before_save, :update_version_count
   after_save :set_book_after_save
 
   def book_name
@@ -55,5 +56,9 @@ class Course < ActiveRecord::Base
   def set_book_after_save
     return unless book_isbn.blank? && !unknown_book_name.blank?
     self.book_isbn = 'NEW+>' + unknown_book_name
+  end
+
+  def update_version_count
+    self.version_count = versions.count + 1
   end
 end
