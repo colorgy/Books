@@ -1,5 +1,8 @@
 .page.course_books {
 
+	margin-top: 50px;
+	min-height: calc(100vh - 130px );
+
 	.select2-container {
 		width: 100%;
 	}
@@ -23,5 +26,19 @@
 
 	.list-item:nth-child(2n){
 		background-color: #fafafa;
+	}
+	blockquote{
+		border-left: 5px solid #28A38C;
+		max-width: 600px;
+		margin-top: 30px;
+		box-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+		color: #28A38C;
+		background-color: #F5F4F4;
+	}
+	.ps{
+		background-color: #28A38C;
+		padding: 20px;
+		color: #fff;
+		float: right;
 	}
 }

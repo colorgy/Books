@@ -6,6 +6,7 @@
       h2
         | Step 1
         small< 選擇學校
+      h4 歡迎光臨Colorgy Books上書系統！
       select(id="org-select")
         option(selected disabled hidden value="")
         option(value="NTUST") 臺灣科技大學
@@ -13,20 +14,21 @@
         option(value="NTHU") 清華大學
         option(value="TTU") 大同大學
       p
-      p 先選擇學校。
+      blockquote 先選擇學校。
     .col-md-4.step-2
       h2
         | Step 2
         small< 選擇老師
+      h4 老師好！
       input(id="lecturer-select")
-      p
-      p 老師好！
+      blockquote 老師每有一堂課就會多出一次老師的名字，所以您可能會看到您重複的名字，請擇一選擇即可。選完即會出現上書表單。
+
     .col-md-4.step-3
       h2
         | Step 3
         small< 確認用書
       #list-area
       p
-      p 感謝！
-      p P.S. 可以在「用書選單」內填入「書籍資訊」（例如：書名、作者、ISBN...），即可在列表當中找到您的書籍。
-      p 如果選單沒有您要的書，也可以直接在空格內輸入書名、ISBN、等詳細資訊，我們會再幫您找到！
+      h4 謝謝老師！
+      blockquote P.S. 可以在「用書選單」內填入「書籍資訊」（例如：書名、作者、ISBN...），即可在列表當中找到您的書籍，按下書籍之後即完成上書動作。
+  blockquote.ps 如果選單沒有您要的書或是課程，請按右下角的問號圖案，回報給我們您的學校、姓名、課程名、書籍名稱、作者、版次等資訊，我們會幫您新增課程或是找到書籍並上書，感謝老師的配合！
