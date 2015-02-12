@@ -12,4 +12,8 @@
 	.success > label::after {
 		content: " 更新成功！";
 	}
+
+	.loading > label::after {
+		content: " 更新中...";
+	}
 }

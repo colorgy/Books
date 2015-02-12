@@ -14,7 +14,6 @@ function course_book_isbn_format(data) {
   return formattedItem.join('');
 }
 
-
 $(".book-select").select2({
   formatResult: course_book_isbn_format,
   formatSelection: course_book_isbn_format,
@@ -59,6 +58,8 @@ $(".book-select").select2({
 });
 
 $('input[data-attr-name]').change(function(e) {
+  $(this).parent().addClass('loading');
+  $(this).parent().removeClass('success');
   data = {};
   data['course[' + $(this).data('attr-name') + ']'] = $(this).val();
   $.ajax('/course_books/' + $(this).data('id') + ".json", {
@@ -66,6 +67,7 @@ $('input[data-attr-name]').change(function(e) {
     type: 'PATCH',
     data: data,
   }).done(function(data) {
+    $(this).parent().removeClass('loading');
     $(this).parent().addClass('success');
   }.bind(this));
 });
