@@ -4,7 +4,7 @@ $ ->
 
   $('#lecturer-select').select2
     allowClear: true
-    placeholder: '選擇老師'
+    placeholder: '請輸入您的姓名 ^^'
     ajax:
       url: '/course_books.json'
       dataType: 'json'

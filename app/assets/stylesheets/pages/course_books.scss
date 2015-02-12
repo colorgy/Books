@@ -16,4 +16,12 @@
 	.loading > label::after {
 		content: " 更新中...";
 	}
+
+	.list-item {
+		padding: 18px 4px;
+	}
+
+	.list-item:nth-child(2n){
+		background-color: #fafafa;
+	}
 }
