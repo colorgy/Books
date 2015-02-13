@@ -3,6 +3,7 @@ class User < ActiveRecord::Base
          :omniauthable, :omniauth_providers => [:colorgy]
 
   has_many :identities, class_name: :UserIdentity
+  has_many :cart_items, class_name: :UserCartItem
 
   def self.from_core(auth)
     user = where(:sid => auth.info.id).first_or_create! do |new_user|

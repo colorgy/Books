@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150212031946) do
+ActiveRecord::Schema.define(version: 20150213114646) do
 
   create_table "book_datas", force: true do |t|
     t.string   "isbn"
@@ -60,6 +60,18 @@ ActiveRecord::Schema.define(version: 20150212031946) do
   end
 
   add_index "courses", ["deleted_at"], name: "index_courses_on_deleted_at"
+
+  create_table "user_cart_items", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "book_id"
+    t.integer  "course_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "user_cart_items", ["book_id"], name: "index_user_cart_items_on_book_id"
+  add_index "user_cart_items", ["course_id"], name: "index_user_cart_items_on_course_id"
+  add_index "user_cart_items", ["user_id"], name: "index_user_cart_items_on_user_id"
 
   create_table "user_identities", force: true do |t|
     t.integer  "user_id",           null: false

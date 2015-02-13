@@ -7,12 +7,18 @@ namespace :dev do
     if Rails.env.development?
       include FactoryGirl::Syntax::Methods
 
-      FactoryGirl.create_list(:book_data, 100)
+      FactoryGirl.create_list(:book_data, 50)
 
       FactoryGirl.create_list(:course, 20, :with_book)
       FactoryGirl.create_list(:course, 20, :with_book, confirmed_at: Time.now)
       FactoryGirl.create_list(:course, 20)
       FactoryGirl.create_list(:course, 10, :with_book, confirmed_at: Time.now)
+
+      BookData.all.each do |book_data|
+        if [true, false].sample
+          FactoryGirl.create(:book, data: book_data, price: Faker::Commerce.price, provider: Faker::Company.name)
+        end
+      end
     end
   end
 end
