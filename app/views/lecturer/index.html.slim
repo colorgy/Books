@@ -1,9 +1,13 @@
 .container
   br
-  - if @ids
+  - if @ids.any?
     p 請選擇學校
     ul
       - @ids.each do |id|
         li= link_to id.organization_code, lecturer_path(id)
   - else
-    p 您沒有講師／教授身份
+    h2 您還沒有講師／教授身份
+    p
+      | 如您為學生需要登記書單，請至
+      =< link_to '人人上書', course_books_path
+    p 如您為老師，請直接利用右下角的問題回報！我們會儘解決您的問題：Ｄ
