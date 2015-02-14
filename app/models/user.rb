@@ -37,4 +37,12 @@ class User < ActiveRecord::Base
 
     return user
   end
+
+  def add_to_cart(book, course)
+    book = book.id if book.respond_to? :id
+    course = course.id if course.respond_to? :id
+
+    cart_items.create(book_id: book, course_id: course)
+    reload
+  end
 end
