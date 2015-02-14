@@ -43,6 +43,9 @@ gem 'unicorn'
 # Loads environment variables from `.env`
 gem 'dotenv-rails', :groups => [:development, :test]
 
+# Handle settings by rails-settings-cached
+gem 'rails-settings-cached', '0.4.1'
+
 gem 'factory_girl_rails', '~> 4.5.0'
 
 # Add Slim support
