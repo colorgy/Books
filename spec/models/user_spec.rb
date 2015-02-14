@@ -65,6 +65,42 @@ RSpec.describe User, :type => :model do
     end
   end
 
+  describe "#clear_cart!" do
+    it "destroys every item in the user's cart" do
+      user = create(:user)
+
+      book = create(:book)
+      course = create(:course, :current, book_isbn: book.isbn)
+      user.add_to_cart(book, course)
+      user.add_to_cart(book, course)
+      user.add_to_cart(book, course)
+      expect(user.cart_items_count).to eq(3)
+      expect(user.cart_items.count).to eq(3)
+
+      user.clear_cart!
+      expect(user.cart_items_count).to eq(0)
+      expect(user.cart_items.count).to eq(0)
+    end
+  end
+
+  describe "#clear_cart!" do
+    it "destroys every item in the user's cart" do
+      user = create(:user)
+
+      book = create(:book)
+      course = create(:course, :current, book_isbn: book.isbn)
+      user.add_to_cart(book, course)
+      user.add_to_cart(book, course)
+      user.add_to_cart(book, course)
+      expect(user.cart_items_count).to eq(3)
+      expect(user.cart_items.count).to eq(3)
+
+      user.clear_cart!
+      expect(user.cart_items_count).to eq(0)
+      expect(user.cart_items.count).to eq(0)
+    end
+  end
+
   describe "#checkout" do
     let(:user) { create(:user, :with_items_in_cart, cart_items_count: 4) }
     subject(:checkout_data) { user.checkout }

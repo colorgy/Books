@@ -64,6 +64,11 @@ class User < ActiveRecord::Base
     cart_items
   end
 
+  def clear_cart!
+    cart_items.destroy_all
+    reload
+  end
+
   def checkout(bill_attrs = {})
     check_cart!
     return { orders: [], bill: nil } unless Settings.open_for_orders
