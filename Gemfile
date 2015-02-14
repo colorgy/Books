@@ -46,6 +46,8 @@ gem 'dotenv-rails', :groups => [:development, :test]
 # Handle settings by rails-settings-cached
 gem 'rails-settings-cached', github: 'Neson/rails-settings-cached'
 
+gem 'aasm'
+
 gem 'factory_girl_rails', '~> 4.5.0'
 
 # Add Slim support

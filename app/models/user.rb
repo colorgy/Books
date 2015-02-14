@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
 
   has_many :identities, class_name: :UserIdentity
   has_many :cart_items, class_name: :UserCartItem
+  has_many :orders
 
   def self.from_core(auth)
     user = where(:sid => auth.info.id).first_or_create! do |new_user|
@@ -61,5 +62,21 @@ class User < ActiveRecord::Base
     end
     reload
     cart_items
+  end
+
+  def checkout(bill_attrs = {})
+    check_cart!
+    return { orders: [], bill: nil } unless Settings.open_for_orders
+    orders = []
+
+    cart_items.each do |item|
+      orders << self.orders.build(book_id: item.book_id, course_id: item.course_id)
+    end
+
+    bill = nil#self.bills.build(bill_attrs)
+
+    reload
+
+    { orders: orders, bill: bill }
   end
 end

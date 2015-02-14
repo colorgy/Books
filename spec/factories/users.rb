@@ -8,6 +8,17 @@ FactoryGirl.define do
 
     sequence(:uid) { |n| "u0#{n}" }
     identity 'student'
-  end
 
+    trait :with_items_in_cart do
+      cart_items_count 3
+
+      after(:create) do |user, evaluator|
+        evaluator.cart_items_count.times do
+          book = create(:book)
+          course = create(:course, :current, book_isbn: book.isbn)
+          user.add_to_cart(book, course)
+        end
+      end
+    end
+  end
 end

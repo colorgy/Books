@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150214052641) do
+ActiveRecord::Schema.define(version: 20150214080253) do
 
   create_table "book_datas", force: true do |t|
     t.string   "isbn"
@@ -62,6 +62,31 @@ ActiveRecord::Schema.define(version: 20150214052641) do
   end
 
   add_index "courses", ["deleted_at"], name: "index_courses_on_deleted_at"
+
+  create_table "orders", force: true do |t|
+    t.integer  "user_id",           null: false
+    t.string   "batch",             null: false
+    t.string   "organization_code", null: false
+    t.string   "group",             null: false
+    t.integer  "book_id",           null: false
+    t.integer  "course_id",         null: false
+    t.float    "price"
+    t.integer  "bill_id"
+    t.string   "state",             null: false
+    t.datetime "deleted_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "orders", ["batch"], name: "index_orders_on_batch"
+  add_index "orders", ["bill_id"], name: "index_orders_on_bill_id"
+  add_index "orders", ["book_id"], name: "index_orders_on_book_id"
+  add_index "orders", ["course_id"], name: "index_orders_on_course_id"
+  add_index "orders", ["deleted_at"], name: "index_orders_on_deleted_at"
+  add_index "orders", ["group"], name: "index_orders_on_group"
+  add_index "orders", ["organization_code"], name: "index_orders_on_organization_code"
+  add_index "orders", ["state"], name: "index_orders_on_state"
+  add_index "orders", ["user_id"], name: "index_orders_on_user_id"
 
   create_table "settings", force: true do |t|
     t.string   "var",                   null: false

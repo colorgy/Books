@@ -52,6 +52,7 @@ GIT
 GEM
   remote: https://rubygems.org/
   specs:
+    aasm (4.0.8)
     actionmailer (4.1.8)
       actionpack (= 4.1.8)
       actionview (= 4.1.8)
@@ -417,6 +418,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  aasm
   activeadmin!
   activerecord-import (~> 0.7.0)
   awesome_print
