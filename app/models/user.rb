@@ -39,10 +39,27 @@ class User < ActiveRecord::Base
   end
 
   def add_to_cart(book, course)
+    reutrn false if cart_items_count > 100
     book = book.id if book.respond_to? :id
     course = course.id if course.respond_to? :id
 
-    cart_items.create(book_id: book, course_id: course)
+    is_created = cart_items.create(book_id: book, course_id: course)
     reload
+    is_created
+  end
+
+  def check_cart!
+    ActiveRecord::Base.transaction do
+      cart_items.includes(:book, :course).find_each do |item|
+        if !(item.course && item.course.current?)
+          item.destroy!
+        end
+        if !(item.book)
+          item.destroy!
+        end
+      end
+    end
+    reload
+    cart_items
   end
 end

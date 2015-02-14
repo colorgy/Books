@@ -14,6 +14,11 @@ FactoryGirl.define do
     required { [true, false].sample }
     unknown_book_name nil
 
+    trait :current do
+      year { Course.current_year }
+      term { Course.current_term }
+    end
+
     trait :with_book do
       book_isbn { Faker::Code.isbn }
 
