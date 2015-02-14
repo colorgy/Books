@@ -6,6 +6,11 @@ class Order < ActiveRecord::Base
   belongs_to :user
   belongs_to :course
   belongs_to :book
+  belongs_to :bill
+
+  validates :user, presence: true
+  validates :course, presence: true
+  validates :book, presence: true
 
   after_initialize :set_batch, :set_organization_code, :set_group, :set_price
 
@@ -53,5 +58,11 @@ class Order < ActiveRecord::Base
   def set_price
     return unless self.price.blank?
     self.price = self.book.price
+  end
+
+  def save_with_bill!(bill)
+    self.bill_id = bill.id
+    self.bill_created
+    save!
   end
 end

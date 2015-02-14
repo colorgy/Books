@@ -3,6 +3,8 @@ require 'rails_helper'
 RSpec.describe User, :type => :model do
   it { should have_many(:identities) }
   it { should have_many(:cart_items) }
+  it { should have_many(:orders) }
+  it { should have_many(:bills) }
 
   describe "#add_to_cart" do
     it "adds a book to the user's cart" do
@@ -62,24 +64,6 @@ RSpec.describe User, :type => :model do
       expect(user.cart_items).not_to include(invalid_item_1)
       expect(user.cart_items).not_to include(invalid_item_2)
       expect(user.cart_items).not_to include(invalid_item_3)
-    end
-  end
-
-  describe "#clear_cart!" do
-    it "destroys every item in the user's cart" do
-      user = create(:user)
-
-      book = create(:book)
-      course = create(:course, :current, book_isbn: book.isbn)
-      user.add_to_cart(book, course)
-      user.add_to_cart(book, course)
-      user.add_to_cart(book, course)
-      expect(user.cart_items_count).to eq(3)
-      expect(user.cart_items.count).to eq(3)
-
-      user.clear_cart!
-      expect(user.cart_items_count).to eq(0)
-      expect(user.cart_items.count).to eq(0)
     end
   end
 

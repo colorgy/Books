@@ -11,7 +11,31 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150214080253) do
+ActiveRecord::Schema.define(version: 20150214114429) do
+
+  create_table "bills", force: true do |t|
+    t.string   "uuid",         null: false
+    t.integer  "user_id",      null: false
+    t.string   "type",         null: false
+    t.float    "price",        null: false
+    t.float    "amount",       null: false
+    t.integer  "invoice_id"
+    t.string   "invoice_type", null: false
+    t.text     "invoice_data"
+    t.text     "data"
+    t.string   "state",        null: false
+    t.datetime "deleted_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "bills", ["deleted_at"], name: "index_bills_on_deleted_at"
+  add_index "bills", ["invoice_id"], name: "index_bills_on_invoice_id", unique: true
+  add_index "bills", ["invoice_type"], name: "index_bills_on_invoice_type"
+  add_index "bills", ["state"], name: "index_bills_on_state"
+  add_index "bills", ["type"], name: "index_bills_on_type"
+  add_index "bills", ["user_id"], name: "index_bills_on_user_id"
+  add_index "bills", ["uuid"], name: "index_bills_on_uuid", unique: true
 
   create_table "book_datas", force: true do |t|
     t.string   "isbn"
