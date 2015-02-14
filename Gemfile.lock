@@ -15,6 +15,13 @@ GIT
       rails (>= 4.0.0, < 4.3.0)
 
 GIT
+  remote: git://github.com/Neson/rails-settings-cached.git
+  revision: 8c907acf9976dad76d486079f5bc950fb8d301f5
+  specs:
+    rails-settings-cached (0.4.1)
+      rails (>= 4.0.0)
+
+GIT
   remote: git://github.com/activeadmin/activeadmin.git
   revision: 15687751fa9ff637a7b39aae36d6b35abdb8fed4
   specs:
@@ -286,8 +293,6 @@ GEM
       activesupport (>= 3.0)
       choice (~> 0.1.6)
       ruby-graphviz (~> 1.0.4)
-    rails-settings-cached (0.4.1)
-      rails (>= 4.0.0)
     railties (4.1.8)
       actionpack (= 4.1.8)
       activesupport (= 4.1.8)
@@ -456,7 +461,7 @@ DEPENDENCIES
   railroady
   rails (= 4.1.8)
   rails-erd
-  rails-settings-cached (= 0.4.1)
+  rails-settings-cached!
   react-rails (~> 1.0.0.pre)!
   remote_syslog_logger
   rspec-its

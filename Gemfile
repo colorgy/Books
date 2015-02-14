@@ -44,7 +44,7 @@ gem 'unicorn'
 gem 'dotenv-rails', :groups => [:development, :test]
 
 # Handle settings by rails-settings-cached
-gem 'rails-settings-cached', '0.4.1'
+gem 'rails-settings-cached', github: 'Neson/rails-settings-cached'
 
 gem 'factory_girl_rails', '~> 4.5.0'
 
