@@ -1,0 +1,4 @@
+- if @books
+  ul
+    - @books.each do |book|
+      li= link_to book.name, book_path(book)

@@ -1,0 +1,13 @@
+.container
+  h1 結帳資料
+  - @orders.each do |order|
+    li 書名 #{order.book_name}，課名 #{order.course_name}，價格 #{order.price}，狀態 #{order.state}
+  p 付款方式 #{@bill.type}
+  p 發票種類 #{@bill.invoice_type}
+  p 統一編號 #{@bill.invoice_uni_num}
+  p 愛心號碼 #{@bill.invoice_love_code}
+  p 電子發票載具條碼 #{@bill.invoice_code}
+  p 金額 #{@bill.price}
+  p 應付金額 #{@bill.amount}
+
+  p 狀態 #{@bill.state}

@@ -1,0 +1,21 @@
+.container
+  p 請確認資料
+  ul
+  - @orders.each do |order|
+    li 書名 #{order.book_name}，課名 #{order.course_name}，價格 #{order.price}
+  p 付款方式 #{@bill.type}
+  p 發票種類 #{@bill.invoice_type}
+  p 統一編號 #{@bill.invoice_uni_num}
+  p 愛心號碼 #{@bill.invoice_love_code}
+  p 電子發票載具條碼 #{@bill.invoice_code}
+  p 金額 #{@bill.price}
+  p 應付金額 #{@bill.amount}
+  = form_tag bills_path
+    = hidden_field_tag 'bill[type]', @bill.type
+    = hidden_field_tag 'bill[invoice_type]', @bill.invoice_type
+    = hidden_field_tag 'bill[invoice_uni_num]', @bill.invoice_uni_num
+    = hidden_field_tag 'bill[invoice_love_code]', @bill.invoice_love_code
+    = hidden_field_tag 'bill[invoice_code]', @bill.invoice_code
+    = hidden_field_tag 'confirmed', 'true'
+
+    = submit_tag "都沒錯，繼續！"

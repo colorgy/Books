@@ -5,6 +5,8 @@ class Bill < ActiveRecord::Base
 
   self.inheritance_column = :_type_disabled
 
+  store :data, accessors: [:invoice_code, :invoice_love_code, :invoice_uni_num]
+
   belongs_to :user
   has_many :orders
 

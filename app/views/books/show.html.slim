@@ -1,0 +1,32 @@
+.container
+  p 書資料
+  => @book.name
+  => @book.isbn
+  => @book.price
+  p 使用本書的課程:
+  ul
+    - @book.courses.current.each do |course|
+      li
+        | ID:
+        =<> course.id
+        | NAME:
+        =<> course.name
+
+  p 請填入課程 ID (TODO: 改由前端 select2 搜尋課名)
+  input#course-id
+  buttom#add-to-cart.btn.btn-default 放入購物書包
+
+javascript:
+ $('#add-to-cart').click(function() {
+    $.ajax({
+      url: '/cart_items.json',
+      type: 'POST',
+      dataType: 'json',
+      data: {
+        book_id: "#{@book.id}",
+        course_id: $('#course-id').val()
+      }
+    }).done(function() {
+      alert( "success" );
+    });
+ });
