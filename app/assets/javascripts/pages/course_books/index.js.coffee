@@ -1,4 +1,5 @@
 $ ->
+  last_lecturer = ''
 
   $("#org-select").select2()
 
@@ -24,6 +25,7 @@ $ ->
     minimumInputLength: 1
 
   $('#lecturer-select').change ->
+    last_lecturer = $('#lecturer-select').val()
     $.ajax
       url: '/course_books.js'
       dataType: 'script'
@@ -50,3 +52,8 @@ $ ->
 
   $("#lecturer-select").change ->
     refreshView()
+
+  $('#lecturer-select').on 'select2-open', ->
+    if last_lecturer
+      $('.select2-search').find('input').val(last_lecturer).trigger("paste")
+    return

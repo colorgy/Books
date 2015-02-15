@@ -55,7 +55,9 @@ $(".book-select").select2({
     }
   },
   minimumInputLength: 2
-});
+}).on('select2-open', function() {
+  $('.select2-search').find('input').val($(this).parent().find('.select2-chosen li:first-child').text()).trigger("paste");
+}).bind(this);
 
 $('input[data-attr-name]').change(function(e) {
   $(this).parent().addClass('loading');
