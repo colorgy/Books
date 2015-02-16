@@ -2,3 +2,5 @@
   ul
     - @bills.each do |bill|
       li= link_to '帳單', bill
+      li= bill.created_at
+      li= bill.state

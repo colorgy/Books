@@ -17,3 +17,12 @@
 //= require select2
 //= require select2_locale_zh-TW
 //= require bootstrap-sprockets
+
+//= require colorgy_front
+//= require selectFx
+//= require classie
+//= require main
+//= require modernizr_custom
+//= require modernizr
+//= require velocity_min
+//= require jquery_textfill_min

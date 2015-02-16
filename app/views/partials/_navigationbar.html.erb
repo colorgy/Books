@@ -1,0 +1,120 @@
+<!--navigation bar-->
+<div class="navigation_bar fixed-nav">
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="./index.html">
+          <img class="nav-logo" src="./images/header_logo.png">
+        </a>
+      </div>
+
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+          <li><a href="./shopping-guide1.html">購物流程</a></li>
+          <li><a href="./order-tracking.html">訂單查詢</a></li>
+          <li><a href="./mainjew_page.html">主揪介面</a></li>
+        </ul>
+		<div class="checkout desktop-checkout">
+			<div class="checkout__button__number">
+					4
+			</div>
+			<a class="checkout__button" href="#"><!-- Fallback location -->
+				<span class="checkout__text">
+
+				</span>
+
+			</a>
+			<div class="checkout__order">
+				<div class="checkout__order-inner">
+					<table class="checkout__summary">
+						<thead>
+					        <tr><th>書本項目</th><th>金額</th><th>數量</th><th></th></tr>
+					    </thead>
+					    <tfoot>
+					        <tr><th colspan="2" class="checkout-total-th">總額 <span class="checkout__total">8000 NT</span></th></tr>
+					    </tfoot>
+					    <tbody>
+							<tr><td>INTRODUCTION TO ELECTRIC CIRCUITS 8/E <span>8/e</span><span>Sedra Smith</span></td><td>2000 NT</td><td>x1</td><td class="stickycart-delete"><img src="./images/stickycart-delete.png"></td></tr>
+							<tr><td>INTRODUCTION TO ELECTRIC CIRCUITS 8/E <span>8/e</span><span>Sedra Smith</span></td><td>2000 NT</td><td>x1</td><td class="stickycart-delete"><img src="./images/stickycart-delete.png"></td></tr>
+							<tr><td>INTRODUCTION TO ELECTRIC CIRCUITS 8/E <span>8/e</span><span>Sedra Smith</span></td><td>2000 NT</td><td>x1</td><td class="stickycart-delete"><img src="./images/stickycart-delete.png"></td></tr>
+							<tr><td>INTRODUCTION TO ELECTRIC CIRCUITS 8/E <span>8/e</span><span>Sedra Smith</span></td><td>2000 NT</td><td>x1</td><td class="stickycart-delete"><img src="./images/stickycart-delete.png"></td></tr>
+
+						</tbody>
+					</table><!-- /checkout__summary -->
+
+					<a href="./cart.html"><button class="checkout__option cart-checkout-button">我要結帳</button></a>
+
+					<button class="checkout__close checkout__cancel close-button"><i class="icon fa fa-fw fa-close"></i></button>
+				</div><!-- /checkout__order-inner -->
+			</div><!-- /checkout__order -->
+		</div><!-- /checkout -->
+
+
+        <ul class="nav navbar-nav navbar-right">
+
+		<div class="profile">
+        	<div class="headphoto">
+				<img src="./images/headphoto.jpg">
+			</div>
+			<p>劉政軒</p>
+			<div class="profile-field">
+					<ul class="profile-field-ul">
+						<a href="./profile/index.html"><li>基本資料</li></a>
+						<a href="./profile/index.html"><li>聯絡我們</li></a>
+						<a href="./order-tracking.html"><li>訂單查詢</li></a>
+						<a href="./profile/index.html"><li>我的通知</li></a>
+						<a href="./mainjew_page.html"><li>你揪的團</li></a>
+						<a href="#"><li>登出</li></a>
+					</ul>
+			</div>
+		</div>
+        </ul>
+      </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+  </nav>
+</div>
+
+
+<div class="checkout mobile-checkout">
+				<div class="checkout__button__number">
+						4
+				</div>
+				<a class="checkout__button" href="#"><!-- Fallback location -->
+
+					<span class="checkout__text">
+
+					</span>
+				</a>
+				<div class="checkout__order">
+					<div class="checkout__order-inner">
+						<table class="checkout__summary">
+							<thead>
+						        <tr><th>書本項目</th><th>金額</th><th>數量</th></tr>
+						    </thead>
+						    <tfoot>
+						        <tr><th colspan="2" class="checkout-total-th">總額 <span class="checkout__total">8000 NT</span></th></tr>
+						    </tfoot>
+						    <tbody>
+								<tr><td>INTRODUCTION TO ELECTRIC CIRCUITS 8/E <span>8/e</span><span>Sedra Smith</span></td><td>2000 NT</td><td>x1</td></tr>
+								<tr><td>INTRODUCTION TO ELECTRIC CIRCUITS 8/E <span>8/e</span><span>Sedra Smith</span></td><td>2000 NT</td><td>x1</td></tr>
+								<tr><td>INTRODUCTION TO ELECTRIC CIRCUITS 8/E <span>8/e</span><span>Sedra Smith</span></td><td>2000 NT</td><td>x1</td></tr>
+								<tr><td>INTRODUCTION TO ELECTRIC CIRCUITS 8/E <span>8/e</span><span>Sedra Smith</span></td><td>2000 NT</td><td>x1</td></tr>
+
+							</tbody>
+						</table><!-- /checkout__summary -->
+						<button class="checkout__option checkout__option--silent checkout__cancel continue-buy"><i class="fa fa-angle-left"></i> 繼續購物...</button>
+
+						<a href="./cart.html"><button class="checkout__option cart-checkout-button">我要結帳</button></a>
+
+						<button class="checkout__close checkout__cancel close-button"><i class="icon fa fa-fw fa-close"></i></button>
+					</div><!-- /checkout__order-inner -->
+				</div><!-- /checkout__order -->
+</div><!-- /checkout -->

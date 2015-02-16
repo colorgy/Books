@@ -1,0 +1,142 @@
+<style type="text/css">
+  div.cs-skin-elastic{
+    margin: 20px;
+  }
+  .col-green-block{
+    padding: 10px !important;
+  }
+  @media screen and ( min-width: 1300px ){
+    .col-md-3{ width: 20%; float: left;}
+  }
+  @media ( min-width: 1038px ) and ( max-width: 1300px ){
+    .col-md-3{ width: 25%; float: left;}
+  }
+  @media ( max-width: 1038px ) and ( min-width: 768px ){
+    .col-md-3{ width: 33.33333%; float: left;}
+  }
+  @media ( max-width: 768px ) and ( min-width: 527px ){
+    .col-md-3{ width: 50%; float: left;}
+  }
+</style>
+
+
+    <!---SlideShow首頁header大圖-->
+    <section class="slideshow">
+    <div></div>
+    </section><!--首頁header大圖end-->
+    <!--filter 篩選區塊-->
+    <section class="selection-section">
+      <div class="row" style="max-width:1000px; margin-right:auto; margin-left:auto;">
+        <div class="col-md-4">
+          <select class="cs-select cs-skin-elastic">
+            <option value="" disabled selected>請選擇您的學校</option>
+            <option value="台科大">台科大</option>
+            <option value="元智大學">元智大學</option>
+            <option value="清華大學">清華大學</option>
+            <option value="長庚大學">長庚大學</option>
+          </select>
+        </div>
+        <div class="col-md-4">
+          <select class="cs-select cs-skin-elastic">
+            <option value="" disabled selected>請選擇您的系別</option>
+            <option value="資訊工程系">資訊工程系</option>
+            <option value="電資學士班">電資學士班</option>
+            <option value="企業管理系">企業管理系</option>
+            <option value="創意設計學士班">創意設計學士班</option>
+          </select>
+        </div>
+
+        <div class="col-md-4">
+            <div id="sb-search" class="sb-search sb-search-open">
+              <form>
+                <input class="sb-search-input" placeholder="請輸入搜尋關鍵字..." type="text" value="" name="search" id="search">
+                <input class="sb-search-submit" type="submit" value="">
+                <span class="sb-icon-search">
+                <%= link_to image_tag("search.png", style: 'vertical-align: top;') %>
+                </span>
+              </form>
+            </div>
+        </div>
+      </div>
+
+
+    </section>
+    <!--篩選filter區塊end-->
+
+    <!--書的呈現區塊-->
+    <section class="book-section">
+      <div class="container-fluid">
+
+          <% if @books %>
+            <% @books.each do |book| %>
+              <div class="col-md-3">
+                <div class="product-box" >
+                  <div class="product-box-image">
+                      <%= link_to image_tag(book.image_url), book_url(book.id) %>
+                  </div>
+                  <div class="product-text-box">
+                    <div class="product-title">
+                      <div class="book-name">
+                        <span><%= book.name %></span>
+                      </div>
+                      <div class="book-author">
+                        <span>Author: <%= book.author %></span>
+                      </div>
+                      <div class="book-edition">
+                        <span>6th edition</span>
+                      </div>
+                    </div>
+                    <div class="product-price">
+
+                      <p><del> 定價:1000 </del></p>
+                      <h4>優惠價: <%= book.price %></h4>
+                    </div>
+                    <div class="add-to-cart">
+                      <div class="row">
+                          <div class="col-md-12">
+                            <div class="select-box cart-select">
+                              <select class="cs-select cs-skin-elastic">
+                                <option value="" disabled selected>請選擇您的課程</option>
+                                <option value="台科大">電子學-彭盛裕</option>
+                                <option value="元智大學">電子學-蔡超人</option>
+                              </select>
+                            </div>
+                          </div>
+                          <div class="col-md-12"><p style="color: #fff; margin-left: 20px; margin-top:5px; float: left;">數量 ： </p><input class="input-number" type="number" name="quantity" min="0" placeholder="1"></div>
+                      </div>
+                      <div class="add-to-cart-button">
+                        <h5 class="modal-toggle-h5">加入書包</h5>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+          <% end %>
+
+
+
+        </div>
+
+
+
+    </section>
+    <footer>
+
+      <script>
+      (function() {
+        [].slice.call( document.querySelectorAll( 'select.cs-select' ) ).forEach( function(el) {
+          new SelectFx(el);
+        } );
+      })();
+      </script>
+
+      <script type="text/javascript">
+        $(document).ready(function() {
+            $('.book-name ').textfill({ maxFontPixels: 20 });
+            $('.book-name ').textfill({ minFontPixels: 15 });
+            $('.book-author').textfill({ maxFontPixels: 13 })
+        });
+      </script>
+</footer>
+
