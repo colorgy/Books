@@ -12,6 +12,7 @@ class ApplicationController < ActionController::Base
     return if Rails.env.test?
     return if params[:controller] == 'users/omniauth_callbacks'
     request_identity_token = cookies[:_identity_token]
+    ignored_identity_token = cookies[:_ignored_identity_token]
 
     if user_signed_in?
 
@@ -42,10 +43,10 @@ class ApplicationController < ActionController::Base
         # if current user's update time is older then the token specified time,
         # re-authentication to refresh the user's data
         data_update_time = data_update_time.blank? ? 1.years.ago : Time.at(data_update_time.to_i)
-        if (current_user.refreshed_at.blank? || data_update_time > current_user.refreshed_at) &&
+        if (current_user.blank? || current_user.refreshed_at.blank? || data_update_time > current_user.refreshed_at) &&
            request.get?
           sign_out current_user
-          redirect_to user_omniauth_authorize_path(:colorgy)
+          redirect_to user_omniauth_authorize_path(:colorgy) and return
         end
 
         # if the token is too old and the current HTTP method is redirectable,
@@ -53,14 +54,14 @@ class ApplicationController < ActionController::Base
         # refresh it anyway if the token has expired
         if (Time.now - token_generate_time > 7.days) ||
            (Time.now - token_generate_time > 3.days && request.get?)
-          redirect_to ENV['CORE_URL'] + "/refresh_it?redirect_to=#{CGI.escape(request.original_url)}"
+          redirect_to ENV['CORE_URL'] + "/refresh_it?redirect_to=#{CGI.escape(request.original_url)}" and return
         end
       end
 
     # if the user isn't signed in but the identity_token isn't blank,
     # redirect to core authorize path
-    elsif !request_identity_token.blank?
-      redirect_to user_omniauth_authorize_path(:colorgy)
+    elsif !request_identity_token.blank? && (request_identity_token != ignored_identity_token)
+      redirect_to user_omniauth_authorize_path(:colorgy) and return
     end
   end
 
