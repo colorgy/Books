@@ -5,6 +5,8 @@ class Bill < ActiveRecord::Base
 
   self.inheritance_column = :_type_disabled
 
+  cattr_accessor :test
+
   store :data, accessors: [:invoice_code, :invoice_love_code, :invoice_uni_num]
 
   belongs_to :user
@@ -21,7 +23,7 @@ class Bill < ActiveRecord::Base
   validates :invoice_type, presence: true
 
   after_initialize :set_uuid, :calculate_amount
-  before_save :get_payment_info
+  before_save :get_payment_info, only: :create
 
   aasm column: :state do
     state :payment_pending, initial: true
@@ -52,6 +54,12 @@ class Bill < ActiveRecord::Base
   end
 
   def get_payment_info
-    # TODO: 呼叫金流 API 取得超商繳費代碼、虛擬帳號或信用卡付款連結
+    return if @@test
+    case type
+    when 'payment_code'
+      self.payment_code = NewebPayService.get_payment_code(uuid, amount, payname: user.name)
+    else
+      raise 'unknown payment method'
+    end
   end
 end

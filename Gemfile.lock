@@ -196,6 +196,7 @@ GEM
       hirb (~> 0.5)
       unicode-display_width (~> 0.1.1)
     i18n (0.7.0)
+    iconv (1.0.4)
     inherited_resources (1.6.0)
       actionpack (>= 3.2, < 5)
       has_scope (~> 0.6.0.rc)
@@ -443,6 +444,7 @@ DEPENDENCIES
   friendly_id (~> 5.0.4)
   hirb
   hirb-unicode
+  iconv
   isbn_validation (~> 1.2.1)
   jbuilder (~> 2.0)
   jquery-rails
@@ -451,6 +453,7 @@ DEPENDENCIES
   meta_request
   modernizr-rails
   newrelic_rpm
+  nokogiri
   normalize-rails (>= 3.0.1)
   nprogress-rails (~> 0.1.6.5)
   omniauth (~> 1.2.2)

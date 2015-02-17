@@ -16,6 +16,7 @@ RSpec.describe Bill, :type => :model do
   let(:user) { create(:user, :with_items_in_cart) }
   before do
     @bill_params = { type: 'credit_card', invoice_type: 'digital' }
+    Bill.test = true
   end
   subject(:bill) do
     Settings.open_for_orders = true
