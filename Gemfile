@@ -65,6 +65,7 @@ gem 'omniauth-oauth2'
 
 gem 'nokogiri'
 gem 'iconv'
+gem 'rest-client'
 
 gem 'simple_form', '~> 3.1.0'
 gem 'client_side_validations', github: 'DavyJonesLocker/client_side_validations'

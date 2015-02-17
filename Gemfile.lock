@@ -469,6 +469,7 @@ DEPENDENCIES
   rails-settings-cached!
   react-rails (~> 1.0.0.pre)!
   remote_syslog_logger
+  rest-client
   rspec-its
   rspec-rails (~> 3.0)
   ruby-pinyin
