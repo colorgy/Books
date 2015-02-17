@@ -4,7 +4,7 @@ require 'iconv'
 
 module NewebPayService
   class << self
-    def get_payment_code(order_number, amount, payname: nil, payphone: nil, duedate: nil)
+    def get_payment_code(order_number, amount, payname: nil, payphone: nil, duedate: nil, detail: false)
 
       # code
       code = ENV['NEWEB_PAY_CODE']
@@ -82,10 +82,14 @@ module NewebPayService
       checker = Digest::MD5.hexdigest(response_data_in_string + "code=" + code)
       raise "資料被篡改！" if checker != checksum
 
-      return response_data_hash
+      if detail
+        return response_data_hash
+      else
+        return response_data_hash[:paycode]
+      end
     end
 
-    def reget_payment_code(order_number, amount)
+    def reget_payment_code(order_number, amount, detail: false)
       code = ENV['NEWEB_PAY_CODE']
       postUrl = post_url = ENV['NEWEB_QUERY_API_URL']
 
@@ -117,7 +121,7 @@ module NewebPayService
 
       # puts postData[:hash]
       r = RestClient.post postUrl, postData
-      ic = Iconv.new("utf-8//translit//IGNORE","UTF-8")
+      ic = Iconv.new("utf-8//translit//IGNORE", "UTF-8")
       n = Nokogiri::HTML(ic.iconv(r.to_s))
 
       # puts n.css('p').text.split('&')
@@ -125,9 +129,19 @@ module NewebPayService
       response_data_hash = Hash[response.map { |v| vs = v.split('='); [ vs[0].to_sym, vs[1] ] }]
 
       if response[0].split('=').last == "0"
-        return response_data_hash
+        if detail
+          return response_data_hash
+        else
+          return response_data_hash[:paycode]
+        end
       elsif response[0].split('=').last == "-4"
-        return response_data_hash.merge({ paid: true }) if response[1].split('=').last == "72"
+        if response[1].split('=').last == "72"
+          if detail
+            return response_data_hash.merge(paid: true)
+          else
+            return true
+          end
+        end
         raise "無此筆訂單！" if response[1].split('=').last == "71"
         raise "金額不符" if response[1].split('=').last == "33"
         raise "hash 驗證碼錯誤" if response[1].split('=').last == "39"
