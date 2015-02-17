@@ -101,7 +101,7 @@
         <section class="col-md-3 cart-right-section">
           <h3 class="total-title">總金額</h3>
               <h3 class="total-number">12399 NT</h3>
-          <form class="checkout-form">
+          <div class="checkout-form">
             <h3 class="payment-title">付款方式</h3>
             <div class="payment-field">
               <label>
@@ -169,13 +169,14 @@
                   </label>
                 </div>
               </div>
-                <%= form_tag bills_path do %>
+              <%= form_tag bills_path do %>
                 <%= select_tag 'bill[type]', options_for_select([['ATM 虛擬帳號匯款', 'virtual_account'], ['超商代碼繳費', 'payment_code']]) %>
                 <%= text_field_tag 'bill[invoice_type]' %>
 
                 <%= submit_tag "Go 結帳！", class:'checkout-buttom' %>
-                <% end %>
-          </form>
+              <% end %>
+
+          </div>
 
 
         </section>
