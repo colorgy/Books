@@ -42,7 +42,7 @@ class Bill < ActiveRecord::Base
 
   def set_uuid
     return unless self.uuid.blank?
-    self.uuid = SecureRandom.uuid
+    self.uuid = "bo#{SecureRandom.uuid[2..28]}"
   end
 
   def calculate_amount
