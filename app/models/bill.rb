@@ -23,7 +23,7 @@ class Bill < ActiveRecord::Base
   validates :invoice_type, presence: true
 
   after_initialize :set_uuid, :calculate_amount
-  before_save :get_payment_info, only: :create
+  before_create :get_payment_info
 
   aasm column: :state do
     state :payment_pending, initial: true
