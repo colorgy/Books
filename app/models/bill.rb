@@ -32,6 +32,7 @@ class Bill < ActiveRecord::Base
     event :pay do
       transitions :from => :payment_pending, :to => :paid do
         after do
+          self.paid_at = Time.now
           orders.each do |order|
             order.pay!
           end

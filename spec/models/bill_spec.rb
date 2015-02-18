@@ -51,6 +51,14 @@ RSpec.describe Bill, :type => :model do
       expect(bill.versions.count).to eq(2)
     end
 
+    it "sets the paid time" do
+      expect(bill).not_to be_paid
+      bill.pay!
+      expect(bill.paid_at).not_to be_blank
+      bill.reload
+      expect(bill.paid_at).not_to be_blank
+    end
+
     it "marks its orders as paid" do
       expect(bill.orders).not_to be_blank
       bill.orders.each do |order|
