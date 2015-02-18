@@ -1,14 +1,5 @@
 $(document).ready(function () {
-	$( '.slide-box' ).hover(
-	 	 function() {
-	    $(this).addClass('remove-border-radius');
-	    $(this).children('div').addClass( 'moveY-300' );
 
-	  }, function() {
-	  	$(this).removeClass('remove-border-radius');
-	    $(this).children('div').removeClass( 'moveY-300' );
-	  }
-	);
 
 	$('input[type=radio][name=reciept]').change(function() {
 		var reciept_method = $("input[name=reciept]:checked").val();

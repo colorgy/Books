@@ -1,6 +1,40 @@
-.container
-  ul
-    - @bills.each do |bill|
-      li= link_to '帳單', bill
-      li= bill.created_at
-      li= bill.state
+<div class="container-fluid" style="margin-top: 50px; min-height: calc(100vh - 140px);">
+	<h1>訂單查詢</h1>
+	<table>
+		<thead>
+			<tr>
+				<th>帳單編號</th>
+				<th>訂單金額</th>
+				<th>發票種類</th>
+				<th>訂單狀態</th>
+				<th>訂單成立日期</th>
+
+			</tr>
+		</thead>
+		<tbody>
+	    <% @bills.each do |bill| %>
+	    	<tr>
+		      <td><%= link_to '帳單', bill %></td>
+		      <td><%= bill.price %></td>
+		      <td>
+		       <% if bill.invoice_type == "digital" %>
+		       	電子發票
+		       <% elsif bill.invoice_type == "paper" %>
+		       	紙本發票
+		       <% else bill.invoice_type == "love_code" %>
+		       	愛心碼
+		       <% end %>
+		      </td>
+		      <td>
+		      	<% if bill.state == "payment_pending" %>
+		      	  未付款
+		      	<% end %>
+		      </td>
+		      <td><%= bill.created_at %></td>
+
+	      	</tr>
+	    <% end %>
+	    </tbody>
+    </table>
+</div>
+

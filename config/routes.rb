@@ -7,6 +7,9 @@ Rails.application.routes.draw do
   root 'pages#index'
 
   get '/index' => 'pages#index', as: :new_user_session
+  get '/shopping_flow_buy' => 'pages#shopping_flow_buy'
+  get '/shopping_flow_deliver' => 'pages#shopping_flow_deliver'
+  get '/shopping_flow_mainchew' => 'pages#shopping_flow_mainchew'
 
   resources :lecturer do
     resources :courses, controller: :lecturer_courses

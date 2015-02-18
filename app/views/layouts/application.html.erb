@@ -15,7 +15,7 @@
 
       body {
         padding-top: 50px;
-        padding-bottom: 20px;
+
       }
 
       .navbar-brand > img {
@@ -95,82 +95,90 @@
             <%= link_to("Colorgy Books", 'http://books.colorgy.io') %>
           </li>
         </ul>
-    <div class="checkout desktop-checkout">
-      <% if current_user.cart_items.present? %>
-      <div class="checkout__button__number">
-          <%= current_user.cart_items.count %>
-      </div>
-      <% end %>
-      <a class="checkout__button" href="#"><!-- Fallback location -->
-        <span class="checkout__text">
-
-        </span>
-
-      </a>
       <% if !current_user.blank? %>
-      <div class="checkout__order">
-        <div class="checkout__order-inner">
-        <% if current_user.cart_items.present? %>
-          <table class="checkout__summary">
-            <thead>
-                  <tr><th>書本項目</th><th>金額</th><th>課程</th><th></th></tr>
-              </thead>
-              <tfoot>
-                  <tr><th colspan="2" class="checkout-total-th">總額 <span class="checkout__total">8000 NT</span></th></tr>
-              </tfoot>
-              <tbody>
-
-              <% current_user.cart_items.each do |item| %>
-              <tr><td><%= item.book_name %><span><%= item.book_author %></span></td><td><%= item.book_price %> NT</td><td><%= item.course_name %></td><td class="stickycart-delete">
-              <%=link_to image_tag("stickycart-delete.png"), cart_item_path(item), method: :delete%></td></tr>
-              <% end %>
-
-            </tbody>
-          </table><!-- /checkout__summary -->
-          <%=link_to '我要結帳' ,cart_items_path, class:'checkout__option cart-checkout-button' %>
-
-          <% else %>
-          <p>BLANK</p>
-
-
+        <!-- 桌機版nav bar購物車開始 -->
+        <div class="checkout desktop-checkout">
+          <% if current_user.cart_items.present? %>
+          <div class="checkout__button__number">
+              <%= current_user.cart_items.count %>
+          </div>
           <% end %>
-          <button class="checkout__close checkout__cancel close-button"><i class="icon fa fa-fw fa-close"></i></button>
-        </div><!-- /checkout__order-inner -->
-      </div><!-- /checkout__order -->
-    </div><!-- /checkout -->
-    <% end %>
+          <a class="checkout__button" href="#"><!-- Fallback location -->
+            <span class="checkout__text">
 
+            </span>
+
+          </a>
+            <div class="checkout__order">
+              <div class="checkout__order-inner">
+              <% if current_user.cart_items.present? %>
+                <table class="checkout__summary">
+                  <thead>
+                        <tr>
+                          <th>書本項目</th>
+                          <th>金額</th>
+                          <th>課程</th>
+                          <th></th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <% total = 0 %>
+                        <% current_user.cart_items.each do |item| %>
+                        <% total = total + item.book_price %>
+                        <% end %>
+                        <tr>
+                          <th colspan="2" class="checkout-total-th">總額 <span class="checkout__total"><%= total %> NT</span></th>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                      <% current_user.cart_items.each do |item| %>
+                        <tr>
+                          <td><%= item.book_name %><span><%= item.book_author %></span></td>
+                          <td><%= item.book_price %> NT</td>
+                          <td><%= item.course_name %></td>
+                          <td class="stickycart-delete">
+                            <%=link_to image_tag("stickycart-delete.png"), cart_item_path(item), method: :delete%>
+                          </td>
+                        </tr>
+                      <% end %>
+                    </tbody>
+
+                </table><!-- /checkout__summary -->
+                <%=link_to '我要結帳' ,cart_items_path, class:'checkout__option cart-checkout-button' %>
+                <% else %>
+                  <p class="cart-blank-text">您的購物書包目前是空的</p>
+                  <div style="text-align:center; width:100%;">
+                    <img style="width:150px; margin:50px;" src="/assets/bookbag-white.png">
+                  </div>
+                <% end %>
+                <button class="checkout__close checkout__cancel close-button"><i class="icon fa fa-fw fa-close"></i></button>
+              </div><!-- /checkout__order-inner -->
+            </div><!-- /checkout__order -->
+
+        </div><!-- /checkout -->
+        <!-- 桌機版nav bar購物車結束 -->
+        <% end %>
 
         <ul class="nav navbar-nav navbar-right">
-        <% if current_user.blank? %>
-            <div class="navbar-form navbar-right">
-              <%= link_to "登入 / 註冊", user_omniauth_authorize_path(:colorgy), class: 'btn btn-success home-btn' %>
-            </div>
-          <% else %>
-            <ul class="nav navbar-nav navbar-right">
-              <li><a href="#"></a></li>
+          <% if current_user.blank? %>
               <li>
-                <%= link_to("Sign out", "#{ENV['CORE_URL']}/logout") %>
+                <%= link_to "登入 / 註冊", user_omniauth_authorize_path(:colorgy), class: 'btn' %>
               </li>
-            </ul>
+          <% else %>
+              <div class="profile">
+                <div class="headphoto">
+                  <%= image_tag current_user.avatar_url %>
+                </div>
+                <p><%= current_user.name %></p>
+                <div class="profile-field">
+                    <ul class="profile-field-ul">
+                        <li>
+                            <%= link_to("登出", "#{ENV['CORE_URL']}/logout") %>
+                        </li>
+                    </ul>
+                </div>
+              </div><!-- /.profile -->
           <% end %>
-
-    <div class="profile">
-      <div class="headphoto">
-        <%= image_tag current_user.avatar_url %>
-      </div>
-      <p><%= current_user.name %></p>
-      <div class="profile-field">
-          <ul class="profile-field-ul">
-            <a href="./profile/index.html"><li>基本資料</li></a>
-            <a href="./profile/index.html"><li>聯絡我們</li></a>
-            <a href="./order-tracking.html"><li>訂單查詢</li></a>
-            <a href="./profile/index.html"><li>我的通知</li></a>
-            <a href="./mainjew_page.html"><li>你揪的團</li></a>
-            <a href="#"><li>登出</li></a>
-          </ul>
-      </div>
-    </div>
         </ul>
       </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
@@ -187,50 +195,64 @@
       </div>
 </div>
 
-
-
-<div class="checkout mobile-checkout">
-        <% if current_user.cart_items.present? %>
+<div class="checkout mobile-checkout"><!-- 手機版nav bar 購物車 -->
+      <% if !current_user.blank? %>
+      <% if current_user.cart_items.present? %>
         <div class="checkout__button__number">
-            4
+            <%= current_user.cart_items.count %>
         </div>
-        <% end %>
-        <a class="checkout__button" href="#"><!-- Fallback location -->
-
-          <span class="checkout__text">
-
-          </span>
-        </a>
+      <% end %>
+      <a class="checkout__button" href="#"><!-- Fallback location -->
+        <span class="checkout__text"></span>
+      </a>
         <div class="checkout__order">
           <div class="checkout__order-inner">
+          <% if current_user.cart_items.present? %>
             <table class="checkout__summary">
-              <thead>
-                    <tr><th>書本項目</th><th>金額</th><th>數量</th></tr>
+                <thead>
+                    <tr>
+                      <th>書本項目</th>
+                      <th>金額</th>
+                      <th>課程</th>
+                      <th></th>
+                    </tr>
                 </thead>
                 <tfoot>
-                    <tr><th colspan="2" class="checkout-total-th">總額 <span class="checkout__total">8000 NT</span></th></tr>
+                    <tr>
+                      <th colspan="2" class="checkout-total-th">總額 <span class="checkout__total">8000 NT</span></th>
+                    </tr>
                 </tfoot>
                 <tbody>
-                <tr><td>INTRODUCTION TO ELECTRIC CIRCUITS 8/E <span>8/e</span><span>Sedra Smith</span></td><td>2000 NT</td><td>x1</td></tr>
-                <tr><td>INTRODUCTION TO ELECTRIC CIRCUITS 8/E <span>8/e</span><span>Sedra Smith</span></td><td>2000 NT</td><td>x1</td></tr>
-                <tr><td>INTRODUCTION TO ELECTRIC CIRCUITS 8/E <span>8/e</span><span>Sedra Smith</span></td><td>2000 NT</td><td>x1</td></tr>
-                <tr><td>INTRODUCTION TO ELECTRIC CIRCUITS 8/E <span>8/e</span><span>Sedra Smith</span></td><td>2000 NT</td><td>x1</td></tr>
-
+                  <% current_user.cart_items.each do |item| %>
+                    <tr>
+                      <td><%= item.book_name %><span><%= item.book_author %></span></td>
+                      <td><%= item.book_price %> NT</td>
+                      <td><%= item.course_name %></td>
+                      <td class="stickycart-delete">
+                        <%=link_to image_tag("stickycart-delete.png"), cart_item_path(item), method: :delete%>
+                      </td>
+                    </tr>
+                  <% end %>
               </tbody>
             </table><!-- /checkout__summary -->
-            <button class="checkout__option checkout__option--silent checkout__cancel continue-buy"><i class="fa fa-angle-left"></i> 繼續購物...</button>
-
-            <a href="./cart.html"><button class="checkout__option cart-checkout-button">我要結帳</button></a>
-
+            <%=link_to '我要結帳' ,cart_items_path, class:'checkout__option cart-checkout-button' %>
+            <% else %>
+            <p class="cart-blank-text">您的購物書包目前是空的</p>
+            <div style="text-align:center; width:100%;">
+              <img style="width:150px; margin:50px;" src="/assets/bookbag-white.png">
+            </div>
+            <% end %>
             <button class="checkout__close checkout__cancel close-button"><i class="icon fa fa-fw fa-close"></i></button>
           </div><!-- /checkout__order-inner -->
         </div><!-- /checkout__order -->
+      <% end %>
 </div><!-- /checkout -->
+<!-- 手機版nav bar 購物車結束 -->
 
 
     <%= yield %>
 
-    <div class="container-fluid">
+    <div class="container-fluid footer-container">
       <footer>
         <p><a id="uservoice-footer-contact-trigger" href="#">有問題嗎？聯繫我們！</a> &copy; Colorgy 2015</p>
       </footer>
