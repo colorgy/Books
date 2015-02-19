@@ -130,13 +130,6 @@
     </div>
 </section>
 <script>
-  (function() {
-    [].slice.call( document.querySelectorAll( 'select.cs-select' ) ).forEach( function(el) {
-      new SelectFx(el);
-    } );
-  })();
-</script>
-<script>
   $('#add-to-cart').click(function() {
       $.ajax({
         url: '/cart_items.json',
@@ -147,9 +140,10 @@
           course_id: $('#course-id').val()
         }
       }).done(function() {
-        alert( "success" );
+        alert( "成功加入購物書包！" );
         location.reload();
       });
    });
 </script>
+
 

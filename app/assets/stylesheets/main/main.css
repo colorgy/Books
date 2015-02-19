@@ -1317,7 +1317,7 @@ div.step-menu-row > div > a:hover{
 }
 .footer-container{
 	background-color: rgb(54, 184, 160);
-	min-height: 40px;
+	height: 40px;
 	padding-top: 10px;
 }
 #uservoice-footer-contact-trigger{
@@ -1336,3 +1336,4 @@ footer > p{
 .checkout__order-inner{
 	padding: 20px !important;
 }
+

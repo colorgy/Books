@@ -12,28 +12,23 @@
     <%= csrf_meta_tags %>
 
     <style type="text/css">
-
       body {
         padding-top: 50px;
 
       }
-
       .navbar-brand > img {
         height: 100%;
       }
-
       .home-btn {
         background-color: #28A38C;
         color: #fff;
         border: 0px;
         transition: background-color 0.3s;
       }
-
       .home-btn:hover {
         background-color: #E77B2D;
         color: #fff;
       }
-
       .fb-login-btn {
         background-color: #3B579D;
         color: #ffffff;
@@ -42,78 +37,176 @@
         transition: transform 0.3s , border-radius 0.5s;
         font-size: 21px;
       }
-
       .fb-login-btn:hover {
         transform: scale(1.1);
         border-radius: 0px;
       }
-
       .fb-login-btn > a {
         color: #ffffff;
         font-size: 18px;
         left: calc( 50% - 90px );
         position: relative;
       }
-
       .flash-messages {
         position: absolute;
         width: 100%;
         padding-top: 24px;
       }
-
+      a{
+        text-decoration: none;
+      }
+      a:hover{
+        text-decoration: none;
+      }
     </style>
   </head>
 
   <body>
     <!--navigation bar-->
-<div class="navigation_bar fixed-nav">
-  <nav class="navbar navbar-default">
-    <div class="container-fluid">
-      <!-- Brand and toggle get grouped for better mobile display -->
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="<%= root_path %>">
-          <img class="nav-logo" src="/assets/header_nav_logo.png">
-        </a>
-      </div>
-
-      <!-- Collect the nav links, forms, and other content for toggling -->
-      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-        <ul class="nav navbar-nav">
-
-          <% if !current_user.blank? %>
-              <li>
-                <%= link_to("我的帳號", "#{ENV['CORE_URL']}/my_account/emails") %>
-              </li>
-          <% end %>
-          <li>
-            <%= link_to("Colorgy Books", 'http://books.colorgy.io') %>
-          </li>
-        </ul>
-      <% if !current_user.blank? %>
-        <!-- 桌機版nav bar購物車開始 -->
-        <div class="checkout desktop-checkout">
-          <% if current_user.cart_items.present? %>
-          <div class="checkout__button__number">
-              <%= current_user.cart_items.count %>
+    <div class="navigation_bar fixed-nav">
+      <nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <!-- Brand and toggle get grouped for better mobile display -->
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="<%= root_path %>">
+              <img class="nav-logo" src="/assets/header_nav_logo.png">
+            </a>
           </div>
+
+          <!-- Collect the nav links, forms, and other content for toggling -->
+          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+
+              <% if !current_user.blank? %>
+                  <li>
+                    <%= link_to("我的帳號", "#{ENV['CORE_URL']}/my_account/emails") %>
+                  </li>
+              <% end %>
+              <li>
+                <%= link_to("Colorgy Books", 'http://books.colorgy.io') %>
+              </li>
+            </ul>
+          <% if !current_user.blank? %>
+            <!-- 桌機版nav bar購物車開始 -->
+            <div class="checkout desktop-checkout">
+              <% if current_user.cart_items.present? %>
+              <div class="checkout__button__number">
+                  <%= current_user.cart_items.count %>
+              </div>
+              <% end %>
+              <a class="checkout__button" href="#"><!-- Fallback location -->
+                <span class="checkout__text">
+
+                </span>
+
+              </a>
+                <div class="checkout__order">
+                  <div class="checkout__order-inner">
+                  <% if current_user.cart_items.present? %>
+                    <table class="checkout__summary">
+                      <thead>
+                            <tr>
+                              <th>書本項目</th>
+                              <th>金額</th>
+                              <th>課程</th>
+                              <th></th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <% total = 0 %>
+                            <% current_user.cart_items.each do |item| %>
+                            <% total = total + item.book_price %>
+                            <% end %>
+                            <tr>
+                              <th colspan="2" class="checkout-total-th">總額 <span class="checkout__total"><%= total %> NT</span></th>
+                            </tr>
+                        </tfoot>
+                        <tbody>
+                          <% current_user.cart_items.each do |item| %>
+                            <tr>
+                              <td><%= item.book_name %><span><%= item.book_author %></span></td>
+                              <td><%= item.book_price %> NT</td>
+                              <td><%= item.course_name %></td>
+                              <td class="stickycart-delete">
+                                <%=link_to image_tag("stickycart-delete.png"), cart_item_path(item), method: :delete%>
+                              </td>
+                            </tr>
+                          <% end %>
+                        </tbody>
+
+                    </table><!-- /checkout__summary -->
+                    <%=link_to '我要結帳' ,cart_items_path, class:'checkout__option cart-checkout-button' %>
+                    <% else %>
+                      <p class="cart-blank-text">您的購物書包目前是空的</p>
+                      <div style="text-align:center; width:100%;">
+                        <img style="width:150px; margin:50px;" src="/assets/bookbag-white.png">
+                      </div>
+                    <% end %>
+                    <button class="checkout__close checkout__cancel close-button"><i class="icon fa fa-fw fa-close"></i></button>
+                  </div><!-- /checkout__order-inner -->
+                </div><!-- /checkout__order -->
+
+            </div><!-- /checkout -->
+            <!-- 桌機版nav bar購物車結束 -->
+            <% end %>
+
+            <ul class="nav navbar-nav navbar-right">
+              <% if current_user.blank? %>
+                  <li>
+                    <%= link_to "登入 / 註冊", user_omniauth_authorize_path(:colorgy), class: 'btn' %>
+                  </li>
+              <% else %>
+                  <div class="profile">
+                    <div class="headphoto">
+                      <%= image_tag current_user.avatar_url %>
+                    </div>
+                    <p><%= current_user.name %></p>
+                    <div class="profile-field">
+                        <ul class="profile-field-ul">
+                            <li>
+                                <%= link_to("登出", "#{ENV['CORE_URL']}/logout") %>
+                            </li>
+                        </ul>
+                    </div>
+                  </div><!-- /.profile -->
+              <% end %>
+            </ul>
+          </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+      </nav>
+    </div>
+    <div class="flash-messages">
+          <div class="container">
+            <% flash.each do |type, message| %>
+              <div class="alert alert-dismissible <%= (type == :alert) ? 'alert-danger' : 'alert-info' %>" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <%= message %>
+              </div>
+            <% end %>
+          </div>
+    </div>
+
+    <div class="checkout mobile-checkout"><!-- 手機版nav bar 購物車 -->
+          <% if !current_user.blank? %>
+          <% if current_user.cart_items.present? %>
+            <div class="checkout__button__number">
+                <%= current_user.cart_items.count %>
+            </div>
           <% end %>
           <a class="checkout__button" href="#"><!-- Fallback location -->
-            <span class="checkout__text">
-
-            </span>
-
+            <span class="checkout__text"></span>
           </a>
             <div class="checkout__order">
               <div class="checkout__order-inner">
               <% if current_user.cart_items.present? %>
                 <table class="checkout__summary">
-                  <thead>
+                    <thead>
                         <tr>
                           <th>書本項目</th>
                           <th>金額</th>
@@ -122,12 +215,8 @@
                         </tr>
                     </thead>
                     <tfoot>
-                        <% total = 0 %>
-                        <% current_user.cart_items.each do |item| %>
-                        <% total = total + item.book_price %>
-                        <% end %>
                         <tr>
-                          <th colspan="2" class="checkout-total-th">總額 <span class="checkout__total"><%= total %> NT</span></th>
+                          <th colspan="2" class="checkout-total-th">總額 <span class="checkout__total">8000 NT</span></th>
                         </tr>
                     </tfoot>
                     <tbody>
@@ -141,113 +230,21 @@
                           </td>
                         </tr>
                       <% end %>
-                    </tbody>
-
+                  </tbody>
                 </table><!-- /checkout__summary -->
                 <%=link_to '我要結帳' ,cart_items_path, class:'checkout__option cart-checkout-button' %>
                 <% else %>
-                  <p class="cart-blank-text">您的購物書包目前是空的</p>
-                  <div style="text-align:center; width:100%;">
-                    <img style="width:150px; margin:50px;" src="/assets/bookbag-white.png">
-                  </div>
+                <p class="cart-blank-text">您的購物書包目前是空的</p>
+                <div style="text-align:center; width:100%;">
+                  <img style="width:150px; margin:50px;" src="/assets/bookbag-white.png">
+                </div>
                 <% end %>
                 <button class="checkout__close checkout__cancel close-button"><i class="icon fa fa-fw fa-close"></i></button>
               </div><!-- /checkout__order-inner -->
             </div><!-- /checkout__order -->
-
-        </div><!-- /checkout -->
-        <!-- 桌機版nav bar購物車結束 -->
-        <% end %>
-
-        <ul class="nav navbar-nav navbar-right">
-          <% if current_user.blank? %>
-              <li>
-                <%= link_to "登入 / 註冊", user_omniauth_authorize_path(:colorgy), class: 'btn' %>
-              </li>
-          <% else %>
-              <div class="profile">
-                <div class="headphoto">
-                  <%= image_tag current_user.avatar_url %>
-                </div>
-                <p><%= current_user.name %></p>
-                <div class="profile-field">
-                    <ul class="profile-field-ul">
-                        <li>
-                            <%= link_to("登出", "#{ENV['CORE_URL']}/logout") %>
-                        </li>
-                    </ul>
-                </div>
-              </div><!-- /.profile -->
           <% end %>
-        </ul>
-      </div><!-- /.navbar-collapse -->
-    </div><!-- /.container-fluid -->
-  </nav>
-</div>
-<div class="flash-messages">
-      <div class="container">
-        <% flash.each do |type, message| %>
-          <div class="alert alert-dismissible <%= (type == :alert) ? 'alert-danger' : 'alert-info' %>" role="alert">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <%= message %>
-          </div>
-        <% end %>
-      </div>
-</div>
-
-<div class="checkout mobile-checkout"><!-- 手機版nav bar 購物車 -->
-      <% if !current_user.blank? %>
-      <% if current_user.cart_items.present? %>
-        <div class="checkout__button__number">
-            <%= current_user.cart_items.count %>
-        </div>
-      <% end %>
-      <a class="checkout__button" href="#"><!-- Fallback location -->
-        <span class="checkout__text"></span>
-      </a>
-        <div class="checkout__order">
-          <div class="checkout__order-inner">
-          <% if current_user.cart_items.present? %>
-            <table class="checkout__summary">
-                <thead>
-                    <tr>
-                      <th>書本項目</th>
-                      <th>金額</th>
-                      <th>課程</th>
-                      <th></th>
-                    </tr>
-                </thead>
-                <tfoot>
-                    <tr>
-                      <th colspan="2" class="checkout-total-th">總額 <span class="checkout__total">8000 NT</span></th>
-                    </tr>
-                </tfoot>
-                <tbody>
-                  <% current_user.cart_items.each do |item| %>
-                    <tr>
-                      <td><%= item.book_name %><span><%= item.book_author %></span></td>
-                      <td><%= item.book_price %> NT</td>
-                      <td><%= item.course_name %></td>
-                      <td class="stickycart-delete">
-                        <%=link_to image_tag("stickycart-delete.png"), cart_item_path(item), method: :delete%>
-                      </td>
-                    </tr>
-                  <% end %>
-              </tbody>
-            </table><!-- /checkout__summary -->
-            <%=link_to '我要結帳' ,cart_items_path, class:'checkout__option cart-checkout-button' %>
-            <% else %>
-            <p class="cart-blank-text">您的購物書包目前是空的</p>
-            <div style="text-align:center; width:100%;">
-              <img style="width:150px; margin:50px;" src="/assets/bookbag-white.png">
-            </div>
-            <% end %>
-            <button class="checkout__close checkout__cancel close-button"><i class="icon fa fa-fw fa-close"></i></button>
-          </div><!-- /checkout__order-inner -->
-        </div><!-- /checkout__order -->
-      <% end %>
-</div><!-- /checkout -->
-<!-- 手機版nav bar 購物車結束 -->
+    </div><!-- /checkout -->
+    <!-- 手機版nav bar 購物車結束 -->
 
 
     <%= yield %>
@@ -257,10 +254,21 @@
         <p><a id="uservoice-footer-contact-trigger" href="#">有問題嗎？聯繫我們！</a> &copy; Colorgy 2015</p>
       </footer>
     </div>
+
     <%= render "partials/uservoice" %>
     <%= javascript_tag do %>
       UserVoice.push(['addTrigger', '#uservoice-footer-contact-trigger', { mode: 'contact' }]);
     <% end %>
+    <script src="/assets/colorgy_front.js"></script>
+    <script src="/assets/classie.js"></script>
+    <script src="/assets/selectFx.js"></script>
+    <script>
+      (function() {
+        [].slice.call( document.querySelectorAll( 'select.cs-select' ) ).forEach( function(el) {
+          new SelectFx(el);
+        } );
+      })();
+    </script>
     <script>
         (function() {
           [].slice.call( document.querySelectorAll( '.checkout' ) ).forEach( function( el ) {
@@ -279,6 +287,16 @@
             } );
           } );
         })();
-      </script>
+    </script>
+    <script src="/assets/velocity_min.js"></script>
+    <script src="/assets/main.js"></script>
+    <script src="/assets/jquery_textfill_min.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function() {
+          $('.book-name ').textfill({ maxFontPixels: 18 });
+          $('.book-name ').textfill({ minFontPixels: 15 });
+          $('.book-author').textfill({ maxFontPixels: 13 })
+      });
+    </script>
   </body>
 </html>
