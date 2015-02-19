@@ -27,6 +27,25 @@ class Course < ActiveRecord::Base
     (Time.now.month > 6) ? 1 : 2
   end
 
+  def self.search(query, organization_code: nil, year: nil, term: nil)
+    query.downcase!
+
+    scope = all
+    scope = scope.where(organization_code: organization_code) if organization_code
+    scope = scope.where(year: year) if year
+    scope = scope.where(term: term) if term
+
+    courses = scope.where("(lower(name) LIKE ? OR lower(lecturer_name) LIKE ?)", "%#{query}%", "%#{query}%").limit(100)
+
+    if courses.empty?
+      queries = query.split(' ')
+      courses = scope.where("(lower(name) LIKE ? AND lower(lecturer_name) LIKE ?)", "%#{queries[0]}%", "%#{queries[1]}%").limit(100)
+      courses = scope.where("(lower(name) LIKE ? AND lower(lecturer_name) LIKE ?)", "%#{queries[1]}%", "%#{queries[0]}%").limit(100) if courses.empty?
+    end
+
+    return courses
+  end
+
   def book_name
     (book_data && book_data.name) || unknown_book_name
   end

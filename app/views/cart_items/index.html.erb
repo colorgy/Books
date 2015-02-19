@@ -27,6 +27,15 @@
 </style>
 <div class="wrapper" style="width:100%;">
       <div class="row">
+        <% if !Settings.open_for_orders %>
+          <p style="padding-top: 40px; text-align: center;">
+            目前尚未開放訂購！
+          </p>
+        <% elsif current_user.cart_items.blank? %>
+          <p style="padding-top: 40px; text-align: center;">
+            購物書包還是空的噢！
+          </p>
+        <% else %>
         <section class="col-md-9" style="padding-top:40px;">
           <div class="shopping-flow">
             <div class="green-pointer">
@@ -180,6 +189,8 @@
 
 
         </section>
+
+        <% end %>
 
         </div>
         </div>

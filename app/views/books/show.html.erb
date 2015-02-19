@@ -15,47 +15,35 @@
     <div class="col-md-6">
       <div class="book-page-text">
           <h1 class="book-page-title"><%= @book.name %></h1>
-          <h3 class="book-page-author">作者 : <%= @book.author %></h3>
-          <h3>ISBN : <%= @book.isbn %></h3>
-          <h3>價格 : <%= @book.price %></h3>
+          <h3 class="book-page-author">作者: <%= @book.author %></h3>
+          <h3>ISBN: <%= @book.isbn %></h3>
+          <% if @book.edition %><h3>版次: <%= @book.edition %></h3><% end %>
+          <h3>團購價: <%= @book.price %></h3>
       </div>
       <div class="row">
         <div class="col-md-12">
           <div class="select-box book-page-selector">
-            <h3>課程選擇 ：</h3>
-            <div class="cs-select cs-skin-elastic" tabindex="0">
-              <span class="cs-placeholder book-page-placeholder">請選擇您的課程</span>
-              <div class="cs-options">
-                <ul>
-                  <% @book.courses.current.each do |course| %>
-                    <li data-option="" data-value="台科大"><span><% @course.id %><% course.name %></span></li>
-                  <% end %>
-                </ul>
-              </div>
-              <select class="cs-select cs-skin-elastic">
-                <option value="" disabled="" selected="">請選擇您的課程</option>
-                <% @book.courses.current.each do |course| %>
-                <option value="台科大"><% @course.id %><% course.name %></option>
-                <% end %>
-              </select>
-            </div>
+            <h3>所屬課程：</h3>
+            <input id="course-id">
           </div>
         </div>
       </div>
       <div class="row">
         <div class="col-md-3">
+        <!--
           <div class="book-page-quantity">
             <h3>數量：</h3><input class="input-number" type="number" name="quantity" placeholder="1">
           </div>
+          -->
         </div>
         <div class="col-md-9">
-          <input id="course-id">
-          <button type="submit" id="add-to-cart" class="btn btn-default book-page-add-to-cart-button">加入購物車</button>
+          <button type="submit" id="add-to-cart" class="btn btn-default book-page-add-to-cart-button">加入購物書包</button>
         </div>
       </div>
     </div>
   </div>
 </section>
+<!--
 <section class="container-fluid book-page-group-section">
     <div class="row">
         <h1 class="book-page-group-h1">揪團班級</h1>
@@ -129,6 +117,7 @@
         </div>
     </div>
 </section>
+-->
 <script>
   (function() {
     [].slice.call( document.querySelectorAll( 'select.cs-select' ) ).forEach( function(el) {
@@ -138,18 +127,51 @@
 </script>
 <script>
   $('#add-to-cart').click(function() {
-      $.ajax({
-        url: '/cart_items.json',
-        type: 'POST',
-        dataType: 'json',
-        data: {
-          book_id: "<%= @book.id %>",
-          course_id: $('#course-id').val()
+    if ($('#course-id').val() == '') {
+      alert("請先選擇跟團課程！");
+      return;
+    }
+    $.ajax({
+      url: '/cart_items.json',
+      type: 'POST',
+      dataType: 'json',
+      data: {
+        book_id: "<%= @book.id %>",
+        course_id: $('#course-id').val()
+      }
+    }).done(function() {
+      alert( "已加入購物書包！" );
+      location.reload();
+    });
+  });
+
+  defaultCourses = [<% @book.courses.current.where(organization_code: current_org_code).each do |course| %> <%= course.to_json.html_safe %>, <% end %>];
+
+  $("#course-id").select2({
+    allowClear: true,
+    placeholder: "選擇跟團課程",
+    containerCssClass: 'course-select',
+    dropdownCssClass: 'course-select',
+    ajax: {
+      url: "/courses.json",
+      dataType: 'json',
+      quietMillis: 250,
+      data: function (term, page) {
+        return {
+          q: term,
+        };
+      },
+      results: function (data) {
+        if (data.length == 0) {
+          data = defaultCourses;
         }
-      }).done(function() {
-        alert( "success" );
-        location.reload();
-      });
-   });
+        data.forEach(function (item) {
+          item.text = item.lecturer_name + ' - ' + item.name;
+        });
+        return { results: data };
+      },
+      cache: true
+    }
+  });
 </script>
 

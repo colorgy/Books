@@ -80,16 +80,16 @@
                         <span><%= book.name %></span>
                       </div>
                       <div class="book-author">
-                        <span>Author: <%= book.author %></span>
+                        <span>作者: <%= book.author %></span>
                       </div>
                       <div class="book-edition">
-                        <span>6th edition</span>
+                        <% if book.edition %><span>版次: <%= book.edition %></span><% end %>
                       </div>
                     </div>
                     <div class="product-price">
 
-                      <p><del> 定價:1000 </del></p>
-                      <h4>優惠價: <%= book.price %></h4>
+                      <p><% if book.original_price %><del> 定價: <%= book.original_price %> </del><% end %></p>
+                      <h4>團購價: <%= book.price %></h4>
                     </div>
                     <div class="add-to-cart">
                       <div class="row">
