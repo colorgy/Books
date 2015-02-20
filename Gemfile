@@ -40,6 +40,9 @@ gem 'unicorn'
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
+gem 'activeresource', '~> 4.0.0'
+gem 'cached_resource'
+
 # Loads environment variables from `.env`
 gem 'dotenv-rails', :groups => [:development, :test]
 

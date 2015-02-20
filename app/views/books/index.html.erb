@@ -28,28 +28,16 @@
     <section class="selection-section">
       <div class="row" style="max-width:1000px; margin-right:auto; margin-left:auto;">
         <div class="col-md-4">
-          <select class="cs-select cs-skin-elastic">
-            <option value="" disabled selected>請選擇您的學校</option>
-            <option value="台科大">台科大</option>
-            <option value="元智大學">元智大學</option>
-            <option value="清華大學">清華大學</option>
-            <option value="長庚大學">長庚大學</option>
-          </select>
+        <%= select_tag "books-org-code-select", options_for_select(Organization.all_for_select, current_org_code) %>
         </div>
         <div class="col-md-4">
-          <select class="cs-select cs-skin-elastic">
-            <option value="" disabled selected>請選擇您的系別</option>
-            <option value="資訊工程系">資訊工程系</option>
-            <option value="電資學士班">電資學士班</option>
-            <option value="企業管理系">企業管理系</option>
-            <option value="創意設計學士班">創意設計學士班</option>
-          </select>
+          <%= select_tag "books-dep-code-select", options_for_select(Organization.find(current_org_code).departments_for_select('D').insert(0, ['所有系別', '']), @dep_code) %>
         </div>
 
         <div class="col-md-4">
             <div id="sb-search" class="sb-search sb-search-open">
-              <form>
-                <input class="sb-search-input" placeholder="請輸入搜尋關鍵字..." type="text" value="" name="search" id="search">
+              <form id="books-search">
+                <input class="sb-search-input" placeholder="搜尋書名、課名、老師名..." type="text" value="<%= params[:q] %>" name="search" id="search">
                 <input class="sb-search-submit" type="submit" value="">
                 <span class="sb-icon-search">
                 <%= link_to image_tag("search.png", style: 'vertical-align: top;') %>
@@ -67,7 +55,7 @@
     <section class="book-section">
       <div class="container-fluid">
 
-          <% if @books %>
+          <% if @books.present? %>
             <% @books.each do |book| %>
               <div class="col-md-3">
                 <div class="product-box" >
@@ -91,6 +79,7 @@
                       <p><% if book.original_price %><del> 定價: <%= book.original_price %> </del><% end %></p>
                       <h4>團購價: <%= book.price %></h4>
                     </div>
+                    <!--
                     <div class="add-to-cart">
                       <div class="row">
                           <div class="col-md-12">
@@ -108,20 +97,35 @@
                         <h5 class="modal-toggle-h5">加入書包</h5>
                       </div>
                     </div>
+                    -->
                   </div>
                 </div>
               </div>
             <% end %>
+          <% else %>
+          <p style="text-align: center;">您所選的條件範圍找不到書！請改用其他條件找看看 :)</p>
           <% end %>
 
-
-
         </div>
-
-
 
     </section>
     <footer>
 
 </footer>
 
+<script>
+  $('#books-org-code-select').select2()
+  .on('change', function(e) {
+    window.location.href = URI(window.location.href).removeSearch('org').addSearch('org', e.val).toString();
+  });
+
+  $('#books-dep-code-select').select2()
+  .on('change', function(e) {
+    window.location.href = URI(window.location.href).removeSearch('dep').addSearch('dep', e.val).toString();
+  });
+
+  $('#books-search').submit(function() {
+    window.location.href = URI(window.location.href).removeSearch('q').addSearch('q', $('#search').val()).toString();
+    return false;
+  });
+</script>

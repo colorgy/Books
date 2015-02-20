@@ -110,7 +110,7 @@
             <%= link_to("Books", 'http://books.colorgy.io') %>
           </li>
           <li>
-            <%= link_to("書庫瀏覽", books_path) %>
+            <%= link_to("書庫瀏覽", books_path(dep: ((current_user && current_org_code == current_user.organization_code && current_user.department_code)) || '')) %>
           </li>
           <li>
             <%= link_to("購物車", cart_items_path) %>
@@ -125,16 +125,7 @@
             <%= link_to("常見問題", faq_path) %>
           </li>
           <li>
-          <select id="org-code-select">
-            <option <%= (current_org_code == 'NTUST') ? 'selected' : '' %> value="NTUST">臺灣科技大學</option>
-            <option <%= (current_org_code == 'NTU') ? 'selected' : '' %> value="NTU">臺灣大學</option>
-            <option <%= (current_org_code == 'NTHU') ? 'selected' : '' %> value="NTHU">清華大學</option>
-            <option <%= (current_org_code == 'NTNU') ? 'selected' : '' %> value="NTNU">師範大學</option>
-            <option <%= (current_org_code == 'NTPU') ? 'selected' : '' %> value="NTPU">臺北大學</option>
-            <option <%= (current_org_code == 'TTU') ? 'selected' : '' %> value="TTU">大同大學</option>
-            <option <%= (current_org_code == 'CGU') ? 'selected' : '' %> value="CGU">長庚大學</option>
-            <option <%= (current_org_code == 'YZU') ? 'selected' : '' %> value="YZU">元智大學</option>
-          </select>
+          <%= select_tag "org-code-select", options_for_select(Organization.all_for_select, current_org_code) %>
           </li>
         </ul>
       <% if !current_user.blank? %>
