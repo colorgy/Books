@@ -80,5 +80,18 @@ $(document).ready(function () {
 			    }
 		});
 
+	$('#push-menu-trigger').click(function(){
+		if ( $( '.push-menu' ).hasClass( "push-menu-active" ) ){
+			$('.push-menu').removeClass('push-menu-active');
+			}
+		else{
+			$('.push-menu').addClass('push-menu-active');
+		}
+	})
+    $('body').click(function(evt){
+    	if ($(evt.target).parents(".push-menu").length==0 && evt.target.class != "push-menu" && evt.target.id != "push-menu-trigger") {
+    	$('.push-menu').removeClass('push-menu-active')};
+    })
+
 
 });

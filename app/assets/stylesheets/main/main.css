@@ -1336,4 +1336,40 @@ footer > p{
 .checkout__order-inner{
 	padding: 20px !important;
 }
-
+.push-menu{
+	position: fixed;
+	width: 300px;
+	height: 100vh;
+	left: -300px;
+	top: 0;
+	z-index: 9999999;
+	background-color: #28A38C;
+	transition: transform, 0.5s;
+}
+.push-menu-active{
+	transform: translateX( 300px );
+}
+.push-menu-container{
+	height: 100%;
+}
+.push-menu-ul{
+	padding: 0;
+}
+.push-menu-ul > li {
+	list-style-type: none;
+	border-bottom: 2px solid #33C7AB;
+	display: flex;
+}
+.push-menu-ul > li > a{
+	color: #ffffff;
+	font-size: 20px;
+	text-align: left;
+	padding: 20px 30px;
+	width: 100%;
+	transition: background-color 0.5s, color 0.5s;
+}
+.push-menu-ul > li > a:hover{
+	color: #28A38C;
+	background-color: #ffffff;
+	text-decoration: none;
+}
