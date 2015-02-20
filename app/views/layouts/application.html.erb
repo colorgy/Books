@@ -14,21 +14,24 @@
     <style type="text/css">
       body {
         padding-top: 50px;
-
       }
+
       .navbar-brand > img {
         height: 100%;
       }
+
       .home-btn {
         background-color: #28A38C;
         color: #fff;
         border: 0px;
         transition: background-color 0.3s;
       }
+
       .home-btn:hover {
         background-color: #E77B2D;
         color: #fff;
       }
+
       .fb-login-btn {
         background-color: #3B579D;
         color: #ffffff;
@@ -37,25 +40,34 @@
         transition: transform 0.3s , border-radius 0.5s;
         font-size: 21px;
       }
+
       .fb-login-btn:hover {
         transform: scale(1.1);
         border-radius: 0px;
       }
+
       .fb-login-btn > a {
         color: #ffffff;
         font-size: 18px;
         left: calc( 50% - 90px );
         position: relative;
       }
+
       .flash-messages {
         position: absolute;
         width: 100%;
         padding-top: 24px;
       }
-      a{
+
+      .select2-drop {
+        z-index: 9999999;
+      }
+
+      a {
         text-decoration: none;
       }
-      a:hover{
+
+      a:hover {
         text-decoration: none;
       }
     </style>
@@ -86,7 +98,7 @@
               <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand" href="<%= root_path %>">
-              <img class="nav-logo" src="/assets/header_nav_logo.png">
+              <%= image_tag 'header_nav_logo.png', class: 'nav-logo' %>
             </a>
           </div>
 
@@ -94,19 +106,40 @@
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
 
-              <% if !current_user.blank? %>
-                  <li>
-                    <%= link_to("我的帳號", "#{ENV['CORE_URL']}/my_account/emails") %>
-                  </li>
-              <% end %>
-              <li>
-                <%= link_to("Colorgy Books", 'http://books.colorgy.io') %>
-              </li>
+          <li>
+            <%= link_to("Books", 'http://books.colorgy.io') %>
+          </li>
+          <li>
+            <%= link_to("書庫瀏覽", books_path) %>
+          </li>
+          <li>
+            <%= link_to("購物車", cart_items_path) %>
+          </li>
+          <li>
+            <%= link_to("訂單查詢", bills_path) %>
+          </li>
+          <li>
+          <select id="org-code-select">
+            <option <%= (current_org_code == 'NTUST') ? 'selected' : '' %> value="NTUST">臺灣科技大學</option>
+            <option <%= (current_org_code == 'NTU') ? 'selected' : '' %> value="NTU">臺灣大學</option>
+            <option <%= (current_org_code == 'NTHU') ? 'selected' : '' %> value="NTHU">清華大學</option>
+            <option <%= (current_org_code == 'NTNU') ? 'selected' : '' %> value="NTNU">師範大學</option>
+            <option <%= (current_org_code == 'NTPU') ? 'selected' : '' %> value="NTPU">臺北大學</option>
+            <option <%= (current_org_code == 'TTU') ? 'selected' : '' %> value="TTU">大同大學</option>
+            <option <%= (current_org_code == 'CGU') ? 'selected' : '' %> value="CGU">長庚大學</option>
+            <option <%= (current_org_code == 'YZU') ? 'selected' : '' %> value="YZU">元智大學</option>
+          </select>
+          </li>
+        </ul>
+      <% if !current_user.blank? %>
+        <!-- 桌機版nav bar購物車開始 -->
+        <div class="checkout desktop-checkout">
+          <% if current_user.cart_items.present? %>
+          <div class="checkout__button__number">
+              <%= current_user.cart_items.count %>
             </ul>
-          <% if !current_user.blank? %>
             <!-- 桌機版nav bar購物車開始 -->
             <div class="checkout desktop-checkout">
-              <% if current_user.cart_items.present? %>
               <div class="checkout__button__number">
                   <%= current_user.cart_items.count %>
               </div>
@@ -130,12 +163,8 @@
                             </tr>
                         </thead>
                         <tfoot>
-                            <% total = 0 %>
-                            <% current_user.cart_items.each do |item| %>
-                            <% total = total + item.book_price %>
-                            <% end %>
                             <tr>
-                              <th colspan="2" class="checkout-total-th">總額 <span class="checkout__total"><%= total %> NT</span></th>
+                              <th colspan="2" class="checkout-total-th">總額 <span class="checkout__total"><%= current_user.cart_total_price %> NT</span></th>
                             </tr>
                         </tfoot>
                         <tbody>
@@ -227,7 +256,7 @@
                     </thead>
                     <tfoot>
                         <tr>
-                          <th colspan="2" class="checkout-total-th">總額 <span class="checkout__total">8000 NT</span></th>
+                          <th colspan="2" class="checkout-total-th">總額 <span class="checkout__total"><%= current_user.cart_total_price %> NT</span></th>
                         </tr>
                     </tfoot>
                     <tbody>
@@ -297,6 +326,12 @@
               } );
             } );
           } );
+
+          $('#org-code-select').select2()
+          .on('change', function(e) {
+            console.log(e);
+            window.location.href = URI(window.location.href).removeSearch('org').addSearch('org', e.val).toString();
+          });
         })();
     </script>
     <script src="/assets/velocity_min.js"></script>

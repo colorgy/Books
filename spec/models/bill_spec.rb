@@ -16,6 +16,7 @@ RSpec.describe Bill, :type => :model do
   let(:user) { create(:user, :with_items_in_cart) }
   before do
     @bill_params = { type: 'credit_card', invoice_type: 'digital' }
+    Bill.test = true
   end
   subject(:bill) do
     Settings.open_for_orders = true
@@ -48,6 +49,14 @@ RSpec.describe Bill, :type => :model do
       bill.pay!
       expect(bill).to be_paid
       expect(bill.versions.count).to eq(2)
+    end
+
+    it "sets the paid time" do
+      expect(bill).not_to be_paid
+      bill.pay!
+      expect(bill.paid_at).not_to be_blank
+      bill.reload
+      expect(bill.paid_at).not_to be_blank
     end
 
     it "marks its orders as paid" do

@@ -1,0 +1,46 @@
+<% @orders ||= @cart_items %>
+
+<table>
+  <thead>
+    <tr>
+      <th>書名</th>
+      <th>作者</th>
+      <th>版次</th>
+      <th>課程 / 教授</th>
+      <th>主揪</th>
+      <th>價格</th>
+      <% if @orders.first.try(:class) == UserCartItem %>
+        <th>取消</th>
+      <% end %>
+    </tr>
+  </thead>
+  <tbody>
+    <% if @orders %>
+      <% @orders.each do |item| %>
+        <tr>
+          <td><%= item.book_name %></td>
+          <td><%= item.book_author %></td>
+          <td><%= item.book_edition %></td>
+          <td>
+            <%= "#{item.course_name} / #{item.course_lecturer_name}" %>
+          </td>
+          <td>
+            <div class="headphoto">
+              <img src="/assets/noone.png">
+              <div class="headphoto-tooltip">
+                <h4>目前沒有主揪</h4>
+                <a href="./shopping-guide2.html">什麼是主揪？</a>
+              </div>
+            </div>
+          </td>
+          <td><%= item.book_price %></td>
+          <% if @orders.first.try(:class) == UserCartItem %>
+            <td class="trashcan">
+              <%= link_to image_tag("trashcan.png"), cart_item_path(item), method: :delete %>
+            </td>
+          <% end %>
+        </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>

@@ -10,12 +10,12 @@ $(document).ready(function () {
 		//else if (reciept_method != '共同載具'){
 		//	$('.receipt-text-input').removeClass('receipt-text-input-show');
 		//}
-        if (this.value == '共同載具') {
+        if (this.id == 'invoice-co-option') {
             $('.receipt-co-option').addClass('tester');
             $('.reciept-more').children('div').children('label').children('div').removeClass('receipt-text-input-show');
 
         }
-        else if (this.value != '共同載具') {
+        else if (this.id != 'invoice-co-option') {
         	$('.receipt-co-option').removeClass('tester');
 
         }

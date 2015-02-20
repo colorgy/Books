@@ -27,6 +27,15 @@
 </style>
 <div class="wrapper" style="width:100%;">
       <div class="row">
+        <% if !Settings.open_for_orders %>
+          <p style="padding-top: 40px; text-align: center;">
+            目前尚未開放訂購！
+          </p>
+        <% elsif current_user.cart_items.blank? %>
+          <p style="padding-top: 40px; text-align: center;">
+            購物書包還是空的噢！
+          </p>
+        <% else %>
         <section class="col-md-9" style="padding-top:40px;">
           <div class="shopping-flow">
             <div class="green-pointer">
@@ -43,91 +52,39 @@
 
           </div>
           <div class="cart-table">
-                <table>
-              <thead>
-                <tr>
-                  <th>書名</th>
-                  <th>作者</th>
-                  <th>版次</th>
-                  <th>價格</th>
-                  <th>數量</th>
-                  <th>課程/教授</th>
-                  <th>主揪</th>
-                  <th>小計</th>
-                  <th>取消</th>
-                </tr>
-              </thead>
-              <tbody>
-                <% if @cart_items %>
-                  <% @cart_items.each do |cart_item| %>
-                    <tr>
-                      <td><%= cart_item.book_name %></td>
-                      <td><%= cart_item.book_author %></td>
-                      <td>8/E</td>
-                      <td><%= cart_item.book_price %></td>
-                      <td><input class="input-number" type="number" name="quantity" min="0"></td>
-                      <td>
-                        <div class="select-box cart-select">
-                          <select class="cs-select cs-skin-elastic">
-                            <option value="" disabled selected>請選擇您的課程</option>
-                            <option value="台科大">電子學-彭盛裕</option>
-                            <option value="元智大學">電子學-蔡超人</option>
-                          </select>
-                        </div>
-                      </td>
-                      <td>
-                        <div class="headphoto">
-                          <img src="/assets/noone.png">
-                          <div class="headphoto-tooltip">
-                            <h4>目前沒有主揪</h4>
-                            <a href="./shopping-guide2.html">什麼是主揪？</a>
-                          </div>
-                        </div>
-
-                      </td>
-                      <td>2598</td>
-                      <td class="trashcan">
-                        <%=link_to image_tag("trashcan.png"), cart_item_path(cart_item), method: :delete%>
-                      </td>
-                    </tr>
-                  <% end %>
-                <% end %>
-              </tbody>
-            </table>
-
+            <%= render "partials/order_list" %>
           </div>
 
         </section>
         <section class="col-md-3 cart-right-section">
+        <%= form_tag bills_path do %>
           <h3 class="total-title">總金額</h3>
-              <h3 class="total-number">12399 NT</h3>
+              <h3 class="total-number">NT$ <%= current_user.cart_total_price %></h3>
           <div class="checkout-form">
             <h3 class="payment-title">付款方式</h3>
+            <% Bill.allowed_types.each do |type| %>
             <div class="payment-field">
               <label>
-                <input type="radio" name="payment" value="超商代碼付款" checked="checked"><h4>超商代碼付款</h4>
+                <input type="radio" name="bill[type]" value="<%= type %>"><h4><%= t(type, scope: 'bill_type_descriptions') %></h4>
               </label>
             </div>
-            <div class="payment-field">
-              <label>
-                <input type="radio" name="payment" value="ATM轉帳付款"><h4>ATM轉帳付款</h4>
-              </label>
-            </div>
+            <% end %>
+            <div id="invoice-type-section">
             <h3 class="payment-title">發票種類</h3>
               <div class="payment-field">
                 <label>
-                  <input type="radio" name="reciept" value="電子發票" checked="checked"><h4>電子發票</h4>
+                  <input type="radio" name="reciept" value="digital" checked="checked"><h4>電子發票</h4>
                 </label>
               </div>
               <div class="payment-field">
                 <label>
-                  <input type="radio" name="reciept" value="共同載具"><h4>共同性載具</h4>
+                  <input type="radio" name="reciept" value="" id="invoice-co-option"><h4>共同性載具</h4>
                 </label>
               </div>
               <div class="receipt-co-option">
                 <div class="payment-field col-md-12">
                   <label>
-                    <input class="co-option" type="radio" name="co" value="手機條碼">
+                    <input class="co-option" type="radio" name="co" value="code">
                     <h4>手機條碼</h4>
                     <div class="receipt-text-input">
                       <input type="text" name="reciept-text" placeholder="請輸入手機條碼..">
@@ -137,7 +94,7 @@
                 </div>
                 <div class="payment-field col-md-12">
                   <label>
-                    <input class="co-option" type="radio" name="co" value="自然人憑證"><h4>自然人憑證</h4>
+                    <input class="co-option" type="radio" name="co" value="cert"><h4>自然人憑證</h4>
                     <div class="receipt-text-input">
                       <input type="text" name="reciept-text" placeholder="請輸入自然人憑證..">
                     </div>
@@ -165,23 +122,34 @@
                 </div>
                 <div class="payment-field">
                   <label>
-                    <input type="radio" name="reciept" value="紙本發票"><h4>紙本發票</h4>
+                    <input type="radio" name="reciept" value="paper"><h4>紙本發票</h4>
                   </label>
                 </div>
               </div>
-              <%= form_tag bills_path do %>
-                <%= select_tag 'bill[type]', options_for_select([['ATM 虛擬帳號匯款', 'virtual_account'], ['超商代碼繳費', 'payment_code']]) %>
-                <%= text_field_tag 'bill[invoice_type]' %>
+              <%= hidden_field_tag 'bill[invoice_type]' %>
+              </div>
 
-                <%= submit_tag "Go 結帳！", class:'checkout-buttom' %>
-              <% end %>
+              <%= submit_tag "Go 結帳！", class:'checkout-buttom' %>
 
           </div>
 
+        <% end %>
 
         </section>
 
+        <% end %>
+
         </div>
         </div>
 
 
+<script type="text/javascript">
+  $('#invoice-type-section input').on('change', function(e) {
+    if ($(e.target).prop('checked')) {
+      $('#bill_invoice_type').val(e.target.value);
+    }
+  });
+  $('#invoice-type-section input').change();
+
+  //TODO: 送出時檢查表單
+</script>>

@@ -11,14 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150214114429) do
+ActiveRecord::Schema.define(version: 20150218032638) do
 
   create_table "bills", force: true do |t|
     t.string   "uuid",         null: false
     t.integer  "user_id",      null: false
     t.string   "type",         null: false
-    t.float    "price",        null: false
-    t.float    "amount",       null: false
+    t.integer  "price",        null: false
+    t.integer  "amount",       null: false
     t.integer  "invoice_id"
     t.string   "invoice_type", null: false
     t.text     "invoice_data"
@@ -27,6 +27,8 @@ ActiveRecord::Schema.define(version: 20150214114429) do
     t.datetime "deleted_at"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "payment_code"
+    t.datetime "paid_at"
   end
 
   add_index "bills", ["deleted_at"], name: "index_bills_on_deleted_at"
@@ -56,7 +58,7 @@ ActiveRecord::Schema.define(version: 20150214114429) do
 
   create_table "books", force: true do |t|
     t.string   "provider"
-    t.float    "price",          null: false
+    t.integer  "price",          null: false
     t.string   "book_data_isbn"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -94,7 +96,7 @@ ActiveRecord::Schema.define(version: 20150214114429) do
     t.string   "group",             null: false
     t.integer  "book_id",           null: false
     t.integer  "course_id",         null: false
-    t.float    "price"
+    t.integer  "price"
     t.integer  "bill_id"
     t.string   "state",             null: false
     t.datetime "deleted_at"
