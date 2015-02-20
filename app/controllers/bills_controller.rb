@@ -33,6 +33,6 @@ class BillsController < ApplicationController
   private
 
   def bill_params
-    params.require(:bill).permit(:type, :invoice_type, :invoice_code, :invoice_love_code, :invoice_uni_num)
+    params.require(:bill).permit(:type, :invoice_type, :invoice_code, :invoice_cert, :invoice_love_code, :invoice_uni_num)
   end
 end

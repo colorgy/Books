@@ -45,95 +45,36 @@
 
           </div>
           <div class="cart-table">
-                      <table>
-                    <thead>
-                      <tr>
-                        <th>書名</th>
-                        <th>作者</th>
-                        <th>版次</th>
-                        <th>價格</th>
-                        <th>數量</th>
-                        <th>課程/教授</th>
-                        <th>主揪</th>
-                        <th>小計</th>
-
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <% @orders.each do |order| %>
-                        <tr>
-                          <td><%= order.book_name %></td>
-                          <td><%= order.book_author %></td>
-                          <td>8/E</td>
-                          <td><%= order.price %></td>
-                          <td>2</td>
-                          <td>
-                            <%= order.course_name %>
-                          </td>
-                          <td>
-                            <div class="headphoto">
-                              <img src="/assets/headphoto.jpg">
-                            </div>
-                          </td>
-                          <td>2598</td>
-
-                        </tr>
-                      <% end %>
-                    </tbody>
-                  </table>
-            </div>
+            <%= render "partials/order_list" %>
+          </div>
         </section>
         <section class="col-md-3 cart-right-section">
 
           <div class="checkout-form">
           <%= form_tag bills_path do %>
-            <h3 class="total-title">總金額</h3>
-            <h3 class="total-number"><%= @bill.amount %></h3>
+            <h3 class="total-title">付款總金額</h3>
+            <h3 class="total-number">NT$ <%= @bill.amount %></h3>
 
             <h3 class="payment-title">付款方式</h3>
             <br>
-            <h4 style="text-align: center;"><%= @bill.type %></h4>
+            <h4 style="text-align: center;"><%= t(@bill.type, scope: :bill_types) %></h4>
             <br>
             <h3 class="payment-title">發票種類</h3>
             <br>
-            <h4 style="text-align: center;"><%= @bill.invoice_type %></h4>
+            <h4 style="text-align: center;"><%= t(@bill.invoice_type, scope: :invoice_types) %></h4>
             <br>
             <%= hidden_field_tag 'bill[type]', @bill.type %>
             <%= hidden_field_tag 'bill[invoice_type]', @bill.invoice_type %>
             <%= hidden_field_tag 'bill[invoice_uni_num]', @bill.invoice_uni_num %>
             <%= hidden_field_tag 'bill[invoice_love_code]', @bill.invoice_love_code %>
             <%= hidden_field_tag 'bill[invoice_code]', @bill.invoice_code %>
+            <%= hidden_field_tag 'bill[invoice_cert]', @bill.invoice_cert %>
             <%= hidden_field_tag 'confirmed', 'true' %>
             <%= submit_tag "都沒錯，繼續！", class:'checkout-buttom' %>
           <% end %>
 
-
           </div>
-
 
         </section>
     </div>
 </div>
-.container
-  p 請確認資料
-  ul
-  - @orders.each do |order|
-    li 書名 #{order.book_name}，課名 #{order.course_name}，價格 #{order.price}
-  p 付款方式 #{@bill.type}
-  p 發票種類 #{@bill.invoice_type}
-  p 統一編號 #{@bill.invoice_uni_num}
-  p 愛心號碼 #{@bill.invoice_love_code}
-  p 電子發票載具條碼 #{@bill.invoice_code}
-  p 金額 #{@bill.price}
-  p 應付金額 #{@bill.amount}
-
-
-  = form_tag bills_path
-    <%= hidden_field_tag 'bill[type]', @bill.type %>
-    <%= hidden_field_tag 'bill[invoice_type]', @bill.invoice_type %>
-    <%= hidden_field_tag 'bill[invoice_uni_num]', @bill.invoice_uni_num %>
-    <%= hidden_field_tag 'bill[invoice_love_code]', @bill.invoice_love_code %>
-    <%= hidden_field_tag 'bill[invoice_code]', @bill.invoice_code %>
-    <%= hidden_field_tag 'confirmed', 'true' %>
-
-    = submit_tag "都沒錯，繼續！"

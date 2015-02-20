@@ -70,6 +70,14 @@ class User < ActiveRecord::Base
     reload
   end
 
+  def cart_total_price
+    price = 0
+    cart_items.each do |item|
+      price += item.book_price
+    end
+    price
+  end
+
   def checkout(bill_attrs = {})
     check_cart!
     return { orders: [], bill: nil } unless Settings.open_for_orders

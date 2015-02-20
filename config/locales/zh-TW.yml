@@ -1,4 +1,22 @@
 zh-TW:
+  bill_types:
+    payment_code: '超商付款'
+    virtual_account: 'ATM 虛擬帳號匯款'
+    credit_card: '信用卡'
+  bill_type_descriptions:
+    payment_code: '超商付款 (金流手續費 35 元)'
+    virtual_account: 'ATM 虛擬帳號匯款'
+    credit_card: '信用卡'
+  invoice_types:
+    digital: 電子發票
+    paper: 索取紙本發票
+    code: 手機條碼
+    cert: 自然人憑證
+    love_code: 愛心碼
+    uni_num: 統一編號
+  bill_states:
+    payment_pending: 待付款
+    paid: 已付款
   user:
     identity:
       student: 學生

@@ -55,10 +55,9 @@
             </div>
             <div class="thankyoupage-text">
               <p>
-                本網頁只是確認本系統已經收到您的訂購訊息，並提供您再次進行核對之用，不代表交易已經完成。<br>
-                經交易條件確認無誤，我們會另外以電子郵件將『ibon繳款編號』以及繳費期限等資訊寄給您，只有當我們收到全部商品總額，您的付款程序才算完成。
+                本網頁只是確認本系統已經收到您的訂購訊息，並提供您再次進行核對之用，不代表交易已經完成。
               </p>
-
+              <h3>繳費代碼：<%= @bill.payment_code %>，繳費狀態：<%= t(@bill.state, scope: :bill_states) %></h3>
             </div>
           </div>
         </div>
@@ -67,53 +66,20 @@
         <div class="reciept-content">
           <div class="col-md-12">
             <h3>訂單明細</h3>
-            <a href="./order-tracking.html"><p>更多訂單...</p></a>
+            <!--<a href="./order-tracking.html"><p>更多訂單...</p></a>-->
           </div>
           <div class="col-md-12">
             <div class="cart-table">
-                  <table>
-                <thead>
-                  <tr>
-                    <th>書名</th>
-                    <th>作者</th>
-                    <th>版次</th>
-                    <th>價格</th>
-                    <th>數量</th>
-                    <th>課程/教授</th>
-                    <th>主揪</th>
-                    <th>小計</th>
-
-                  </tr>
-                </thead>
-                <tbody>
-                  <% @orders.each do |order| %>
-                    <tr>
-                      <td><%= order.book_name %></td>
-                      <td><%= order.book_author %></td>
-                      <td>8/E</td>
-                      <td><%= order.price %></td>
-                      <td>2</td>
-                      <td>
-                        <%= order.course_name %>
-                      </td>
-                      <td>
-                        <div class="headphoto">
-                          <img src="/assets/headphoto.jpg">
-                        </div>
-                      </td>
-                      <td>2598</td>
-                    </tr>
-                  <% end %>
-                </tbody>
-              </table>
+              <%= render "partials/order_list" %>
             </div>
           </div>
           <div class="col-md-12">
             <h3>付費方式</h3>
-            <p><%=@bill.type %></p>
+            <p><%= t(@bill.type, scope: :bill_types) %></p>
             <h3>發票種類</h3>
-            <p><%= @bill.invoice_type %></p>
+            <p><%= t(@bill.invoice_type, scope: :invoice_types) %></p>
           </div>
+          <!--
           <div class="col-md-6">
             <div class="checkout-buttom thankyoupage-btn" style="background-color: #36B8A0 !important;">
               <a href="./index.html">
@@ -128,21 +94,10 @@
               </a>
             </div>
           </div>
+          -->
         </div>
       </div>
     </div>
   </section>
 </div>
-.container
-  h1 結帳資料
-  - @orders.each do |order|
-    li 書名 #{order.book_name}，課名 #{order.course_name}，價格 #{order.price}，狀態 #{order.state}
-  p 付款方式 #{@bill.type}
-  p 發票種類 #{@bill.invoice_type}
-  p 統一編號 #{@bill.invoice_uni_num}
-  p 愛心號碼 #{@bill.invoice_love_code}
-  p 電子發票載具條碼 #{@bill.invoice_code}
-  p 金額 #{@bill.price}
-  p 應付金額 #{@bill.amount}
-
-  p 狀態 #{@bill.state}
+:)

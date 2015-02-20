@@ -7,13 +7,13 @@ class Bill < ActiveRecord::Base
 
   cattr_accessor :test
 
-  store :data, accessors: [:invoice_code, :invoice_love_code, :invoice_uni_num]
+  store :data, accessors: [:invoice_code, :invoice_love_code, :invoice_uni_num, :invoice_cert]
 
   belongs_to :user
   has_many :orders
 
   validates :type, presence: true, inclusion: { in: %w(payment_code credit_card virtual_account) }
-  validates :invoice_type, presence: true, inclusion: { in: %w(digital paper code love_code uni_num) }
+  validates :invoice_type, presence: true, inclusion: { in: %w(digital paper code cert love_code uni_num) }
   validates :uuid, presence: true
   validates :user, presence: true
   validates :type, presence: true
@@ -39,6 +39,10 @@ class Bill < ActiveRecord::Base
         end
       end
     end
+  end
+
+  def self.allowed_types
+    @@allowed_types ||= ENV['ALLOWED_BILL_TYPES'].split(',')
   end
 
   def set_uuid
