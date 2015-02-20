@@ -92,6 +92,10 @@ $(document).ready(function () {
     	if ($(evt.target).parents(".push-menu").length==0 && evt.target.class != "push-menu" && evt.target.id != "push-menu-trigger") {
     	$('.push-menu').removeClass('push-menu-active')};
     })
+    $( ".faqs-question" ).click(function() {
+	  $(this).parent().children('.faqs-answer').slideToggle( 200 );
+	  $(this).children("img").toggleClass('faqs-question-img-rotate')
+	});
 
 
 });

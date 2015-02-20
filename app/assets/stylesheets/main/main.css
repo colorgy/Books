@@ -1373,3 +1373,29 @@ footer > p{
 	background-color: #ffffff;
 	text-decoration: none;
 }
+.faqs-qa{
+	padding: 5px 20px;
+}
+.faqs-question{
+	overflow: auto;
+	cursor: pointer;
+}
+.faqs-question > img {
+	height: 24px;
+	transform: rotate(45deg);
+	float: left;
+	margin-top: 6px;
+	transition: transform 0.5s;
+	margin-right: 10px;
+}
+.faqs-question-img-rotate{
+	transform: rotate(90deg) !important;
+}
+.faqs-question > h4 {
+	margin: 10px 20px;
+}
+.faqs-answer{
+	margin: 15px;
+	padding-left: 45px;
+	display: none;
+}

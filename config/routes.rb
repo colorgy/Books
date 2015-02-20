@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   get '/shopping_flow_buy' => 'pages#shopping_flow_buy'
   get '/shopping_flow_deliver' => 'pages#shopping_flow_deliver'
   get '/shopping_flow_mainchew' => 'pages#shopping_flow_mainchew'
+  get '/faqs' => 'pages#faqs'
 
   resources :lecturer do
     resources :courses, controller: :lecturer_courses
