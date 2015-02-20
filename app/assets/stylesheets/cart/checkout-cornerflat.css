@@ -252,6 +252,7 @@
 
 .checkout__option:hover {
 	background: #33C7AB;
+	color: #fff;
 }
 
 .checkout__option--silent {

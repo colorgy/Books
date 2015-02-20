@@ -119,13 +119,6 @@
 </section>
 -->
 <script>
-  (function() {
-    [].slice.call( document.querySelectorAll( 'select.cs-select' ) ).forEach( function(el) {
-      new SelectFx(el);
-    } );
-  })();
-</script>
-<script>
   $('#add-to-cart').click(function() {
     if ($('#course-id').val() == '') {
       alert("請先選擇跟團課程！");
@@ -174,4 +167,3 @@
     }
   });
 </script>
-
