@@ -867,7 +867,7 @@ ul.cd-item-action > li > a:hover{
 	float: left;
 }
 .white-pointer{
-	background-color: rgb(256, 256, 256);
+	background-color: rgb(255, 255, 255);
 	border-top: 3px solid #33c7ab;
 	border-bottom: 3px solid #33c7ab;
 	padding: 0 !important;
