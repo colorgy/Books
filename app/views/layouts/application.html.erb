@@ -119,6 +119,12 @@
             <%= link_to("訂單查詢", bills_path) %>
           </li>
           <li>
+            <%= link_to("使用流程", flow_path) %>
+          </li>
+          <li>
+            <%= link_to("常見問題", faq_path) %>
+          </li>
+          <li>
           <select id="org-code-select">
             <option <%= (current_org_code == 'NTUST') ? 'selected' : '' %> value="NTUST">臺灣科技大學</option>
             <option <%= (current_org_code == 'NTU') ? 'selected' : '' %> value="NTU">臺灣大學</option>

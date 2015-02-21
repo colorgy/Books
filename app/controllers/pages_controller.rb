@@ -3,6 +3,10 @@ class PagesController < ApplicationController
     # redirect_to lecturer_index_path
   end
 
+  def flow
+    redirect_to flow_buy_path
+  end
+
   def shopping_flow_buy
 
   end
@@ -12,6 +16,10 @@ class PagesController < ApplicationController
   end
 
   def shopping_flow_deliver
+
+  end
+
+  def faq
 
   end
 
