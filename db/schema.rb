@@ -11,11 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150212031946) do
+ActiveRecord::Schema.define(version: 20150222154136) do
 
   create_table "book_datas", force: true do |t|
     t.string   "isbn"
-    t.string   "name",           null: false
+    t.string   "name",                null: false
     t.string   "edition"
     t.string   "author"
     t.string   "image_url"
@@ -26,6 +26,7 @@ ActiveRecord::Schema.define(version: 20150212031946) do
     t.string   "known_provider"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "temporary_book_name"
   end
 
   add_index "book_datas", ["isbn"], name: "index_book_datas_on_isbn", unique: true
