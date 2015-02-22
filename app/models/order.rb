@@ -7,6 +7,7 @@ class Order < ActiveRecord::Base
   belongs_to :course
   belongs_to :book
   belongs_to :bill
+  belongs_to :group, primary_key: :code, foreign_key: :group_code
 
   delegate :name, :author, :isbn, :edition, :image_url,
            :publisher, :original_price, :price,
@@ -14,12 +15,15 @@ class Order < ActiveRecord::Base
   delegate :organization_code, :department_code, :lecturer_name,
            :year, :term, :name, :code, :url, :required, :book_isbn,
            to: :course, prefix: true, allow_nil: true
+  delegate :leader, :leader_name, :leader_avatar,
+           to: :group, prefix: true, allow_nil: true
 
   validates :user, presence: true
   validates :course, presence: true
   validates :book, presence: true
 
-  after_initialize :set_batch, :set_organization_code, :set_group, :set_price
+  after_initialize :set_batch, :set_price, :set_organization_code, :set_group_code
+  before_save :set_organization_code, :set_group_code
 
   aasm column: :state do
     state :new, initial: true
@@ -53,13 +57,11 @@ class Order < ActiveRecord::Base
   end
 
   def set_organization_code
-    return unless self.organization_code.blank?
     self.organization_code = course.organization_code
   end
 
-  def set_group
-    return unless self.group.blank?
-    self.group = "#{Course.current_year}-#{Course.current_term}-#{Settings.order_batch}-#{course.id}-#{book.id}"
+  def set_group_code
+    self.group_code = "#{batch}-#{organization_code}-#{course.id}-#{book.id}"
   end
 
   def set_price

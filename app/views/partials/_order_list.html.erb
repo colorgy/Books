@@ -26,11 +26,15 @@
           </td>
           <td>
             <div class="headphoto">
-              <img src="/assets/noone.png">
+              <% if item.group_leader.blank? %>
+              <%= image_tag "noone.png" %>
               <div class="headphoto-tooltip">
                 <h4>目前沒有主揪</h4>
                 <a href="<%= flow_mainchew_path %>" target="_blank">什麼是主揪？</a>
               </div>
+              <% # TODO: if item.state == 'new' or 'payment_pending' %>
+              <% else %>
+              <% end %>
             </div>
           </td>
           <td><%= item.book_price %></td>

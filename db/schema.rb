@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150218032638) do
+ActiveRecord::Schema.define(version: 20150222072234) do
 
   create_table "bills", force: true do |t|
     t.string   "uuid",         null: false
@@ -48,7 +48,7 @@ ActiveRecord::Schema.define(version: 20150218032638) do
     t.string   "url"
     t.string   "publisher"
     t.string   "original_url"
-    t.float    "original_price"
+    t.integer  "original_price"
     t.string   "known_provider"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -89,11 +89,21 @@ ActiveRecord::Schema.define(version: 20150218032638) do
 
   add_index "courses", ["deleted_at"], name: "index_courses_on_deleted_at"
 
+  create_table "groups", force: true do |t|
+    t.string   "code",       null: false
+    t.integer  "leader_id",  null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "groups", ["code"], name: "index_groups_on_code", unique: true
+  add_index "groups", ["leader_id"], name: "index_groups_on_leader_id"
+
   create_table "orders", force: true do |t|
     t.integer  "user_id",           null: false
     t.string   "batch",             null: false
     t.string   "organization_code", null: false
-    t.string   "group",             null: false
+    t.string   "group_code",        null: false
     t.integer  "book_id",           null: false
     t.integer  "course_id",         null: false
     t.integer  "price"
@@ -109,7 +119,7 @@ ActiveRecord::Schema.define(version: 20150218032638) do
   add_index "orders", ["book_id"], name: "index_orders_on_book_id"
   add_index "orders", ["course_id"], name: "index_orders_on_course_id"
   add_index "orders", ["deleted_at"], name: "index_orders_on_deleted_at"
-  add_index "orders", ["group"], name: "index_orders_on_group"
+  add_index "orders", ["group_code"], name: "index_orders_on_group_code"
   add_index "orders", ["organization_code"], name: "index_orders_on_organization_code"
   add_index "orders", ["state"], name: "index_orders_on_state"
   add_index "orders", ["user_id"], name: "index_orders_on_user_id"
@@ -179,6 +189,7 @@ ActiveRecord::Schema.define(version: 20150218032638) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "cart_items_count",    default: 0
+    t.integer  "credits",             default: 0,  null: false
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

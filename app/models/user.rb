@@ -6,6 +6,8 @@ class User < ActiveRecord::Base
   has_many :cart_items, class_name: :UserCartItem
   has_many :orders
   has_many :bills
+  has_many :lead_groups, class_name: Group, foreign_key: :leader_id
+  # has_many :groups, through: :orders
 
   def self.from_core(auth)
     user = where(:sid => auth.info.id).first_or_create! do |new_user|
@@ -97,5 +99,24 @@ class User < ActiveRecord::Base
     reload
 
     { orders: orders, bill: bill }
+  end
+
+  def add_credit(amount)
+    self.credits += amount
+  end
+
+  def add_credit!(amount)
+    add_credit(amount)
+    save!
+  end
+
+  def use_credit(amount)
+    self.credits -= amount
+    raise 'not enough credits' if self.credits < 0
+  end
+
+  def use_credit!(amount)
+    use_credit(amount)
+    save!
   end
 end
