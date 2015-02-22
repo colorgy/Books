@@ -119,4 +119,17 @@ class User < ActiveRecord::Base
     use_credit(amount)
     save!
   end
+
+  def lead_course_group(course_id, book_id)
+    course = Course.find(course_id)
+    book = Book.find(book_id)
+    group = nil
+
+    ActiveRecord::Base.transaction do
+      group = Group.create!(leader_id: id, code: Group.generate_code(course.organization_code, course.id, book.id), course: course, book: book)
+      add_credit!(35)
+    end
+
+    group
+  end
 end

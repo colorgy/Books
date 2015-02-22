@@ -29,6 +29,8 @@ Rails.application.routes.draw do
 
   resources :courses
 
+  resources :groups
+
   get '/tasks/payment_code_check' => 'tasks#payment_code_check'
 
   # The priority is based upon order of creation: first created -> highest priority.

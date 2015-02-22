@@ -4,6 +4,7 @@ class CartItemsController < ApplicationController
   def index
     current_user.check_cart!
     @cart_items = current_user.cart_items.includes(:book, :course)
+    @orders = current_user.checkout[:orders] if Settings.open_for_orders
 
     respond_to do |format|
       format.html

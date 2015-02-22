@@ -31,9 +31,12 @@
               <div class="headphoto-tooltip">
                 <h4>目前沒有主揪</h4>
                 <a href="<%= flow_mainchew_path %>" target="_blank">什麼是主揪？</a>
+                <span> </span>
+                <a href="<%= new_group_path(course: item.course_id, book: item.book_id) %>" target="_blank">我是主揪！</a>
               </div>
               <% # TODO: if item.state == 'new' or 'payment_pending' %>
               <% else %>
+              <%= image_tag item.group_leader_avatar_url %>
               <% end %>
             </div>
           </td>

@@ -154,4 +154,21 @@ RSpec.describe User, :type => :model do
       expect { user.use_credit(1000) }.to raise_error
     end
   end
+
+  describe "#lead_course_group" do
+    let(:user) { create(:user, :with_items_in_cart, cart_items_count: 4) }
+    let(:course) { user.cart_items.first.course }
+    let(:book) { user.cart_items.first.book }
+
+    it "start to lead a group and earn credits" do
+      expect(user.credits).to eq(0)
+      user.lead_course_group(course.id, book.id)
+      expect(user.credits).to eq(35)
+      expect(Group.last.leader).to eq(user)
+
+      user2 = create(:user)
+      expect { user2.lead_course_group(course.id, book.id) }.to raise_error
+      expect { user2.lead_course_group(1234, book.id) }.to raise_error
+    end
+  end
 end

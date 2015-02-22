@@ -15,7 +15,7 @@ class Order < ActiveRecord::Base
   delegate :organization_code, :department_code, :lecturer_name,
            :year, :term, :name, :code, :url, :required, :book_isbn,
            to: :course, prefix: true, allow_nil: true
-  delegate :leader, :leader_name, :leader_avatar,
+  delegate :leader, :leader_name, :leader_avatar_url,
            to: :group, prefix: true, allow_nil: true
 
   validates :user, presence: true
@@ -51,9 +51,13 @@ class Order < ActiveRecord::Base
     end
   end
 
+  def self.current_batch
+    "#{Course.current_year}-#{Course.current_term}-#{Settings.order_batch}"
+  end
+
   def set_batch
     return unless self.batch.blank?
-    self.batch = "#{Course.current_year}-#{Course.current_term}-#{Settings.order_batch}"
+    self.batch = Order.current_batch
   end
 
   def set_organization_code
@@ -61,7 +65,7 @@ class Order < ActiveRecord::Base
   end
 
   def set_group_code
-    self.group_code = "#{batch}-#{organization_code}-#{course.id}-#{book.id}"
+    self.group_code = Group.generate_code(organization_code, course.id, book.id)
   end
 
   def set_price

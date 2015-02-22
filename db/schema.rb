@@ -92,6 +92,8 @@ ActiveRecord::Schema.define(version: 20150222072234) do
   create_table "groups", force: true do |t|
     t.string   "code",       null: false
     t.integer  "leader_id",  null: false
+    t.integer  "course_id",  null: false
+    t.integer  "book_id",    null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
