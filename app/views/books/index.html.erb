@@ -116,7 +116,7 @@
 <script>
   $('#books-org-code-select').select2()
   .on('change', function(e) {
-    window.location.href = URI(window.location.href).removeSearch('org').addSearch('org', e.val).toString();
+    window.location.href = URI(window.location.href).removeSearch('dep').removeSearch('org').addSearch('org', e.val).toString();
   });
 
   $('#books-dep-code-select').select2()
