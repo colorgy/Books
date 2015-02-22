@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150222072234) do
+ActiveRecord::Schema.define(version: 20150222105138) do
 
   create_table "bills", force: true do |t|
     t.string   "uuid",         null: false
@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(version: 20150222072234) do
     t.datetime "updated_at"
     t.string   "payment_code"
     t.datetime "paid_at"
+    t.integer  "used_credits"
   end
 
   add_index "bills", ["deleted_at"], name: "index_bills_on_deleted_at"

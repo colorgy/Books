@@ -24,6 +24,7 @@ class BillsController < ApplicationController
       @orders.each do |order|
         order.save_with_bill!(@bill)
       end
+      current_user.use_credit!(@bill.used_credits) if @bill.used_credits.present?
       current_user.clear_cart!
     end
 

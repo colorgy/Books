@@ -118,6 +118,21 @@ RSpec.describe User, :type => :model do
           expect(order.price).to eq(user.cart_items[i].book.price)
         end
       end
+
+      context "user have credits" do
+        before do
+          user.add_credit!(3)
+          book = user.cart_items.first.book
+          book.price = 1000
+          book.save!
+        end
+
+        it "uses the credits automatically" do
+          bill = checkout_data[:bill]
+          expect(bill.used_credits).to eq(3)
+          expect(bill.amount).to eq(bill.price - 3)
+        end
+      end
     end
   end
 

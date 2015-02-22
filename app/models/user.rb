@@ -96,6 +96,12 @@ class User < ActiveRecord::Base
 
     bill = self.bills.build(bill_attrs)
 
+    if credits > 0 && bill.amount > 100
+      use_credits = (credits < (bill.amount - 100)) ? credits : (bill.amount - 100)
+      bill.amount -= use_credits
+      bill.used_credits = use_credits
+    end
+
     reload
 
     { orders: orders, bill: bill }
