@@ -4,4 +4,8 @@
   br
   br
   h2(style="text-align: center;")
-    = link_to '講師／教授管理課程用書資料', lecturer_index_path
+    | 1.
+    =< link_to "書庫瀏覽", books_path(dep: ((current_user && current_org_code == current_user.organization_code && current_user.department_code)) || '')
+  h2(style="text-align: center;")
+    | 2.
+    =< link_to '講師／教授管理課程用書資料', lecturer_index_path

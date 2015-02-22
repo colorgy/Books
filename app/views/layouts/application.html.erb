@@ -70,6 +70,11 @@
       a:hover {
         text-decoration: none;
       }
+
+      .navbar-org-code-select {
+        padding-right: 80px;
+        padding-top: 8px;
+      }
     </style>
   </head>
 
@@ -123,23 +128,13 @@
           <li>
             <%= link_to("常見問題", faq_path) %>
           </li>
-          <li>
-          <%= select_tag "org-code-select", options_for_select(Organization.all_for_select, current_org_code) %>
-          </li>
         </ul>
       <% if !current_user.blank? %>
-        <!-- 桌機版nav bar購物車開始 -->
-        <div class="checkout desktop-checkout">
-          <% if current_user.cart_items.present? %>
-          <div class="checkout__button__number">
-              <%= current_user.cart_items.count %>
-            </ul>
             <!-- 桌機版nav bar購物車開始 -->
             <div class="checkout desktop-checkout">
               <div class="checkout__button__number">
                   <%= current_user.cart_items.count %>
               </div>
-              <% end %>
               <a class="checkout__button" href="#"><!-- Fallback location -->
                 <span class="checkout__text">
 
@@ -212,6 +207,12 @@
                     </div>
                   </div><!-- /.profile -->
               <% end %>
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right navbar-org-code-select">
+              <li>
+              <%= select_tag "org-code-select", options_for_select(Organization.all_for_select, current_org_code) %>
+              </li>
             </ul>
           </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->

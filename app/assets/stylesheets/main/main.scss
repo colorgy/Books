@@ -147,7 +147,7 @@ border-bottom: 3px solid rgb(0, 162, 154);
 	opacity: 0.7;
 	text-decoration: none !important;
 }
-
+/*
 @media screen and (min-width: 925px) and (max-width: 1100px){
 	.nav > li {
 		margin-right: 10px !important;
@@ -161,8 +161,12 @@ border-bottom: 3px solid rgb(0, 162, 154);
 	}
 
 }
+*/
 
-
+.nav > li {
+	margin-right: 0 !important;
+	margin-left: 0 !important;
+}
 
 /*首頁checkout-button(navigation bar上面的)*/
 .checkout__button{
