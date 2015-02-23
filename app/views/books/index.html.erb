@@ -22,12 +22,21 @@
     width: 100%;
     margin-top: 28px;
   }
+  #my-slideshow{
+    max-width: 100% !important;
+  }
 </style>
 
 
     <!---SlideShow首頁header大圖-->
     <section class="slideshow">
-    <div></div>
+      <div id="my-slideshow">
+        <ul class="bjqs">
+          <li><%= image_tag 'slider-ntust.jpg' %></li>
+          <li><%= image_tag 'slider-tunghua.jpg' %></li>
+          <li><%= image_tag 'slider-ntu.jpg' %></li>
+        </ul>
+      </div>
     </section><!--首頁header大圖end-->
     <!--filter 篩選區塊-->
     <section class="selection-section">
@@ -132,5 +141,12 @@
   $('#books-search').submit(function() {
     window.location.href = URI(window.location.href).removeSearch('q').addSearch('q', $('#search').val()).toString();
     return false;
+  });
+  $(document).ready(function($) {
+    $('#my-slideshow').bjqs({
+      'height' : 600,
+      'width' : 1280,
+      'responsive' : true
+    });
   });
 </script>

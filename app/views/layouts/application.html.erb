@@ -91,12 +91,15 @@
   <body>
     <div class="push-menu">
         <div class="push-menu-container">
-          <h2  style="text-align:center; color:#fff;">Catagory</h2>
+          <h2  style="text-align:center; color:#fff;">Menu</h2>
           <ul class="push-menu-ul">
-            <li><a href="#">One</a></li>
-            <li><a href="#">Two</a></li>
-            <li><a href="#">Three</a></li>
-            <li><a href="#">Four</a></li>
+            <li><%= link_to("書庫瀏覽", books_path) %></li>
+            <li><%= link_to("購物車", cart_items_path) %></li>
+            <li><%= link_to("訂單查詢", bills_path) %></li>
+            <li><%= link_to("我揪的團", groups_path) %></li>
+            <li><%= link_to("使用流程", flow_path) %></li>
+            <li><%= link_to("常見問題", faq_path) %></li>
+            <li><a href="http://join.clg.io/">關於我們</a></li>
           </ul>
         </div>
     </div>
@@ -138,6 +141,7 @@
           <li>
             <%= link_to("常見問題", faq_path) %>
           </li>
+          <li><a href="http://join.clg.io/">關於我們</a></li>
         </ul>
       <% if !current_user.blank? %>
             <!-- 桌機版nav bar購物車開始 -->
@@ -186,7 +190,7 @@
                     <% else %>
                       <p class="cart-blank-text">您的購物書包目前是空的</p>
                       <div style="text-align:center; width:100%;">
-                        <img style="width:150px; margin:50px;" src="/assets/bookbag-white.png">
+                        <%= image_tag 'bookbag-white.png', style: 'width:150px; margin:50px;' %>
                       </div>
                     <% end %>
                     <button class="checkout__close checkout__cancel close-button"><i class="icon fa fa-fw fa-close"></i></button>
@@ -283,7 +287,7 @@
                 <% else %>
                 <p class="cart-blank-text">您的購物書包目前是空的</p>
                 <div style="text-align:center; width:100%;">
-                  <img style="width:150px; margin:50px;" src="/assets/bookbag-white.png">
+                  <%= image_tag 'bookbag-white.png', style: 'width:150px; margin:50px;' %>
                 </div>
                 <% end %>
                 <button class="checkout__close checkout__cancel close-button"><i class="icon fa fa-fw fa-close"></i></button>
@@ -344,9 +348,10 @@
     <%= javascript_include_tag "velocity_min.js" %>
     <%= javascript_include_tag "main.js" %>
     <%= javascript_include_tag "jquery_textfill_min.js" %>
+    <%= javascript_include_tag "bjqs.js" %>
     <script type="text/javascript">
       $(document).ready(function() {
-          $('.book-name ').textfill({ maxFontPixels: 18 });
+          $('.book-name ').textfill({ maxFontPixels: 15 });
           $('.book-name ').textfill({ minFontPixels: 15 });
           $('.book-author').textfill({ maxFontPixels: 13 })
       });

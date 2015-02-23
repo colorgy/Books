@@ -100,8 +100,8 @@
 
 .checkout__close {
 	position: absolute;
-	top: 1.5em;
-	right: 1.5em;
+	top: 16px;
+	right: 16px;
 	overflow: hidden;
 	width: 20px;
 	height: 20px;

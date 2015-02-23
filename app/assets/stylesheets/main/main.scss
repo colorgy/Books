@@ -28,7 +28,6 @@ body {
 	margin:0px !important;
 	position: static;
 	background-color: #DDD;
-	padding-bottom: 100px;
 	background-color: #fff;
 }
 
@@ -64,6 +63,10 @@ img {
     width: auto;
     height: auto;
     max-height: 100%;
+}
+
+*:focus{
+	outline: none !important;
 }
 
 .product-box-image > a > img {
@@ -167,6 +170,45 @@ border-bottom: 3px solid rgb(0, 162, 154);
 	margin-right: 0 !important;
 	margin-left: 0 !important;
 }
+
+@media screen and (max-width: 1245px) {
+    .navbar-header {
+        float: none;
+    }
+    .navbar-toggle {
+        display: block !important;
+    }
+    .navbar-collapse {
+        border-top: 1px solid transparent;
+        box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
+    }
+    .navbar-collapse.collapse {
+        display: none !important;
+    }
+    .navbar-nav {
+        float: none !important;
+        margin: 7.5px -15px;
+    }
+    .navbar-nav>li {
+        float: none;
+    }
+    .navbar-nav>li>a {
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+    .navbar-text {
+        float: none;
+        margin: 15px 0;
+    }
+    /* since 3.1.0 */
+    .navbar-collapse.collapse.in {
+        display: block !important;
+    }
+    .collapsing {
+        overflow: hidden !important;
+    }
+}
+
 
 /*首頁checkout-button(navigation bar上面的)*/
 .checkout__button{
@@ -592,12 +634,8 @@ a.cd-trigger:hover{
 
 .slideshow{
 	margin-top: 10px;
-	height: 600px;
-	background-image: image_url("ntust.jpg");
 	width: 100%;
-	background-size: cover;
-	background-position: center;
-	background-attachment: fixed;
+	margin-bottom: 50px;
 }
 
 
@@ -1400,4 +1438,47 @@ footer > p{
 	margin: 15px;
 	padding-left: 45px;
 	display: none;
+}
+.select2-drop-active{
+	border: none;
+}
+.select2-container-active .select2-choice, .select2-container-active .select2-choices{
+	border: none;
+}
+.faqs-answer > p {
+	font-size: 15px;
+}
+.home-select-box{
+	background-color: rgb(51, 199, 171);
+	height: 400px;
+	padding: 20px;
+	border-radius: 15px;
+	margin-bottom: 20px;
+	transition: all , .5s;
+}
+.home-select-box:hover{
+	opacity: 0.8;
+}
+.home-select-box > h2{
+	margin-bottom: 40px;
+}
+.home-select-box > h2{
+	color: #fff;
+}
+.bjqs-next > a {
+	background-image: image_url('slider-next.png');
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+	height: 30px;
+	width: 30px;
+}
+.bjqs-prev > a{
+	background-image: image_url('slider-prev.png');
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+	height: 30px;
+	width: 30px;
+
 }
