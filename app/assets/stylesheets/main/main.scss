@@ -394,7 +394,7 @@ padding-bottom: 5px;
 .cart-right-section{
 		padding-left: 20px;
 		padding-right: 20px;
-		padding-top: 30px;
+		padding-top: 80px;
 		background-color: #F5F5F5;
 		overflow-y: scroll;
 		padding-bottom: 50px;
@@ -406,7 +406,7 @@ padding-bottom: 5px;
 		position: fixed;
 		top: 0px;
 		right: 0px;
-		padding-top: 20px !important;
+		/*padding-top: 20px !important;*/
 
 	}
 
@@ -428,9 +428,10 @@ padding-bottom: 5px;
 }
 .product-box-image{
 	width: 100%;
-	background-color: rgb(195,195,195)
+	background-color: rgb(195,195,195);
+	height: 360px;
 }
-.product-box:hover .product-box-image > a > img{
+.product-box:hover .product-box-image > a > img {
 	transform: scale(1.1);
 }
 

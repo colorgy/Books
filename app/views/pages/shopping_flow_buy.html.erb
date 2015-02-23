@@ -1,106 +1,106 @@
 <div class="container-fluid" style="margin-top:100px;">
-	<div class="row step-menu-row" style="max-width:1200px; margin-left:auto; margin-right:auto">
-		<div style="width:30%; float:left;">
-			<a href="<%= flow_mainchew_path %>">
-				<div class="step-menu">
-					<%= image_tag "step-menu-gray-people.png" %>
-					<h4 class="step-menu-h4">主揪說明</h4>
-				</div>
-			</a>
-		</div>
-		<div style="width:40%; float:left;">
-			<div class="step-menu step-menu-active">
-				<%= image_tag "step-menu-green-bag.png" %>
-				<h4 class="step-menu-h4 step-menu-h4-active">購物流程</h4>
-			</div>
-		</div>
-		<div style="width:30%; float:left;">
-			<a href="<%= flow_deliver_path %>">
-				<div class="step-menu">
-					<%= image_tag "step-menu-gray-truck.png" %>
-					<h4 class="step-menu-h4">配送方式</h4>
-				</div>
-			</a>
-		</div>
+  <div class="row step-menu-row" style="max-width:1200px; margin-left:auto; margin-right:auto">
+    <div style="width:30%; float:left;">
+      <a href="<%= flow_mainchew_path %>">
+        <div class="step-menu">
+          <%= image_tag "step-menu-gray-people.png" %>
+          <h4 class="step-menu-h4">主揪說明</h4>
+        </div>
+      </a>
+    </div>
+    <div style="width:40%; float:left;">
+      <div class="step-menu step-menu-active">
+        <%= image_tag "step-menu-green-bag.png" %>
+        <h4 class="step-menu-h4 step-menu-h4-active">購物流程</h4>
+      </div>
+    </div>
+    <div style="width:30%; float:left;">
+      <a href="<%= flow_deliver_path %>">
+        <div class="step-menu">
+          <%= image_tag "step-menu-gray-truck.png" %>
+          <h4 class="step-menu-h4">配送方式</h4>
+        </div>
+      </a>
+    </div>
 
-	</div>
-	<div class="shopping-flow" style="margin: 40px 0px 40px 0px;">
-		<div class="white-pointer">
-			<h4>1.查找書籍</h4>
-		</div>
-		<div class="white-pointer">
-			<h4>2.加入購物書包</h4>
-		</div>
-		<div class="white-pointer">
-			<h4>3.前往結帳</h4>
-		</div>
-		<div class="white-pointer">
-			<h4>4.完成訂購</h4>
-		</div>
-	</div>
+  </div>
+  <div class="shopping-flow" style="margin: 40px 0px 40px 0px;">
+    <div class="white-pointer">
+      <h4>1.查找書籍</h4>
+    </div>
+    <div class="white-pointer">
+      <h4>2.加入購物書包</h4>
+    </div>
+    <div class="white-pointer">
+      <h4>3.前往結帳</h4>
+    </div>
+    <div class="white-pointer">
+      <h4>4.完成訂購</h4>
+    </div>
+  </div>
 </div>
 
 <div class="container">
-	<div class="row" style="margin-top:50px;">
-		<h3 class="step-title">1.查找書籍</h3>
-		<br><br><h4>選擇校別與系別，或是直接輸入關鍵字搜尋，即會的到搜尋結果。</h4>
-		<div>
-			<div class="row" style="margin: 50px auto; max-width: 800px;">
-				<div class="col-md-4">
-					<img style="height:37px;" src="/assets/step-search.png">
-				</div>
-				<div class="col-md-4">
-					<img style="height:37px;" src="/assets/step-search2.png">
-				</div>
+  <div class="row" style="margin-top:50px;">
+    <h3 class="step-title">1.查找書籍</h3>
+    <br><br><h4>選擇校別與系別，或是直接輸入關鍵字搜尋，即會的到搜尋結果。</h4>
+    <div>
+      <div class="row" style="margin: 50px auto; max-width: 800px;">
+        <div class="col-md-4">
+          <%= image_tag "step-search.png", style: "height:37px;" %>
+        </div>
+        <div class="col-md-4">
+          <%= image_tag "step-search2.png", style: "height:37px;" %>
+        </div>
 
-				<div class="col-md-4" style="height:42px;">
-					<img style="height:37px;" src="/assets/step-search3.png">
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="row" style="max-width: 600px; margin-left:auto; margin-right:auto; margin-top:50px;">
+        <div class="col-md-4" style="height:42px;">
+          <%= image_tag "step-search3.png", style: "height:37px;" %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row" style="max-width: 600px; margin-left:auto; margin-right:auto; margin-top:50px;">
 
-		<h3 class="step-title">2.加入購物書包</h3>
-		<br><br><h4>找到你要的書後，點選你要訂購的數量，以及你所要跟
-		的團（上課的課程及教授為命名的團），再將其加入購物書包。</h4><br>
-		<div class="col-md-6" style="padding: 40px 0 40px 0;">
-			<%= image_tag "step-search4.png" %>
-		</div>
-		<div class="col-md-6" style="padding: 40px 0 40px 0;">
-			<div class="row">
-				<div class="col-md-12" style="margin-top:20px;">
-					<%= image_tag "step-search5.png" %>
-				</div>
-				<div class="col-md-12" style="margin-top:20px;">
-					<%= image_tag "step-search6.png" %>
-				</div>
-				<div class="col-md-12" style="margin-top:20px;">
-					<%= image_tag "step-search7.png" %>
-				</div>
-			</div>
-		</div>
+    <h3 class="step-title">2.加入購物書包</h3>
+    <br><br><h4>找到你要的書後，點選你要訂購的數量，以及你所要跟
+    的團（上課的課程及教授為命名的團），再將其加入購物書包。</h4><br>
+    <div class="col-md-6" style="padding: 40px 0 40px 0;">
+      <%= image_tag "step-search4.png" %>
+    </div>
+    <div class="col-md-6" style="padding: 40px 0 40px 0;">
+      <div class="row">
+        <div class="col-md-12" style="margin-top:20px;">
+          <%= image_tag "step-search5.png" %>
+        </div>
+        <div class="col-md-12" style="margin-top:20px;">
+          <%= image_tag "step-search6.png" %>
+        </div>
+        <div class="col-md-12" style="margin-top:20px;">
+          <%= image_tag "step-search7.png" %>
+        </div>
+      </div>
+    </div>
 
 
-	</div>
-	<div class="row" style="margin-top:50px;">
-		<h3 class="step-title">3.前往結帳</h3>
-		<div class="col-md-12">
-			<br><br><h4>點選購物書包前往結帳。</h4><br>
-			<%= image_tag "step-search8.png" %>
-		</div>
-		<div class="col-md-12">
-			<br><br><h4>選擇付款方式以及發票種類。</h4><br><br>
-			<%= image_tag "step-search9.png" %>
-		</div>
+  </div>
+  <div class="row" style="margin-top:50px;">
+    <h3 class="step-title">3.前往結帳</h3>
+    <div class="col-md-12">
+      <br><br><h4>點選購物書包前往結帳。</h4><br>
+      <%= image_tag "step-search8.png" %>
+    </div>
+    <div class="col-md-12">
+      <br><br><h4>選擇付款方式以及發票種類。</h4><br><br>
+      <%= image_tag "step-search9.png" %>
+    </div>
 
-	</div>
-	<div class="row" style="margin-top:50px;">
-		<h3 class="step-title">4.完成訂購</h3>
-		<div class="col-md-12" style="padding-top: 50px; padding-bottom:50px;">
-			<h4>將訂單送出後我們就已經收到訂購資訊，可以至訂單查詢檢閱詳細資料。</h4><br><br>
-			<%= image_tag "step-search10.png" %>
-		</div>
+  </div>
+  <div class="row" style="margin-top:50px;">
+    <h3 class="step-title">4.完成訂購</h3>
+    <div class="col-md-12" style="padding-top: 50px; padding-bottom:50px;">
+      <h4>將訂單送出後我們就已經收到訂購資訊，可以至訂單查詢檢閱詳細資料。</h4><br><br>
+      <%= image_tag "step-search10.png" %>
+    </div>
 
-	</div>
+  </div>
 </div>

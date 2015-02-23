@@ -21,14 +21,14 @@
 @import "components/*";
 @import "pages/*";
 @import "main/main";
-@import "search-box/component.css";
-@import "dropdown-select/cs-select.css";
-@import "dropdown-select/cs-skin-elastic.css";
-@import "cart/demo.css";
-@import "cart/checkout-boxes.css";
-@import "cart/checkout-cornerflat.css";
-@import "component-table.css";
-@import "default.css";
+@import "search-box/component";
+@import "dropdown-select/cs-select";
+@import "dropdown-select/cs-skin-elastic";
+@import "cart/demo";
+@import "cart/checkout-boxes";
+@import "cart/checkout-cornerflat";
+@import "component-table";
+// @import "default";
 
 
 .pro-update-books{

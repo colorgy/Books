@@ -296,9 +296,9 @@
     <%= javascript_tag do %>
       UserVoice.push(['addTrigger', '#uservoice-footer-contact-trigger', { mode: 'contact' }]);
     <% end %>
-    <script src="/assets/colorgy_front.js"></script>
-    <script src="/assets/classie.js"></script>
-    <script src="/assets/selectFx.js"></script>
+    <%= javascript_include_tag "colorgy_front.js" %>
+    <%= javascript_include_tag "classie.js" %>
+    <%= javascript_include_tag "selectFx.js" %>
     <script>
       (function() {
         [].slice.call( document.querySelectorAll( 'select.cs-select' ) ).forEach( function(el) {
@@ -331,9 +331,9 @@
           });
         })();
     </script>
-    <script src="/assets/velocity_min.js"></script>
-    <script src="/assets/main.js"></script>
-    <script src="/assets/jquery_textfill_min.js"></script>
+    <%= javascript_include_tag "velocity_min.js" %>
+    <%= javascript_include_tag "main.js" %>
+    <%= javascript_include_tag "jquery_textfill_min.js" %>
     <script type="text/javascript">
       $(document).ready(function() {
           $('.book-name ').textfill({ maxFontPixels: 18 });
