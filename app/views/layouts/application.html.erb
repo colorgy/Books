@@ -81,7 +81,7 @@
   <body>
     <div class="push-menu">
         <div class="push-menu-container">
-          <h2  style="text-align:center; color:#fff;">Catagory</h2>
+          <h2  style="text-align:center; color:#fff;">Menu</h2>
           <ul class="push-menu-ul">
             <li><%= link_to("書庫瀏覽", books_path) %></li>
             <li><%= link_to("購物車", cart_items_path) %></li>
@@ -89,6 +89,7 @@
             <li><%= link_to("我揪的團", groups_path) %></li>
             <li><%= link_to("使用流程", flow_path) %></li>
             <li><%= link_to("常見問題", faq_path) %></li>
+            <li><a href="http://join.clg.io/">關於我們</a></li>
           </ul>
         </div>
     </div>
@@ -130,6 +131,7 @@
           <li>
             <%= link_to("常見問題", faq_path) %>
           </li>
+          <li><a href="http://join.clg.io/">關於我們</a></li>
         </ul>
       <% if !current_user.blank? %>
             <!-- 桌機版nav bar購物車開始 -->
@@ -336,6 +338,7 @@
     <%= javascript_include_tag "velocity_min.js" %>
     <%= javascript_include_tag "main.js" %>
     <%= javascript_include_tag "jquery_textfill_min.js" %>
+    <%= javascript_include_tag "bjqs.js" %>
     <script type="text/javascript">
       $(document).ready(function() {
           $('.book-name ').textfill({ maxFontPixels: 15 });

@@ -634,12 +634,8 @@ a.cd-trigger:hover{
 
 .slideshow{
 	margin-top: 10px;
-	height: 600px;
-	background-image: image_url("ntust.jpg");
 	width: 100%;
-	background-size: cover;
-	background-position: center;
-	background-attachment: fixed;
+	margin-bottom: 50px;
 }
 
 
@@ -1455,16 +1451,37 @@ footer > p{
 .faqs-answer > p {
 	font-size: 15px;
 }
-.select-box{
+.home-select-box{
 	background-color: rgb(51, 199, 171);
 	height: 400px;
 	padding: 20px;
 	border-radius: 15px;
 	margin-bottom: 20px;
+	transition: all , .5s;
 }
-.select-box > h2{
+.home-select-box:hover{
+	opacity: 0.8;
+}
+.home-select-box > h2{
 	margin-bottom: 40px;
 }
-.select-box > h2 > a{
+.home-select-box > h2{
 	color: #fff;
+}
+.bjqs-next > a {
+	background-image: image_url('slider-next.png');
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+	height: 30px;
+	width: 30px;
+}
+.bjqs-prev > a{
+	background-image: image_url('slider-prev.png');
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+	height: 30px;
+	width: 30px;
+
 }
