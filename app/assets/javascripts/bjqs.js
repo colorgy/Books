@@ -28,8 +28,8 @@
 
             // transition valuess
             animtype        : 'fade',
-            animduration    : 450,      // length of transition
-            animspeed       : 5000,     // delay between transitions
+            animduration    : 600,      // length of transition
+            animspeed       : 6000,     // delay between transitions
             automatic       : true,     // enable/disable automatic slide rotation
 
             // control and marker configuration
@@ -37,8 +37,8 @@
             centercontrols  : true,     // vertically center controls
             nexttext        : ' ',   // text/html inside next UI element
             prevtext        : ' ',   // text/html inside previous UI element
-            showmarkers     : true,     // enable/disable individual slide UI markers
-            centermarkers   : true,     // horizontally center markers
+            showmarkers     : false,     // enable/disable individual slide UI markers
+            centermarkers   : false,     // horizontally center markers
 
             // interaction values
             keyboardnav     : true,     // enable/disable keyboard navigation
