@@ -111,7 +111,7 @@
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
           <li>
-            <%= link_to("書庫瀏覽", books_path(dep: ((current_user && current_org_code == current_user.organization_code && current_user.department_code)) || '')) %>
+            <%= link_to("書庫瀏覽", books_path) %>
           </li>
           <li>
             <%= link_to("購物車", cart_items_path) %>
