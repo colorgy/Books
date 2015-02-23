@@ -59,6 +59,7 @@ class Bill < ActiveRecord::Base
   end
 
   def get_payment_info
+    raise 'bill type not allowed' unless Bill.allowed_types.include?(type)
     return if @@test
     case type
     when 'payment_code'

@@ -57,7 +57,7 @@
 
         </section>
         <section class="col-md-3 cart-right-section">
-        <%= form_tag bills_path do %>
+        <%= form_tag bills_path, id: 'checkout-form' do %>
           <h3 class="total-title">總金額</h3>
               <h3 class="total-number">NT$ <%= current_user.cart_total_price %></h3>
           <div class="checkout-form">
@@ -151,5 +151,11 @@
   });
   $('#invoice-type-section input').change();
 
-  //TODO: 送出時檢查表單
+  $('#checkout-form').on('submit', function(e) {
+    if (!$("input[name='bill[type]']:checked").val()) {
+      alert('請選擇付款方式！');
+      return false;
+    }
+    //TODO: check invoice-type
+  });
 </script>
