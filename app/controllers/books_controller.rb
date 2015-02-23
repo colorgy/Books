@@ -4,12 +4,19 @@ class BooksController < ApplicationController
   def index
     @org_code = current_org_code
     @dep_code = params[:dep]
-    @org = Organization.find(@org_code)
-    @dep = @org.departments
-    @dep.reject! { |dep| dep.code != @dep_code } if @dep_code.present?
+    if @dep_code.present?
+      @org = Organization.find(@org_code)
+      @dep = @org.departments
+      @dep_codes = @dep_code.split(',')
+      @all_dep_codes = @dep.map(&:code)
+      @dep_codes &= @all_dep_codes
+    end
 
-    @dep_codes = @dep.map(&:code)
-    @courses = Course.current.where(organization_code: @org_code, department_code: @dep_codes)
+    if @dep_codes.present?
+      @courses = Course.current.where(organization_code: @org_code, department_code: @dep_codes)
+    else
+      @courses = Course.current.where(organization_code: @org_code)
+    end
 
     if params[:q].blank?
       @book_isbns = @courses.map(&:book_isbn)
