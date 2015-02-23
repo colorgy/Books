@@ -54,6 +54,9 @@
           <%= form_tag bills_path do %>
             <h3 class="total-title">付款總金額</h3>
             <h3 class="total-number">NT$ <%= @bill.amount %></h3>
+            <% if @bill.used_credits.present? %>
+              <p>已使用折扣金：NT$ <%= @bill.used_credits %>。</p>
+            <% end %>
 
             <h3 class="payment-title">付款方式</h3>
             <br>
