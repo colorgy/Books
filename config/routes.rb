@@ -12,6 +12,12 @@ Rails.application.routes.draw do
   get '/flow/buy' => 'pages#shopping_flow_buy'
   get '/flow/deliver' => 'pages#shopping_flow_deliver'
   get '/flow/mainchew' => 'pages#shopping_flow_mainchew'
+  get '/paymethod' => 'pages#paymethod'
+  get '/paymethod/711' => 'pages#paymethod_711'
+  get '/paymethod/famiport' => 'pages#paymethod_famiport'
+  get '/paymethod/life' => 'pages#paymethod_life'
+  get '/paymethod/ok' => 'pages#paymethod_ok'
+
 
   resources :lecturer do
     resources :courses, controller: :lecturer_courses

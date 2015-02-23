@@ -1,0 +1,28 @@
+<div class="container" style="margin-top: 50px;">
+	<div class="row">
+		<div class="col-md-12">
+			<h2>7-11 ibon</h2>
+			<div id="my-slideshow">
+        <ul class="bjqs">
+          <li><%= image_tag 'pay_method_1.jpg',title:"STEP 1.首頁選取「繳費」" %></li>
+          <li><%= image_tag 'pay_method_2.jpg',title:"STEP 2.選取「會員繳費」" %></li>
+          <li><%= image_tag 'pay_method_3.jpg',title:"STEP 3.選取「ezPay」" %></li>
+          <li><%= image_tag 'pay_method_4.jpg',title:"STEP 4.選取「帳單查繳」" %></li>
+          <li><%= image_tag 'pay_method_5.jpg',title:"STEP 5.用戶須知頁面，選取「同意」" %></li>
+          <li><%= image_tag 'pay_method_6.jpg',title:"STEP 6.輸入繳費代碼" %></li>
+          <li><%= image_tag 'pay_method_7.jpg',title:"STEP 7.確認結帳資訊無誤後，選取「確認」。" %></li>
+          <li><%= image_tag 'pay_method_8.jpg',title:"STEP 8.繳費單列印完成後，即可至櫃台繳費" %></li>
+        </ul>
+      </div>
+		</div>
+	</div>
+</div>
+<script>
+  $(document).ready(function($) {
+    $('#my-slideshow').bjqs({
+      'height' : 576,
+      'width' : 999,
+      'responsive' : true
+    });
+  });
+</script>
