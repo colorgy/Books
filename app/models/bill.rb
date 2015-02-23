@@ -51,6 +51,7 @@ class Bill < ActiveRecord::Base
   end
 
   def calculate_amount
+    return unless self.amount.blank?
     if type == 'payment_code'
       self.amount = price + 35
     else
