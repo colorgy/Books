@@ -4,6 +4,8 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   before_action :verify_identity_token, :set_flash_message_from_params
+  before_action :set_org
+  helper_method :current_org_code
 
   private
 
@@ -79,5 +81,14 @@ class ApplicationController < ActionController::Base
 
   def core_domain
     @domain ||= URI.parse(ENV['CORE_URL']).host
+  end
+
+  def current_org_code
+    session[:current_org_code] || (current_user && current_user.organization_code) || 'NTUST'
+  end
+
+  def set_org
+    return unless params[:org]
+    session[:current_org_code] = params[:org]
   end
 end

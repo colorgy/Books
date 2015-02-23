@@ -93,6 +93,34 @@ RSpec.describe Course, :type => :model do
     end
   end
 
+  describe ".current" do
+    before do
+      create_list(:course, 20)
+    end
+
+    it "scopes the current courses" do
+      Course.current.each do |course|
+        expect(course.year).to eq(Course.current_year)
+        expect(course.term).to eq(Course.current_term)
+      end
+    end
+  end
+
+  describe ".current?" do
+    before do
+      create_list(:course, 20)
+    end
+
+    it "returns true if the course is current" do
+      Course.current.each do |course|
+        expect(course).to be_current
+      end
+      Course.not_current.each do |course|
+        expect(course).not_to be_current
+      end
+    end
+  end
+
   describe "#book_name" do
     subject(:course) { create(:course, :with_book) }
 

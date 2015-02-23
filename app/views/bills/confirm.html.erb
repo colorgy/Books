@@ -1,0 +1,83 @@
+<style type="text/css">
+  .panel-body{
+    padding: 0px !important;
+  }
+  .sticky-wrap{
+    margin: 0 0 !important;
+  }
+  .select-box{
+    margin: 0px;
+    font-size: 5px;
+  }
+
+  .cs-skin-elastic .cs-options span{
+    padding: 0.8em 1em 0.8em 1em;
+  }
+  section.col-md-9{
+    padding-left: 20px !important;
+    padding-top: 50px;
+  }
+  label{
+    width: 100%;
+  }
+  tr{
+    height: 80px;
+  }
+  input{
+    font-size: 16px;
+  }
+</style>
+<div class="wrapper" style="width:100%;">
+      <div class="row">
+        <section class="col-md-9">
+          <div class="shopping-flow">
+            <div class="col-md-4 gray-pointer">
+              <h3>購物書包</h3>
+            </div>
+            <div class="col-md-4 green-pointer">
+              <%= image_tag "gray-pointer.png" %>
+              <h3>確認訂單</h3>
+            </div>
+            <div class="col-md-4 gray-pointer">
+              <%= image_tag "green-pointer.png" %>
+              <h3>完成訂購</h3>
+            </div>
+
+          </div>
+          <div class="cart-table">
+            <%= render "partials/order_list" %>
+          </div>
+        </section>
+        <section class="col-md-3 cart-right-section">
+
+          <div class="checkout-form">
+          <%= form_tag bills_path do %>
+            <h3 class="total-title">付款總金額</h3>
+            <h3 class="total-number">NT$ <%= @bill.amount %></h3>
+            <% if @bill.used_credits.present? %>
+              <p>已使用折扣金：NT$ <%= @bill.used_credits %>。</p>
+            <% end %>
+
+            <h3 class="payment-title">付款方式</h3>
+            <br>
+            <h4 style="text-align: center;"><%= t(@bill.type, scope: :bill_types) %></h4>
+            <br>
+            <h3 class="payment-title">發票種類</h3>
+            <br>
+            <h4 style="text-align: center;"><%= t(@bill.invoice_type, scope: :invoice_types) %></h4>
+            <br>
+            <%= hidden_field_tag 'bill[type]', @bill.type %>
+            <%= hidden_field_tag 'bill[invoice_type]', @bill.invoice_type %>
+            <%= hidden_field_tag 'bill[invoice_uni_num]', @bill.invoice_uni_num %>
+            <%= hidden_field_tag 'bill[invoice_love_code]', @bill.invoice_love_code %>
+            <%= hidden_field_tag 'bill[invoice_code]', @bill.invoice_code %>
+            <%= hidden_field_tag 'bill[invoice_cert]', @bill.invoice_cert %>
+            <%= hidden_field_tag 'confirmed', 'true' %>
+            <%= submit_tag "都沒錯，繼續！", class:'checkout-buttom' %>
+          <% end %>
+
+          </div>
+
+        </section>
+    </div>
+</div>

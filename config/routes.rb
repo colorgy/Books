@@ -7,6 +7,11 @@ Rails.application.routes.draw do
   root 'pages#index'
 
   get '/index' => 'pages#index', as: :new_user_session
+  get '/faq' => 'pages#faq'
+  get '/flow' => 'pages#flow'
+  get '/flow/buy' => 'pages#shopping_flow_buy'
+  get '/flow/deliver' => 'pages#shopping_flow_deliver'
+  get '/flow/mainchew' => 'pages#shopping_flow_mainchew'
 
   resources :lecturer do
     resources :courses, controller: :lecturer_courses
@@ -15,6 +20,18 @@ Rails.application.routes.draw do
   resources :course_books
 
   resources :book_datas
+
+  resources :books
+
+  resources :cart_items
+
+  resources :bills
+
+  resources :courses
+
+  resources :groups
+
+  get '/tasks/payment_code_check' => 'tasks#payment_code_check'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

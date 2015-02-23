@@ -40,8 +40,16 @@ gem 'unicorn'
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
+gem 'activeresource', '~> 4.0.0'
+gem 'cached_resource'
+
 # Loads environment variables from `.env`
 gem 'dotenv-rails', :groups => [:development, :test]
+
+# Handle settings by rails-settings-cached
+gem 'rails-settings-cached', github: 'Neson/rails-settings-cached'
+
+gem 'aasm'
 
 gem 'factory_girl_rails', '~> 4.5.0'
 
@@ -57,6 +65,10 @@ gem 'isbn_validation', '~> 1.2.1'
 gem 'devise', '~> 3.4.0'
 gem 'omniauth', '~> 1.2.2'
 gem 'omniauth-oauth2'
+
+gem 'nokogiri'
+gem 'iconv'
+gem 'rest-client'
 
 gem 'simple_form', '~> 3.1.0'
 gem 'client_side_validations', github: 'DavyJonesLocker/client_side_validations'

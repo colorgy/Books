@@ -1,0 +1,166 @@
+<style type="text/css">
+  .panel-body{
+    padding: 0px !important;
+  }
+  .sticky-wrap{
+    margin: 0 0 !important;
+  }
+  .select-box{
+    margin: 0px;
+    font-size: 5px;
+  }
+  .cs-skin-elastic .cs-options span{
+    padding: 0.8em 1em 0.8em 1em;
+  }
+  section.col-md-9{
+    padding-left: 20px !important;
+  }
+  label{
+    width: 100%;
+  }
+  tr{
+    height: 80px;
+  }
+  input{
+    font-size: 16px;
+  }
+</style>
+<div class="wrapper" style="width:100%;">
+      <div class="row">
+        <% if !Settings.open_for_orders %>
+          <p style="padding-top: 40px; text-align: center;">
+            目前尚未開放訂購！
+          </p>
+        <% elsif current_user.cart_items.blank? %>
+          <p style="padding-top: 40px; text-align: center;">
+            購物書包還是空的噢！
+          </p>
+        <% else %>
+        <section class="col-md-9" style="padding-top:40px;">
+          <div class="shopping-flow">
+            <div class="green-pointer">
+              <h3>購物書包</h3>
+            </div>
+            <div class="gray-pointer">
+              <%= image_tag "green-pointer.png" %>
+              <h3>確認訂單</h3>
+            </div>
+            <div class="gray-pointer">
+              <%= image_tag "gray-pointer.png" %>
+              <h3>完成訂購</h3>
+            </div>
+
+          </div>
+          <div class="cart-table">
+            <% @orders.each do |order| %>
+              <% if order.group_leader.blank? %>
+                <p><%= "#{order.course_name} / #{order.course_lecturer_name}" %> 目前沒有主揪。要當主揪嗎？<a href="<%= new_group_path(course: order.course_id, book: order.book_id) %>" target="_blank">我是主揪！</a> <a href="<%= flow_mainchew_path %>" target="_blank">什麼是主揪？</a></p>
+              <% end %>
+            <% end %>
+            <%= render "partials/order_list" %>
+          </div>
+
+        </section>
+        <section class="col-md-3 cart-right-section">
+        <%= form_tag bills_path, id: 'checkout-form' do %>
+          <h3 class="total-title">總金額</h3>
+              <h3 class="total-number">NT$ <%= current_user.cart_total_price %></h3>
+          <div class="checkout-form">
+            <h3 class="payment-title">付款方式</h3>
+            <% Bill.allowed_types.each do |type| %>
+            <div class="payment-field">
+              <label>
+                <input type="radio" name="bill[type]" value="<%= type %>"><h4><%= t(type, scope: 'bill_type_descriptions') %></h4>
+              </label>
+            </div>
+            <% end %>
+            <div id="invoice-type-section">
+            <h3 class="payment-title">發票種類</h3>
+              <div class="payment-field">
+                <label>
+                  <input type="radio" name="reciept" value="digital" checked="checked"><h4>電子發票</h4>
+                </label>
+              </div>
+              <div class="payment-field">
+                <label>
+                  <input type="radio" name="reciept" value="" id="invoice-co-option"><h4>共同性載具</h4>
+                </label>
+              </div>
+              <div class="receipt-co-option">
+                <div class="payment-field col-md-12">
+                  <label>
+                    <input class="co-option" type="radio" name="co" value="code">
+                    <h4>手機條碼</h4>
+                    <div class="receipt-text-input">
+                      <input type="text" name="reciept-text" placeholder="請輸入手機條碼..">
+                    </div>
+                  </label>
+
+                </div>
+                <div class="payment-field col-md-12">
+                  <label>
+                    <input class="co-option" type="radio" name="co" value="cert"><h4>自然人憑證</h4>
+                    <div class="receipt-text-input">
+                      <input type="text" name="reciept-text" placeholder="請輸入自然人憑證..">
+                    </div>
+                  </label>
+                </div>
+              </div>
+
+              <a class="reciept-more-toggle" style="float:right; cursor:pointer;">更多...</a>
+              <div class="reciept-more">
+                <div class="payment-field">
+                  <label>
+                    <input type="radio" name="reciept" value="統一編號"><h4>統一編號</h4>
+                    <div class="receipt-text-input">
+                      <input type="text" name="reciept-text" placeholder="請輸入統一編號..">
+                    </div>
+                  </label>
+                </div>
+                <div class="payment-field">
+                  <label>
+                    <input type="radio" name="reciept" value="愛心碼"><h4>愛心碼</h4>
+                    <div class="receipt-text-input">
+                      <input type="text" name="reciept-text" placeholder="請輸入愛心碼..">
+                    </div>
+                  </label>
+                </div>
+                <div class="payment-field">
+                  <label>
+                    <input type="radio" name="reciept" value="paper"><h4>紙本發票</h4>
+                  </label>
+                </div>
+              </div>
+              <%= hidden_field_tag 'bill[invoice_type]' %>
+              </div>
+
+              <%= submit_tag "Go 結帳！", class:'checkout-buttom' %>
+
+          </div>
+
+        <% end %>
+
+        </section>
+
+        <% end %>
+
+        </div>
+        </div>
+
+
+<script type="text/javascript">
+  $('#invoice-type-section input').on('change', function(e) {
+    if ($(e.target).prop('checked')) {
+      $('#bill_invoice_type').val(e.target.value);
+    }
+  });
+  $('#invoice-type-section input').change();
+
+  $('#checkout-form').on('submit', function(e) {
+    if (!$("input[name='bill[type]']:checked").val()) {
+      alert('請選擇付款方式！');
+      return false;
+    }
+    //TODO: check invoice-type
+  });
+</script>

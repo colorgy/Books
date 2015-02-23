@@ -1,0 +1,81 @@
+<div class="container-fluid" style="margin-top:100px;">
+	<div class="row step-menu-row" style="max-width:1200px; margin-left:auto; margin-right:auto">
+		<div style="width:30%; float:left;">
+			<a href="<%= flow_mainchew_path %>">
+				<div class="step-menu">
+					<%= image_tag "step-menu-gray-people.png" %>
+					<h4 class="step-menu-h4">主揪說明</h4>
+				</div>
+			</a>
+		</div>
+		<div style="width:40%; float:left;">
+			<div class="step-menu step-menu-active">
+				<%= image_tag "step-menu-green-truck.png" %>
+				<h4 class="step-menu-h4 step-menu-h4-active">配送方式</h4>
+			</div>
+
+		</div>
+		<div style="width:30%; float:left;">
+			<a href="<%= flow_buy_path %>">
+				<div class="step-menu">
+					<%= image_tag "step-menu-gray-bag.png" %>
+					<h4 class="step-menu-h4">購物流程</h4>
+				</div>
+			</a>
+		</div>
+
+	</div>
+	<div class="shopping-flow" style="margin: 40px 0px 40px 0px;">
+		<div class="white-pointer">
+			<h4>1.收到訂單</h4>
+		</div>
+		<div class="white-pointer">
+			<h4>2.主揪指定配送地點</h4>
+		</div>
+		<div class="white-pointer">
+			<h4>3.書商出貨</h4>
+		</div>
+		<div class="white-pointer">
+			<h4>4.主揪分發書</h4>
+		</div>
+	</div>
+
+</div>
+
+<div class="container">
+	<div class="row" style="margin-top:50px;">
+		<h3 class="step-title">1.收到訂單</h3>
+		<br><br><h4>若你已經確認過訂單並且付款完畢，你的訂單將會集單至主揪底下。</h4>
+		<div>
+			<div class="row" style="margin: 50px auto; max-width: 800px;">
+				<div class="col-md-12">
+					<%= image_tag "step-delivery1.png" %>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row" style="max-width: 600px; margin-left:auto; margin-right:auto; margin-top:50px;">
+
+		<h3 class="step-title">2.主揪指定配送地點</h3>
+		<br><br><h4>主揪將會於平台選擇配送地點與日期，指定送至系會辦或者是學生會辦公室。</h4><br>
+		<div class="col-md-12" style="padding: 40px 0 40px 0;">
+			<%= image_tag "step-delivery2.png" %>
+		</div>
+	</div>
+	<div class="row" style="margin-top:50px;">
+		<h3 class="step-title">3.書商出貨</h3>
+		<div class="col-md-12">
+			<br><br><h4>書商收到集單後，將會再團購日結束後3~5天送至主揪指定的配送地點。</h4><br>
+			<%= image_tag "step-delivery3.png" %>
+		</div>
+
+	</div>
+	<div class="row" style="margin-top:50px;">
+		<h3 class="step-title">4.主揪分發書</h3>
+		<div class="col-md-12" style="padding-top: 50px; padding-bottom:50px;">
+			<h4>書送至主揪指定定點後，將由主揪聯絡交至每位訂書同學的手上。</h4><br><br>
+			<%= image_tag "step-delivery4.png" %>
+		</div>
+
+	</div>
+</div>

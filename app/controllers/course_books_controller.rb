@@ -1,5 +1,4 @@
 class CourseBooksController < ApplicationController
-
   def index
     if (params[:org].present? && params[:lecturer].present?)
       @courses = Course

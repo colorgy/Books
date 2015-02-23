@@ -15,6 +15,13 @@ GIT
       rails (>= 4.0.0, < 4.3.0)
 
 GIT
+  remote: git://github.com/Neson/rails-settings-cached.git
+  revision: 8c907acf9976dad76d486079f5bc950fb8d301f5
+  specs:
+    rails-settings-cached (0.4.1)
+      rails (>= 4.0.0)
+
+GIT
   remote: git://github.com/activeadmin/activeadmin.git
   revision: 15687751fa9ff637a7b39aae36d6b35abdb8fed4
   specs:
@@ -45,6 +52,7 @@ GIT
 GEM
   remote: https://rubygems.org/
   specs:
+    aasm (4.0.8)
     actionmailer (4.1.8)
       actionpack (= 4.1.8)
       actionview (= 4.1.8)
@@ -67,6 +75,10 @@ GEM
       arel (~> 5.0.0)
     activerecord-import (0.7.0)
       activerecord (>= 3.0)
+    activeresource (4.0.0)
+      activemodel (~> 4.0)
+      activesupport (~> 4.0)
+      rails-observers (~> 0.1.1)
     activesupport (4.1.8)
       i18n (~> 0.6, >= 0.6.9)
       json (~> 1.7, >= 1.7.7)
@@ -96,6 +108,11 @@ GEM
       columnize (~> 0.8)
       debugger-linecache (~> 1.2)
       slop (~> 3.6)
+    cached_resource (4.1.0)
+      activeresource (>= 3.2)
+      activesupport (>= 3.2)
+      nilio (>= 1.0)
+      rake
     callsite (0.0.11)
     capybara (2.4.4)
       mime-types (>= 1.16)
@@ -188,6 +205,7 @@ GEM
       hirb (~> 0.5)
       unicode-display_width (~> 0.1.1)
     i18n (0.7.0)
+    iconv (1.0.4)
     inherited_resources (1.6.0)
       actionpack (>= 3.2, < 5)
       has_scope (~> 0.6.0.rc)
@@ -229,6 +247,7 @@ GEM
     multipart-post (2.0.0)
     netrc (0.10.2)
     newrelic_rpm (3.9.9.275)
+    nilio (1.0.0)
     nokogiri (1.6.6.2)
       mini_portile (~> 0.6.0)
     normalize-rails (3.0.1)
@@ -286,6 +305,8 @@ GEM
       activesupport (>= 3.0)
       choice (~> 0.1.6)
       ruby-graphviz (~> 1.0.4)
+    rails-observers (0.1.2)
+      activemodel (~> 4.0)
     railties (4.1.8)
       actionpack (= 4.1.8)
       activesupport (= 4.1.8)
@@ -410,14 +431,17 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  aasm
   activeadmin!
   activerecord-import (~> 0.7.0)
+  activeresource (~> 4.0.0)
   awesome_print
   babosa
   better_errors (~> 2.0.0)
   binding_of_caller (~> 0.7.2)
   bootstrap-sass
   byebug
+  cached_resource
   capybara-screenshot
   capybara-webkit (>= 1.2.0)
   chosen-rails
@@ -434,6 +458,7 @@ DEPENDENCIES
   friendly_id (~> 5.0.4)
   hirb
   hirb-unicode
+  iconv
   isbn_validation (~> 1.2.1)
   jbuilder (~> 2.0)
   jquery-rails
@@ -442,6 +467,7 @@ DEPENDENCIES
   meta_request
   modernizr-rails
   newrelic_rpm
+  nokogiri
   normalize-rails (>= 3.0.1)
   nprogress-rails (~> 0.1.6.5)
   omniauth (~> 1.2.2)
@@ -454,8 +480,10 @@ DEPENDENCIES
   railroady
   rails (= 4.1.8)
   rails-erd
+  rails-settings-cached!
   react-rails (~> 1.0.0.pre)!
   remote_syslog_logger
+  rest-client
   rspec-its
   rspec-rails (~> 3.0)
   ruby-pinyin

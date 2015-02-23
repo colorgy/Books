@@ -1,0 +1,7 @@
+.container(style="padding-top: 24px;")
+  - if @groups.blank?
+    p 您沒有揪任何團~
+  - else
+    ul
+      - @groups.each do |group|
+        li= link_to "#{group.course_lecturer_name} / #{group.course_name}", group
