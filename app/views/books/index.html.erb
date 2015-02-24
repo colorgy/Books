@@ -48,7 +48,7 @@
           <%= select_tag "books-dep-code-select", options_for_select(Organization.find(current_org_code).departments_for_select('D').insert(0, ['所有開課系別', '']), @dep_code) %>
         </div>
 
-        <div class="col-md-4">
+        <div class="col-md-4" style="margin-right: -15px;">
             <div id="sb-search" class="sb-search sb-search-open">
               <form id="books-search">
                 <input class="sb-search-input" placeholder="搜尋書名、課名、老師名..." type="text" value="<%= params[:q] %>" name="search" id="search">
@@ -145,7 +145,7 @@
   $(document).ready(function($) {
     $('#my-slideshow').bjqs({
       'height' : 500,
-      'width' : 1500,
+      'width' : 1280,
       'responsive' : true
     });
   });

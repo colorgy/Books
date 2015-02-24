@@ -79,6 +79,11 @@ $(document).ready(function () {
 			        $('.input__label').removeClass('totop');
 			    }
 		});
+	$('.push-menu-close').click(function(){
+		if ( $( '.push-menu' ).hasClass( "push-menu-active" ) ){
+			$('.push-menu').removeClass('push-menu-active');
+			}
+	})
 
 	$('#push-menu-trigger').click(function(){
 		if ( $( '.push-menu' ).hasClass( "push-menu-active" ) ){

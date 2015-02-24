@@ -4,7 +4,7 @@ Rails.application.routes.draw do
     delete 'logout', to: 'devise/sessions#destroy', as: :destroy_user_session
   end
 
-  root 'pages#index'
+  root 'books#index'
 
   get '/index' => 'pages#index', as: :new_user_session
   get '/faq' => 'pages#faq'
