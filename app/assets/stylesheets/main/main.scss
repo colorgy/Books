@@ -171,7 +171,7 @@ border-bottom: 3px solid rgb(0, 162, 154);
 	margin-left: 0 !important;
 }
 
-@media screen and (max-width: 1245px) {
+@media screen and (max-width: 1380px) {
     .navbar-header {
         float: none;
     }
@@ -676,7 +676,7 @@ a.cd-trigger:hover{
 	transition: 0.5s;
 	z-index: 999;
 	top: -100%;
-	right: -140px;
+	right: 25px;
 }
 .headphoto-tooltip > a{
 	color:#fff;
@@ -685,7 +685,7 @@ a.cd-trigger:hover{
 .headphoto:hover > .headphoto-tooltip{
 	opacity: 1;
 	visibility: visible;
-	transform: translateX(20px);
+	transform: translateX(-25px);
 }
 .cart-section{
 	width: 75%;
@@ -1493,4 +1493,21 @@ p.bjqs-caption{
 	color: #ffffff;
 	font-size: 20px;
 	background-color: rgba(0,0,0,.8);
+}
+.uv-bubble-background{
+	fill: rgba(51, 199, 171, 1) !important;
+}
+.home-dropdown > .select2-container{
+	margin-top: 20px !important;
+}
+.home-dropdown > div > a {
+	padding: 21px !important;
+}
+.home-dropdown > div > a > .select2-chosen{
+	color: rgb(92, 133, 131);
+	font-size: 18px;
+	margin-top: -12px;
+}
+.home-dropdown .select2-arrow > b{
+	background-position: 0 8px !important;
 }

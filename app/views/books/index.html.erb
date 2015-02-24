@@ -41,10 +41,10 @@
     <!--filter 篩選區塊-->
     <section class="selection-section">
       <div class="row" style="max-width:1000px; margin-right:auto; margin-left:auto;">
-        <div class="col-md-4">
+        <div class="col-md-4 home-dropdown">
         <%= select_tag "books-org-code-select", options_for_select(Organization.all_for_select, current_org_code) %>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-4 home-dropdown">
           <%= select_tag "books-dep-code-select", options_for_select(Organization.find(current_org_code).departments_for_select('D').insert(0, ['所有開課系別', '']), @dep_code) %>
         </div>
 

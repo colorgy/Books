@@ -1,5 +1,5 @@
 .container(style="padding-top: 24px;")
-  p 確定要成為 #{@course.name}，購買 #{@book.name} (#{@book.isbn}) 的主揪嗎？
+  p 確定要成為課程:#{@course.lecturer.name} #{@course.name}，購買 #{@book.name} (#{@book.isbn}) 的主揪嗎？
   p 35 元折扣金將於下次結帳時自動進行折抵。
   p
     | 成為主揪的同時表示您了解並同意
@@ -8,4 +8,4 @@
   = form_tag groups_path, method: :post
     = hidden_field_tag 'course', params[:course]
     = hidden_field_tag 'book', params[:book]
-    = submit_tag '了解，確定了'
+    = submit_tag '了解，確定'
