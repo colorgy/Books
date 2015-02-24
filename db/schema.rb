@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150222154136) do
+ActiveRecord::Schema.define(version: 20150224111741) do
 
   create_table "bills", force: true do |t|
     t.string   "uuid",         null: false
@@ -87,6 +87,7 @@ ActiveRecord::Schema.define(version: 20150222154136) do
     t.datetime "updated_at"
     t.datetime "deleted_at"
     t.integer  "version_count",     default: 0,     null: false
+    t.string   "updated_through"
   end
 
   add_index "courses", ["deleted_at"], name: "index_courses_on_deleted_at"

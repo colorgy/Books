@@ -19,6 +19,12 @@ class CartItemsController < ApplicationController
     course = Course.find(params[:course_id])
     @cart_item = current_user.cart_items.create!(book: book, course: course)
 
+    if course.book_data.blank?
+      course.book_isbn = book.book_data_isbn
+      course.updated_through = 'add_to_cart'
+      course.save!
+    end
+
     respond_to do |format|
       format.html do
         flash[:notice] = "已經將 #{@cart_item.book_name} 加入購物書包～"
