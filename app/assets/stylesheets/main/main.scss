@@ -1405,9 +1405,9 @@ footer > p{
 }
 .push-menu-ul > li > a{
 	color: #ffffff;
-	font-size: 20px;
+	font-size: 15px;
 	text-align: left;
-	padding: 20px 30px;
+	padding: 15px 30px;
 	width: 100%;
 	transition: background-color 0.5s, color 0.5s;
 }
@@ -1510,4 +1510,16 @@ p.bjqs-caption{
 }
 .home-dropdown .select2-arrow > b{
 	background-position: 0 8px !important;
+}
+.mobile-profile{
+	padding-bottom: 20px;
+	padding-top: 20px;
+	padding-left: 30px;
+
+	p{
+		font-size: 20px;
+		margin-left: 20px;
+		margin-top: 8px;
+		color: #fff;
+	}
 }
