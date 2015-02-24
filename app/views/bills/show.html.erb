@@ -32,11 +32,11 @@
         <h3>購物書包</h3>
       </div>
       <div class="col-md-4 gray-pointer">
-        <img src="/assets/gray-pointer.png">
+        <%= image_tag 'gray-pointer.png' %>
         <h3>確認訂單</h3>
       </div>
       <div class="col-md-4 green-pointer">
-        <img src="/assets/gray-pointer.png">
+        <%= image_tag 'gray-pointer.png' %>
         <h3>完成訂購</h3>
       </div>
     </div>
@@ -51,12 +51,9 @@
           </div>
           <div class="col-md-8">
             <div class="thankyoupage-title">
-              <h3>親愛的 Colorgy User 您好，我們已經收到您的訂購資訊！</h3>
+              <h3>親愛的 Colorgy User 您好，我們已經收到您的訂購資訊！本網頁只是確認本系統已經收到您的訂購訊息，並提供您再次進行核對之用，不代表交易已經完成。<br></h3>
             </div>
             <div class="thankyoupage-text">
-              <p>
-                本網頁只是確認本系統已經收到您的訂購訊息，並提供您再次進行核對之用，不代表交易已經完成。
-              </p>
               <h3>繳費代碼：<%= @bill.payment_code %>，繳費狀態：<%= t(@bill.state, scope: :bill_states) %></h3>
             </div>
           </div>
@@ -73,7 +70,7 @@
               <%= render "partials/order_list" %>
             </div>
           </div>
-          <div class="col-md-12">
+          <div class="col-md-12" style="padding-bottom: 50px;">
             <h3>付費方式</h3>
             <p><%= t(@bill.type, scope: :bill_types) %></p>
             <h3>發票種類</h3>
@@ -100,4 +97,3 @@
     </div>
   </section>
 </div>
-:)
