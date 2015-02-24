@@ -95,11 +95,11 @@
               </li>
             <% end %>
             <li><%= link_to("書庫瀏覽", books_path) %></li>
-            <li><%= link_to("訂單查詢", bills_path) %></li>
-            <li><%= link_to("我揪的團", groups_path) %></li>
             <li><%= link_to("使用流程", flow_path) %></li>
             <li><%= link_to("常見問題", faq_path) %></li>
-            <li><a href="http://join.clg.io/">關於我們</a></li>
+            <li><%= link_to("訂單查詢", bills_path) %></li>
+            <li><%= link_to("我揪的團", groups_path) %></li>
+            <li><a href="http://join.clg.io/" target="_blank">關於我們</a></li>
             <% if current_user.blank? %>
             <% else %>
               <li><%= link_to("登出", "#{ENV['CORE_URL']}/logout") %></li>
