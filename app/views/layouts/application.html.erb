@@ -80,6 +80,7 @@
 
   <body>
     <div class="push-menu">
+        <%= image_tag 'close.png',class:'push-menu-close' %>
         <div class="push-menu-container">
           <ul class="push-menu-ul">
             <% if current_user.blank? %>
@@ -265,13 +266,12 @@
                         <tr>
                           <th>書本項目</th>
                           <th>金額</th>
-                          <th>課程</th>
                           <th></th>
                         </tr>
                     </thead>
                     <tfoot>
                         <tr>
-                          <th colspan="2" class="checkout-total-th">總額 <span class="checkout__total"><%= current_user.cart_total_price %> NT</span></th>
+                          <th colspan="2" class="checkout-total-th" style="padding: 0 !important;"><span class="checkout__total" style="line-height: 1.6em; padding: 0; padding-top: 20px !important;">總額: <%= current_user.cart_total_price %> NT</span></th>
                         </tr>
                     </tfoot>
                     <tbody>
@@ -279,7 +279,6 @@
                         <tr>
                           <td><%= item.book_name %><span><%= item.book_author %></span></td>
                           <td><%= item.book_price %> NT</td>
-                          <td><%= item.course_name %></td>
                           <td class="stickycart-delete">
                             <%=link_to image_tag("stickycart-delete.png"), cart_item_path(item), method: :delete%>
                           </td>
@@ -355,8 +354,8 @@
     <%= javascript_include_tag "bjqs.js" %>
     <script type="text/javascript">
       $(document).ready(function() {
-          $('.book-name ').textfill({ maxFontPixels: 15 });
-          $('.book-name ').textfill({ minFontPixels: 15 });
+          $('.book-name').textfill({ maxFontPixels: 15 });
+          $('.book-name').textfill({ minFontPixels: 15 });
           $('.book-author').textfill({ maxFontPixels: 13 })
       });
     </script>
