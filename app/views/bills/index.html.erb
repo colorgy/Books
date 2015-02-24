@@ -3,7 +3,7 @@
 	<table>
 		<thead>
 			<tr>
-				<th>帳單編號</th>
+				<th>帳單明細</th>
 				<th>訂單金額</th>
 				<th>發票種類</th>
 				<th>訂單狀態</th>
@@ -14,7 +14,7 @@
 		<tbody>
 	    <% @bills.each do |bill| %>
 	    	<tr>
-		      <td><%= link_to '帳單', bill %></td>
+		      <td><%= link_to '查看', bill %></td>
 		      <td><%= bill.price %></td>
 		      <td>
 		       <% if bill.invoice_type == "digital" %>
