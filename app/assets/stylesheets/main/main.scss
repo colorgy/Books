@@ -1692,3 +1692,15 @@ p.bjqs-caption{
 		max-width: 400px !important;
 	}
 }
+.course-select-dropdown{
+	.select2-container{
+		a{
+			padding: 6px 20px;
+			height: 40px;
+
+			.select2-chosen{
+				font-size: 15px;
+			}
+		}
+	}
+}
