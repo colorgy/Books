@@ -52,7 +52,7 @@
 
           </div>
           <div class="cart-table">
-            <% @orders.each do |order| %>
+            <% @new_orders.each do |order| %>
               <% if order.group_leader.blank? %>
                 <p><%= "#{order.course_name} / #{order.course_lecturer_name}" %> 目前沒有主揪。要當主揪嗎？<a href="<%= new_group_path(course: order.course_id, book: order.book_id) %>" target="_blank">我是主揪！</a> <a href="<%= flow_mainchew_path %>" target="_blank">什麼是主揪？</a></p>
               <% end %>

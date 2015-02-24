@@ -7,7 +7,9 @@
       <th>作者</th>
       <th>版次</th>
       <th>課程 / 教授</th>
+      <% if @orders.first.try(:class) == Order %>
       <th>主揪</th>
+      <% end %>
       <th>價格</th>
       <% if @orders.first.try(:class) == UserCartItem %>
         <th>取消</th>
@@ -24,6 +26,7 @@
           <td>
             <%= "#{item.course_name} / #{item.course_lecturer_name}" %>
           </td>
+          <% if @orders.first.try(:class) == Order %>
           <td>
             <div class="headphoto">
               <% if item.group_leader.blank? %>
@@ -40,6 +43,7 @@
               <% end %>
             </div>
           </td>
+          <% end %>
           <td><%= item.book_price %></td>
           <% if @orders.first.try(:class) == UserCartItem %>
             <td class="trashcan">
