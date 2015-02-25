@@ -64,7 +64,11 @@ class Bill < ActiveRecord::Base
     return if @@test
     case type
     when 'payment_code'
-      self.payment_code = NewebPayService.get_payment_code(uuid, amount, payname: user.name)
+      if Settings.orders_close_date.is_a? Time
+        self.payment_code = NewebPayService.get_payment_code(uuid, amount, payname: user.name, duedate: Settings.orders_close_date)
+      else
+        self.payment_code = NewebPayService.get_payment_code(uuid, amount, payname: user.name)
+      end
     else
       raise 'unknown payment method'
     end
