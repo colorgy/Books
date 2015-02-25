@@ -73,6 +73,7 @@ class User < ActiveRecord::Base
   end
 
   def cart_total_price
+    check_cart!
     price = 0
     cart_items.each do |item|
       price += item.book_price
