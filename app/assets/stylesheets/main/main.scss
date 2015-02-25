@@ -246,14 +246,14 @@ div.desktop-checkout{
 	right: 150px;
 }
 
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 1380px) {
 	div.mobile-checkout{
 		display: none !important;
 
 	}
 }
 
-@media screen and (max-width: 767px){
+@media screen and (max-width: 1380px){
 	div.desktop-checkout{
 		display: none !important;
 	}
