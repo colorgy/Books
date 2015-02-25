@@ -73,8 +73,9 @@
             <% @books.each do |book| %>
               <div class="col-md-3">
                 <div class="product-box" >
+                  <a href="<%= book_url(book) %>">
                   <div class="product-box-image">
-                      <%= link_to image_tag(book.image_url), book_url(book.id) %>
+                      <%= image_tag(book.image_url) %>
                   </div>
                   <div class="product-text-box">
                     <div class="product-title">
@@ -113,6 +114,7 @@
                     </div>
                     -->
                   </div>
+                  </a>
                 </div>
               </div>
             <% end %>
