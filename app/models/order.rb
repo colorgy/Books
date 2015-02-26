@@ -3,6 +3,8 @@ class Order < ActiveRecord::Base
   acts_as_paranoid
   has_paper_trail
 
+  scope :current, ->  { where(batch: Order.current_batch) }
+
   belongs_to :user
   belongs_to :course
   belongs_to :book

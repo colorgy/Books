@@ -8,12 +8,17 @@ class Course < ActiveRecord::Base
 
   belongs_to :book_data, class_name: :BookData, foreign_key: :book_isbn, primary_key: :isbn
   belongs_to :lecturer_identity, class_name: :UserIdentity, foreign_key: :lecturer_name, primary_key: :name
+  has_many :groups
 
   validates :name, presence: true
   validates :year, presence: true
   validates :term, presence: true
   validates :lecturer_name, presence: true
   validates :organization_code, presence: true
+
+  delegate :leader, :leader_id, :leader_name, :leader_avatar_url, :leader_fbid,
+           :book_id,
+           to: :group, prefix: true, allow_nil: true
 
   after_initialize :set_default_values
   before_save :set_book_before_save, :update_version_count
@@ -66,6 +71,14 @@ class Course < ActiveRecord::Base
   def to_edit
     set_book_after_save
     self
+  end
+
+  def group
+    if groups.current.count == 1
+      groups.current.first
+    else
+      nil
+    end
   end
 
   private
