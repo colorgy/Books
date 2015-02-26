@@ -13,3 +13,9 @@ zh-TW:
         code: "課程代碼"
         url: "課程網頁連結"
         required: "必修請打勾"
+      group:
+        shipped_at: "遞送時間"
+        received_at: "收到時間"
+        pickup_point: "取件地點"
+        pickup_date: "取件日期"
+        pickup_time: "取件時間"

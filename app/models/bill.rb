@@ -7,6 +7,9 @@ class Bill < ActiveRecord::Base
 
   cattr_accessor :test
 
+  scope :paid, -> { where(state: 'paid') }
+  scope :unpaid, -> { where.not(state: 'paid') }
+
   store :data, accessors: [:invoice_code, :invoice_love_code, :invoice_uni_num, :invoice_cert]
 
   belongs_to :user
