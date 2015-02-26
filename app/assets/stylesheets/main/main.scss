@@ -69,12 +69,10 @@ section{
 	outline: none !important;
 }
 
-.product-box-image > a > img {
-	min-width: 100%;
-}
 .product-box-image > img{
 	width: 100% !important;
 	min-height: 300px;
+	min-width: 100%;
 }
 
 .checkout-grid__item > img {
@@ -255,12 +253,16 @@ div.desktop-checkout{
 		display: none !important;
 
 	}
+	.login-list-btn-mobile{
+		display: none !important;
+	}
 }
 
 @media screen and (max-width: 1380px){
 	div.desktop-checkout{
 		display: none !important;
 	}
+
 }
 
 
@@ -496,9 +498,10 @@ padding-bottom: 5px;
 	overflow: hidden !important;
 	margin-bottom: 40px;
 	box-shadow: 1px 1px 1px rgba(20%,20%,20%,0.5);
+	border: 1px solid #c3c3c3;
 
 }
-.product-box-image > a > img{
+.product-box-image > img{
 	transition: all 0.3s;
 	-webkit-transition: all 0.3s;
 	-moz-transition: all 0.3s;
@@ -508,7 +511,7 @@ padding-bottom: 5px;
 	width: 100%;
 	background-color: rgb(195,195,195);
 }
-.product-box:hover .product-box-image > a > img {
+.product-box:hover .product-box-image >  img {
 	-webkit-transform: scale(1.1);
 	transform: scale(1.1);
 	-moz-transform: scale(1.1);
@@ -540,9 +543,11 @@ padding-bottom: 5px;
 .product-price{
 	float: left;
 	padding: 10px;
-	position: absolute;
+	position: relative;
 	bottom: 0px;
 	right: 0px;
+	width: 100%;
+	text-align: right;
 
 }
 .product-price > p > del {
@@ -1404,14 +1409,12 @@ ul.cd-item-action > li > a{
 	margin-top: 5px;
 	max-height: 60px;
 }
-.book-name > span , .book-author > span , .book-edition > span,  {
+.book-name > span , .book-author > span , .book-edition > span, .book-course > span {
 	color: rgb(40, 163, 140);
-}
-.book-course > span{
-	color: #5D8684;
 }
 .book-course{
 	max-height: 60px;
+	margin-top: 5px;
 }
 .book-author{
 	width: 100%;
@@ -1727,7 +1730,7 @@ p.bjqs-caption{
 }
 .home-book-box{
 	width: 280px !important;
-	padding: 15px 0 0 15px !important;
+	padding: 15px !important;
 }
 .home-book-container{
 	position: relative;
@@ -1735,4 +1738,42 @@ p.bjqs-caption{
 }
 .uv-icon.uv-bottom-right.uv-is-selected{
 	z-index: 999999999;
+}
+
+.login-list-btn > a{
+	background: #E77B2D;
+	color: #fff !important;
+	padding: 8px !important;
+	margin-top: 3px !important;
+	margin-right: 5px !important;
+}
+.login-list-btn:hover{
+	border-bottom: 0px !important;
+}
+.login-list-btn > a:hover{
+	background-color: #E77B2D !important;
+}
+.login-list-btn-mobile{
+	position: fixed;
+	top: 10px;
+	right: 5px;
+	z-index: 9999999;
+	list-style-type: none;
+}
+.book-course-tag{
+	background-color: #5D8684 !important;
+	color: #fff;
+	padding: 1px 3px;
+	margin-right: 5px;
+	border-radius: 3px;
+}
+.sweet-tip{
+	text-align: center;
+	min-height: 50px;
+	width: 90%;
+	margin: 0px auto;
+	background-color: #E77B2D;
+	color: #fff;
+	font-size: 16px;
+	padding: 15px 20px;
 }

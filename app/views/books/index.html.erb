@@ -64,7 +64,9 @@
 
     </section>
     <!--篩選filter區塊end-->
-
+    <div class="sweet-tip">
+            ＃貼心小提醒 : 使用電腦版網頁時也可以按 " Ctrl + F " 或 " Command + F " 來輸入書名、作者、課程名稱、教授名字來搜尋您要的書籍。
+    </div>
     <!--書的呈現區塊-->
     <section class="book-section" style="overflow: visible !important;">
       <div class="container-fluid home-book-container" id="container">
@@ -88,10 +90,13 @@
                         <% if book.edition %><span>版次: <%= book.edition %></span><% end %>
                       </div>
                       <div class="book-course">
-                        <span>使用教授 :
-                          <% book.courses.each do |course| %>
-                             <%= course.lecturer_name %>
+                        <span>使用課程 :
+                          <% book.courses.where(organization_code: current_org_code).each do |course| %>
+                            <span class="book-course-tag">
+                             <%= "#{course.name} - #{course.lecturer_name}" %>
+                            </span>
                           <% end %>
+                          ...
                         </span>
                       </div>
                     </div>
@@ -131,7 +136,7 @@
         </div>
 
     </section>
-<!--
+
 <script type="text/javascript">
   $(window).on('load', waterfall);
   $( window ).resize(waterfall);
@@ -140,6 +145,7 @@
     var w=$boxs.eq(0).outerWidth();
     var cols= Math.floor($(window).width() / w );
     $('div.home-book-container').width(w*cols).css('margin','0 auto');
+    /*
     var hArr=[];
     $boxs.each(function(index,value){
       var h=$boxs.eq(index).outerHeight();
@@ -156,19 +162,21 @@
         })
         hArr[minHIndex] += $boxs.eq(index).outerHeight();
       }
-    })
+    })*/
   }
 
 </script>-->
 
 <%= javascript_include_tag "masonry.pkgd.min.js" %>
 <script type="text/javascript">
-  var container = document.querySelector('#container');
-  var msnry = new Masonry( container, {
-    // options
-    columnWidth: 280,
-    itemSelector: '.home-book-box'
-  });
+  $(window).load(function(){
+    var container = document.querySelector('#container');
+    var msnry = new Masonry( container, {
+      // options
+      columnWidth: 280,
+      itemSelector: '.home-book-box'
+    });
+  })
 </script>
 
 <script>
