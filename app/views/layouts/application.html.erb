@@ -89,7 +89,7 @@
   </head>
 
   <body>
-    <div class="push-menu">
+    <div class="push-menu" style="overflow-y:scroll;">
         <%= image_tag 'close.png',class:'push-menu-close' %>
         <div class="push-menu-container">
           <ul class="push-menu-ul">
@@ -106,6 +106,7 @@
               </li>
             <% end %>
             <li><%= link_to("書庫瀏覽", books_path) %></li>
+            <li><%= link_to("購物車", cart_items_path) %></li>
             <li><%= link_to("使用流程", flow_path) %></li>
             <li><%= link_to("常見問題", faq_path) %></li>
             <li><%= link_to("訂單查詢", bills_path) %></li>
