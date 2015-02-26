@@ -1502,7 +1502,7 @@ div.step-menu-row > div > a:hover{
 	background-color: rgb(54, 184, 160);
 	height: 40px;
 	padding-top: 10px;
-	position: fixed;
+	position: absolute;
 	bottom: 0;
 	width: 100%;
 }
@@ -1776,4 +1776,47 @@ p.bjqs-caption{
 	color: #fff;
 	font-size: 16px;
 	padding: 15px 20px;
+}
+.uv-icon.uv-bottom-right::before {
+	content: 有問題嗎？;
+	position: absolute;
+	top: 8px;
+	left: -93px;
+	font-size: 18px;
+}
+.fb-likebox{
+	position: fixed;
+	left: -300px;
+	top: 120px;
+	z-index:9999;
+	background-color: #fff;
+	-webkit-transition: all 0.3s;
+	-moz-transition: all 0.3s;
+	-o-transition: all 0.3s;
+	transition: all 0.3s;
+
+	&:hover{
+		transform: translateX(300px);
+		-webkit-transform: translateX(300px);
+		-moz-transform: translateX(300px);
+		-o-transform: translateX(300px);
+		-ms-transform: translateX(300px);
+	}
+
+	.fb-likebox-inner{
+		position: relative;
+
+		img{
+			position: absolute;
+			transform: rotate(90deg);
+			-webkit-transform: rotate(90deg);
+			-moz-transform: rotate(90deg);
+			-o-transform: rotate(90deg);
+			-ms-transform: rotate(90deg);
+			position: absolute;
+			width: 300px;
+			top: 131px;
+			left: 168px;
+		}
+	}
 }

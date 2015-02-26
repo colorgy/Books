@@ -4,12 +4,13 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
+    <%= favicon_link_tag 'favicon.png' %>
     <title>Colorgy</title>
 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
     <%= csrf_meta_tags %>
+
 
     <style type="text/css">
       body {
@@ -89,6 +90,12 @@
   </head>
 
   <body>
+    <div class="fb-likebox">
+      <div class="fb-likebox-inner">
+        <%= image_tag 'followus_fb.png' %>
+        <iframe src="//www.facebook.com/plugins/likebox.php?href=https%3A%2F%2Fwww.facebook.com%2Fpages%2FColorgy%2F1529686803975150&amp;width&amp;height=290&amp;colorscheme=light&amp;show_faces=true&amp;header=true&amp;stream=false&amp;show_border=true&amp;appId=849041475152890" scrolling="no" frameborder="0" style="border:none; overflow:hidden; height:290px;" allowTransparency="true"></iframe>
+      </div>
+    </div>
     <% if current_user.blank? %>
         <li class="login-list-btn login-list-btn-mobile">
           <%= link_to "登入 / 註冊", user_omniauth_authorize_path(:colorgy), class: 'btn' %>
