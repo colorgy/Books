@@ -255,12 +255,16 @@ div.desktop-checkout{
 		display: none !important;
 
 	}
+	.login-list-btn-mobile{
+		display: none !important;
+	}
 }
 
 @media screen and (max-width: 1380px){
 	div.desktop-checkout{
 		display: none !important;
 	}
+
 }
 
 
@@ -540,9 +544,11 @@ padding-bottom: 5px;
 .product-price{
 	float: left;
 	padding: 10px;
-	position: absolute;
+	position: relative;
 	bottom: 0px;
 	right: 0px;
+	width: 100%;
+	text-align: right;
 
 }
 .product-price > p > del {
@@ -1735,4 +1741,25 @@ p.bjqs-caption{
 }
 .uv-icon.uv-bottom-right.uv-is-selected{
 	z-index: 999999999;
+}
+
+.login-list-btn > a{
+	background: #E77B2D;
+	color: #fff !important;
+	padding: 8px !important;
+	margin-top: 3px !important;
+	margin-right: 5px !important;
+}
+.login-list-btn:hover{
+	border-bottom: 0px !important;
+}
+.login-list-btn > a:hover{
+	background-color: #E77B2D !important;
+}
+.login-list-btn-mobile{
+	position: fixed;
+	top: 10px;
+	right: 80px;
+	z-index: 9999999;
+	list-style-type: none;
 }

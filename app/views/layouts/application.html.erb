@@ -89,6 +89,11 @@
   </head>
 
   <body>
+    <% if current_user.blank? %>
+        <li class="login-list-btn login-list-btn-mobile">
+          <%= link_to "登入 / 註冊", user_omniauth_authorize_path(:colorgy), class: 'btn' %>
+        </li>
+    <% end %>
     <div class="push-menu" style="overflow-y:scroll;">
         <%= image_tag 'close.png',class:'push-menu-close' %>
         <div class="push-menu-container">
@@ -219,7 +224,7 @@
 
             <ul class="nav navbar-nav navbar-right">
               <% if current_user.blank? %>
-                  <li>
+                  <li class="login-list-btn">
                     <%= link_to "登入 / 註冊", user_omniauth_authorize_path(:colorgy), class: 'btn' %>
                   </li>
               <% else %>
