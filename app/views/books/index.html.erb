@@ -88,10 +88,13 @@
                         <% if book.edition %><span>版次: <%= book.edition %></span><% end %>
                       </div>
                       <div class="book-course">
-                        <span>使用教授 :
-                          <% book.courses.each do |course| %>
-                             <%= course.lecturer_name %>
-                          <% end %>...
+                        <span>使用課程 :
+                          <% book.courses.where(organization_code: current_org_code).each do |course| %>
+                            <span class="book-course-tag">
+                             <%= "#{course.name} - #{course.lecturer_name}" %>
+                            </span>
+                          <% end %>
+                          ...
                         </span>
                       </div>
                     </div>
