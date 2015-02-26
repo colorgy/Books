@@ -67,7 +67,7 @@ class Order < ActiveRecord::Base
   end
 
   def set_group_code
-    self.group_code = Group.generate_code(organization_code, course.id, book.id)
+    self.group_code = Group.generate_code(organization_code, course.id, book.id) if course.present? && book.present?
   end
 
   def set_price
