@@ -207,7 +207,8 @@
                         </tbody>
 
                     </table><!-- /checkout__summary -->
-                    <%=link_to '我要結帳' ,cart_items_path, class:'checkout__option cart-checkout-button' %>
+                    <%=link_to '我要結帳' ,cart_items_path, class:'checkout__option cart-checkout-button',style:'padding: 15px 40px;
+                      font-size: 20px;' %>
                     <% else %>
                       <p class="cart-blank-text">您的購物書包目前是空的</p>
                       <div style="text-align:center; width:100%;">
@@ -302,7 +303,7 @@
                       <% end %>
                   </tbody>
                 </table><!-- /checkout__summary -->
-                <%=link_to '我要結帳' ,cart_items_path, class:'checkout__option cart-checkout-button' %>
+                <%=link_to '我要結帳' ,cart_items_path, class:'checkout__option cart-checkout-button',style:'padding: 15px 40px;font-size: 20px;' %>
                 <% else %>
                 <p class="cart-blank-text">您的購物書包目前是空的</p>
                 <div style="text-align:center; width:100%;">
