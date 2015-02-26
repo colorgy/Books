@@ -1,0 +1,35 @@
+<style type="text/css">
+  .form-group{
+    text-align: left;
+  }
+</style>
+<div class="container" style="padding-top: 24px;">
+  <div class="col-md-9" style="padding-top:40px;">
+    <p style="text-align:left;"><a href="<%= groups_path %>"><< 回揪團清單</a></p>
+    <h1>團購書籍：<%= "#{@group.course_name}" %></h1>
+    <p>以下為跟團者名單..</p>
+    <div style="overflow-x :scroll;">
+      <%= render "partials/order_list" %>
+    </div>
+  </div>
+  <div class="col-md-3 cart-right-section">
+    <div class="sweet-tip" style="margin-bottom:20px;">
+      # 貼心小提醒：<br>請選擇您想要取書的地點、日期、時間並按下『儲存資訊』，
+        我們將會依照您指定的資訊進行發書，在我們指定的關台時間之前都能夠做修改唷！
+    </div>
+
+    <%= simple_form_for @group do |f| %>
+      <%= f.input :pickup_point, collection: Settings.pickup_point_selections_for(@group.organization_code) %>
+      <%= f.input :pickup_date, collection: Settings.pickup_date_selections_for(@group.organization_code) %>
+      <%= f.input :pickup_time, collection: Settings.pickup_time_selections_for(@group.organization_code), hint: '我們可以幫您建議快遞希望的送達時間～' %>
+      <%= f.submit '儲存資訊',class:'btn',style:'background-color:rgb(51, 199, 171); color:#fff; margin: 10px auto 20px auto;' %>
+    <% end %>
+
+  </div>
+
+</div>
+<script>
+  $('#group_pickup_point').select2();
+  $('#group_pickup_date').select2();
+  $('#group_pickup_time').select2();
+</script>

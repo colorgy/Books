@@ -24,6 +24,9 @@
   input{
     font-size: 16px;
   }
+  blockquote{
+    border-color: rgb(54, 184, 160);
+  }
 </style>
 <div class="wrapper" style="width:100%;">
       <div class="row">
@@ -54,7 +57,7 @@
           <div class="cart-table">
             <% @new_orders.each do |order| %>
               <% if order.group_leader.blank? %>
-                <p><%= "#{order.course_name} / #{order.course_lecturer_name}" %> 目前沒有主揪。要當主揪嗎？<a href="<%= new_group_path(course: order.course_id, book: order.book_id) %>" target="_blank">我是主揪！</a> <a href="<%= flow_mainchew_path %>" target="_blank">什麼是主揪？</a></p>
+                <blockquote><%= "#{order.course_name} / #{order.course_lecturer_name}" %> 目前沒有主揪。要當主揪嗎？<a class="btn" style="color: rgb(255, 255, 255);background-color: rgb(224, 96, 56);margin: 0 15px;" href="<%= new_group_path(course: order.course_id, book: order.book_id) %>" target="_blank">我要當主揪！</a><a class="btn" style="color: #fff;background-color: rgb(54, 184, 160);margin: 0 15px;" href="<%= flow_mainchew_path %>" target="_blank">什麼是主揪？</a></blockquote>
               <% end %>
             <% end %>
             <%= render "partials/order_list" %>

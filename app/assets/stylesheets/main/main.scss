@@ -696,7 +696,7 @@ a.cd-trigger:hover{
 .checkout-buttom{
 	width: 100%;
 	position: relative;
-	margin-top: 60px;
+	margin-top: 20px;
 }
 .checkout-buttom > a > button {
 	text-align: center;
@@ -1801,6 +1801,9 @@ p.bjqs-caption{
 		-moz-transform: translateX(300px);
 		-o-transform: translateX(300px);
 		-ms-transform: translateX(300px);
+		.fb-likebox-inner > img{
+			opacity: 1;
+		}
 	}
 
 	.fb-likebox-inner{
@@ -1817,6 +1820,12 @@ p.bjqs-caption{
 			width: 300px;
 			top: 131px;
 			left: 168px;
+			opacity: 0.4;
+			-webkit-transition: all 0.3s;
+			-moz-transition: all 0.3s;
+			-o-transition: all 0.3s;
+			transition: all 0.3s;
+
 		}
 	}
 }
