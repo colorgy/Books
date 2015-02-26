@@ -68,7 +68,6 @@
     <!--書的呈現區塊-->
     <section class="book-section" style="overflow: visible !important;">
       <div class="container-fluid home-book-container" id="container">
-
           <% if @books.present? %>
             <% @books.each do |book| %>
               <div class="col-md-3 home-book-box">
@@ -87,6 +86,13 @@
                       </div>
                       <div class="book-edition">
                         <% if book.edition %><span>版次: <%= book.edition %></span><% end %>
+                      </div>
+                      <div class="book-course">
+                        <span>使用教授 :
+                          <% book.courses.each do |course| %>
+                             <%= course.lecturer_name %>
+                          <% end %>
+                        </span>
                       </div>
                     </div>
                     <div class="product-price">
