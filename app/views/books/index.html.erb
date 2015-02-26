@@ -67,11 +67,11 @@
 
     <!--書的呈現區塊-->
     <section class="book-section">
-      <div class="container-fluid">
+      <div class="container-fluid home-book-container">
 
           <% if @books.present? %>
             <% @books.each do |book| %>
-              <div class="col-md-3">
+              <div class="col-md-3 home-book-box">
                 <div class="product-box" >
                   <a href="<%= book_url(book) %>">
                   <div class="product-box-image">
@@ -125,9 +125,35 @@
         </div>
 
     </section>
-    <footer>
+<script type="text/javascript">
+  $(window).on('load',function(){
+    waterfall();
+  })
+  function waterfall(){
+    var $boxs = $('div.home-book-box');
+    var w=$boxs.eq(0).outerWidth();
+    var cols= Math.floor($(window).width() / w );
+    $('div.home-book-container').width(w*cols).css('margin','0 auto');
+    var hArr=[];
+    $boxs.each(function(index,value){
+      var h=$boxs.eq(index).outerHeight();
+      if (index < cols) {
+        hArr[index] = h;
+      }else{
+        var minH = Math.min.apply(null,hArr);
+        var minHIndex = $.inArray(minH,hArr);
+        $(value).css({
+          'position':'absolute',
+          'top': minH + 'px',
+          'left': minHIndex + 'px',
 
-</footer>
+        })
+        hArr[minHIndex] += $boxs.eq(index).outerHeight();
+      }
+    })
+  }
+
+</script>
 
 <script>
   $('#books-org-code-select').select2()
