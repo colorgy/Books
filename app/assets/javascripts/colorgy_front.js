@@ -101,6 +101,8 @@ $(document).ready(function () {
 	  $(this).parent().children('.faqs-answer').slideToggle( 200 );
 	  $(this).children("img").toggleClass('faqs-question-img-rotate')
 	});
-
+    $('.close-btn').click(function(){
+    	$(this).parent().hide(500);
+    })
 
 });

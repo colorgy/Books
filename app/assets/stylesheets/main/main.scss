@@ -1544,11 +1544,20 @@ footer > p{
 	-ms-transform: translateX( 300px );
 }
 img.push-menu-close {
-position: absolute;
-height: 30px;
-width: 30px;
-right: 10px;
-top: 10px;
+	position: absolute;
+	height: 30px;
+	width: 30px;
+	right: 10px;
+	top: 10px;
+	cursor: pointer;
+}
+img.close-btn {
+	position: absolute;
+	height: 20px;
+	width: 20px;
+	right: 10px;
+	top: 10px;
+	cursor: pointer;
 }
 .push-menu-container{
 	height: 100%;
@@ -1776,6 +1785,7 @@ p.bjqs-caption{
 	color: #fff;
 	font-size: 16px;
 	padding: 15px 20px;
+	position: relative;
 }
 .uv-icon.uv-bottom-right::before {
 	content: '有問題嗎？';
@@ -1842,4 +1852,21 @@ p.bjqs-caption{
 	.fb-likebox-mobile{
 		display: block !important;
 	}
+}
+.countdown{
+	text-align: center;
+	min-height: 50px;
+	width: 90%;
+	margin: 0px auto 10px auto;
+	background-color: #28A38C;
+	color: #fff;
+	font-size: 16px;
+	padding: 15px 20px;
+	position: relative;
+
+	span{
+		font-size: 24px;
+		letter-spacing: 1.5px;
+	}
+
 }

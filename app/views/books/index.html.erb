@@ -64,7 +64,13 @@
 
     </section>
     <!--篩選filter區塊end-->
+    <div class="countdown">
+       <%= image_tag 'close.png',class:'close-btn' %>
+       #注意：第一波團購時間至 3/21 23:59 為止，還剩下..<br>
+       <span id="clock"></span>
+    </div>
     <div class="sweet-tip">
+        <%= image_tag 'close.png',class:'close-btn' %>
             ＃貼心小提醒 : 使用電腦版網頁時也可以按 " Ctrl + F " 或 " Command + F " 來輸入書名、作者、課程名稱、教授名字來搜尋您要的書籍。
     </div>
     <!--書的呈現區塊-->
@@ -178,6 +184,26 @@
     });
   })
 </script>
+<%= javascript_include_tag "countdown.min.js" %>
+<script type="text/javascript">
+
+   $('#clock').countdown('2015/3/02 00:00:00')
+    .on('update.countdown', function(event) {
+      var format = '%H:%M:%S';
+      if(event.offset.days > 0) {
+        format = '%-d day%!d ' + format;
+      }
+      if(event.offset.weeks > 0) {
+        format = '%-w week%!w ' + format;
+      }
+     $(this).html(event.strftime(format));
+   })
+   .on('finish.countdown', function(event) {
+     $(this).html('This offer has expired!').parent().addClass('disabled');
+
+   });
+
+</script>
 
 <script>
   $('#books-org-code-select').select2()
@@ -194,6 +220,7 @@
     window.location.href = URI(window.location.href).removeSearch('q').addSearch('q', $('#search').val()).toString();
     return false;
   });
+
   $(document).ready(function($) {
     $('#my-slideshow').bjqs({
       'height' : 500,
