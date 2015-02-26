@@ -18,7 +18,6 @@ Rails.application.routes.draw do
   get '/paymethod/life' => 'pages#paymethod_life'
   get '/paymethod/ok' => 'pages#paymethod_ok'
 
-
   resources :lecturer do
     resources :courses, controller: :lecturer_courses
   end
@@ -38,6 +37,8 @@ Rails.application.routes.draw do
   resources :groups
 
   get '/tasks/payment_code_check' => 'tasks#payment_code_check'
+
+  get '/sorry_but_forbidden' => 'pages#sorry_but_forbidden'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

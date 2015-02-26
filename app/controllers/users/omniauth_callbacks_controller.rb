@@ -2,9 +2,9 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def colorgy
     auth = request.env["omniauth.auth"]
 
-    if auth.info.identity.blank?
+    if !['student', 'professor', 'lecturer', 'staff'].include?(auth.info.identity)
       cookies[:_ignored_identity_token] = cookies[:_identity_token]
-      redirect_to root_path, notice: '很抱歉，本服務尚未開放您使用！' and return
+      redirect_to sorry_but_forbidden_path, notice: '很抱歉，本服務尚未開放您使用！' and return
     end
 
     @user = User.from_core(auth)
