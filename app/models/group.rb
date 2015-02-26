@@ -1,5 +1,11 @@
 class Group < ActiveRecord::Base
+  has_paper_trail
+
   scope :current, ->  { where(batch: Order.current_batch) }
+  scope :unshipped, ->  { where(shipped_at: nil) }
+  scope :shipped, ->  { where.not(shipped_at: nil) }
+  scope :undelivered, ->  { where(received_at: nil) }
+  scope :delivered, ->  { where.not(received_at: nil) }
 
   belongs_to :leader, class_name: User, primary_key: :id, foreign_key: :leader_id
   has_many :orders, primary_key: :code, foreign_key: :group_code
@@ -31,5 +37,31 @@ class Group < ActiveRecord::Base
   def set_batch!
     self.batch = Order.current_batch
     save!
+  end
+
+  def set_organization_code
+    return unless self.organization_code.blank?
+    self.organization_code = course.try(:organization_code)
+  end
+
+  def set_organization_code!
+    self.organization_code = course.try(:organization_code)
+    save!
+  end
+
+  def ship
+    self.shipped_at = Time.now
+  end
+
+  def ship!
+    ship && save!
+  end
+
+  def receive
+    self.received_at = Time.now
+  end
+
+  def receive!
+    receive && save!
   end
 end

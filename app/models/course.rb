@@ -1,6 +1,7 @@
 class Course < ActiveRecord::Base
   acts_as_paranoid
   has_paper_trail
+
   scope :current, ->  { where(year: current_year, term: current_term) }
   scope :not_current, ->  { where.not(year: current_year, term: current_term) }
   scope :confirmed, -> { where.not(confirmed_at: nil) }

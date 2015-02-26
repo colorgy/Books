@@ -19,4 +19,23 @@ class GroupsController < ApplicationController
     @group = current_user.lead_course_group(params[:course], params[:book])
     redirect_to @group
   end
+
+  def edit
+    @group = current_user.lead_groups.find(params[:id])
+  end
+
+  def update
+    @group = current_user.lead_groups.find(params[:id])
+    if @group.update(group_params)
+      redirect_to @group
+    else
+      render :show
+    end
+  end
+
+  private
+
+  def group_params
+    params.require(:group).permit(:pickup_point, :pickup_date, :pickup_time)
+  end
 end
