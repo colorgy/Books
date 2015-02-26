@@ -61,12 +61,19 @@ img {
     max-height: 100%;
 }
 
+section{
+	overflow: hidden;
+}
+
 *:focus{
 	outline: none !important;
 }
 
 .product-box-image > a > img {
 	min-width: 100%;
+}
+.product-box-image > img{
+	width: 100% !important;
 }
 
 .checkout-grid__item > img {

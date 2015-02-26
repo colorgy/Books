@@ -140,7 +140,8 @@
     });
   });
 
-  defaultCourses = [<% @book.courses.current.where(organization_code: current_org_code).each do |course| %> <%= course.to_json.html_safe %>, <% end %>];
+  defaultCourses = [<% @book.courses.includes(:groups).current.where(organization_code: current_org_code).each do |course| %> <%= course.to_json(methods: [:group_leader_name, :group_book_id]).html_safe %>, <% end %>];
+  bookId = <%= @book.id %>;
 
   $("#course-id").select2({
     allowClear: true,
@@ -161,7 +162,11 @@
           data = defaultCourses;
         }
         data.forEach(function (item) {
-          item.text = item.lecturer_name + ' - ' + item.name;
+          if (item.group_leader_name && item.group_book_id == bookId) {
+            item.text = item.lecturer_name + ' - ' + item.name + '（' + item.group_leader_name + '揪的團）';
+          } else {
+            item.text = item.lecturer_name + ' - ' + item.name;
+          }
         });
         return { results: data };
       },
