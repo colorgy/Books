@@ -67,7 +67,7 @@
 
     <!--書的呈現區塊-->
     <section class="book-section" style="overflow: visible !important;">
-      <div class="container-fluid home-book-container">
+      <div class="container-fluid home-book-container" id="container">
 
           <% if @books.present? %>
             <% @books.each do |book| %>
@@ -125,10 +125,10 @@
         </div>
 
     </section>
+<!--
 <script type="text/javascript">
-  $(window).on('load',function(){
-    waterfall();
-  })
+  $(window).on('load', waterfall);
+  $( window ).resize(waterfall);
   function waterfall(){
     var $boxs = $('div.home-book-box');
     var w=$boxs.eq(0).outerWidth();
@@ -153,6 +153,16 @@
     })
   }
 
+</script>-->
+
+<%= javascript_include_tag "masonry.pkgd.min.js" %>
+<script type="text/javascript">
+  var container = document.querySelector('#container');
+  var msnry = new Masonry( container, {
+    // options
+    columnWidth: 280,
+    itemSelector: '.home-book-box'
+  });
 </script>
 
 <script>

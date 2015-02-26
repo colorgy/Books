@@ -74,6 +74,7 @@ section{
 }
 .product-box-image > img{
 	width: 100% !important;
+	min-height: 300px;
 }
 
 .checkout-grid__item > img {
@@ -1724,4 +1725,7 @@ p.bjqs-caption{
 .home-book-container{
 	position: relative;
 	padding: 0 !important;
+}
+.uv-icon.uv-bottom-right.uv-is-selected{
+	z-index: 999999999;
 }
