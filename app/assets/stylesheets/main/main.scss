@@ -1778,7 +1778,7 @@ p.bjqs-caption{
 	padding: 15px 20px;
 }
 .uv-icon.uv-bottom-right::before {
-	content: 有問題嗎？;
+	content: '有問題嗎？';
 	position: absolute;
 	top: 8px;
 	left: -93px;
@@ -1818,5 +1818,19 @@ p.bjqs-caption{
 			top: 131px;
 			left: 168px;
 		}
+	}
+}
+
+.fb-likebox-mobile{
+	display: none;
+	width: 100%;
+}
+
+@media screen and (max-width: 800px )  {
+	.fb-likebox{
+		display: none;
+	}
+	.fb-likebox-mobile{
+		display: block !important;
 	}
 }
