@@ -313,13 +313,13 @@
 
 
     <%= yield %>
-
+<!--
     <div class="container-fluid footer-container">
       <footer>
         <p><a id="uservoice-footer-contact-trigger" href="#">有問題嗎？聯繫我們！</a> - <a href="https://github.com/colorgy/Core" target="_blank">網站原始碼 ＠Github</a> - &copy; Colorgy 2015</p>
       </footer>
     </div>
-
+-->
     <%= render "partials/uservoice" %>
     <%= javascript_tag do %>
       UserVoice.push(['addTrigger', '#uservoice-footer-contact-trigger', { mode: 'contact' }]);
