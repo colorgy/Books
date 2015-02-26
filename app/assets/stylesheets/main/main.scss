@@ -1409,11 +1409,8 @@ ul.cd-item-action > li > a{
 	margin-top: 5px;
 	max-height: 60px;
 }
-.book-name > span , .book-author > span , .book-edition > span,  {
+.book-name > span , .book-author > span , .book-edition > span, .book-course > span {
 	color: rgb(40, 163, 140);
-}
-.book-course > span{
-	color: #5D8684;
 }
 .book-course{
 	max-height: 60px;
@@ -1769,4 +1766,14 @@ p.bjqs-caption{
 	padding: 1px 3px;
 	margin-right: 5px;
 	border-radius: 3px;
+}
+.sweet-tip{
+	text-align: center;
+	min-height: 50px;
+	width: 90%;
+	margin: 0px auto;
+	background-color: #E77B2D;
+	color: #fff;
+	font-size: 16px;
+	padding: 15px 20px;
 }
