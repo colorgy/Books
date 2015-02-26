@@ -163,12 +163,14 @@
 
 <%= javascript_include_tag "masonry.pkgd.min.js" %>
 <script type="text/javascript">
-  var container = document.querySelector('#container');
-  var msnry = new Masonry( container, {
-    // options
-    columnWidth: 280,
-    itemSelector: '.home-book-box'
-  });
+  $(window).load(function(){
+    var container = document.querySelector('#container');
+    var msnry = new Masonry( container, {
+      // options
+      columnWidth: 280,
+      itemSelector: '.home-book-box'
+    });
+  })
 </script>
 
 <script>
