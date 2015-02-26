@@ -1536,6 +1536,13 @@ footer > p{
 	-o-transition: all 0.5s;
 
 }
+
+@media screen and (max-width: 600px){
+	.push-menu{
+		overflow-y: scroll;
+	}
+}
+
 .push-menu-active{
 	transform: translateX( 300px );
 	-webkit-transform: translateX( 300px );
@@ -1745,8 +1752,8 @@ p.bjqs-caption{
 	position: relative;
 	padding: 0 !important;
 }
-.uv-icon.uv-bottom-right.uv-is-selected{
-	z-index: 999999999;
+div#uv-1{
+	z-index: 999999999 !important;
 }
 
 .login-list-btn > a{
