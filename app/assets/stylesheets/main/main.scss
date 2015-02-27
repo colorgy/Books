@@ -624,14 +624,14 @@ a.cd-trigger:hover{
 	overflow: visible;
 	margin-top: -50px;
 	box-shadow: 1px 1px 1px rgba(20%,20%,40%,0.4);
-	padding-right: 30px;
+	padding-right: 10px;
 	padding-left: 10px;
 	padding-top: 15px;
 	width: 100%
 }
 @media screen and (min-width: 506px){
 	.selection-section{
-		padding-left: 30px !important;
+		// padding-left: 30px !important;
 	}
 }
 .selection-section > div > div > div.cs-skin-elastic{

@@ -41,16 +41,17 @@
     <!--filter 篩選區塊-->
     <section class="selection-section">
       <div class="row" style="max-width:1000px; margin-right:auto; margin-left:auto;">
-        <div class="col-md-4 home-dropdown">
-        <%= select_tag "books-org-code-select", options_for_select(Organization.all_for_select, current_org_code) %>
-        </div>
-        <div class="col-md-4 home-dropdown">
-          <%= select_tag "books-dep-code-select", options_for_select(Organization.find(current_org_code).departments_for_select('D').insert(0, ['所有開課系別', '']), @dep_code) %>
-        </div>
-
-        <div class="col-md-4" style="margin-right: -15px;">
+        <!-- div class="col-md-4 home-dropdown" -->
+        <!-- # select_tag "books-org-code-select", options_for_select(Organization.all_for_select, current_org_code) -->
+        <!-- div -->
+        <!-- div class="col-md-4 home-dropdown" -->
+          <!-- # select_tag "books-dep-code-select", options_for_select(Organization.find(current_org_code).departments_for_select('D').insert(0, ['所有開課系別', '']), @dep_code) %> -->
+        <!-- /div -->
+        <!-- <div class="col-md-4" style="margin-right: -15px;"> -->
+        <!-- <div style="margin-right: -15px;"> -->
+        <div>
             <div id="sb-search" class="sb-search sb-search-open">
-              <form id="books-search">
+              <form id="books-search" style="padding-right: 39px;">
                 <input class="sb-search-input" placeholder="搜尋書名、課名、老師名..." type="text" value="<%= params[:q] %>" name="search" id="search">
                 <input class="sb-search-submit" type="submit" value="">
                 <span class="sb-icon-search">

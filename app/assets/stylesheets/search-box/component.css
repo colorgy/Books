@@ -22,13 +22,14 @@
 	transition: width 0.3s;
 	-webkit-backface-visibility: hidden;
 	z-index: 0;
-	margin-left: calc( 50% - 150px) !important;
+	/*margin-left: calc( 50% - 150px) !important;*/
 }
 
 .sb-search-input {
-	position: absolute;
-	top: 0;
-	right: 0;
+	position: relative;
+	/*position: absolute;*/
+/*	top: 0;
+	right: 0;*/
 	border: none;
 	outline: none;
 	background: #fff;
@@ -36,7 +37,9 @@
 	height: 42px;
 	margin: 0;
 	z-index: 10;
-	padding: 10px 55px 10px 10px;
+	/*padding: 10px 55px 10px 10px;*/
+	padding-left: 10px;
+	padding-right: 52px;
 	font-family: inherit;
 	font-size: 20px;
 	color: #2c3e50;
@@ -65,7 +68,8 @@
 	height: 42px;
 	display: block;
 	position: absolute;
-	right: 0;
+	/*right: 0;*/
+	right: 38px;
 	top: 0;
 	padding: 0;
 	margin: 0;
@@ -103,7 +107,8 @@
 /* Open state */
 .sb-search.sb-search-open,
 .no-js .sb-search {
-	width: 300px;
+	/*width: 300px;*/
+	width: 100%;
 
 }
 
