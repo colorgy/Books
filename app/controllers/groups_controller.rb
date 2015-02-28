@@ -36,6 +36,6 @@ class GroupsController < ApplicationController
   private
 
   def group_params
-    params.require(:group).permit(:pickup_point, :pickup_date, :pickup_time)
+    params.require(:group).permit(:pickup_point, :pickup_date, :pickup_time, :mobile)
   end
 end
