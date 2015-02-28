@@ -9,7 +9,41 @@
     <h1>團購書籍：<%= "#{@group.course_name}" %></h1>
     <p>以下為跟團者名單..</p>
     <div style="overflow-x :scroll;">
-      <%= render "partials/order_list" %>
+      
+      <table>
+        <thead>
+          <tr>
+            <th>團員</th>
+            <th>FB</th>
+            <th>狀態</th>
+            <th>動作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% if @orders %>
+            <% @orders.each do |item| %>
+              <tr>
+                <td>
+                  <%= item.user.name %>
+                </td>
+                <td>
+                  <% if item.user.fbid.present? %>
+                  <a href="<%= "https://facebook.com/#{item.user.fbid}" %>" target="_blank">
+                    <div class="headphoto">
+                      <%= image_tag(item.user.avatar_url) %>
+                    </div>
+                  </td>
+                  <% end %>
+                </td>
+                <td>
+                  <%= t(item.state, scope: :order_states) %>
+                </td>
+                <td></td>
+              </tr>
+            <% end %>
+          <% end %>
+        </tbody>
+      </table>
     </div>
   </div>
   <div class="col-md-3 cart-right-section">

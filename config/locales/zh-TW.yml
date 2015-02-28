@@ -17,6 +17,9 @@ zh-TW:
   bill_states:
     payment_pending: 待付款
     paid: 已付款
+  order_states:
+    payment_pending: 待付款
+    paid: 已付款
   user:
     identity:
       student: 學生
