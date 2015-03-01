@@ -11,6 +11,12 @@
 
 /*1.核心
 -------------------------*/
+.btn-default{
+	border-color: transparent !important;
+}
+.btn-default:hover, .btn-default:focus, .btn-default.focus, .btn-default:active, .btn-default.active, .open>.btn-default.dropdown-toggle{
+	border-color: transparent !important;
+}
 .tester{
 	height: 150px !important;
 	opacity: 1 !important;
