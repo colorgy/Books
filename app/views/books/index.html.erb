@@ -67,7 +67,7 @@
     <!--篩選filter區塊end-->
     <div class="countdown">
        <%= image_tag 'close.png',class:'close-btn' %>
-       #注意：第一波團購時間至 3/01 23:59 為止，還剩下..<br>
+       #注意：第二波團購時間至 3/08 23:59 為止，還剩下..<br>
        <span id="clock"></span>
     </div>
     <div class="sweet-tip">
@@ -188,7 +188,7 @@
 <%= javascript_include_tag "countdown.min.js" %>
 <script type="text/javascript">
 
-   $('#clock').countdown('2015/3/02 00:00:00')
+   $('#clock').countdown('2015/3/09 00:00:00')
     .on('update.countdown', function(event) {
       var format = '%H:%M:%S';
       if(event.offset.days > 0) {
@@ -200,7 +200,7 @@
      $(this).html(event.strftime(format));
    })
    .on('finish.countdown', function(event) {
-     $(this).html(' 『第一波訂購已經結束了！』 ').parent().addClass('disabled');
+     $(this).html(' 『第二波訂購已經結束了！』 ').parent().addClass('disabled');
 
    });
 

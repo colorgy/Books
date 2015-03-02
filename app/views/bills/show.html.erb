@@ -56,7 +56,8 @@
             <div class="thankyoupage-text">
 
               <blockquote style="border-left: 5px solid #36B8A0 !important;">
-                <h3>繳費代碼：<%= @bill.payment_code %><br>繳費狀態：<%= t(@bill.state, scope: :bill_states) %></h3>
+                <h3 style="word-wrap: break-word;">繳費代碼：<br><br><span class="payment-code"><%= @bill.payment_code %></span></h3>
+                <h3><br>繳費狀態：<%= t(@bill.state, scope: :bill_states) %></h3>
               </blockquote>
               <h3 style="font-size: 16px;">請於三日或團購期限之內繳費，付款操作請參考<a href="<%= paymethod_path %>">付款教學</a></h3>
 
@@ -102,3 +103,10 @@
     </div>
   </section>
 </div>
+<script type="text/javascript">
+  var pC1 = $('.payment-code').text().substr(0,4);
+  var pC2 = $('.payment-code').text().substr(4,4);
+  var pC3 = $('.payment-code').text().substr(8,4);
+  var pC4 = $('.payment-code').text().substr(12,4);
+  $('.thankyoupage-text blockquote h3:nth-child(1) span').replaceWith("<span>" + pC1 + "</span>" + "<span>" + pC2 + "</span>" + "<span>" + pC3 + "</span>" + "<span>" + pC4 + "</span>");
+</script>
