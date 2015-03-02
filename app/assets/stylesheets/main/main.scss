@@ -251,7 +251,7 @@ div.mobile-checkout{
 div.desktop-checkout{
 	position: absolute;
 	top: 15px;
-	right: 150px;
+	right: 175px;
 }
 
 @media screen and (min-width: 1380px) {
@@ -1331,8 +1331,9 @@ ul.cd-item-action > li > a{
 }
 .profile > p{
     float: right;
-    padding: 10px;
     font-size: 16px;
+    width: 100px;
+    margin-left: 8px;
 }
 
 .profile:hover .profile-field{

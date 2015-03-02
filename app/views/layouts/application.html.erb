@@ -297,6 +297,16 @@
           new SelectFx(el);
         } );
       })();
+
+      if($('.profile p').innerHeight() > 30){
+        $('.profile p').css({
+          'padding-top': 0 +'px'
+        })
+      }else{
+        $('.profile p').css({
+          'padding-top': 10 + 'px'
+        })
+      }
     </script>
     <script>
         (function() {
