@@ -17,6 +17,8 @@ class Order < ActiveRecord::Base
   delegate :organization_code, :department_code, :lecturer_name,
            :year, :term, :name, :code, :url, :required, :book_isbn,
            to: :course, prefix: true, allow_nil: true
+  delegate :sid, :uid, :name, :fbid, :username, :avatar_url, :cover_photo_url,
+           to: :user, prefix: true, allow_nil: true
   delegate :leader, :leader_name, :leader_avatar_url,
            to: :group, prefix: true, allow_nil: true
 

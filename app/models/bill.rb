@@ -15,6 +15,9 @@ class Bill < ActiveRecord::Base
   belongs_to :user
   has_many :orders
 
+  delegate :sid, :uid, :name, :fbid, :username, :avatar_url, :cover_photo_url,
+           to: :user, prefix: true, allow_nil: true
+
   validates :type, presence: true, inclusion: { in: %w(payment_code credit_card virtual_account) }
   validates :invoice_type, presence: true, inclusion: { in: %w(digital paper code cert love_code uni_num) }
   validates :uuid, presence: true
