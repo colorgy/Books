@@ -20,13 +20,14 @@ RSpec.describe Order, :type => :model do
 
   context "just created" do
     its(:state) { is_expected.to eq('new') }
-    its(:batch) { is_expected.to eq("#{Course.current_year}-#{Course.current_term}-#{Settings.order_batch}") }
+    its(:batch) { is_expected.to eq("#{BatchCodeService.current_year}-#{BatchCodeService.current_term}-#{Settings.order_batch}") }
     its(:group_code) { is_expected.to eq("#{order.batch}-#{order.organization_code}-#{order.course.id}-#{order.book.id}") }
   end
 
   context "course changed" do
     before do
       expect(order.group_code).to eq("#{order.batch}-#{order.organization_code}-#{order.course.id}-#{order.book.id}")
+      Settings.order_batch = '99'
       @another_course = create(:course)
       order.course = @another_course
       order.save!

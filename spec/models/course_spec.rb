@@ -100,8 +100,8 @@ RSpec.describe Course, :type => :model do
 
     it "scopes the current courses" do
       Course.current.each do |course|
-        expect(course.year).to eq(Course.current_year)
-        expect(course.term).to eq(Course.current_term)
+        expect(course.year).to eq(BatchCodeService.current_year)
+        expect(course.term).to eq(BatchCodeService.current_term)
       end
     end
   end

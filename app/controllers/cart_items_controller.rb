@@ -8,7 +8,7 @@ class CartItemsController < ApplicationController
     @group_datas = {}
 
     @cart_items.each do |item|
-      group_code = Group.generate_code(item.course.organization_code, item.course_id, item.book_id)
+      group_code = BatchCodeService.generate_group_code(item.course.organization_code, item.course_id, item.book_id)
       @group_codes << group_code
       @group_datas[group_code] = { book_id: item.book_id, course_id: item.course_id, course_name: item.course_name, course_lecturer_name: item.course_lecturer_name }
     end

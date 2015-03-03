@@ -15,8 +15,8 @@ FactoryGirl.define do
     unknown_book_name nil
 
     trait :current do
-      year { Course.current_year }
-      term { Course.current_term }
+      year { BatchCodeService.current_year }
+      term { BatchCodeService.current_term }
     end
 
     trait :with_book do

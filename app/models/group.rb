@@ -1,7 +1,7 @@
 class Group < ActiveRecord::Base
   has_paper_trail
 
-  scope :current, ->  { where(batch: Order.current_batch) }
+  scope :current, ->  { where(batch: BatchCodeService.current_batch) }
   scope :unshipped, ->  { where(shipped_at: nil) }
   scope :shipped, ->  { where.not(shipped_at: nil) }
   scope :undelivered, ->  { where(received_at: nil) }
@@ -25,17 +25,13 @@ class Group < ActiveRecord::Base
 
   after_initialize :set_batch
 
-  def self.generate_code(organization_code, course_id, book_id)
-    "#{Order.current_batch}-#{organization_code}-#{course_id}-#{book_id}"
-  end
-
   def set_batch
     return unless self.batch.blank?
-    self.batch = Order.current_batch
+    self.batch = BatchCodeService.current_batch
   end
 
   def set_batch!
-    self.batch = Order.current_batch
+    self.batch = BatchCodeService.current_batch
     save!
   end
 

@@ -12,19 +12,38 @@ RSpec.describe User, :type => :model do
     it "adds a book to the user's cart" do
       user = create(:user)
 
-      book = create(:book)
-      course = create(:course, book_isbn: book.isbn)
+      book = create(:book, price: 1)
+      course = create(:course, :current, book_isbn: book.isbn)
       user.add_to_cart(book, course)
       expect(user.cart_items.includes(:book).map(&:book)).to include(book)
       expect(user.cart_items_count).to eq(1)
 
-      book = create(:book)
-      course = create(:course, book_isbn: book.isbn)
+      book = create(:book, price: 1)
+      course = create(:course, :current, book_isbn: book.isbn)
       user.add_to_cart(book, course)
       expect(user.cart_items.includes(:book).map(&:book)).to include(book)
       expect(user.cart_items_count).to eq(2)
-
       expect(user.cart_items.count).to eq(2)
+    end
+
+    context "cart total price larger then 18_000" do
+      it "does nothing" do
+        user = create(:user)
+
+        book = create(:book, price: 17_999)
+        course = create(:course, :current, book_isbn: book.isbn)
+        user.add_to_cart(book, course)
+        expect(user.cart_items.includes(:book).map(&:book)).to include(book)
+        expect(user.cart_items_count).to eq(1)
+
+        book = create(:book, price: 2)
+        course = create(:course, :current, book_isbn: book.isbn)
+        added = user.add_to_cart(book, course)
+        expect(added).to be false
+        expect(user.cart_items.includes(:book).map(&:book)).not_to include(book)
+        expect(user.cart_items_count).to eq(1)
+        expect(user.cart_items.count).to eq(1)
+      end
     end
   end
 
@@ -32,30 +51,47 @@ RSpec.describe User, :type => :model do
     it "destroys invalid cart items" do
       user = create(:user)
 
-      book = create(:book)
+      book = create(:book, price: 1)
       course = create(:course, :current, book_isbn: book.isbn)
       user.add_to_cart(book, course)
       valid_item_1 = user.cart_items.last
 
-      book = create(:book)
+      book = create(:book, price: 1)
       course = create(:course, :current)
       user.add_to_cart(book, course)
       valid_item_2 = user.cart_items.last
 
+      # book does not exists
       course = create(:course, :current, book_isbn: book.isbn)
       user.add_to_cart(-999, course)
       invalid_item_1 = user.cart_items.last
 
-      user.add_to_cart(-9999, -9999)
+      # book is deleted
+      book = create(:book, price: 1)
+      course = create(:course, :current)
+      user.add_to_cart(book, course)
+      book.destroy
+      invalid_item_1_2 = user.cart_items.last
+
+      # course does not exists
+      user.add_to_cart(book, -9999)
       invalid_item_2 = user.cart_items.last
 
-      book = create(:book)
+      # course is deleted
+      book = create(:book, price: 1)
+      course = create(:course, :current)
+      user.add_to_cart(book, course)
+      course.destroy
+      invalid_item_2_2 = user.cart_items.last
+
+      # with a historical course
+      book = create(:book, price: 1)
       course = create(:course, year: 1945, book_isbn: book.isbn)
       user.add_to_cart(book, course)
       invalid_item_3 = user.cart_items.last
 
-      expect(user.cart_items.count).to eq(5)
-      expect(user.cart_items_count).to eq(5)
+      expect(user.cart_items.count).to eq(7)
+      expect(user.cart_items_count).to eq(7)
 
       user.check_cart!
 
@@ -64,7 +100,9 @@ RSpec.describe User, :type => :model do
       expect(user.cart_items).to include(valid_item_1)
       expect(user.cart_items).to include(valid_item_2)
       expect(user.cart_items).not_to include(invalid_item_1)
+      expect(user.cart_items).not_to include(invalid_item_1_2)
       expect(user.cart_items).not_to include(invalid_item_2)
+      expect(user.cart_items).not_to include(invalid_item_2_2)
       expect(user.cart_items).not_to include(invalid_item_3)
     end
   end
@@ -73,11 +111,11 @@ RSpec.describe User, :type => :model do
     it "destroys every item in the user's cart" do
       user = create(:user)
 
-      book = create(:book)
+      book = create(:book, price: 1)
       course = create(:course, :current, book_isbn: book.isbn)
       user.add_to_cart(book, course)
-      user.add_to_cart(book, course)
-      user.add_to_cart(book, course)
+      user.add_to_cart(book, course, 5)
+      user.add_to_cart(book, course, 10)
       expect(user.cart_items_count).to eq(3)
       expect(user.cart_items.count).to eq(3)
 
@@ -88,8 +126,16 @@ RSpec.describe User, :type => :model do
   end
 
   describe "#checkout" do
-    let(:user) { create(:user, :with_items_in_cart, cart_items_count: 4) }
-    subject(:checkout_data) { user.checkout }
+    let(:user) { create(:user) }
+    before do
+      book = create(:book)
+      book2 = create(:book)
+      course = create(:course, :current)
+      course2 = create(:course, :current)
+      user.add_to_cart(book, course)
+      user.add_to_cart(book2, course2, 2)
+      user.add_to_cart(book2, course2, 2)
+    end
 
     context "not open_for_orders" do
       before do
@@ -97,6 +143,8 @@ RSpec.describe User, :type => :model do
       end
 
       it "returns nothing" do
+        checkout_data = user.checkout
+
         expect(checkout_data[:orders]).to be_blank
         expect(checkout_data[:bill]).to be_blank
       end
@@ -109,13 +157,16 @@ RSpec.describe User, :type => :model do
       end
 
       it "returns builded orders and a bill in hash" do
+        checkout_data = user.checkout
+
+        expect(checkout_data[:orders].count).to eq(5)
         expect(checkout_data[:orders]).not_to be_blank
         checkout_data[:orders].each_with_index do |order, i|
           expect(order).to be_valid
-          expect(order.organization_code).to eq(user.cart_items[i].course.organization_code)
-          expect(order.batch).to eq("#{Course.current_year}-#{Course.current_term}-#{Settings.order_batch}")
-          expect(order.group_code).to eq("#{Course.current_year}-#{Course.current_term}-#{Settings.order_batch}-#{user.cart_items[i].course.organization_code}-#{user.cart_items[i].course.id}-#{user.cart_items[i].book.id}")
-          expect(order.price).to eq(user.cart_items[i].book.price)
+          # expect(order.organization_code).to eq(user.cart_items[i].course.organization_code)
+          expect(order.batch).to eq("#{BatchCodeService.current_year}-#{BatchCodeService.current_term}-#{Settings.order_batch}")
+          # expect(order.group_code).to eq("#{BatchCodeService.current_year}-#{BatchCodeService.current_term}-#{Settings.order_batch}-#{user.cart_items[i].course.organization_code}-#{user.cart_items[i].course.id}-#{user.cart_items[i].book.id}")
+          # expect(order.price).to eq(user.cart_items[i].book.price)
         end
       end
 
@@ -128,6 +179,8 @@ RSpec.describe User, :type => :model do
         end
 
         it "uses the credits automatically" do
+          checkout_data = user.checkout
+
           bill = checkout_data[:bill]
           expect(bill.used_credits).to eq(3)
           expect(bill.amount).to eq(bill.price - 3)
@@ -171,9 +224,9 @@ RSpec.describe User, :type => :model do
   end
 
   describe "#lead_course_group" do
-    let(:user) { create(:user, :with_items_in_cart, cart_items_count: 4) }
-    let(:course) { user.cart_items.first.course }
-    let(:book) { user.cart_items.first.book }
+    let(:user) { create(:user) }
+    let(:course) { create(:course) }
+    let(:book) { create(:book) }
 
     it "start to lead a group and earn credits" do
       expect(user.credits).to eq(0)

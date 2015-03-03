@@ -42,24 +42,16 @@ class User < ActiveRecord::Base
     return user
   end
 
-  def add_to_cart(book, course, quantity)
+  def add_to_cart(book_id, course_id, quantity = 1)
     reutrn false if cart_items_count > 100
-    book = book.id if book.respond_to? :id
-    course = course.id if course.respond_to? :id
-    quantity = [1, quantity].max
-    quantity = [12, quantity].min
+    book_id = book_id.id if book_id.respond_to? :id
+    course_id = course_id.id if course_id.respond_to? :id
 
-    ActiveRecord::Base.transaction do
-      created_item = cart_items.create(book_id: book, course_id: course, quantity: quantity)
-      reload
-      if (cart_total_price > 18_000)
-        created_item.destroy!
-        reload
-        nil
-      else
-        created_item
-      end
-    end
+    new_item = cart_items.build(book_id: book_id, course_id: course_id, quantity: quantity)
+    reload and return false if cart_total_price > 18_000
+    saved = new_item.save!
+    reload
+    saved
   end
 
   def check_cart!
@@ -83,7 +75,6 @@ class User < ActiveRecord::Base
   end
 
   def cart_total_price
-    check_cart!
     price = 0
     cart_items.each do |item|
       price += item.price
@@ -145,7 +136,7 @@ class User < ActiveRecord::Base
     group = nil
 
     ActiveRecord::Base.transaction do
-      group = Group.create!(leader_id: id, code: Group.generate_code(course.organization_code, course.id, book.id), course: course, book: book)
+      group = Group.create!(leader_id: id, code: BatchCodeService.generate_group_code(course.organization_code, course.id, book.id), course: course, book: book)
       add_credit!(35)
     end
 

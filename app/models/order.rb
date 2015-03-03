@@ -3,7 +3,7 @@ class Order < ActiveRecord::Base
   acts_as_paranoid
   has_paper_trail
 
-  scope :current, ->  { where(batch: Order.current_batch) }
+  scope :current, ->  { where(batch: BatchCodeService.current_batch) }
 
   belongs_to :user
   belongs_to :course
@@ -53,13 +53,9 @@ class Order < ActiveRecord::Base
     end
   end
 
-  def self.current_batch
-    "#{Course.current_year}-#{Course.current_term}-#{Settings.order_batch}"
-  end
-
   def set_batch
     return unless self.batch.blank?
-    self.batch = Order.current_batch
+    self.batch = BatchCodeService.current_batch
   end
 
   def set_organization_code
@@ -67,7 +63,11 @@ class Order < ActiveRecord::Base
   end
 
   def set_group_code
-    self.group_code = Group.generate_code(organization_code, course.id, book.id) if course.present? && book.present?
+    if self.group_code.blank?
+      self.group_code = BatchCodeService.generate_group_code(organization_code, course.id, book.id) if course.present? && book.present?
+    else
+      self.group_code = BatchCodeService.generate_group_code(organization_code, course.id, book.id, batch: batch) if course.present? && book.present?
+    end
   end
 
   def set_price
