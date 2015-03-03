@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150303173236) do
+ActiveRecord::Schema.define(version: 20150303180034) do
 
   create_table "bills", force: true do |t|
     t.string   "uuid",         null: false
@@ -60,15 +60,15 @@ ActiveRecord::Schema.define(version: 20150303173236) do
 
   create_table "books", force: true do |t|
     t.string   "provider"
-    t.integer  "price",          null: false
-    t.string   "book_data_isbn"
+    t.integer  "price",      null: false
+    t.string   "isbn"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "deleted_at"
   end
 
-  add_index "books", ["book_data_isbn"], name: "index_books_on_book_data_isbn", unique: true
   add_index "books", ["deleted_at"], name: "index_books_on_deleted_at"
+  add_index "books", ["isbn"], name: "index_books_on_isbn"
 
   create_table "courses", force: true do |t|
     t.string   "organization_code",                 null: false

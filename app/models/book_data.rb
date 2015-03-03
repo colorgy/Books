@@ -1,5 +1,6 @@
 class BookData < ActiveRecord::Base
-  has_one :book, foreign_key: :book_data_isbn, primary_key: :isbn
+  has_one :book, foreign_key: :isbn, primary_key: :isbn
+  has_many :books, foreign_key: :isbn, primary_key: :isbn
   has_many :courses, foreign_key: :book_isbn, primary_key: :isbn
 
   validates :isbn, uniqueness: true#, isbn_format: true
