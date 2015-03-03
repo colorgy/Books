@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150301073627) do
+ActiveRecord::Schema.define(version: 20150303173236) do
 
   create_table "bills", force: true do |t|
     t.string   "uuid",         null: false
@@ -108,6 +108,7 @@ ActiveRecord::Schema.define(version: 20150301073627) do
     t.text     "data"
     t.string   "organization_code"
     t.string   "mobile"
+    t.string   "recipient_name"
   end
 
   add_index "groups", ["batch"], name: "index_groups_on_batch"

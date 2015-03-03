@@ -19,4 +19,5 @@ zh-TW:
         pickup_point: "取件地點"
         pickup_date: "取件日期"
         pickup_time: "取件時間"
-        mobile: "手機號碼"
+        mobile: "收件人手機號碼"
+        recipient_name: "收件人姓名"
