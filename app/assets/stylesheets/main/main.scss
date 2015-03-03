@@ -654,7 +654,7 @@ a.cd-trigger:hover{
 	width: 120px !important;
 }
 .checkout-open{
-	width: 400px !important;
+	width: 500px !important;
 	min-height: 462px !important;
 	opacity: 1 !important;
 	transform: translateX( -800px );
@@ -1194,7 +1194,7 @@ button.cart-checkout-button{
 	}
 }
 table.checkout__summary > thead > tr > th:nth-child(1){
-	width: 40%;
+	width: 25%;
 }
 table.checkout__summary > thead > tr > th:nth-child(2){
 	width: 15%;
@@ -1203,6 +1203,9 @@ table.checkout__summary > thead > tr > th:nth-child(3){
 	width: 15%;
 }
 table.checkout__summary > thead > tr > th:nth-child(4){
+	width: 15%;
+}
+table.checkout__summary > thead > tr > th:nth-child(5){
 	width: 7%;
 	min-width: 20px;
 }

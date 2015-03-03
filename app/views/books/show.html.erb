@@ -31,13 +31,13 @@
         </div>
       </div>
       <div class="row">
-        <!--<div class="col-md-3">
+        <div class="col-md-3">
 
           <div class="book-page-quantity">
-            <h3>數量：</h3><input class="input-number" type="number" name="quantity" placeholder="1">
+            <h3>數量：</h3><input class="input-number" type="number" id="quantity" value="1" min="1" max="10">
           </div>
 
-        </div>-->
+        </div>
         <div class="col-md-9">
           <button type="submit" id="add-to-cart" class="btn btn-default book-page-add-to-cart-button" style="margin: 50px 0 !important;">加入購物書包</button>
         </div>
@@ -126,15 +126,25 @@
       alert("請先選擇跟團課程！");
       return;
     }
+    quantity = parseInt($('#quantity').val());
+    if (quantity > 12 || quantity < 1) {
+      alert("哎呀，單次購買量限制在 1-12 本之間喔！");
+      return;
+    }
     $.ajax({
       url: '/cart_items.json',
       type: 'POST',
       dataType: 'json',
       data: {
         book_id: "<%= @book.id %>",
-        course_id: $('#course-id').val()
+        course_id: $('#course-id').val(),
+        quantity: $('#quantity').val()
       }
-    }).done(function() {
+    }).done(function(e) {
+      if (e.error) {
+        alert( "購物書包已經放了太多東西了 QAQ" );
+        return;
+      }
       alert( "已加入購物書包！點選選單中的「購物車」即可進行結帳~" );
       location.reload();
     });

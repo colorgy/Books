@@ -9,4 +9,8 @@ class UserCartItem < ActiveRecord::Base
   delegate :organization_code, :department_code, :lecturer_name,
            :year, :term, :name, :code, :url, :required, :book_isbn,
            to: :course, prefix: true, allow_nil: true
+
+  def price
+    book.price * quantity
+  end
 end

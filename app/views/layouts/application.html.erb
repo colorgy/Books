@@ -192,6 +192,7 @@
                               <th>書本項目</th>
                               <th>金額</th>
                               <th>課程</th>
+                              <th>數量</th>
                               <th></th>
                             </tr>
                         </thead>
@@ -204,8 +205,9 @@
                           <% current_user.cart_items.each do |item| %>
                             <tr>
                               <td><%= item.book_name %><span><%= item.book_author %></span></td>
-                              <td><%= item.book_price %> NT</td>
+                              <td><%= item.price %> NT</td>
                               <td><%= item.course_name %></td>
+                              <td><%= item.quantity %></td>
                               <td class="stickycart-delete">
                                 <%=link_to image_tag("stickycart-delete.png"), cart_item_path(item), method: :delete%>
                               </td>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150228122231) do
+ActiveRecord::Schema.define(version: 20150301073627) do
 
   create_table "bills", force: true do |t|
     t.string   "uuid",         null: false
@@ -159,6 +159,7 @@ ActiveRecord::Schema.define(version: 20150228122231) do
     t.integer  "course_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "quantity",   default: 1, null: false
   end
 
   add_index "user_cart_items", ["book_id"], name: "index_user_cart_items_on_book_id"

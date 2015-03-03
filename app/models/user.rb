@@ -42,14 +42,24 @@ class User < ActiveRecord::Base
     return user
   end
 
-  def add_to_cart(book, course)
+  def add_to_cart(book, course, quantity)
     reutrn false if cart_items_count > 100
     book = book.id if book.respond_to? :id
     course = course.id if course.respond_to? :id
+    quantity = [1, quantity].max
+    quantity = [12, quantity].min
 
-    is_created = cart_items.create(book_id: book, course_id: course)
-    reload
-    is_created
+    ActiveRecord::Base.transaction do
+      created_item = cart_items.create(book_id: book, course_id: course, quantity: quantity)
+      reload
+      if (cart_total_price > 18_000)
+        created_item.destroy!
+        reload
+        nil
+      else
+        created_item
+      end
+    end
   end
 
   def check_cart!
@@ -76,7 +86,7 @@ class User < ActiveRecord::Base
     check_cart!
     price = 0
     cart_items.each do |item|
-      price += item.book_price
+      price += item.price
     end
     price
   end
@@ -88,9 +98,11 @@ class User < ActiveRecord::Base
     total_price = 0
 
     cart_items.each do |item|
-      order = self.orders.build(book_id: item.book_id, course_id: item.course_id)
-      total_price += order.price
-      orders << order
+      (item.quantity || 1).times do
+        order = self.orders.build(book_id: item.book_id, course_id: item.course_id)
+        total_price += order.price
+        orders << order
+      end
     end
 
     bill_attrs[:price] = total_price

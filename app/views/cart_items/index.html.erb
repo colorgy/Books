@@ -55,12 +55,44 @@
 
           </div>
           <div class="cart-table">
-            <% @new_orders.each do |order| %>
-              <% if order.group_leader.blank? %>
-                <blockquote><%= "#{order.course_name} / #{order.course_lecturer_name}" %> 目前沒有主揪。要當主揪嗎？<a class="btn" style="color: rgb(255, 255, 255);background-color: rgb(224, 96, 56);margin: 0 15px;" href="<%= new_group_path(course: order.course_id, book: order.book_id) %>" target="_blank">我要當主揪！</a><a class="btn" style="color: #fff;background-color: rgb(54, 184, 160);margin: 0 15px;" href="<%= flow_mainchew_path %>" target="_blank">什麼是主揪？</a></blockquote>
-              <% end %>
+            <% @new_group_datas.each do |key, data| %>
+              <blockquote><%= "#{data[:course_name]} / #{data[:course_lecturer_name]}" %> 目前沒有主揪。要當主揪嗎？<a class="btn" style="color: rgb(255, 255, 255);background-color: rgb(224, 96, 56);margin: 0 15px;" href="<%= new_group_path(course: data[:course_id], book: data[:book_id]) %>" target="_blank">我要當主揪！</a><a class="btn" style="color: #fff;background-color: rgb(54, 184, 160);margin: 0 15px;" href="<%= flow_mainchew_path %>" target="_blank">什麼是主揪？</a></blockquote>
             <% end %>
-            <%= render "partials/order_list" %>
+            <table>
+              <thead>
+                <tr>
+                  <th>書名</th>
+                  <th>作者</th>
+                  <th>版次</th>
+                  <th>課程 / 教授</th>
+                  <th>價格</th>
+                  <th>數量</th>
+                  <th>總價</th>
+                  <th>取消</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% if @cart_items %>
+                  <% @cart_items.each do |item| %>
+                    <tr>
+                      <td><%= item.book_name %></td>
+                      <td><%= item.book_author %></td>
+                      <td><%= item.book_edition %></td>
+                      <td>
+                        <%= "#{item.course_name} / #{item.course_lecturer_name}" %>
+                      </td>
+
+                      <td><%= item.book_price %></td>
+                      <td><%= item.quantity %></td>
+                      <td><%= item.price %></td>
+                      <td class="trashcan">
+                        <%= link_to image_tag("trashcan.png"), cart_item_path(item), method: :delete %>
+                      </td>
+                    </tr>
+                  <% end %>
+                <% end %>
+              </tbody>
+            </table>
           </div>
 
         </section>

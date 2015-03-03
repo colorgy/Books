@@ -4,7 +4,19 @@ class CartItemsController < ApplicationController
   def index
     current_user.check_cart!
     @cart_items = current_user.cart_items.includes(:book, :course)
-    @new_orders = current_user.checkout[:orders] if Settings.open_for_orders
+    @group_codes = []
+    @group_datas = {}
+
+    @cart_items.each do |item|
+      group_code = Group.generate_code(item.course.organization_code, item.course_id, item.book_id)
+      @group_codes << group_code
+      @group_datas[group_code] = { book_id: item.book_id, course_id: item.course_id, course_name: item.course_name, course_lecturer_name: item.course_lecturer_name }
+    end
+
+    @existing_groups = Group.where(code: @group_codes)
+    @existing_group_codes = @existing_groups.map(&:code)
+
+    @new_group_datas = @group_datas.delete_if { |k, v| @existing_group_codes.include?(k) }
 
     respond_to do |format|
       format.html
@@ -17,13 +29,16 @@ class CartItemsController < ApplicationController
 
     book = Book.find(params[:book_id])
     course = Course.find(params[:course_id])
-    @cart_item = current_user.cart_items.create!(book: book, course: course)
+    quantity = (params[:quantity] || 1).to_i
+    @cart_item = current_user.add_to_cart(book, course, quantity)
 
     if course.book_data.blank?
       course.book_isbn = book.book_data_isbn
       course.updated_through = 'add_to_cart'
       course.save!
     end
+
+    @cart_item ||= { error: 'not_created' }
 
     respond_to do |format|
       format.html do
