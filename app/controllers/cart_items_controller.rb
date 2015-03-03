@@ -33,7 +33,7 @@ class CartItemsController < ApplicationController
     @cart_item = current_user.add_to_cart(book, course, quantity)
 
     if course.book_data.blank?
-      course.book_isbn = book.book_data_isbn
+      course.book_isbn = book.isbn
       course.updated_through = 'add_to_cart'
       course.save!
     end

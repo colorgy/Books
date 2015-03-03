@@ -13,7 +13,7 @@ RSpec.describe UserCartItem, :type => :model do
 
     it "returns the total price of the item" do
       quantity = [2, 3].sample
-      user.add_to_cart(course, book, quantity)
+      user.add_to_cart(book, course, quantity)
       cart_item = user.cart_items.last
       expect(cart_item.price).to eq(book.price * quantity)
     end

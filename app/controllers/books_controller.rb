@@ -21,7 +21,7 @@ class BooksController < ApplicationController
     if params[:q].blank?
       @book_isbns = @courses.map(&:book_isbn)
       @book_isbns.reject!(&:blank?)
-      @books = Book.includes(:data).where(book_data_isbn: @book_isbns)
+      @books = Book.includes(:data).where(isbn: @book_isbns)
     else
       @book_isbns = []
       query = params[:q]
@@ -36,7 +36,7 @@ class BooksController < ApplicationController
       @book_datas = BookData.search(query)
       @book_isbns << @book_datas.map(&:isbn)
       @book_isbns.reject!(&:blank?)
-      @books = Book.includes(:data).where(book_data_isbn: @book_isbns)
+      @books = Book.includes(:data).where(isbn: @book_isbns)
     end
   end
 
