@@ -53,9 +53,9 @@
     </div>
 
     <%= simple_form_for @group do |f| %>
-      <%= f.input :pickup_point, collection: Settings.pickup_point_selections_for(@group.organization_code) %>
-      <%= f.input :pickup_date, collection: Settings.pickup_date_selections_for(@group.organization_code) %>
-      <%= f.input :pickup_time, collection: Settings.pickup_time_selections_for(@group.organization_code), hint: '我們可以幫您建議快遞希望的送達時間～' %>
+      <%= f.input :pickup_point, collection: PickupSelections::Point.selections_for(@group.organization_code) %>
+      <%= f.input :pickup_date, collection: PickupSelections::Date.selections_for(@group.organization_code) %>
+      <%= f.input :pickup_time, collection: PickupSelections::Time.selections_for(@group.organization_code), hint: '我們可以幫您建議快遞希望的送達時間～' %>
       <%= f.input :mobile %>
       <%= f.input :recipient_name %>
       <%= f.submit '儲存資訊',class:'btn',style:'background-color:rgb(51, 199, 171); color:#fff; margin: 10px auto 20px auto;' %>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150303180034) do
+ActiveRecord::Schema.define(version: 20150304072840) do
 
   create_table "bills", force: true do |t|
     t.string   "uuid",         null: false
@@ -142,6 +142,39 @@ ActiveRecord::Schema.define(version: 20150303180034) do
   add_index "orders", ["organization_code"], name: "index_orders_on_organization_code"
   add_index "orders", ["state"], name: "index_orders_on_state"
   add_index "orders", ["user_id"], name: "index_orders_on_user_id"
+
+  create_table "pickup_selections_dates", force: true do |t|
+    t.string   "organization_code"
+    t.string   "batch"
+    t.string   "selection"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "pickup_selections_dates", ["batch"], name: "index_pickup_selections_dates_on_batch"
+  add_index "pickup_selections_dates", ["organization_code"], name: "index_pickup_selections_dates_on_organization_code"
+
+  create_table "pickup_selections_points", force: true do |t|
+    t.string   "organization_code"
+    t.string   "batch"
+    t.string   "selection"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "pickup_selections_points", ["batch"], name: "index_pickup_selections_points_on_batch"
+  add_index "pickup_selections_points", ["organization_code"], name: "index_pickup_selections_points_on_organization_code"
+
+  create_table "pickup_selections_times", force: true do |t|
+    t.string   "organization_code"
+    t.string   "batch"
+    t.string   "selection"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "pickup_selections_times", ["batch"], name: "index_pickup_selections_times_on_batch"
+  add_index "pickup_selections_times", ["organization_code"], name: "index_pickup_selections_times_on_organization_code"
 
   create_table "settings", force: true do |t|
     t.string   "var",                   null: false
