@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150304072840) do
+ActiveRecord::Schema.define(version: 20150304084917) do
 
   create_table "bills", force: true do |t|
     t.string   "uuid",         null: false
@@ -93,20 +93,20 @@ ActiveRecord::Schema.define(version: 20150304072840) do
   add_index "courses", ["deleted_at"], name: "index_courses_on_deleted_at"
 
   create_table "groups", force: true do |t|
-    t.string   "code",                                 null: false
-    t.integer  "leader_id",                            null: false
-    t.integer  "course_id",                            null: false
-    t.integer  "book_id",                              null: false
+    t.string   "code",              null: false
+    t.integer  "leader_id",         null: false
+    t.integer  "course_id",         null: false
+    t.integer  "book_id",           null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "batch",             default: "_null_", null: false
+    t.string   "batch",             null: false
     t.datetime "shipped_at"
     t.datetime "received_at"
     t.string   "pickup_point"
     t.string   "pickup_date"
     t.string   "pickup_time"
     t.text     "data"
-    t.string   "organization_code"
+    t.string   "organization_code", null: false
     t.string   "mobile"
     t.string   "recipient_name"
   end

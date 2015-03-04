@@ -23,7 +23,8 @@ class Group < ActiveRecord::Base
   validates :course, presence: true
   validates :book, presence: true
 
-  after_initialize :set_batch
+  after_initialize :set_batch, :set_organization_code
+  before_save :set_batch, :set_organization_code
 
   def set_batch
     return unless self.batch.blank?
