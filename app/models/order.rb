@@ -6,9 +6,9 @@ class Order < ActiveRecord::Base
   scope :current, ->  { where(batch: BatchCodeService.current_batch) }
 
   belongs_to :user
-  belongs_to :course
-  belongs_to :book
-  belongs_to :bill
+  belongs_to :course, -> { with_deleted }
+  belongs_to :book, -> { with_deleted }
+  belongs_to :bill, -> { with_deleted }
   belongs_to :group, primary_key: :code, foreign_key: :group_code
 
   delegate :name, :author, :isbn, :edition, :image_url,
