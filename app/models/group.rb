@@ -23,8 +23,9 @@ class Group < ActiveRecord::Base
   validates :course, presence: true
   validates :book, presence: true
 
-  after_initialize :set_batch, :set_organization_code
-  before_save :set_batch, :set_organization_code
+  after_initialize :set_batch, :set_organization_code, :set_code
+  before_validation :set_organization_code, :set_code
+  before_save :set_organization_code, :set_code
 
   def set_batch
     return unless self.batch.blank?
@@ -46,19 +47,29 @@ class Group < ActiveRecord::Base
     save!
   end
 
-  def ship
-    self.shipped_at = Time.now
+  def set_code
+    return unless self.code.blank?
+    return if course_id.blank? || book_id.blank?
+    self.code = BatchCodeService.generate_group_code(organization_code, course_id, book_id)
   end
 
   def ship!
-    ship && save!
-  end
-
-  def receive
-    self.received_at = Time.now
+    return unless shipped_at.blank?
+    ActiveRecord::Base.transaction do
+      update_attributes(shipped_at: Time.now)
+      orders.each do |order|
+        order.ship! if order.may_ship?
+      end
+    end
   end
 
   def receive!
-    receive && save!
+    return unless shipped_at.present?
+    ActiveRecord::Base.transaction do
+      update_attributes(received_at: Time.now)
+      orders.each do |order|
+        order.leader_receive! if order.may_leader_receive?
+      end
+    end
   end
 end

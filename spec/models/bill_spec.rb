@@ -43,7 +43,7 @@ RSpec.describe Bill, :type => :model do
     its(:amount) { is_expected.to eq(bill.price + 35) }
   end
 
-  describe ".pay!" do
+  describe "#pay!" do
     it "marks itself as paid" do
       expect(bill).not_to be_paid
       bill.pay!

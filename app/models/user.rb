@@ -136,7 +136,7 @@ class User < ActiveRecord::Base
     group = nil
 
     ActiveRecord::Base.transaction do
-      group = Group.create!(leader_id: id, code: BatchCodeService.generate_group_code(course.organization_code, course.id, book.id), course: course, book: book)
+      group = lead_groups.create!(course: course, book: book)
       add_credit!(35)
     end
 

@@ -4,6 +4,8 @@ class Order < ActiveRecord::Base
   has_paper_trail
 
   scope :current, ->  { where(batch: BatchCodeService.current_batch) }
+  scope :paid, ->  { where(state: :paid) }
+  scope :has_paid, ->  { where(state: [:paid, :shipped, :leader_received, :delivered, :received]) }
 
   belongs_to :user
   belongs_to :course, -> { with_deleted }
@@ -27,13 +29,16 @@ class Order < ActiveRecord::Base
   validates :book, presence: true
 
   after_initialize :set_batch, :set_price, :set_organization_code, :set_group_code
-  before_save :set_organization_code, :set_group_code
+  before_save :set_price, :set_organization_code, :set_group_code
 
   aasm column: :state do
     state :new, initial: true
     state :payment_pending
     state :paid
+    state :shipped
+    state :leader_received
     state :delivered
+    state :received
     state :cancelled
 
     event :bill_created do
@@ -45,13 +50,42 @@ class Order < ActiveRecord::Base
       transitions :from => :payment_pending, :to => :paid
     end
 
-    event :deliver do
-      transitions :from => :paid, :to => :delivered
+    event :ship do
+      transitions :from => :paid, :to => :shipped
+    end
+
+    event :leader_receive do
+      transitions :from => :shipped, :to => :leader_received
+    end
+
+    event :leader_deliver do
+      transitions :from => :leader_received, :to => :delivered
+      transitions :from => :shipped, :to => :delivered
+    end
+
+    event :receive do
+      transitions :from => :delivered, :to => :received
+      transitions :from => :leader_received, :to => :received
+      transitions :from => :shipped, :to => :received
     end
 
     event :cancel do
       transitions :from => :new, :to => :cancelled
       transitions :from => :payment_pending, :to => :cancelled
+    end
+
+    event :revert do
+      transitions :from => :shipped, :to => :paid, :if => :recently_updated
+      transitions :from => :leader_received, :to => :shipped, :if => :recently_updated
+      transitions :from => :delivered, :to => :leader_received, :if => :recently_updated
+      transitions :from => :received, :to => :leader_received, :if => :recently_updated
+    end
+
+    event :force_revert do
+      transitions :from => :shipped, :to => :paid
+      transitions :from => :leader_received, :to => :shipped
+      transitions :from => :delivered, :to => :leader_received
+      transitions :from => :received, :to => :leader_received
     end
   end
 
@@ -61,7 +95,7 @@ class Order < ActiveRecord::Base
   end
 
   def set_organization_code
-    self.organization_code = course.organization_code
+    self.organization_code = course.try(:organization_code)
   end
 
   def set_group_code
@@ -74,12 +108,16 @@ class Order < ActiveRecord::Base
 
   def set_price
     return unless self.price.blank?
-    self.price = self.book.price
+    self.price = self.book.try(:price)
   end
 
   def save_with_bill!(bill)
     self.bill_id = bill.id
     self.bill_created
     save!
+  end
+
+  def recently_updated
+    updated_at > 3.minute.ago
   end
 end

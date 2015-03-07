@@ -20,6 +20,11 @@ zh-TW:
   order_states:
     payment_pending: 待付款
     paid: 已付款
+    shipped: 已出貨
+    leader_received: 主揪已收到
+    delivered: 已交付
+    received: 已確認收到
+    cancelled: 已取消
   user:
     identity:
       student: 學生

@@ -67,7 +67,7 @@ class Bill < ActiveRecord::Base
 
   def get_payment_info
     raise 'bill type not allowed' unless Bill.allowed_types.include?(type)
-    return if @@test
+    return if Rails.env.test?
     case type
     when 'payment_code'
       if Settings.orders_close_date.is_a? Time

@@ -1,15 +1,9 @@
-# FactoryGirl.define do
-#   factory :bill do
-#     uuid "MyString"
-# user_id 1
-# type ""
-# price 1.5
-# amount 1.5
-# state "MyString"
-# invoice_id 1
-# invoice_type "MyString"
-# invoice_data "MyText"
-# data "MyText"
-#   end
-
-# end
+FactoryGirl.define do
+  factory :bill do
+    user
+    type { %w(payment_code credit_card virtual_account).sample }
+    invoice_type { %w(digital paper code cert love_code uni_num).sample }
+    price 1
+    amount 1
+  end
+end
