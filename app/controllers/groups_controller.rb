@@ -7,7 +7,7 @@ class GroupsController < ApplicationController
 
   def show
     @group = current_user.lead_groups.find(params[:id])
-    @orders = @group.orders
+    @orders = @group.orders.order(:state)
   end
 
   def new
