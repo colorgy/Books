@@ -16,7 +16,7 @@ class User < ActiveRecord::Base
 
     oauth_params = ActionController::Parameters.new(auth.info)
 
-    attrs = %i(username gender username name avatar_url cover_photo_url gender fbid uid identity organization_code department_code)
+    attrs = %i(uuid username gender username name avatar_url cover_photo_url gender fbid uid identity organization_code department_code)
 
     user_data = oauth_params.slice(*attrs).permit(*attrs)
 
@@ -40,6 +40,14 @@ class User < ActiveRecord::Base
     end
 
     return user
+  end
+
+  def generate_uuid(core_url)
+    base = Digest::MD5.digest("#{core_url}#{sid}")
+    ary = base.unpack("NnnnnN")
+    ary[2] = (ary[2] & 0x0fff) | 0x4000
+    ary[3] = (ary[3] & 0x3fff) | 0x8000
+    self.uuid = "%08x-%04x-%04x-%04x-%04x%08x" % ary
   end
 
   def add_to_cart(book_id, course_id, quantity = 1)

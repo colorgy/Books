@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150304084917) do
+ActiveRecord::Schema.define(version: 20150328013943) do
 
   create_table "bills", force: true do |t|
     t.string   "uuid",         null: false
@@ -243,9 +243,11 @@ ActiveRecord::Schema.define(version: 20150304084917) do
     t.datetime "updated_at"
     t.integer  "cart_items_count",    default: 0
     t.integer  "credits",             default: 0,  null: false
+    t.string   "uuid",                             null: false
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
+  add_index "users", ["uuid"], name: "index_users_on_uuid", unique: true
 
   create_table "versions", force: true do |t|
     t.string   "item_type",  null: false

@@ -1,5 +1,6 @@
 FactoryGirl.define do
   factory :user do
+    uuid { SecureRandom.uuid }
     sequence(:sid) { |n| "0#{n}" }
     sequence(:email) { |n| "#{Faker::Internet.user_name}#{n}@example.com" }
     name { Faker::Name.name }
