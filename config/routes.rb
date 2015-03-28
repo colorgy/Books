@@ -18,6 +18,10 @@ Rails.application.routes.draw do
   get '/paymethod/life' => 'pages#paymethod_life'
   get '/paymethod/ok' => 'pages#paymethod_ok'
 
+  resource :my_account, controller: 'users/my_account' do
+    get 'invoice_subsume' => 'users/my_account#invoice_subsume'
+  end
+
   resources :lecturer do
     resources :courses, controller: :lecturer_courses
   end
@@ -35,6 +39,9 @@ Rails.application.routes.draw do
   resources :courses
 
   resources :groups
+
+  post '/my-account' => 'users/my_account#invoice_subsume_confirm'
+  post '/invoice_subsume_confirm' => 'users/my_account#invoice_subsume_confirm'
 
   get '/tasks/payment_code_check' => 'tasks#payment_code_check'
 

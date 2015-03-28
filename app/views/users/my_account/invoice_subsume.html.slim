@@ -1,0 +1,10 @@
+.container
+  h1 電子發票歸戶
+  = form_tag(@invoice_subsume_url, method: 'post', authenticity_token: false, enforce_utf8: false) do
+    = hidden_field_tag(:card_ban, @company_tax_id)
+    = hidden_field_tag(:card_no1, Base64.strict_encode64("#{@user.sid}"))
+    = hidden_field_tag(:card_no2, Base64.strict_encode64("#{@user.uuid}"))
+    = hidden_field_tag(:card_type, Base64.strict_encode64(@invoice_carrier_code))
+    = hidden_field_tag(:token, 'token')
+    = hidden_field_tag(:back_url, nil)
+    = submit_tag('歸戶')
