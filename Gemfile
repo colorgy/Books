@@ -106,6 +106,7 @@ group :development, :test do
   gem 'simplecov', '~> 0.9.1', require: false
   gem 'coveralls', require: false
   gem 'capybara-webkit', '>= 1.2.0'
+  gem 'poltergeist'
   gem 'capybara-screenshot'
   gem 'database_cleaner'
   gem 'formulaic'
