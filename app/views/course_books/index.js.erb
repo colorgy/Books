@@ -54,22 +54,30 @@ $(".book-select").select2({
       }
     }
   },
+  containerCss: function() {
+    set_book_select_change_event();
+    return '';
+  },
   minimumInputLength: 2
 }).on('select2-open', function() {
   $('.select2-search').find('input').val($(this).parent().find('.select2-chosen li:first-child').text()).trigger("paste");
 }).bind(this);
 
-$('input[data-attr-name]').change(function(e) {
-  $(this).parent().addClass('loading');
-  $(this).parent().removeClass('success');
-  data = {};
-  data['course[' + $(this).data('attr-name') + ']'] = $(this).val();
-  $.ajax('/course_books/' + $(this).data('id') + ".json", {
-    dataType: "json",
-    type: 'PATCH',
-    data: data,
-  }).done(function(data) {
-    $(this).parent().removeClass('loading');
-    $(this).parent().addClass('success');
-  }.bind(this));
-});
+function set_book_select_change_event() {
+  $(".book-select").on('change', function(e) {
+    $(this).parent().addClass('loading');
+    $(this).parent().removeClass('success');
+    data = {};
+    data['course[' + $(this).data('attr-name') + ']'] = $(this).val();
+    $.ajax('/course_books/' + $(this).data('id') + ".json", {
+      dataType: "json",
+      type: 'PUT',
+      data: data,
+    }).done(function(data) {
+      $(this).parent().removeClass('loading');
+      $(this).parent().addClass('success');
+    }.bind(this));
+  });
+}
+
+set_book_select_change_event();
