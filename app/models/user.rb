@@ -12,11 +12,12 @@ class User < ActiveRecord::Base
   def self.from_core(auth)
     user = where(:sid => auth.info.id).first_or_create! do |new_user|
       new_user.email = auth.info.email
+      new_user.uuid = auth.info.uuid
     end
 
     oauth_params = ActionController::Parameters.new(auth.info)
 
-    attrs = %i(uuid username gender username name avatar_url cover_photo_url gender fbid uid identity organization_code department_code)
+    attrs = %i(username gender username name avatar_url cover_photo_url gender fbid uid identity organization_code department_code)
 
     user_data = oauth_params.slice(*attrs).permit(*attrs)
 
