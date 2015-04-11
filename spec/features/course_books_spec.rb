@@ -47,7 +47,7 @@ feature "人人書單", :type => :feature do
     # do NOT test the results of book searching here - it should be done in an independent API request spec
 
     # check the results
-    sleep 1
+    sleep 3
     course.reload
     expect(course.book_data).to eq(book_data)
   end

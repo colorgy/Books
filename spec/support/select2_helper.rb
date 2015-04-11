@@ -5,6 +5,7 @@
 
 module Select2Helper
   def select2_select(path, value, first: false)
+    expect(page).to have_selector(path, visible: true)
     first ? first(path).click : find(path).click
 
     expect(page).to have_selector('.select2-search input', visible: true)
@@ -12,14 +13,8 @@ module Select2Helper
     execute_script("$('.select2-search:visible input').trigger('input');")
 
     expect(page).to have_content(value)
-    item = nil
-    10.times do
-      expect(page).to have_selector('.select2-results li', visible: true)
-      item = first('.select2-results li', visible: true)
-      p item
-      break if item
-    end
-    item.click
+    expect(page).to have_selector('.select2-results li', visible: true)
+    item = first('.select2-results li', visible: true).click
 
     expect(page).to have_content(value)
   end
