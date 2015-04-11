@@ -25,6 +25,7 @@ WebMock.disable_net_connect!(:allow_localhost => true)
 #
 Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 
+Dir[Rails.root.join("spec/shared_context/**/*.rb")].each { |f| require f }
 Dir[Rails.root.join("spec/shared_examples/**/*.rb")].each { |f| require f }
 
 # Checks for pending migrations before tests are run.
