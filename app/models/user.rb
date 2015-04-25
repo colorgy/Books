@@ -11,6 +11,7 @@ class User < ActiveRecord::Base
 
   def self.from_core(auth)
     user = where(:sid => auth.info.id).first_or_create! do |new_user|
+      new_user.uuid = auth.info.uuid
       new_user.email = auth.info.email
     end
 
