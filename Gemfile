@@ -63,8 +63,7 @@ gem 'ruby-pinyin'
 gem 'isbn_validation', '~> 1.2.1'
 
 gem 'devise', '~> 3.4.0'
-gem 'omniauth', '~> 1.2.2'
-gem 'omniauth-oauth2'
+gem 'omniauth-colorgy-oauth2'
 
 gem 'nokogiri'
 gem 'iconv'
