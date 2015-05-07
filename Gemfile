@@ -49,7 +49,7 @@ gem 'dotenv-rails', :groups => [:development, :test]
 # Handle settings by rails-settings-cached
 gem 'rails-settings-cached', github: 'Neson/rails-settings-cached'
 
-gem 'aasm'
+gem 'aasm', '~> 4.1.0'
 
 gem 'factory_girl_rails', '~> 4.5.0'
 
@@ -57,10 +57,10 @@ gem 'factory_girl_rails', '~> 4.5.0'
 gem 'slim-rails'
 
 # Create human-friendly IDs for models
-gem 'friendly_id', '~> 5.0.4'
+gem 'friendly_id', '~> 5.1.0'
 gem 'babosa'
 gem 'ruby-pinyin'
-gem 'isbn_validation', '~> 1.2.1'
+gem 'isbn_validation'
 
 gem 'devise', '~> 3.4.0'
 gem 'omniauth-colorgy-oauth2'

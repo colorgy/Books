@@ -203,7 +203,7 @@ GEM
       activesupport
       capybara
       i18n
-    friendly_id (5.0.5)
+    friendly_id (5.1.0)
       activerecord (>= 4.0.0)
     fssm (0.2.10)
     globalid (0.3.5)
@@ -463,7 +463,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  aasm
+  aasm (~> 4.1.0)
   activeadmin!
   activerecord-import (~> 0.7.0)
   activeresource (~> 4.0.0)
@@ -487,11 +487,11 @@ DEPENDENCIES
   factory_girl_rails (~> 4.5.0)
   faker
   formulaic
-  friendly_id (~> 5.0.4)
+  friendly_id (~> 5.1.0)
   hirb
   hirb-unicode
   iconv
-  isbn_validation (~> 1.2.1)
+  isbn_validation
   jbuilder (~> 2.0)
   jquery-rails
   launchy
