@@ -29,6 +29,10 @@ class Organization < ActiveResource::Base
     super
   end
 
+  def self.example_cods
+    ['NTUST', 'NTU', 'NCCU', 'NTHU']
+  end
+
   PARAMS = {
     'fields[department]' => 'code,name,short_name,group,departments'
   }
