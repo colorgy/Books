@@ -10,14 +10,16 @@ class User < ActiveRecord::Base
   # has_many :groups, through: :orders
 
   def self.from_core(auth)
+    # find or create the user
     user = where(:sid => auth.info.id).first_or_create! do |new_user|
       new_user.uuid = auth.info.uuid
       new_user.email = auth.info.email
     end
 
+    # sync the user's infomation from core
     oauth_params = ActionController::Parameters.new(auth.info)
 
-    attrs = %i(uuid username gender username name avatar_url cover_photo_url gender fbid uid identity organization_code department_code)
+    attrs = %i(uuid username gender name avatar_url cover_photo_url gender fbid uid identity organization_code department_code)
 
     user_data = oauth_params.slice(*attrs).permit(*attrs)
 
@@ -26,6 +28,7 @@ class User < ActiveRecord::Base
 
     user.update!(user_data)
 
+    # sync the user's identities from core
     ActiveRecord::Base.transaction do
       user.identities.destroy_all
 
