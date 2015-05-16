@@ -49,8 +49,12 @@ gem 'dotenv-rails', :groups => [:development, :test]
 # Handle settings by rails-settings-cached
 gem 'rails-settings-cached', github: 'Neson/rails-settings-cached'
 
+# State machine
 gem 'aasm', '~> 4.1.0'
 
+gem 'paperclip', '~> 4.2'
+
+# Model factory
 gem 'factory_girl_rails', '~> 4.5.0'
 
 # Add Slim support
@@ -60,6 +64,7 @@ gem 'slim-rails'
 gem 'friendly_id', '~> 5.1.0'
 gem 'babosa'
 gem 'ruby-pinyin'
+
 gem 'isbn_validation'
 
 gem 'devise', '~> 3.4.0'

@@ -11,9 +11,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150328072217) do
+ActiveRecord::Schema.define(version: 20150516105906) do
 
-  create_table "bills", force: true do |t|
+  create_table "bills", force: :cascade do |t|
     t.string   "uuid",         null: false
     t.integer  "user_id",      null: false
     t.string   "type",         null: false
@@ -40,12 +40,12 @@ ActiveRecord::Schema.define(version: 20150328072217) do
   add_index "bills", ["user_id"], name: "index_bills_on_user_id"
   add_index "bills", ["uuid"], name: "index_bills_on_uuid", unique: true
 
-  create_table "book_datas", force: true do |t|
+  create_table "book_datas", force: :cascade do |t|
     t.string   "isbn"
     t.string   "name",                null: false
     t.string   "edition"
     t.string   "author"
-    t.string   "image_url"
+    t.string   "external_image_url"
     t.string   "url"
     t.string   "publisher"
     t.string   "original_url"
@@ -54,11 +54,15 @@ ActiveRecord::Schema.define(version: 20150328072217) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "temporary_book_name"
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
   end
 
   add_index "book_datas", ["isbn"], name: "index_book_datas_on_isbn", unique: true
 
-  create_table "books", force: true do |t|
+  create_table "books", force: :cascade do |t|
     t.string   "provider"
     t.integer  "price",      null: false
     t.string   "isbn"
@@ -70,7 +74,7 @@ ActiveRecord::Schema.define(version: 20150328072217) do
   add_index "books", ["deleted_at"], name: "index_books_on_deleted_at"
   add_index "books", ["isbn"], name: "index_books_on_isbn"
 
-  create_table "courses", force: true do |t|
+  create_table "courses", force: :cascade do |t|
     t.string   "organization_code",                 null: false
     t.string   "department_code"
     t.string   "lecturer_name",                     null: false
@@ -92,7 +96,7 @@ ActiveRecord::Schema.define(version: 20150328072217) do
 
   add_index "courses", ["deleted_at"], name: "index_courses_on_deleted_at"
 
-  create_table "groups", force: true do |t|
+  create_table "groups", force: :cascade do |t|
     t.string   "code",              null: false
     t.integer  "leader_id",         null: false
     t.integer  "course_id",         null: false
@@ -118,7 +122,7 @@ ActiveRecord::Schema.define(version: 20150328072217) do
   add_index "groups", ["received_at"], name: "index_groups_on_received_at"
   add_index "groups", ["shipped_at"], name: "index_groups_on_shipped_at"
 
-  create_table "orders", force: true do |t|
+  create_table "orders", force: :cascade do |t|
     t.integer  "user_id",           null: false
     t.string   "batch",             null: false
     t.string   "organization_code", null: false
@@ -143,7 +147,7 @@ ActiveRecord::Schema.define(version: 20150328072217) do
   add_index "orders", ["state"], name: "index_orders_on_state"
   add_index "orders", ["user_id"], name: "index_orders_on_user_id"
 
-  create_table "pickup_selections_dates", force: true do |t|
+  create_table "pickup_selections_dates", force: :cascade do |t|
     t.string   "organization_code"
     t.string   "batch"
     t.string   "selection"
@@ -154,7 +158,7 @@ ActiveRecord::Schema.define(version: 20150328072217) do
   add_index "pickup_selections_dates", ["batch"], name: "index_pickup_selections_dates_on_batch"
   add_index "pickup_selections_dates", ["organization_code"], name: "index_pickup_selections_dates_on_organization_code"
 
-  create_table "pickup_selections_points", force: true do |t|
+  create_table "pickup_selections_points", force: :cascade do |t|
     t.string   "organization_code"
     t.string   "batch"
     t.string   "selection"
@@ -165,7 +169,7 @@ ActiveRecord::Schema.define(version: 20150328072217) do
   add_index "pickup_selections_points", ["batch"], name: "index_pickup_selections_points_on_batch"
   add_index "pickup_selections_points", ["organization_code"], name: "index_pickup_selections_points_on_organization_code"
 
-  create_table "pickup_selections_times", force: true do |t|
+  create_table "pickup_selections_times", force: :cascade do |t|
     t.string   "organization_code"
     t.string   "batch"
     t.string   "selection"
@@ -176,7 +180,7 @@ ActiveRecord::Schema.define(version: 20150328072217) do
   add_index "pickup_selections_times", ["batch"], name: "index_pickup_selections_times_on_batch"
   add_index "pickup_selections_times", ["organization_code"], name: "index_pickup_selections_times_on_organization_code"
 
-  create_table "settings", force: true do |t|
+  create_table "settings", force: :cascade do |t|
     t.string   "var",                   null: false
     t.text     "value"
     t.integer  "thing_id"
@@ -187,7 +191,7 @@ ActiveRecord::Schema.define(version: 20150328072217) do
 
   add_index "settings", ["thing_type", "thing_id", "var"], name: "index_settings_on_thing_type_and_thing_id_and_var", unique: true
 
-  create_table "user_cart_items", force: true do |t|
+  create_table "user_cart_items", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "book_id"
     t.integer  "course_id"
@@ -200,7 +204,7 @@ ActiveRecord::Schema.define(version: 20150328072217) do
   add_index "user_cart_items", ["course_id"], name: "index_user_cart_items_on_course_id"
   add_index "user_cart_items", ["user_id"], name: "index_user_cart_items_on_user_id"
 
-  create_table "user_identities", force: true do |t|
+  create_table "user_identities", force: :cascade do |t|
     t.integer  "user_id",           null: false
     t.string   "organization_code", null: false
     t.string   "department_code"
@@ -217,7 +221,7 @@ ActiveRecord::Schema.define(version: 20150328072217) do
 
   add_index "user_identities", ["sid"], name: "index_user_identities_on_sid", unique: true
 
-  create_table "users", force: true do |t|
+  create_table "users", force: :cascade do |t|
     t.string   "email",                            default: "", null: false
     t.datetime "remember_created_at"
     t.integer  "sign_in_count",                    default: 0,  null: false
@@ -251,7 +255,7 @@ ActiveRecord::Schema.define(version: 20150328072217) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true
   add_index "users", ["uuid"], name: "index_users_on_uuid", unique: true
 
-  create_table "versions", force: true do |t|
+  create_table "versions", force: :cascade do |t|
     t.string   "item_type",  null: false
     t.integer  "item_id",    null: false
     t.string   "event",      null: false
