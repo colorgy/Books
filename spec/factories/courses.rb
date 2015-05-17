@@ -1,8 +1,8 @@
 FactoryGirl.define do
   factory :course do
-    organization_codes = %w(NTUST NTU NTNU NTHU TTU)
-    lecturer_names = ['Prof A', 'Prof B', 'Prof C', 'Prof D', 'Prof E', 'Prof F', 'Prof G', 'Lecturer A', 'Lecturer B', 'Lecturer C', 'Lecturer D', 'Lecturer E', 'Lecturer F', 'Lecturer G', ]
-    organization_code { organization_codes.sample }
+    lecturer_names = ['Prof A', 'Prof B', 'Prof C', 'Prof D', 'Prof E', 'Prof F', 'Prof G', 'Lecturer A', 'Lecturer B', 'Lecturer C', 'Lecturer D', 'Lecturer E', 'Lecturer F', 'Lecturer G']
+
+    organization_code { Organization.example_cods.sample }
     department_code { Faker::Address.building_number }
     lecturer_name { lecturer_names.sample }
 
@@ -22,7 +22,7 @@ FactoryGirl.define do
     trait :with_book do
       book_isbn { Faker::Code.isbn }
 
-      after(:build) do |course, evaluator|
+      after(:build) do |_, evaluator|
         create(:book_data, isbn: evaluator.book_isbn)
       end
     end

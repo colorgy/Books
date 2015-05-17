@@ -24,4 +24,8 @@ class Book < ActiveRecord::Base
         END
       )", org_code, org_code)
   end
+
+  def delivery_processing_time
+    3.days
+  end
 end

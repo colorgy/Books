@@ -4,10 +4,11 @@ class Group < ActiveRecord::Base
 
   scope :publ, ->  { where(public: true) }
   scope :priv, ->  { where(public: false) }
+  scope :ended, ->  { where('deadline < ?', Time.now) }
   scope :unshipped, ->  { where(shipped_at: nil) }
   scope :shipped, ->  { where.not(shipped_at: nil) }
-  scope :undelivered, ->  { where(received_at: nil) }
-  scope :delivered, ->  { where.not(received_at: nil) }
+  scope :unreceived, ->  { where(received_at: nil) }
+  scope :received, ->  { where.not(received_at: nil) }
 
   belongs_to :leader, class_name: User, primary_key: :id, foreign_key: :leader_id
   has_many :orders, primary_key: :code, foreign_key: :group_code
@@ -21,12 +22,12 @@ class Group < ActiveRecord::Base
   delegate :name,
            to: :book, prefix: true, allow_nil: true
 
-  validates :code, :book, :leader, presence: true
+  validates :code, :book, :leader, :pickup_datetime, presence: true
+  validate :book_org_code_matches_org_code
 
-  after_initialize :set_organization_code, :set_code
-  before_create :set_code
+  after_initialize :end_if_deadline_passed
+  before_create :set_deadline
   before_validation :set_organization_code, :set_code
-  before_save :set_organization_code, :set_code
 
   aasm column: :state do
     state :grouping, initial: true
@@ -87,9 +88,19 @@ class Group < ActiveRecord::Base
     self.organization_code = course.try(:organization_code)
   end
 
+  alias_method :set_org_code, :set_organization_code
+
   def set_code
     return unless self.code.blank?
-    self.code = code_for(book_id: book_id, course_id: course_id, org_code: org_code)
+    self.code = Group.code_for(book_id: book_id, course_id: course_id, org_code: org_code)
+  end
+
+  def set_deadline
+    self.deadline = (pickup_datetime - book.delivery_processing_time).change(hour: 0)
+  end
+
+  def end_if_deadline_passed
+    self.end if may_end? && deadline.present? && Time.now > deadline
   end
 
   # Deprecated
@@ -112,5 +123,11 @@ class Group < ActiveRecord::Base
         order.leader_receive! if order.may_leader_receive?
       end
     end
+  end
+
+  private
+
+  def book_org_code_matches_org_code
+    errors.add(:book, "The book in that organization is not permitted") if book.present? && book.organization_code.present? && book.organization_code != organization_code
   end
 end

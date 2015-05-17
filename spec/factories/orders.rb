@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :order do
     book
-    user
+    user { (User.count > 100) ? User.all.sample : create(:user) }
     course
     bill
 
