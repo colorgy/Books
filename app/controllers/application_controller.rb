@@ -9,6 +9,10 @@ class ApplicationController < ActionController::Base
   before_action :set_org
   helper_method :current_org_code
 
+  if ENV['DISABLE_SSO'] == 'true'
+    before_filter :sso_off!
+  end
+
   private
 
   def current_org_code

@@ -126,7 +126,7 @@
             <li><a href="http://join.clg.io/" target="_blank">關於我們</a></li>
             <% if current_user.blank? %>
             <% else %>
-              <li><%= link_to("登出", "#{ENV['CORE_URL']}/logout") %></li>
+              <li><%= link_to("登出", sign_out_url) %></li>
             <% end %>
           </ul>
         </div>
@@ -246,7 +246,7 @@
                     <div class="profile-field">
                         <ul class="profile-field-ul">
                             <li>
-                                <%= link_to("登出", "#{ENV['CORE_URL']}/logout") %>
+                                <%= link_to("登出", sign_out_url) %>
                             </li>
                         </ul>
                     </div>
