@@ -5,7 +5,7 @@ class Order < ActiveRecord::Base
 
   scope :current, ->  { where(batch: BatchCodeService.current_batch) }
   scope :paid, ->  { where(state: :paid) }
-  scope :has_paid, ->  { where(state: [:paid, :shipped, :leader_received, :delivered, :received]) }
+  scope :has_paid, ->  { where(state: [:paid, :delivering, :leader_received, :delivered, :received]) }
 
   belongs_to :user
   belongs_to :course, -> { with_deleted }
@@ -35,7 +35,7 @@ class Order < ActiveRecord::Base
     state :new, initial: true
     state :payment_pending
     state :paid
-    state :shipped
+    state :delivering
     state :leader_received
     state :delivered
     state :received
@@ -51,22 +51,22 @@ class Order < ActiveRecord::Base
     end
 
     event :ship do
-      transitions :from => :paid, :to => :shipped
+      transitions :from => :paid, :to => :delivering
     end
 
     event :leader_receive do
-      transitions :from => :shipped, :to => :leader_received
+      transitions :from => :delivering, :to => :leader_received
     end
 
     event :leader_deliver do
       transitions :from => :leader_received, :to => :delivered
-      transitions :from => :shipped, :to => :delivered
+      transitions :from => :delivering, :to => :delivered
     end
 
     event :receive do
       transitions :from => :delivered, :to => :received
       transitions :from => :leader_received, :to => :received
-      transitions :from => :shipped, :to => :received
+      transitions :from => :delivering, :to => :received
     end
 
     event :cancel do
@@ -75,15 +75,15 @@ class Order < ActiveRecord::Base
     end
 
     event :revert do
-      transitions :from => :shipped, :to => :paid, :if => :recently_updated
-      transitions :from => :leader_received, :to => :shipped, :if => :recently_updated
+      transitions :from => :delivering, :to => :paid, :if => :recently_updated
+      transitions :from => :leader_received, :to => :delivering, :if => :recently_updated
       transitions :from => :delivered, :to => :leader_received, :if => :recently_updated
       transitions :from => :received, :to => :leader_received, :if => :recently_updated
     end
 
     event :force_revert do
-      transitions :from => :shipped, :to => :paid
-      transitions :from => :leader_received, :to => :shipped
+      transitions :from => :delivering, :to => :paid
+      transitions :from => :leader_received, :to => :delivering
       transitions :from => :delivered, :to => :leader_received
       transitions :from => :received, :to => :leader_received
     end

@@ -4,14 +4,13 @@ RSpec.describe Group, :type => :model do
   it { should have_many(:orders) }
   it { should belong_to(:leader) }
   it { should validate_presence_of(:code) }
-  it { should validate_presence_of(:course) }
   it { should validate_presence_of(:book) }
+  it { should validate_presence_of(:leader) }
 
   context "created" do
     subject { create(:group) }
-    its(:batch) { should_not be nil }
-    its(:organization_code) { should_not be nil }
     its(:code) { should_not be nil }
+    its(:state) { should_not be nil }
     its(:shipped_at) { should be nil }
     its(:received_at) { should be nil }
   end
