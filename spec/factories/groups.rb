@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :group do
-    leader { (User.count > 100) ? User.all.sample : create(:user) }
     book { (Book.count > 1000) ? Book.all.sample : create(:book) }
+    leader { (User.where(organization_code: book.organization_code).count > 100) ? User.where(organization_code: book.organization_code).sample : create(:user, organization_code: book.organization_code) }
 
     course nil
     organization_code { book.organization_code }
@@ -14,6 +14,7 @@ FactoryGirl.define do
     trait :in_org do
       book { (Book.count > 1000) ? Book.all.sample : create(:book, organization_code: (Organization.example_cods + [nil]).sample) }
       organization_code { book.organization_code.present? ? book.organization_code : Organization.example_cods.sample }
+      leader { (User.where(organization_code: organization_code).count > 100) ? User.where(organization_code: organization_code).sample : create(:user, organization_code: organization_code) }
     end
 
     trait :with_course do

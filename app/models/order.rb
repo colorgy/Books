@@ -3,7 +3,6 @@ class Order < ActiveRecord::Base
   acts_as_paranoid
   has_paper_trail
 
-  scope :current, ->  { where(batch: BatchCodeService.current_batch) }
   scope :paid, ->  { where(state: :paid) }
   scope :has_paid, ->  { where(state: [:paid, :delivering, :leader_received, :delivered, :received]) }
 
@@ -25,15 +24,15 @@ class Order < ActiveRecord::Base
            to: :group, prefix: true, allow_nil: true
 
   validates :user, presence: true
-  validates :course, presence: true
   validates :book, presence: true
 
-  after_initialize :set_batch, :set_price, :set_organization_code, :set_group_code
-  before_save :set_price, :set_organization_code, :set_group_code
+  after_initialize :set_price
+  before_save :set_price
 
   aasm column: :state do
     state :new, initial: true
     state :payment_pending
+    state :expired
     state :paid
     state :delivering
     state :leader_received
@@ -48,6 +47,11 @@ class Order < ActiveRecord::Base
 
     event :pay do
       transitions :from => :payment_pending, :to => :paid
+    end
+
+    event :expire do
+      transitions :from => :payment_pending, :to => :expired
+      transitions :from => :new, :to => :expired
     end
 
     event :ship do
@@ -86,23 +90,6 @@ class Order < ActiveRecord::Base
       transitions :from => :leader_received, :to => :delivering
       transitions :from => :delivered, :to => :leader_received
       transitions :from => :received, :to => :leader_received
-    end
-  end
-
-  def set_batch
-    return unless self.batch.blank?
-    self.batch = BatchCodeService.current_batch
-  end
-
-  def set_organization_code
-    self.organization_code = course.try(:organization_code)
-  end
-
-  def set_group_code
-    if self.group_code.blank?
-      self.group_code = BatchCodeService.generate_group_code(organization_code, course.id, book.id) if course.present? && book.present?
-    else
-      self.group_code = BatchCodeService.generate_group_code(organization_code, course.id, book.id, batch: batch) if course.present? && book.present?
     end
   end
 

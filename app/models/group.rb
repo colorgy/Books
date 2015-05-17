@@ -38,6 +38,11 @@ class Group < ActiveRecord::Base
 
     event :end do
       transitions from: :grouping, to: :ended
+      after do
+        orders.each do |order|
+          order.expire! if order.may_expire?
+        end
+      end
     end
 
     event :ship do
@@ -100,7 +105,7 @@ class Group < ActiveRecord::Base
   end
 
   def end_if_deadline_passed
-    self.end if may_end? && deadline.present? && Time.now > deadline
+    self.end! if may_end? && deadline.present? && Time.now > deadline
   end
 
   # Deprecated
