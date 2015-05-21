@@ -17,6 +17,7 @@ module CanLeadGroups
     group
   end
 
+  # Deprecated
   def lead_course_group(course_id, book_id)
     book = Book.find(book_id)
     group = nil
