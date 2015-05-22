@@ -1,5 +1,6 @@
 class Book < ActiveRecord::Base
   acts_as_paranoid
+  has_paper_trail
 
   belongs_to :data, class_name: :BookData, foreign_key: :isbn, primary_key: :isbn
 
