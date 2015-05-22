@@ -9,6 +9,11 @@ module CanLeadGroups
     book = Book.find(book) if book.is_a?(Integer)
     group = nil
 
+    if book.organization_code.present?
+      org_code ||= book.organization_code
+      raise if book.organization_code != org_code
+    end
+
     course = Course.find(course) if course.is_a?(Integer)
     ActiveRecord::Base.transaction do
       group = lead_groups.create!(book: book, course: course, organization_code: org_code, public: true)

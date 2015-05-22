@@ -16,18 +16,30 @@ module CanPurchase
   #   directly purchasing a book.
   #
   # +item_code+::
-  #   +String+ the group code for following a grop, or a id of the book to
+  #   +String+ the group code for following a group, or a id of the book to
   #   purchase directly.
   def add_to_cart(item_type, item_code, quantity: 1)
-    cart_items.create!(item_type: item_type, item_code: item_code, quantity: quantity)
+    existed_item = cart_items.find_by(item_type: item_type, item_code: item_code)
+    if existed_item.existed
+      existed_item.quantity += quantity
+      existed_item.save!
+    else
+      cart_items.create!(item_type: item_type, item_code: item_code, quantity: quantity)
+    end
     check_cart!
+  end
+
+  # Modify the quantity of an cart item
+  def edit_cart(item_id, quantity: 1)
+    quantity = 1 if quantity < 1
+    cart_items.find(item_id).update!(quantity: quantity)
   end
 
   # Check the user's cart, log the name and price of an item into the db column
   # for faster queries later on. This also removes invalid items in the cart,
   # e.g.: deleted books, books for an organization that the user is not in, and
   # ended groups.
-  # TODO: Implement it
+  # TODO: Implement `when 'book'`
   def check_cart!
     ActiveRecord::Base.transaction do
       # for each item in the cart
@@ -35,12 +47,19 @@ module CanPurchase
         case item.item_type
         when 'group'
           group = Group.find_by(code: item.item_code)
+          # remove items that has ended or deleted
           if group.blank? || group.state != 'grouping'
             item.destroy
             next
           end
+          # remove items that is not in the user's organization
+          if group.organization_code != self.organization_code
+            item.destroy
+            next
+          end
+          # updates the item's name and price
           item.item_price = group.book.price
-          item.item_name = ""
+          item.item_name = "#{group.book.name} (#{group.book.isbn}) - #{group.pickup_datetime.strftime('%-m/%-d')}"
           item.save!
         end
       end

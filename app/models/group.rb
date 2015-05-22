@@ -2,6 +2,8 @@ class Group < ActiveRecord::Base
   include AASM
   has_paper_trail
 
+  self.primary_key = :code
+
   scope :publ, ->  { where(public: true) }
   scope :priv, ->  { where(public: false) }
   scope :ended, ->  { where('deadline < ?', Time.now) }
