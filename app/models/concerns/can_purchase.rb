@@ -20,7 +20,7 @@ module CanPurchase
   #   purchase directly.
   def add_to_cart(item_type, item_code, quantity: 1)
     existed_item = cart_items.find_by(item_type: item_type, item_code: item_code)
-    if existed_item.existed
+    if existed_item.present?
       existed_item.quantity += quantity
       existed_item.save!
     else
@@ -47,8 +47,8 @@ module CanPurchase
         case item.item_type
         when 'group'
           group = Group.find_by(code: item.item_code)
-          # remove items that has ended or deleted
-          if group.blank? || group.state != 'grouping'
+          # remove items that is about to end or deleted
+          if group.blank? || group.deadline < 1.hour.ago - Bill::PAYMENT_DEADLINE_PRE
             item.destroy
             next
           end
@@ -83,22 +83,29 @@ module CanPurchase
     price
   end
 
-  # Checkout, returns the unsaved orders and bill that should be created
+  # Pre-checkout, returns the unsaved orders and bill that should be created
   def checkout(bill_attrs = {})
     check_cart!
     return { orders: [], bill: nil } unless Settings.open_for_orders
+    return { orders: [], bill: nil } if cart_items.blank?
     orders = []
     total_price = 0
     bill = self.bills.build(bill_attrs)
 
     cart_items.each do |item|
-      (item.quantity || 1).times do
-        order = self.orders.build(
-          bill: bill,
-          book_id: item.book_id,
-          course_id: item.course_id)
-        total_price += order.price
-        orders << order
+      case item.item_type
+      when 'group'
+        group = item.group
+        bill.deadline = group.deadline if bill.deadline.blank? ||
+                                          bill.deadline > group.deadline
+        (item.quantity || 1).times do
+          order = self.orders.build(
+            bill: bill,
+            book_id: group.book_id,
+            group: group)
+          total_price += order.price
+          orders << order
+        end
       end
     end
 
@@ -116,8 +123,15 @@ module CanPurchase
     { orders: orders, bill: bill }
   end
 
-  # Checkout, returns the created orders and bill
-  # TODO: Implement it
+  # Checkout, clears the cart, and return the created orders and bill
   def checkout!(bill_attrs = {})
+    checkouts = checkout(bill_attrs)
+    return checkouts if checkouts[:bill].blank?
+    transaction do
+      checkouts[:bill].save!
+      checkouts[:orders].each(&:save!)
+      clear_cart!
+    end
+    checkouts
   end
 end

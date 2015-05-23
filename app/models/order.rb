@@ -9,7 +9,7 @@ class Order < ActiveRecord::Base
   belongs_to :user
   belongs_to :course, -> { with_deleted }
   belongs_to :book, -> { with_deleted }
-  belongs_to :bill, -> { with_deleted }
+  belongs_to :bill, -> { with_deleted }, primary_key: :uuid, foreign_key: :bill_uuid
   belongs_to :group, primary_key: :code, foreign_key: :group_code
 
   delegate :name, :author, :isbn, :edition, :image_url,
@@ -26,8 +26,8 @@ class Order < ActiveRecord::Base
   validates :user, presence: true
   validates :book, presence: true
 
-  after_initialize :set_price
-  before_save :set_price
+  after_initialize :init_price
+  before_save :init_price
 
   aasm column: :state do
     state :new, initial: true
@@ -46,12 +46,14 @@ class Order < ActiveRecord::Base
     end
 
     event :pay do
+      transitions :from => :new, :to => :paid
       transitions :from => :payment_pending, :to => :paid
     end
 
     event :expire do
       transitions :from => :payment_pending, :to => :expired
       transitions :from => :new, :to => :expired
+      transitions :from => :expired, :to => :expired
     end
 
     event :ship do
@@ -93,16 +95,16 @@ class Order < ActiveRecord::Base
     end
   end
 
-  def set_price
+  def init_price
     return unless self.price.blank?
     self.price = self.book.try(:price)
   end
 
-  def save_with_bill!(bill)
-    self.bill_id = bill.id
-    self.bill_created
-    save!
-  end
+  # def save_with_bill!(bill)
+  #   self.bill_id = bill.id
+  #   self.bill_created
+  #   save!
+  # end
 
   def recently_updated
     updated_at > 3.minute.ago

@@ -11,30 +11,32 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150523021340) do
+ActiveRecord::Schema.define(version: 20150523191350) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "bills", force: :cascade do |t|
-    t.string   "uuid",         null: false
-    t.integer  "user_id",      null: false
-    t.string   "type",         null: false
-    t.integer  "price",        null: false
-    t.integer  "amount",       null: false
+    t.string   "uuid",                                         null: false
+    t.integer  "user_id",                                      null: false
+    t.string   "type",                                         null: false
+    t.integer  "price",                                        null: false
+    t.integer  "amount",                                       null: false
     t.integer  "invoice_id"
-    t.string   "invoice_type", null: false
+    t.string   "invoice_type",                                 null: false
     t.text     "invoice_data"
     t.text     "data"
-    t.string   "state",        null: false
+    t.string   "state",                                        null: false
     t.datetime "deleted_at"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "payment_code"
     t.datetime "paid_at"
     t.integer  "used_credits"
+    t.datetime "deadline",     default: '2015-05-23 19:23:14', null: false
   end
 
+  add_index "bills", ["deadline"], name: "index_bills_on_deadline", using: :btree
   add_index "bills", ["deleted_at"], name: "index_bills_on_deleted_at", using: :btree
   add_index "bills", ["invoice_id"], name: "index_bills_on_invoice_id", unique: true, using: :btree
   add_index "bills", ["invoice_type"], name: "index_bills_on_invoice_type", using: :btree
