@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150517032601) do
+ActiveRecord::Schema.define(version: 20150523021340) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -137,14 +137,14 @@ ActiveRecord::Schema.define(version: 20150517032601) do
     t.string   "group_code", null: false
     t.integer  "book_id",    null: false
     t.integer  "price"
-    t.integer  "bill_id"
     t.string   "state",      null: false
     t.datetime "deleted_at"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "bill_uuid"
   end
 
-  add_index "orders", ["bill_id"], name: "index_orders_on_bill_id", using: :btree
+  add_index "orders", ["bill_uuid"], name: "index_orders_on_bill_uuid", using: :btree
   add_index "orders", ["book_id"], name: "index_orders_on_book_id", using: :btree
   add_index "orders", ["deleted_at"], name: "index_orders_on_deleted_at", using: :btree
   add_index "orders", ["group_code"], name: "index_orders_on_group_code", using: :btree

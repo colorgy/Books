@@ -84,30 +84,32 @@ module CanPurchase
   end
 
   # Checkout, returns the unsaved orders and bill that should be created
-  # TODO: Implement it
   def checkout(bill_attrs = {})
     check_cart!
     return { orders: [], bill: nil } unless Settings.open_for_orders
     orders = []
     total_price = 0
+    bill = self.bills.build(bill_attrs)
 
     cart_items.each do |item|
       (item.quantity || 1).times do
-        order = self.orders.build(book_id: item.book_id, course_id: item.course_id)
+        order = self.orders.build(
+          bill: bill,
+          book_id: item.book_id,
+          course_id: item.course_id)
         total_price += order.price
         orders << order
       end
     end
 
-    bill_attrs[:price] = total_price
-
-    bill = self.bills.build(bill_attrs)
+    bill.price = total_price
 
     if credits > 0 && bill.amount > 100
       use_credits = (credits < (bill.amount - 100)) ? credits : (bill.amount - 100)
-      bill.amount -= use_credits
       bill.used_credits = use_credits
     end
+
+    bill.calculate_amount
 
     reload
 

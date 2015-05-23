@@ -28,8 +28,8 @@ class Bill < ActiveRecord::Base
   validates :state, presence: true
   validates :invoice_type, presence: true
 
-  after_initialize :set_uuid, :calculate_amount
-  before_create :get_payment_info
+  after_initialize :init_uuid
+  before_create :calculate_amount, :get_payment_info
 
   aasm column: :state do
     state :payment_pending, initial: true
@@ -47,17 +47,22 @@ class Bill < ActiveRecord::Base
     end
   end
 
+  # Return the allowed bill types i.e. payment methods
   def self.allowed_types
     @@allowed_types ||= ENV['ALLOWED_BILL_TYPES'].split(',')
   end
 
-  def set_uuid
+  # Initialize the uuid on creation
+  def init_uuid
     return unless self.uuid.blank?
     self.uuid = "bo#{SecureRandom.uuid[2..28]}"
   end
 
+  # Calaulate and update the total amount (addes the payment fees,
+  # minus credits used) to pay
   def calculate_amount
-    return unless self.amount.blank?
+    self.amount = price
+    self.amount -= used_credits if used_credits.present?
     if type == 'payment_code'
       self.amount = price + 35
     else
@@ -65,6 +70,7 @@ class Bill < ActiveRecord::Base
     end
   end
 
+  # Get the payment information from 3rd services to make this bill payable
   def get_payment_info
     raise 'bill type not allowed' unless Bill.allowed_types.include?(type)
     return if Rails.env.test?
