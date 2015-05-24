@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
+  devise_for :providers, :controllers => {
+    :passwords => "providers/passwords",
+    :sessions => "providers/sessions",
+    :unlocks => "providers/unlocks"
+  }
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
   devise_scope :user do
     delete 'logout', to: 'devise/sessions#destroy', as: :destroy_user_session

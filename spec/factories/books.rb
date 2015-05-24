@@ -2,7 +2,7 @@ FactoryGirl.define do
   factory :book do
     data { create(:book_data) }
     price { Faker::Commerce.price }
-    provider { Faker::Company.name }
+    provider { %w(prov_a prov_b prov_c prov_d).sample }
     organization_code nil
   end
 
