@@ -1,7 +1,7 @@
 = render layout: 'layouts/supplier_base' do
 
   header.main-header
-    a.logo href="#{suppliers_control_panel_dashboard_path}"
+    a.logo href="#{supplier_control_panel_dashboard_path}"
       span.logo-mini
         b C
         | /B
@@ -20,6 +20,8 @@
               span= current_supplier_staff.username
             ul.dropdown-menu
               li.user-body
+                p
+                  = current_supplier_staff.name
                 p
                   = current_supplier_staff.email
                 p
@@ -45,12 +47,12 @@
 
       ul.sidebar-menu
         li.header 概覽
-        li(class="#{'active' if @current_path == suppliers_control_panel_dashboard_path}")
-          a href="#{suppliers_control_panel_dashboard_path}"
+        li(class="#{'active' if @current_path == supplier_control_panel_dashboard_path}")
+          a href="#{supplier_control_panel_dashboard_path}"
             i.fa.fa-dashboard
             span 儀表板
         li
-          a
+          a href="#{supplier_control_panel_coming_soon_path}"
             i.fa.fa-check-square-o
             span 我的工作
             span.label.label-primary.pull-right 0
@@ -64,15 +66,15 @@
             i.fa.fa-angle-left.pull-right
           ul.treeview-menu
             li
-              a
+              a href="#{supplier_control_panel_coming_soon_path}"
                 i.fa.fa-plus-square-o
                 | 新書上架
             li
-              a
+              a href="#{supplier_control_panel_coming_soon_path}"
                 i.fa.fa-th-list
                 | 書籍管理
         li
-          a
+          a href="#{supplier_control_panel_coming_soon_path}"
             i.fa.fa-truck
             span 發貨作業
             .pull-right.labels
@@ -80,18 +82,18 @@
               small.label.bg-yellow 0
               small.label.bg-red 0
         li
-          a
+          a href="#{supplier_control_panel_coming_soon_path}"
             i.fa.fa-usd
             span 對帳作業
 
       ul.sidebar-menu
         li.header 分析
         li
-          a
+          a href="#{supplier_control_panel_coming_soon_path}"
             i.fa.fa-pie-chart
             span 銷售分析
         li
-          a
+          a href="#{supplier_control_panel_coming_soon_path}"
             i.fa.fa-area-chart
             span 瀏覽分析
 
@@ -99,18 +101,18 @@
         ul.sidebar-menu
           li.header 供應商管理
           li
-            a
+            a href="#{supplier_control_panel_coming_soon_path}"
               i.fa.fa-users
               span 會員管理
           li
-            a
+            a href="#{supplier_control_panel_coming_soon_path}"
               i.fa.fa-edit
               span 公司基本資料
 
       ul.sidebar-menu
         li.header 其他
         li
-          a
+          a href="#{supplier_control_panel_coming_soon_path}"
             i.fa.fa-book
             span 操作手冊
 

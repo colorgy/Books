@@ -5,7 +5,12 @@ Rails.application.routes.draw do
     :unlocks => "suppliers/unlocks"
   }
 
-  get '/scp/dashboard' => 'suppliers/control_panel/dashboard#index', as: :suppliers_control_panel_dashboard
+  scope :scp do
+    get 'dashboard' => 'suppliers/control_panel/dashboard#index',
+        as: :supplier_control_panel_dashboard
+    get 'coming_soon' => 'suppliers/control_panel/pages#coming_soon',
+        as: :supplier_control_panel_coming_soon
+  end
 
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
   devise_scope :user do
