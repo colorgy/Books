@@ -4,6 +4,9 @@ Rails.application.routes.draw do
     :sessions => "providers/sessions",
     :unlocks => "providers/unlocks"
   }
+
+  get '/pcp/dashboard' => 'providers/control_panel/dashboard#index', as: :providers_control_panel_dashboard
+
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
   devise_scope :user do
     delete 'logout', to: 'devise/sessions#destroy', as: :destroy_user_session

@@ -200,6 +200,8 @@ GEM
       i18n (~> 0.5)
     faraday (0.9.1)
       multipart-post (>= 1.2, < 3)
+    font-awesome-rails (4.3.0.0)
+      railties (>= 3.2, < 5.0)
     formtastic (3.1.3)
       actionpack (>= 3.2.13)
     formtastic_i18n (0.3.0)
@@ -495,6 +497,7 @@ DEPENDENCIES
   dotenv-rails
   factory_girl_rails (~> 4.5.0)
   faker
+  font-awesome-rails
   formulaic
   friendly_id (~> 5.1.0)
   hirb

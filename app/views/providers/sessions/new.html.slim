@@ -1,0 +1,27 @@
+.login-box
+  .login-logo
+    a
+      b> CLGB
+      | Providers
+  .login-box-body
+    p.login-box-msg Colorgy Books 供應商平台 | 登入
+    = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+      .form-group.has-feedback
+        = f.text_field :username, class: 'form-control', placeholder: '帳號', autofocus: true
+        span.glyphicon.glyphicon-user.form-control-feedback
+      .form-group.has-feedback
+        = f.password_field :password, class: 'form-control', placeholder: '密碼'
+        span.glyphicon.glyphicon-lock.form-control-feedback
+      .row
+        .col-xs-8
+          .checkbox.icheck
+            label
+              = f.check_box :remember_me
+              | 記住我
+        .col-xs-4
+          = f.submit '登入', class: 'btn btn-primary btn-block btn-flat'
+    .text-center
+      br/
+      = link_to "忘記密碼？", new_password_path(resource_name)
+      br/
+      = link_to "解鎖我的帳號！", new_unlock_path(resource_name)

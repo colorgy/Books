@@ -1,0 +1,51 @@
+/*
+ * This is a manifest file.
+ *
+ *= require admin_lte/bootstrap/css/bootstrap
+ *= require admin_lte/dist/css/AdminLTE
+ *= require admin_lte/dist/css/skins/_all-skins
+ *= require select2
+ *= require select2-bootstrap
+ *= require animate
+ *= require font-awesome
+ *= require_self
+ */
+
+html {
+	height: 100%;
+}
+
+body {
+	height: 100%;
+}
+
+.login-box .checkbox {
+	margin-left: 20px;
+}
+
+.main-header {
+
+	small {
+		font-size: 8px;
+	}
+}
+
+.sidebar {
+
+	.user-panel {
+		min-height: 65px;
+
+		.info:only-child {
+			padding: 5px;
+			left: auto;
+		}
+	}
+
+	.labels {
+
+		.label {
+			position: relative;
+			top: -4px;
+		}
+	}
+}

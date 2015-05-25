@@ -1,0 +1,124 @@
+= render layout: 'layouts/provider_base' do
+
+  header.main-header
+    a.logo href="#{providers_control_panel_dashboard_path}"
+      span.logo-mini
+        b C
+        | /B
+      span.logo-lg
+        b> Colorgy
+        | Books
+        small< 供應商平台
+
+    nav.navbar.navbar-static-top(role="navigation")
+      a.sidebar-toggle(data-toggle="offcanvas" href="#" role="button")
+        span.sr-only Toggle navigation
+      .navbar-custom-menu
+        ul.nav.navbar-nav
+          li.dropdown.user.user-menu
+            a.dropdown-toggle(data-toggle="dropdown" href="#")
+              span= current_provider.username
+            ul.dropdown-menu
+              li.user-body
+                p
+                  = current_provider.email
+                p
+                  small= current_provider.provider_code
+              li.user-footer
+                .pull-right
+                  = link_to("登出", destroy_provider_session_path, method: :delete, class: 'btn btn-default btn-flat')
+
+  aside.main-sidebar
+    section.sidebar
+      .user-panel
+        .info
+          p= current_provider.username
+          a
+            = current_provider.provider_code
+
+      / form.sidebar-form(action="#" method="get")
+      /   .input-group
+      /     input.form-control(name="q" placeholder="功能搜尋..." type="text")
+      /     span.input-group-btn
+      /       button#search-btn.btn.btn-flat(name="search" type="submit")
+      /         i.fa.fa-search
+
+      ul.sidebar-menu
+        li.header 概覽
+        li(class="#{'active' if @current_path == providers_control_panel_dashboard_path}")
+          a href="#{providers_control_panel_dashboard_path}"
+            i.fa.fa-dashboard
+            span 儀表板
+        li
+          a
+            i.fa.fa-check-square-o
+            span 我的工作
+            span.label.label-primary.pull-right 0
+
+      ul.sidebar-menu
+        li.header 一般作業
+        li.treeview
+          a href="#"
+            i.fa.fa-book
+            span 書籍上架管理
+            i.fa.fa-angle-left.pull-right
+          ul.treeview-menu
+            li
+              a
+                i.fa.fa-plus-square-o
+                | 新書上架
+            li
+              a
+                i.fa.fa-th-list
+                | 書籍管理
+        li
+          a
+            i.fa.fa-truck
+            span 發貨作業
+            .pull-right.labels
+              small.label.bg-blue 0
+              small.label.bg-yellow 0
+              small.label.bg-red 0
+        li
+          a
+            i.fa.fa-usd
+            span 對帳作業
+
+      ul.sidebar-menu
+        li.header 分析
+        li
+          a
+            i.fa.fa-pie-chart
+            span 銷售分析
+        li
+          a
+            i.fa.fa-area-chart
+            span 瀏覽分析
+
+      - if current_provider.admin?
+        ul.sidebar-menu
+          li.header 供應商管理
+          li
+            a
+              i.fa.fa-users
+              span 會員管理
+          li
+            a
+              i.fa.fa-edit
+              span 公司基本資料
+
+      ul.sidebar-menu
+        li.header 其他
+        li
+          a
+            i.fa.fa-book
+            span 操作手冊
+
+  .content-wrapper
+    = yield
+
+  footer.main-footer
+    .pull-right.hidden-xs
+      | 任何問題？
+      b> 聯繫我們
+    | Copyright &copy; 2014-2015 米斯克科技股份有限公司. All rights reserved.
