@@ -23,7 +23,7 @@
                 p
                   = current_supplier_staff.email
                 p
-                  small= current_supplier_staff.username
+                  small= current_supplier_staff.company_name
               li.user-footer
                 .pull-right
                   = link_to("登出", destroy_supplier_staff_session_path, method: :delete, class: 'btn btn-default btn-flat')
