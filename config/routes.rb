@@ -1,11 +1,11 @@
 Rails.application.routes.draw do
-  devise_for :providers, :controllers => {
-    :passwords => "providers/passwords",
-    :sessions => "providers/sessions",
-    :unlocks => "providers/unlocks"
+  devise_for :supplier_staffs, path: :supplier, :controllers => {
+    :passwords => "suppliers/passwords",
+    :sessions => "suppliers/sessions",
+    :unlocks => "suppliers/unlocks"
   }
 
-  get '/pcp/dashboard' => 'providers/control_panel/dashboard#index', as: :providers_control_panel_dashboard
+  get '/scp/dashboard' => 'suppliers/control_panel/dashboard#index', as: :suppliers_control_panel_dashboard
 
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
   devise_scope :user do

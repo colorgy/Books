@@ -16,7 +16,7 @@ namespace :dev do
 
       BookData.all.each do |book_data|
         if [true, false].sample
-          FactoryGirl.create(:book, data: book_data, price: Faker::Commerce.price, provider: Faker::Company.name)
+          FactoryGirl.create(:book, data: book_data, price: Faker::Commerce.price, supplier_code: %w(supplier_a supplier_b supplier_c supplier_d).sample)
         end
       end
     end

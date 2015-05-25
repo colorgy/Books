@@ -1,7 +1,7 @@
-= render layout: 'layouts/provider_base' do
+= render layout: 'layouts/supplier_base' do
 
   header.main-header
-    a.logo href="#{providers_control_panel_dashboard_path}"
+    a.logo href="#{suppliers_control_panel_dashboard_path}"
       span.logo-mini
         b C
         | /B
@@ -17,24 +17,24 @@
         ul.nav.navbar-nav
           li.dropdown.user.user-menu
             a.dropdown-toggle(data-toggle="dropdown" href="#")
-              span= current_provider.username
+              span= current_supplier_staff.username
             ul.dropdown-menu
               li.user-body
                 p
-                  = current_provider.email
+                  = current_supplier_staff.email
                 p
-                  small= current_provider.provider_code
+                  small= current_supplier_staff.username
               li.user-footer
                 .pull-right
-                  = link_to("登出", destroy_provider_session_path, method: :delete, class: 'btn btn-default btn-flat')
+                  = link_to("登出", destroy_supplier_staff_session_path, method: :delete, class: 'btn btn-default btn-flat')
 
   aside.main-sidebar
     section.sidebar
       .user-panel
         .info
-          p= current_provider.username
+          p= current_supplier_staff.name
           a
-            = current_provider.provider_code
+            = current_supplier_staff.username
 
       / form.sidebar-form(action="#" method="get")
       /   .input-group
@@ -45,8 +45,8 @@
 
       ul.sidebar-menu
         li.header 概覽
-        li(class="#{'active' if @current_path == providers_control_panel_dashboard_path}")
-          a href="#{providers_control_panel_dashboard_path}"
+        li(class="#{'active' if @current_path == suppliers_control_panel_dashboard_path}")
+          a href="#{suppliers_control_panel_dashboard_path}"
             i.fa.fa-dashboard
             span 儀表板
         li
@@ -95,7 +95,7 @@
             i.fa.fa-area-chart
             span 瀏覽分析
 
-      - if current_provider.admin?
+      - if current_supplier_staff.admin?
         ul.sidebar-menu
           li.header 供應商管理
           li

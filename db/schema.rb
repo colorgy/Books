@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150524214019) do
+ActiveRecord::Schema.define(version: 20150525215759) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -55,7 +55,7 @@ ActiveRecord::Schema.define(version: 20150524214019) do
     t.string   "publisher"
     t.string   "original_url"
     t.integer  "original_price"
-    t.string   "known_provider"
+    t.string   "known_supplier"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "temporary_book_name"
@@ -68,7 +68,7 @@ ActiveRecord::Schema.define(version: 20150524214019) do
   add_index "book_datas", ["isbn"], name: "index_book_datas_on_isbn", unique: true, using: :btree
 
   create_table "books", force: :cascade do |t|
-    t.string   "provider"
+    t.string   "supplier_code"
     t.integer  "price",             null: false
     t.string   "isbn"
     t.datetime "created_at"
@@ -186,7 +186,18 @@ ActiveRecord::Schema.define(version: 20150524214019) do
   add_index "pickup_selections_times", ["batch"], name: "index_pickup_selections_times_on_batch", using: :btree
   add_index "pickup_selections_times", ["organization_code"], name: "index_pickup_selections_times_on_organization_code", using: :btree
 
-  create_table "providers", force: :cascade do |t|
+  create_table "settings", force: :cascade do |t|
+    t.string   "var",                   null: false
+    t.text     "value"
+    t.integer  "thing_id"
+    t.string   "thing_type", limit: 30
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "settings", ["thing_type", "thing_id", "var"], name: "index_settings_on_thing_type_and_thing_id_and_var", unique: true, using: :btree
+
+  create_table "supplier_staffs", force: :cascade do |t|
     t.string   "username",               default: "",    null: false
     t.string   "email",                  default: "",    null: false
     t.string   "encrypted_password",     default: "",    null: false
@@ -201,29 +212,19 @@ ActiveRecord::Schema.define(version: 20150524214019) do
     t.integer  "failed_attempts",        default: 0,     null: false
     t.string   "unlock_token"
     t.datetime "locked_at"
-    t.string   "provider_code",                          null: false
+    t.string   "supplier_code",                          null: false
     t.boolean  "admin",                  default: false, null: false
     t.string   "abilities"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "name"
   end
 
-  add_index "providers", ["email"], name: "index_providers_on_email", unique: true, using: :btree
-  add_index "providers", ["provider_code"], name: "index_providers_on_provider_code", using: :btree
-  add_index "providers", ["reset_password_token"], name: "index_providers_on_reset_password_token", unique: true, using: :btree
-  add_index "providers", ["unlock_token"], name: "index_providers_on_unlock_token", unique: true, using: :btree
-  add_index "providers", ["username"], name: "index_providers_on_username", unique: true, using: :btree
-
-  create_table "settings", force: :cascade do |t|
-    t.string   "var",                   null: false
-    t.text     "value"
-    t.integer  "thing_id"
-    t.string   "thing_type", limit: 30
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "settings", ["thing_type", "thing_id", "var"], name: "index_settings_on_thing_type_and_thing_id_and_var", unique: true, using: :btree
+  add_index "supplier_staffs", ["email"], name: "index_supplier_staffs_on_email", unique: true, using: :btree
+  add_index "supplier_staffs", ["reset_password_token"], name: "index_supplier_staffs_on_reset_password_token", unique: true, using: :btree
+  add_index "supplier_staffs", ["supplier_code"], name: "index_supplier_staffs_on_supplier_code", using: :btree
+  add_index "supplier_staffs", ["unlock_token"], name: "index_supplier_staffs_on_unlock_token", unique: true, using: :btree
+  add_index "supplier_staffs", ["username"], name: "index_supplier_staffs_on_username", unique: true, using: :btree
 
   create_table "user_cart_items", force: :cascade do |t|
     t.integer  "user_id"
