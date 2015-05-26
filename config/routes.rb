@@ -1,15 +1,18 @@
 Rails.application.routes.draw do
   devise_for :supplier_staffs, path: :supplier, :controllers => {
-    :passwords => "suppliers/passwords",
-    :sessions => "suppliers/sessions",
-    :unlocks => "suppliers/unlocks"
+    :passwords => "supplier/passwords",
+    :sessions => "supplier/sessions",
+    :unlocks => "supplier/unlocks"
   }
 
-  scope :scp do
-    get 'dashboard' => 'suppliers/control_panel/dashboard#index',
-        as: :supplier_control_panel_dashboard
-    get 'coming_soon' => 'suppliers/control_panel/pages#coming_soon',
-        as: :supplier_control_panel_coming_soon
+  namespace 'supplier', path: nil do
+    namespace 'control_panel', path: :scp do
+      get 'dashboard' => 'dashboard#index',
+          as: :dashboard
+      get 'coming_soon' => 'pages#coming_soon',
+          as: :coming_soon
+      resource :my_account, controller: 'my_account'
+    end
   end
 
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }

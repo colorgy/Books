@@ -1,4 +1,4 @@
-class Suppliers::ControlPanelController < ActionController::Base
+class Supplier::ControlPanelController < ActionController::Base
   layout 'supplier_cp'
   before_action :authenticate_supplier_staff!
   before_action :find_current_path

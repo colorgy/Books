@@ -7,6 +7,8 @@ class SupplierStaff < ActiveRecord::Base
 
   delegate :name, to: :supplier, prefix: true, allow_nil: true
 
+  validates :username, :email, :name, presence: true
+
   def company_name
     supplier_name
   end

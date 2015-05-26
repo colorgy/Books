@@ -1,0 +1,36 @@
+section.content-header
+  h1
+    | 帳號設定
+    small= @supplier_staff.username
+  ol.breadcrumb
+    li
+      a(href="#{supplier_control_panel_dashboard_path}")
+        i.fa.fa-user
+        | 首頁
+    li.active 帳號設定
+
+section.content
+  = simple_form_for(@supplier_staff, url: supplier_control_panel_my_account_path) do |f|
+    .row
+      .col-md-6
+        .box.box-primary
+          .box-header
+            h3.box-title 基本資料
+          .box-body
+            = f.input :name
+            = f.input :email
+          .box-footer
+            = f.submit '更新資料', class: 'btn btn-primary'
+        .box.box-info
+          .box-header
+            h3.box-title 更改密碼
+          .box-body
+            = f.input :password
+            = f.input :password_confirmation
+          .box-footer
+            = f.submit '更改密碼', class: 'btn btn-primary'
+      .col-md-6
+        .box.box-warning
+          .box-header
+            h3.box-title 通知設定
+          .box-body

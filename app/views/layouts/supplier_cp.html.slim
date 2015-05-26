@@ -35,8 +35,12 @@
       .user-panel
         .info
           p= current_supplier_staff.name
-          a
-            = current_supplier_staff.username
+          div
+            => current_supplier_staff.username
+            | |
+            =<> link_to('帳號設定', supplier_control_panel_my_account_path)
+            | |
+            =<> link_to('登出', destroy_supplier_staff_session_path, method: :delete)
 
       / form.sidebar-form(action="#" method="get")
       /   .input-group

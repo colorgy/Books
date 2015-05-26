@@ -1,4 +1,4 @@
-class Suppliers::SessionsController < Devise::SessionsController
+class Supplier::SessionsController < Devise::SessionsController
   layout 'supplier'
 
   def after_sign_in_path_for(_)
