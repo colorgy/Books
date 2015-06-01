@@ -15,6 +15,8 @@ module Books
 
     config.paths.add File.join('app', 'services'), glob: File.join('**', '*.rb')
     config.autoload_paths += Dir[Rails.root.join('app', 'services', '*')]
+    config.paths.add File.join('lib', 'api_helpers'), glob: File.join('**', '*.rb')
+    config.autoload_paths += Dir[Rails.root.join('lib', 'api_helpers')]
 
     config.active_record.raise_in_transactional_callbacks = true
 

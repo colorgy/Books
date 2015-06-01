@@ -7,11 +7,13 @@ Rails.application.routes.draw do
 
   namespace 'supplier', path: nil do
     namespace 'control_panel', path: :scp do
+      get '/' => 'dashboard#index'
       get 'dashboard' => 'dashboard#index',
           as: :dashboard
       get 'coming_soon' => 'pages#coming_soon',
           as: :coming_soon
       resource :my_account, controller: 'my_account'
+      resources :books
     end
   end
 
