@@ -6,10 +6,13 @@
  *= require admin_lte/dist/css/skins/_all-skins
  *= require select2
  *= require select2-bootstrap
- *= require animate
+ *= require vendor/animate
+ *= require colorgy/components/_toast
  *= require font-awesome
  *= require_self
  */
+
+@import "supplier/**/*";
 
 html {
 	height: 100%;

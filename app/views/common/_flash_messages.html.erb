@@ -1,0 +1,9 @@
+<% flash.each do |type, message| %>
+  <script type="text/javascript">
+    $(function() {
+      Visibility.onVisible(function () {
+        flash['<%= type %>']('<%= message %>');
+      });
+    });
+  </script>
+<% end %>

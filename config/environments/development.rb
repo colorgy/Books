@@ -47,4 +47,7 @@ Rails.application.configure do
     generate.view_specs false
     # generate.test_framework :rspec
   end
+
+  config.react.variant = :development
+  config.react.addons = true
 end

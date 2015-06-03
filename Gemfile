@@ -8,7 +8,7 @@ gem 'rails', '4.2.0'
 gem 'sqlite3', :groups => [:development, :test]
 gem 'pg'
 # Use SCSS for stylesheets
-gem 'sass-rails', '~> 4.0.4'
+gem 'sass-rails', '~> 5.0.1'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .js.coffee assets and views
@@ -131,11 +131,11 @@ gem 'hirb', :require => false
 gem 'hirb-unicode', :require => false
 
 # Assets related Gems
-gem 'react-rails', '~> 1.0.0.pre', github: 'reactjs/react-rails'
+gem 'colorgy_style', github: 'colorgy/Style'
+gem 'react-rails', '~> 1.0'
 gem 'normalize-rails', '>= 3.0.1'
 gem 'modernizr-rails'
 gem 'nprogress-rails', '~> 0.1.6.5'
 gem 'select2-rails', '~> 3.5.9'
 gem 'chosen-rails'
-gem 'bootstrap-sass'
 gem 'font-awesome-rails'
