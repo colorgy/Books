@@ -24,6 +24,11 @@ BookTable = React.createClass
     @setState page: payload.page, ->
       @getBooks()
 
+  handlePerPageChange: (event) ->
+    value = event.target.value
+    @setState perPage: value, ->
+      @getBooks()
+
   getBooks: () ->
     @setState loading: true
     orgCode = @state.orgCode
@@ -40,6 +45,7 @@ BookTable = React.createClass
         401: ->
           location.reload()
     .done (data, textStatus, xhr) =>
+      console.log xhr.getResponseHeader('Link')
       @setState
         books: data
         loading: false
@@ -63,8 +69,8 @@ BookTable = React.createClass
         <th scope="row">{book.id}</th>
         <td>{book.name}</td>
         <td>{book.isbn}</td>
-        <td>{book.isbn}</td>
-        <td>{book.price}</td>
+        <td>{book.internal_code}</td>
+        <td>NT$ {book.price}</td>
       </tr>`
     if data.length
       dataTable =
@@ -111,16 +117,28 @@ BookTable = React.createClass
           <nav>
             <LinkPagination linkString={paginationLinks} onClick={this.handlePageChange} />
           </nav>
-          &nbsp;
+          &nbsp;&nbsp;
+          <span className="box-tools-text">
+            每頁顯示：
+          </span>
+          <div className="has-feedback">
+            <select className="form-control"
+              onChange={this.handlePerPageChange}
+              value={this.state.perPage}>
+              <option>20</option>
+              <option>25</option>
+              <option>50</option>
+              <option>100</option>
+              <option>500</option>
+              <option>1000</option>
+            </select>
+          </div>
+          &nbsp;&nbsp;
           <a className="btn btn-default">
             <span className="glyphicon glyphicon-plus"></span>
             上架新書
           </a>
-          &nbsp;
-          <div className="has-feedback">
-            <input type="text" className="form-control" placeholder="Search..."/>
-            <span className="glyphicon glyphicon-search form-control-feedback"></span>
-          </div>
+          &nbsp;&nbsp;
         </div>
       </div>
       <div className="box-body">
