@@ -78,6 +78,8 @@ gem 'simple_form', '~> 3.1.0'
 gem 'client_side_validations', github: 'DavyJonesLocker/client_side_validations'
 gem 'client_side_validations-simple_form', '~> 3.1.0', github: 'DavyJonesLocker/client_side_validations-simple_form'
 
+gem 'rabl'
+
 # Soft delete records
 gem 'paranoia', '~> 2.1.0'
 

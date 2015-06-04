@@ -78,7 +78,7 @@ module APIHelpers::Filterable
         field_type = resource.columns_hash[field].type
 
         # if a function is used
-        if func = condition.match(/(?<function>[^\(\)]+)\((?<param>.+)\)/)
+        if func = condition.match(/(?<function>[^\(\)]+)\((?<param>.*)\)/)
           case func[:function]
           when 'not'
             values = func[:param].split(',')
@@ -97,6 +97,8 @@ module APIHelpers::Filterable
             resource = resource.where("\"#{resource.table_name}\".\"#{field}\" BETWEEN ? AND ?", param.first, param.last)
           when 'like'
             resource = resource.where("\"#{resource.table_name}\".\"#{field}\" LIKE ?", func[:param])
+          when 'null'
+            resource = resource.where(field => nil)
           end
         # if not function
         else

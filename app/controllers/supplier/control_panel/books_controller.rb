@@ -4,6 +4,7 @@ class Supplier::ControlPanel::BooksController < Supplier::ControlPanelController
   include APIHelpers::Sortable
 
   def index
+    @orgs = Organization.all
     sortable default_order: { isbn: :asc }
     pagination current_supplier_staff.books,
                default_per_page: 25,
@@ -14,8 +15,9 @@ class Supplier::ControlPanel::BooksController < Supplier::ControlPanelController
       end
 
       format.json do
-        @books = filter(current_supplier_staff.books).order(sort).page(page).per(per_page)
-        render json: @books
+        collection = current_supplier_staff.books.includes(:data)
+        @books = filter(collection).order(sort).page(page).per(per_page)
+        render :book
       end
     end
   end
