@@ -3,6 +3,7 @@ BookTable = React.createClass
     orgCode: 'public'
     page: 1
     perPage: 20
+    sortBy: 'internal_code'
     APIEndpoint: '/scp/books.json'
     orgs: []
 
@@ -10,6 +11,7 @@ BookTable = React.createClass
     orgCode: @props.orgCode
     page: @props.page
     perPage: @props.perPage
+    sortBy: @props.sortBy
     loading: false
     books: []
 
@@ -29,10 +31,18 @@ BookTable = React.createClass
     @setState perPage: value, ->
       @getBooks()
 
+  handleSortChange: (event) ->
+    sortBy = $(event.target).attr('data-sort-by')
+    sortBy = "-#{sortBy}" if @state.sortBy == sortBy
+    @setState sortBy: sortBy, ->
+      @getBooks()
+
   getBooks: () ->
     @setState loading: true
     orgCode = @state.orgCode
     orgCode = 'null()' if orgCode == 'public'
+    sortBy = @state.sortBy
+    sortBy = "#{@state.sortBy},isbn" if !sortBy.match(/isbn/)
     $.ajax
       method: 'GET'
       url: @props.APIEndpoint
@@ -41,11 +51,11 @@ BookTable = React.createClass
         'filter[organization_code]': orgCode
         'page': @state.page
         'per_page': @state.perPage
+        'sort': sortBy
       statusCode:
         401: ->
           location.reload()
     .done (data, textStatus, xhr) =>
-      console.log xhr.getResponseHeader('Link')
       @setState
         books: data
         loading: false
@@ -56,6 +66,7 @@ BookTable = React.createClass
 
   render: ->
     orgCode = @state.orgCode
+    sortBy = @state.sortBy || ''
 
     loadingOverlay = null
     if @state.loading
@@ -72,16 +83,43 @@ BookTable = React.createClass
         <td>{book.internal_code}</td>
         <td>NT$ {book.price}</td>
       </tr>`
+
     if data.length
       dataTable =
-        `<table className="table">
+        `<table className="table table-hover">
           <thead>
             <tr>
               <th>#</th>
-              <th>書名</th>
-              <th>ISBN</th>
-              <th>內部編號</th>
-              <th>售價</th>
+              <th>
+                 書名
+              </th>
+              <th className={classNames({
+                  'clickable': true,
+                  'sort-by-asc': sortBy == 'isbn',
+                  'sort-by-desc': sortBy.substr(1) == 'isbn'
+                })}
+                onClick={this.handleSortChange}
+                data-sort-by="isbn">
+                 ISBN
+              </th>
+              <th className={classNames({
+                  'clickable': true,
+                  'sort-by-asc': sortBy == 'internal_code',
+                  'sort-by-desc': sortBy.substr(1) == 'internal_code'
+                })}
+                onClick={this.handleSortChange}
+                data-sort-by="internal_code">
+                 內部編號
+              </th>
+              <th className={classNames({
+                  'clickable': true,
+                  'sort-by-asc': sortBy == 'price',
+                  'sort-by-desc': sortBy.substr(1) == 'price'
+                })}
+                onClick={this.handleSortChange}
+                data-sort-by="price">
+                 售價
+              </th>
             </tr>
           </thead>
           <tbody>

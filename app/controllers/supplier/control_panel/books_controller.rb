@@ -11,7 +11,7 @@ class Supplier::ControlPanel::BooksController < Supplier::ControlPanelController
       end
 
       format.json do
-        sortable default_order: { isbn: :asc }
+        sortable default_order: { internal_code: :asc, isbn: :asc }
         collection = current_supplier_staff.books.includes(:data)
         collection = filter(collection)
         pagination collection,
