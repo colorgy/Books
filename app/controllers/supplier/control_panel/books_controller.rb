@@ -5,18 +5,19 @@ class Supplier::ControlPanel::BooksController < Supplier::ControlPanelController
 
   def index
     @orgs = Organization.all
-    sortable default_order: { isbn: :asc }
-    pagination current_supplier_staff.books,
-               default_per_page: 25,
-               maxium_per_page: 1000
 
     respond_to do |format|
       format.html do
       end
 
       format.json do
+        sortable default_order: { isbn: :asc }
         collection = current_supplier_staff.books.includes(:data)
-        @books = filter(collection).order(sort).page(page).per(per_page)
+        collection = filter(collection)
+        pagination collection,
+                   default_per_page: 25,
+                   maxium_per_page: 1000
+        @books = collection.order(sort).page(page).per(per_page)
         render :book
       end
     end
