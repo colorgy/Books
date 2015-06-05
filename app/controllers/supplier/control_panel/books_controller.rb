@@ -12,7 +12,7 @@ class Supplier::ControlPanel::BooksController < Supplier::ControlPanelController
 
       format.json do
         sortable default_order: { internal_code: :asc, isbn: :asc }
-        collection = current_supplier_staff.books.includes(:data)
+        collection = scoped_collection
         collection = filter(collection)
         pagination collection,
                    default_per_page: 25,
@@ -21,5 +21,26 @@ class Supplier::ControlPanel::BooksController < Supplier::ControlPanelController
         render :book
       end
     end
+  end
+
+  def update
+    @book = scoped_collection.find(params[:id])
+    respond_to do |format|
+      if @book.update(book_params)
+        format.json { render :book }
+      else
+        format.json { render json: @book.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  private
+
+  def scoped_collection
+    current_supplier_staff.books.includes(:data)
+  end
+
+  def book_params
+    params.require(:book).permit(:isbn, :price, :internal_code)
   end
 end

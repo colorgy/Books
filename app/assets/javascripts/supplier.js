@@ -2,6 +2,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require colorgy/lib/prevent_close
 //= require colorgy/components/toast
 //= require vendor/visibility
 //= require vendor/classnames

@@ -4,7 +4,7 @@ BookTable = React.createClass
     page: 1
     perPage: 20
     sortBy: 'internal_code'
-    APIEndpoint: '/scp/books.json'
+    APIEndpoint: '/scp/books'
     orgs: []
 
   getInitialState: ->
@@ -45,7 +45,7 @@ BookTable = React.createClass
     sortBy = "#{@state.sortBy},isbn" if !sortBy.match(/isbn/)
     $.ajax
       method: 'GET'
-      url: @props.APIEndpoint
+      url: "#{@props.APIEndpoint}.json"
       dataType: 'json'
       data:
         'filter[organization_code]': orgCode
@@ -64,6 +64,34 @@ BookTable = React.createClass
       @setState loading: false
       flash.error('資料載入失敗！', [['重試', @getBooks]])
 
+  saveBookPrice: (payload) ->
+    preventClose.prevent()
+    $.ajax
+      method: 'PATCH'
+      url: "#{@props.APIEndpoint}/#{payload.id}.json"
+      dataType: 'json'
+      data:
+        book:
+          'price': payload.price
+      statusCode:
+        401: ->
+          location.reload()
+    .done (data, textStatus, xhr) =>
+      preventClose.preventEnd()
+      books = @state.books
+      for book, index in books
+        if book.id == data.id
+          books[index] = data
+          break
+      window.data = data
+      window.bs = books
+      @setState
+        books: books
+      flash.success('success')
+    .fail (data, textStatus, xhr) =>
+      console.log data
+      flash.error('儲存失敗！')
+
   render: ->
     orgCode = @state.orgCode
     sortBy = @state.sortBy || ''
@@ -75,14 +103,9 @@ BookTable = React.createClass
           <i className="fa fa-refresh fa-spin"></i>
         </div>`
 
-    data = @state.books.map (book) ->
-      `<tr key={book.id}>
-        <th scope="row">{book.id}</th>
-        <td>{book.name}</td>
-        <td>{book.isbn}</td>
-        <td>{book.internal_code}</td>
-        <td>NT$ {book.price}</td>
-      </tr>`
+    data = @state.books.map ((book) ->
+      `<BookRow key={book.id} book={book} onPriceSave={this.saveBookPrice} />`
+    ).bind(this)
 
     if data.length
       dataTable =
@@ -163,6 +186,7 @@ BookTable = React.createClass
             <select className="form-control"
               onChange={this.handlePerPageChange}
               value={this.state.perPage}>
+              <option>10</option>
               <option>20</option>
               <option>25</option>
               <option>50</option>

@@ -116,3 +116,22 @@ th {
 		border-left: 4px solid transparent;
 	}
 }
+
+.inplace-edit {
+	border: 2px inset transparent;
+	background-color: transparent;
+
+	&:hover,
+	&:focus,
+	&.changed {
+		border: 2px inset;
+		background-color: white;
+	}
+
+	& ~ .btn,
+	& ~ * > .btn {
+		padding: 2px 5px;
+		line-height: 20px;
+		vertical-align: bottom;
+	}
+}
