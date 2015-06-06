@@ -64,7 +64,7 @@ BookTable = React.createClass
       @setState loading: false
       flash.error('資料載入失敗！', [['重試', @getBooks]])
 
-  saveBookPrice: (payload) ->
+  saveBook: (payload) ->
     preventClose.prevent()
     $.ajax
       method: 'PATCH'
@@ -72,7 +72,7 @@ BookTable = React.createClass
       dataType: 'json'
       data:
         book:
-          'price': payload.price
+          payload.data
       statusCode:
         401: ->
           location.reload()
@@ -104,7 +104,7 @@ BookTable = React.createClass
         </div>`
 
     data = @state.books.map ((book) ->
-      `<BookRow key={book.id} book={book} onPriceSave={this.saveBookPrice} />`
+      `<BookRow key={book.id} book={book} onPriceSave={this.saveBook} onInternalCodeSave={this.saveBook} />`
     ).bind(this)
 
     if data.length
