@@ -23,6 +23,17 @@ class Supplier::ControlPanel::BooksController < Supplier::ControlPanelController
     end
   end
 
+  def create
+    @book = scoped_collection.build(book_params)
+    respond_to do |format|
+      if @book.save
+        format.json { render :book }
+      else
+        format.json { render json: @book.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
   def update
     @book = scoped_collection.find(params[:id])
     respond_to do |format|
@@ -41,6 +52,6 @@ class Supplier::ControlPanel::BooksController < Supplier::ControlPanelController
   end
 
   def book_params
-    params.require(:book).permit(:isbn, :price, :internal_code)
+    params.require(:book).permit(:organization_code, :isbn, :price, :internal_code)
   end
 end

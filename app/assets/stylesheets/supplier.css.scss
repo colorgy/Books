@@ -135,3 +135,58 @@ th {
 		vertical-align: bottom;
 	}
 }
+
+.complex-selection {
+	height: 40px;
+	white-space: nowrap;
+
+	> * {
+		display: inline-block;
+		vertical-align: middle;
+		margin-left: 7px;
+	}
+
+	img {
+		height: 40px;
+	}
+}
+
+.form-group {
+
+	.Select {
+		width: 100%;
+	}
+}
+
+.Select.with-complex-selection {
+
+	.Select-control {
+		height: 58px;
+	}
+
+	.Select-placeholder, input {
+		line-height: 38px;
+	}
+
+	.Select-clear {
+		padding: 16px 12px;
+	}
+
+	.Select-arrow {
+		top: 24px;
+	}
+
+	.complex-selection-info {
+		line-height: 1;
+
+		.complex-selection-label {
+			display: block;
+			font-size: 50%;
+			opacity: .5;
+		}
+		.complex-selection-name {
+			display: block;
+		}
+	}
+}
+

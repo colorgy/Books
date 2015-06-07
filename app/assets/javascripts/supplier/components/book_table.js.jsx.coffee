@@ -20,6 +20,7 @@ BookTable = React.createClass
 
   handleOrgChange: (orgCode) ->
     @setState orgCode: orgCode, ->
+      @refs.newBookModal.reset() if orgCode
       @getBooks() if orgCode
 
   handlePageChange: (payload) ->
@@ -54,6 +55,7 @@ BookTable = React.createClass
         'sort': sortBy
       statusCode:
         401: ->
+          preventClose.allow()
           location.reload()
     .done (data, textStatus, xhr) =>
       @setState
@@ -75,6 +77,7 @@ BookTable = React.createClass
           payload.data
       statusCode:
         401: ->
+          preventClose.allow()
           location.reload()
     .done (data, textStatus, xhr) =>
       preventClose.preventEnd()
@@ -87,6 +90,27 @@ BookTable = React.createClass
       window.bs = books
       @setState
         books: books
+      flash.success('success')
+    .fail (data, textStatus, xhr) =>
+      console.log data
+      flash.error('儲存失敗！')
+
+  createBook: (payload) ->
+    preventClose.prevent()
+    $.ajax
+      method: 'POST'
+      url: "#{@props.APIEndpoint}.json"
+      dataType: 'json'
+      data:
+        book:
+          payload.data
+      statusCode:
+        401: ->
+          preventClose.allow()
+          location.reload()
+    .done (data, textStatus, xhr) =>
+      @refs.newBookModal.reset()
+      @getBooks()
       flash.success('success')
     .fail (data, textStatus, xhr) =>
       console.log data
@@ -114,7 +138,7 @@ BookTable = React.createClass
             <tr>
               <th>#</th>
               <th>
-                 書名
+                書名
               </th>
               <th className={classNames({
                   'clickable': true,
@@ -165,48 +189,57 @@ BookTable = React.createClass
     orgSelections = publicOrgSelection.concat @props.orgs.map (org) ->
       { value: org.code, label: "#{org.short_name} (#{org.code}) 專屬" }
 
-    `<div className="box box-default">
-      <div className="box-header with-border">
-        <div className="box-title">
-          <Select
-            value={orgCode}
-            onChange={this.handleOrgChange}
-            options={orgSelections}
-          />
-        </div>
-        <div className="box-tools main pull-right">
-          <nav>
-            <LinkPagination linkString={paginationLinks} onClick={this.handlePageChange} />
-          </nav>
-          &nbsp;&nbsp;
-          <span className="box-tools-text">
-            每頁顯示：
-          </span>
-          <div className="has-feedback">
-            <select className="form-control"
-              onChange={this.handlePerPageChange}
-              value={this.state.perPage}>
-              <option>10</option>
-              <option>20</option>
-              <option>25</option>
-              <option>50</option>
-              <option>100</option>
-              <option>500</option>
-              <option>1000</option>
-            </select>
+    `<div>
+      <div className="box box-default">
+        <div className="box-header with-border">
+          <div className="box-title">
+            <Select
+              value={orgCode}
+              onChange={this.handleOrgChange}
+              options={orgSelections}
+              clearable={false}
+            />
           </div>
-          &nbsp;&nbsp;
-          <a className="btn btn-default">
-            <span className="glyphicon glyphicon-plus"></span>
-            上架新書
-          </a>
-          &nbsp;&nbsp;
+          <div className="box-tools main pull-right">
+            <nav>
+              <LinkPagination linkString={paginationLinks} onClick={this.handlePageChange} />
+            </nav>
+            &nbsp;&nbsp;
+            <span className="box-tools-text">
+              每頁顯示：
+            </span>
+            <div className="has-feedback">
+              <select className="form-control"
+                onChange={this.handlePerPageChange}
+                value={this.state.perPage}>
+                <option>10</option>
+                <option>20</option>
+                <option>25</option>
+                <option>50</option>
+                <option>100</option>
+                <option>500</option>
+                <option>1000</option>
+              </select>
+            </div>
+            &nbsp;&nbsp;
+            <a className="btn btn-default" data-toggle="modal" data-target="#newBookModal">
+              <span className="glyphicon glyphicon-plus"></span>
+              上架新書
+            </a>
+            &nbsp;&nbsp;
+          </div>
         </div>
+        <div className="box-body">
+          {dataTable}
+        </div>
+        {loadingOverlay}
       </div>
-      <div className="box-body">
-        {dataTable}
-      </div>
-      {loadingOverlay}
+      <NewBookModal
+        id="newBookModal"
+        ref="newBookModal"
+        orgs={this.props.orgs}
+        defaultOrgCode={this.state.orgCode}
+        onCreateBook={this.createBook} />
     </div>`
 
 window.BookTable = BookTable
