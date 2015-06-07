@@ -45,6 +45,14 @@ class Supplier::ControlPanel::BooksController < Supplier::ControlPanelController
     end
   end
 
+  def destroy
+    @book = scoped_collection.find(params[:id])
+    @book.destroy
+    respond_to do |format|
+      format.json { head :no_content }
+    end
+  end
+
   private
 
   def scoped_collection

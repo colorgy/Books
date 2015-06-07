@@ -5,6 +5,8 @@ BookRow = React.createClass
       console.log(payload)
     onInternalCodeSave: (payload) ->
       console.log(payload)
+    onDelete: (payload) ->
+      console.log(payload)
 
   getInitialState: ->
     price: @props.book.price
@@ -57,12 +59,34 @@ BookRow = React.createClass
   internalCodeDirty: ->
     @props.book.internal_code != @state.internalCode
 
+  delete: ->
+    if @state.preparedForDelete
+      payload =
+        id: @props.book.id
+      @props.onDelete(payload)
+    else
+      flash.warning('確定刪除？刪除後同學即無法購買本書，進行中的團購也將無法有新人跟團，但已下訂的訂單將仍然成立！')
+      @setState preparedForDelete: true
+      setTimeout =>
+        @setState preparedForDelete: false
+      , 10000
+
   render: ->
     book = @props.book
     price = @state.price
     internalCode = @state.internalCode
     internalCodeDirty = @internalCodeDirty()
     priceDirty = @priceDirty()
+
+    if @state.preparedForDelete
+      deleteAction = `<span>
+          確定刪除？
+          <a href="#" onClick={this.delete}>刪除</a>
+        </span>`
+    else
+      deleteAction = `<span>
+          <a href="#" onClick={this.delete}>刪除</a>
+        </span>`
 
     `<tr>
       <th scope="row">{book.id}</th>
@@ -105,6 +129,9 @@ BookRow = React.createClass
             <span className="glyphicon glyphicon-remove"></span>
           </button>
         </span>
+      </td>
+      <td>
+        {deleteAction}
       </td>
     </tr>`
 

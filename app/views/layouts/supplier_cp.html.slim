@@ -63,20 +63,10 @@
 
       ul.sidebar-menu
         li.header 一般作業
-        li.treeview
-          a href="#"
+        li.(class="#{'active' if @current_path == supplier_control_panel_books_path}")
+          a href="#{supplier_control_panel_books_path}"
             i.fa.fa-book
-            span 書籍上架管理
-            i.fa.fa-angle-left.pull-right
-          ul.treeview-menu
-            li
-              a href="#{supplier_control_panel_coming_soon_path}"
-                i.fa.fa-plus-square-o
-                | 新書上架
-            li
-              a href="#{supplier_control_panel_books_path}"
-                i.fa.fa-th-list
-                | 書籍管理
+            span 書籍管理
         li
           a href="#{supplier_control_panel_coming_soon_path}"
             i.fa.fa-truck

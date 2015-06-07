@@ -116,6 +116,24 @@ BookTable = React.createClass
       console.log data
       flash.error('儲存失敗！')
 
+  deleteBook: (payload) ->
+    preventClose.prevent()
+    $.ajax
+      method: 'DELETE'
+      url: "#{@props.APIEndpoint}/#{payload.id}.json"
+      dataType: 'json'
+      statusCode:
+        401: ->
+          preventClose.allow()
+          location.reload()
+    .done (data, textStatus, xhr) =>
+      preventClose.preventEnd()
+      @getBooks()
+      flash.success('success')
+    .fail (data, textStatus, xhr) =>
+      console.log data
+      flash.error('刪除失敗！')
+
   render: ->
     orgCode = @state.orgCode
     sortBy = @state.sortBy || ''
@@ -128,7 +146,10 @@ BookTable = React.createClass
         </div>`
 
     data = @state.books.map ((book) ->
-      `<BookRow key={book.id} book={book} onPriceSave={this.saveBook} onInternalCodeSave={this.saveBook} />`
+      `<BookRow key={book.id} book={book}
+        onPriceSave={this.saveBook}
+        onInternalCodeSave={this.saveBook}
+        onDelete={this.deleteBook} />`
     ).bind(this)
 
     if data.length
