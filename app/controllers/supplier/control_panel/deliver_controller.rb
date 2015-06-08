@@ -18,6 +18,7 @@ class Supplier::ControlPanel::DeliverController < Supplier::ControlPanelControll
   private
 
   def scoped_collection
+    current_supplier_staff.groups.includes(:orders)
   end
 
   def group_params

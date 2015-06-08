@@ -29,7 +29,7 @@ class Group < ActiveRecord::Base
 
   after_initialize :end_if_deadline_passed
   before_create :set_deadline
-  before_validation :set_organization_code, :set_code
+  before_validation :set_organization_code_if_blank, :set_code_if_blank, :set_supplier_code
 
   aasm column: :state do
     state :grouping, initial: true
@@ -90,20 +90,23 @@ class Group < ActiveRecord::Base
 
   alias_attribute :org_code, :organization_code
 
-  def set_organization_code
+  def set_organization_code_if_blank
     return unless self.organization_code.blank?
     self.organization_code = course.try(:organization_code)
   end
 
-  alias_method :set_org_code, :set_organization_code
-
-  def set_code
+  def set_code_if_blank
     return unless self.code.blank?
     self.code = Group.code_for(book_id: book_id, course_id: course_id, org_code: org_code)
   end
 
   def set_deadline
     self.deadline = (pickup_datetime - book.delivery_processing_time).change(hour: 0)
+  end
+
+  def set_supplier_code
+    return if book.blank?
+    self.supplier_code = book.supplier_code
   end
 
   def end_if_deadline_passed

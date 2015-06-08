@@ -4,6 +4,7 @@ class SupplierStaff < ActiveRecord::Base
 
   belongs_to :supplier, foreign_key: :supplier_code, primary_key: :code
   has_many :books, foreign_key: :supplier_code, primary_key: :supplier_code
+  has_many :groups, foreign_key: :supplier_code, primary_key: :supplier_code
 
   delegate :name, to: :supplier, prefix: true, allow_nil: true
 

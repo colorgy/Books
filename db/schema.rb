@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150604102555) do
+ActiveRecord::Schema.define(version: 20150608024609) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -125,6 +125,7 @@ ActiveRecord::Schema.define(version: 20150604102555) do
     t.boolean  "public",            default: false,      null: false
     t.datetime "deadline"
     t.datetime "pickup_datetime"
+    t.string   "supplier_code"
   end
 
   add_index "groups", ["code"], name: "index_groups_on_code", unique: true, using: :btree
@@ -135,6 +136,7 @@ ActiveRecord::Schema.define(version: 20150604102555) do
   add_index "groups", ["received_at"], name: "index_groups_on_received_at", using: :btree
   add_index "groups", ["shipped_at"], name: "index_groups_on_shipped_at", using: :btree
   add_index "groups", ["state"], name: "index_groups_on_state", using: :btree
+  add_index "groups", ["supplier_code"], name: "index_groups_on_supplier_code", using: :btree
 
   create_table "orders", force: :cascade do |t|
     t.integer  "user_id",    null: false
