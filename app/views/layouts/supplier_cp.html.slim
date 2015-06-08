@@ -67,8 +67,8 @@
           a href="#{supplier_control_panel_books_path}"
             i.fa.fa-book
             span 書籍管理
-        li
-          a href="#{supplier_control_panel_coming_soon_path}"
+        li.(class="#{'active' if @current_path == supplier_control_panel_deliver_index_path}")
+          a href="#{supplier_control_panel_deliver_index_path}"
             i.fa.fa-truck
             span 發貨作業
             .pull-right.labels

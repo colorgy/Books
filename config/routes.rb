@@ -14,6 +14,7 @@ Rails.application.routes.draw do
           as: :coming_soon
       resource :my_account, controller: 'my_account'
       resources :books
+      resources :deliver
     end
   end
 
