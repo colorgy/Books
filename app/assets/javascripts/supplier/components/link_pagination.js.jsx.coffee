@@ -8,7 +8,10 @@ LinkPagination = React.createClass
 
   parsedLinks: ->
     linkString = @props.linkString
-    linkStringArray = linkString.replace(/ /g, '').split(',')
+    if linkString
+      linkStringArray = linkString.replace(/ /g, '').split(',')
+    else
+      linkStringArray = []
     links = {}
     linkStringArray.forEach (str) ->
       matchs = str.match(/\<([^\>]+)>.*rel="([^"]+)"/)
