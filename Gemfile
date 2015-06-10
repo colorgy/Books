@@ -57,6 +57,7 @@ gem 'paperclip', '~> 4.2'
 # Model factory
 gem 'factory_girl_rails', '~> 4.5.0'
 gem 'faker'
+gem 'timecop'
 
 # Add Slim support
 gem 'slim-rails'
@@ -118,7 +119,6 @@ group :development, :test do
   gem 'formulaic'
   gem 'launchy'
   gem 'webmock', require: false
-  gem 'timecop'
 end
 
 # Logger and Monitoring Tools
