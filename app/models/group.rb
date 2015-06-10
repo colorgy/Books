@@ -7,6 +7,7 @@ class Group < ActiveRecord::Base
   scope :publ, ->  { where(public: true) }
   scope :priv, ->  { where(public: false) }
   scope :ended, ->  { where('deadline < ?', Time.now) }
+  scope :grouping, ->  { where('deadline > ?', Time.now) }
   scope :unshipped, ->  { where(shipped_at: nil) }
   scope :shipped, ->  { where.not(shipped_at: nil) }
   scope :unreceived, ->  { where(received_at: nil) }
@@ -21,7 +22,7 @@ class Group < ActiveRecord::Base
            to: :leader, prefix: true, allow_nil: true
   delegate :name, :lecturer_name,
            to: :course, prefix: true, allow_nil: true
-  delegate :name,
+  delegate :name, :isbn, :internal_code, :price,
            to: :book, prefix: true, allow_nil: true
 
   validates :code, :book, :leader, :pickup_datetime, presence: true
@@ -113,16 +114,26 @@ class Group < ActiveRecord::Base
     self.end! if may_end? && deadline.present? && Time.now > deadline
   end
 
-  # Deprecated
-  def ship!
-    return unless shipped_at.blank?
-    ActiveRecord::Base.transaction do
-      update_attributes(shipped_at: Time.now)
-      orders.each do |order|
-        order.ship! if order.may_ship?
-      end
-    end
+  def count_orders
+    self.orders_count = orders.has_paid.count
+    self.unpaid_orders_count = orders.unpaid.count
   end
+
+  def count_orders!
+    count_orders
+    save!
+  end
+
+  # Deprecated
+  # def ship!
+  #   return unless shipped_at.blank?
+  #   ActiveRecord::Base.transaction do
+  #     update_attributes(shipped_at: Time.now)
+  #     orders.each do |order|
+  #       order.ship! if order.may_ship?
+  #     end
+  #   end
+  # end
 
   # Deprecated
   def receive!

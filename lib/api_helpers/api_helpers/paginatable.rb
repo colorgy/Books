@@ -54,14 +54,14 @@
 module APIHelpers::Paginatable
   extend ActiveSupport::Concern
 
-  def pagination(items_count, default_per_page: 20, maxium_per_page: 100, set_link_header: true)
+  def pagination(items_count, default_per_page: 20, maxium_per_page: 100, set_header: true)
     items_count = items_count.count if items_count.respond_to? :count
 
     @per_page = (params[:per_page] || default_per_page).to_i
     @per_page = maxium_per_page if @per_page > maxium_per_page
     @per_page = 1 if @per_page < 1
 
-    items_count = 1 if items_count < 1
+    items_count = 0 if items_count < 0
     pages_count = (items_count.to_f / @per_page).ceil
     pages_count = 1 if pages_count < 1
 
@@ -82,9 +82,16 @@ module APIHelpers::Paginatable
 
     link_header = link_headers.join(', ')
 
-    if set_link_header
-      self.header('Link', link_header) if self.respond_to?(:header)
-      response.headers['Link'] = link_header if defined?(response) && response.respond_to?(:headers)
+    if set_header
+      if self.respond_to?(:header)
+        self.header('Link', link_header)
+        self.header('X-Items-Count', items_count.to_s)
+      end
+
+      if defined?(response) && response.respond_to?(:headers)
+        response.headers['Link'] = link_header
+        response.headers['X-Items-Count'] = items_count.to_s
+      end
     end
 
     link_header

@@ -72,8 +72,8 @@
             i.fa.fa-truck
             span 發貨作業
             .pull-right.labels
-              small.label.bg-blue 0
-              small.label.bg-yellow 0
+              small.label.bg-blue= grouping_orders_count
+              small.label.bg-yellow= pending_orders_count
               small.label.bg-red 0
         li
           a href="#{supplier_control_panel_coming_soon_path}"

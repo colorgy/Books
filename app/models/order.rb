@@ -5,6 +5,7 @@ class Order < ActiveRecord::Base
 
   scope :paid, ->  { where(state: :paid) }
   scope :has_paid, ->  { where(state: [:paid, :delivering, :leader_received, :delivered, :received]) }
+  scope :unpaid, ->  { where(state: [:new, :payment_pending, :expired, :cancelled]) }
 
   belongs_to :user
   belongs_to :course, -> { with_deleted }
@@ -28,6 +29,7 @@ class Order < ActiveRecord::Base
 
   after_initialize :init_price
   before_save :init_price
+  after_create :count_group_orders
 
   aasm column: :state do
     state :new, initial: true
@@ -45,7 +47,7 @@ class Order < ActiveRecord::Base
       transitions :from => :payment_pending, :to => :payment_pending
     end
 
-    event :pay do
+    event :pay, after: :count_group_orders do
       transitions :from => :new, :to => :paid
       transitions :from => :payment_pending, :to => :paid
     end
@@ -75,7 +77,7 @@ class Order < ActiveRecord::Base
       transitions :from => :delivering, :to => :received
     end
 
-    event :cancel do
+    event :cancel, after: :count_group_orders do
       transitions :from => :new, :to => :cancelled
       transitions :from => :payment_pending, :to => :cancelled
     end
@@ -98,6 +100,10 @@ class Order < ActiveRecord::Base
   def init_price
     return unless self.price.blank?
     self.price = self.book.try(:price)
+  end
+
+  def count_group_orders
+    group.count_orders!
   end
 
   # def save_with_bill!(bill)

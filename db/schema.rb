@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150608024609) do
+ActiveRecord::Schema.define(version: 20150609062314) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -106,10 +106,10 @@ ActiveRecord::Schema.define(version: 20150608024609) do
   add_index "courses", ["deleted_at"], name: "index_courses_on_deleted_at", using: :btree
 
   create_table "groups", force: :cascade do |t|
-    t.string   "code",                                   null: false
-    t.integer  "leader_id",                              null: false
+    t.string   "code",                                     null: false
+    t.integer  "leader_id",                                null: false
     t.integer  "course_id"
-    t.integer  "book_id",                                null: false
+    t.integer  "book_id",                                  null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "shipped_at"
@@ -121,11 +121,13 @@ ActiveRecord::Schema.define(version: 20150608024609) do
     t.string   "organization_code"
     t.string   "recipient_mobile"
     t.string   "recipient_name"
-    t.string   "state",             default: "grouping", null: false
-    t.boolean  "public",            default: false,      null: false
+    t.string   "state",               default: "grouping", null: false
+    t.boolean  "public",              default: false,      null: false
     t.datetime "deadline"
     t.datetime "pickup_datetime"
     t.string   "supplier_code"
+    t.integer  "orders_count",        default: 0,          null: false
+    t.integer  "unpaid_orders_count", default: 0,          null: false
   end
 
   add_index "groups", ["code"], name: "index_groups_on_code", unique: true, using: :btree

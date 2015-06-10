@@ -1,0 +1,2 @@
+object @group || @groups
+attributes :id, :code, :leader_name, :leader_avatar_url, :leader_fbid, :course_name, :course_lecturer_name, :book_name, :book_isbn, :book_price, :book_internal_code, :course_id, :book_id, :created_at, :updated_at, :shipped_at, :received_at, :pickup_point, :pickup_date, :pickup_time, :data, :organization_code, :recipient_mobile, :recipient_name, :state, :deadline, :pickup_datetime, :orders_count, :unpaid_orders_count
