@@ -33,7 +33,7 @@ ActiveRecord::Schema.define(version: 20150609062314) do
     t.string   "payment_code"
     t.datetime "paid_at"
     t.integer  "used_credits"
-    t.datetime "deadline",     default: '2015-05-23 19:23:14', null: false
+    t.datetime "deadline",     default: '2015-06-23 15:10:42', null: false
   end
 
   add_index "bills", ["deadline"], name: "index_bills_on_deadline", using: :btree

@@ -33,7 +33,7 @@ class Book < ActiveRecord::Base
   end
 
   def minimum_purchase_quantity
-    1
+    2
   end
 
   def free_shipping_purchase_quantity

@@ -24,7 +24,12 @@ module CanPurchase
       existed_item.quantity += quantity
       existed_item.save!
     else
-      cart_items.create!(item_type: item_type, item_code: item_code, quantity: quantity)
+      case item_type.to_sym
+      when :group
+        cart_items.create!(item_type: item_type, item_code: item_code, quantity: quantity)
+      else
+        raise 'invalid item_type'
+      end
     end
     check_cart!
   end
@@ -47,12 +52,12 @@ module CanPurchase
         case item.item_type
         when 'group'
           group = Group.find_by(code: item.item_code)
-          # remove items that is about to end or deleted
-          if group.blank? || group.deadline < 1.hour.ago - Bill::PAYMENT_DEADLINE_PRE
+          # remove groups that is not grouping
+          if group.blank? || group.state != 'grouping'
             item.destroy
             next
           end
-          # remove items that is not in the user's organization
+          # remove groups that is not in the user's organization
           if group.organization_code != self.organization_code
             item.destroy
             next
