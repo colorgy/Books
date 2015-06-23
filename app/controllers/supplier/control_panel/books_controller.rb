@@ -1,7 +1,7 @@
 class Supplier::ControlPanel::BooksController < Supplier::ControlPanelController
-  include APIHelpers::Filterable
-  include APIHelpers::Paginatable
-  include APIHelpers::Sortable
+  include APIHelper::Filterable
+  include APIHelper::Paginatable
+  include APIHelper::Sortable
 
   def index
     @orgs = Organization.all
