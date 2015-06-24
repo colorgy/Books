@@ -1,29 +1,42 @@
 class Course < ActiveRecord::Base
-  acts_as_paranoid
-  has_paper_trail
+  scope :current, ->  { where(year: DatetimeService.current_year, term: DatetimeService.current_term) }
+  scope :not_current, ->  { where.not(year: DatetimeService.current_year, term: DatetimeService.current_term) }
 
-  scope :current, ->  { where(year: BatchCodeService.current_year, term: BatchCodeService.current_term) }
-  scope :not_current, ->  { where.not(year: BatchCodeService.current_year, term: BatchCodeService.current_term) }
-  scope :confirmed, -> { where.not(confirmed_at: nil) }
-  scope :unconfirmed, -> { where(confirmed_at: nil) }
-
-  belongs_to :book_data, class_name: :BookData, foreign_key: :book_isbn, primary_key: :isbn
   belongs_to :lecturer_identity, class_name: :UserIdentity, foreign_key: :lecturer_name, primary_key: :name
   has_many :groups
 
-  validates :name, presence: true
-  validates :year, presence: true
-  validates :term, presence: true
-  validates :lecturer_name, presence: true
-  validates :organization_code, presence: true
+  def self.sync_from(org, year: DatetimeService.current_year, term: DatetimeService.current_term)
+    org = org.to_s.upcase
+    page = 1
+    begin
+      # TODO: use an access token to call this request
+      response = RestClient.get "#{ENV['CORE_URL']}/api/v1/organizations/#{org}/courses.json?per_page=10000&page=#{page}&fields=year,term,code,name,lecturer,general_code,department_code&filter[year]=#{year}&filter[term]=#{term}"
+    rescue RestClient::Exception
+    else
+      last_page = false
+      courses_inserts = []
+      while last_page == false
+        courses = JSON.parse(response)
 
-  delegate :leader, :leader_id, :leader_name, :leader_avatar_url, :leader_fbid,
-           :book_id,
-           to: :group, prefix: true, allow_nil: true
+        courses_inserts += courses.map { |c| "('#{org}', #{c['year']}, #{c['term']}, '#{c['code']}', '#{c['name']}', '#{c['lecturer']}', '#{c['general_code']}', '#{c['department_code']}')" }
 
-  after_initialize :set_default_values
-  before_save :set_book_before_save, :update_version_count
-  after_save :set_book_after_save
+        if next_match = response.headers[:link].match(/<(?<url>[^<>]+)>; rel="next"/)
+          response = RestClient.get next_match[:url]
+        else
+          last_page = true
+        end
+      end
+
+      if courses_inserts.length > 0
+        Course.where(organization_code: org, year: year, term: term).delete_all
+        sql = <<-eof
+          INSERT INTO courses (organization_code, year, term, code, name, lecturer_name, general_code, department_code)
+          VALUES #{courses_inserts.join(', ')}
+        eof
+        ActiveRecord::Base.connection.execute(sql)
+      end
+    end
+  end
 
   def self.search(query, organization_code: nil, year: nil, term: nil)
     query.downcase!
@@ -44,60 +57,7 @@ class Course < ActiveRecord::Base
     return courses
   end
 
-  def book_name
-    (book_data && book_data.name) || unknown_book_name
-  end
-
-  def confirm!
-    self.confirmed_at = Time.now
-    save!
-  end
-
-  def confirmed?
-    !confirmed_at.blank?
-  end
-
   def current?
-    year == BatchCodeService.current_year && term == BatchCodeService.current_term
-  end
-
-  def to_edit
-    set_book_after_save
-    self
-  end
-
-  def group
-    if groups.current.count == 1
-      groups.current.first
-    else
-      nil
-    end
-  end
-
-  private
-
-  def set_default_values
-    self.year ||= BatchCodeService.current_year
-    self.term ||= BatchCodeService.current_term
-    self.organization_code = lecturer_identity.organization_code if organization_code.blank? && lecturer_identity
-    self.department_code = lecturer_identity.department_code if department_code.blank? &&lecturer_identity
-  end
-
-  def set_book_before_save
-    if book_data.blank? && !book_isbn.blank?
-      self.unknown_book_name = book_isbn.gsub('NEW+>', '')
-      self.book_isbn = nil
-    elsif book_isbn.blank?
-      self.book_isbn = nil
-    end
-  end
-
-  def set_book_after_save
-    return unless book_isbn.blank? && !unknown_book_name.blank?
-    self.book_isbn = 'NEW+>' + unknown_book_name
-  end
-
-  def update_version_count
-    self.version_count = versions.count + 1
+    year == DatetimeService.current_year && term == DatetimeService.current_term
   end
 end

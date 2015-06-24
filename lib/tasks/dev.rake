@@ -9,10 +9,7 @@ namespace :dev do
 
       FactoryGirl.create_list(:book_data, 50)
 
-      FactoryGirl.create_list(:course, 20, :with_book)
-      FactoryGirl.create_list(:course, 20, :with_book, confirmed_at: Time.now)
       FactoryGirl.create_list(:course, 20)
-      FactoryGirl.create_list(:course, 10, :with_book, confirmed_at: Time.now)
 
       BookData.all.each do |book_data|
         if [true, false].sample

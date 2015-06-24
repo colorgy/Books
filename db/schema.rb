@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150609062314) do
+ActiveRecord::Schema.define(version: 20150624042717) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,7 +33,7 @@ ActiveRecord::Schema.define(version: 20150609062314) do
     t.string   "payment_code"
     t.datetime "paid_at"
     t.integer  "used_credits"
-    t.datetime "deadline",     default: '2015-06-23 15:10:42', null: false
+    t.datetime "deadline",     default: '2015-06-24 03:43:41', null: false
   end
 
   add_index "bills", ["deadline"], name: "index_bills_on_deadline", using: :btree
@@ -84,26 +84,19 @@ ActiveRecord::Schema.define(version: 20150609062314) do
   add_index "books", ["organization_code"], name: "index_books_on_organization_code", using: :btree
 
   create_table "courses", force: :cascade do |t|
-    t.string   "organization_code",                 null: false
+    t.string   "organization_code", null: false
     t.string   "department_code"
-    t.string   "lecturer_name",                     null: false
-    t.integer  "year",                              null: false
-    t.integer  "term",                              null: false
-    t.string   "name",                              null: false
+    t.string   "lecturer_name",     null: false
+    t.integer  "year",              null: false
+    t.integer  "term",              null: false
+    t.string   "name",              null: false
     t.string   "code"
-    t.string   "url"
-    t.boolean  "required",          default: false, null: false
-    t.string   "book_isbn"
-    t.string   "unknown_book_name"
-    t.datetime "confirmed_at"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.datetime "deleted_at"
-    t.integer  "version_count",     default: 0,     null: false
-    t.string   "updated_through"
+    t.string   "general_code"
   end
 
-  add_index "courses", ["deleted_at"], name: "index_courses_on_deleted_at", using: :btree
+  add_index "courses", ["general_code"], name: "index_courses_on_general_code", using: :btree
 
   create_table "groups", force: :cascade do |t|
     t.string   "code",                                     null: false

@@ -9,22 +9,12 @@ FactoryGirl.define do
     year { Faker::Time.between(5.years.ago, Time.now).year }
     term { [1, 2].sample }
     name { Faker::Company.name }
-    code { Faker::Address.building_number }
-    url { Faker::Internet.url }
-    required { [true, false].sample }
-    unknown_book_name nil
+    general_code { Faker::Address.building_number }
+    code { "#{year}-#{term}-#{general_code}" }
 
     trait :current do
       year { BatchCodeService.current_year }
       term { BatchCodeService.current_term }
-    end
-
-    trait :with_book do
-      book_isbn { Faker::Code.isbn }
-
-      after(:build) do |_, evaluator|
-        create(:book_data, isbn: evaluator.book_isbn)
-      end
     end
   end
 end
