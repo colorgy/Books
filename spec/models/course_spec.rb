@@ -1,4 +1,8 @@
-# require 'rails_helper'
+require 'rails_helper'
+
+RSpec.describe Course, :type => :model do
+  it { should have_many(:course_book) }
+end
 
 # RSpec.describe Course, :type => :model do
 #   it_should_behave_like "an acts_as_paranoid model"

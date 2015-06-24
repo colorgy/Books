@@ -3,7 +3,10 @@ class Course < ActiveRecord::Base
   scope :not_current, ->  { where.not(year: DatetimeService.current_year, term: DatetimeService.current_term) }
 
   belongs_to :lecturer_identity, class_name: :UserIdentity, foreign_key: :lecturer_name, primary_key: :name
+  has_many :course_book, primary_key: :ucode, foreign_key: :course_ucode
   has_many :groups
+
+  accepts_nested_attributes_for :course_book, allow_destroy: true
 
   def self.sync_from(org, year: DatetimeService.current_year, term: DatetimeService.current_term)
     org = org.to_s.upcase
@@ -18,7 +21,7 @@ class Course < ActiveRecord::Base
       while last_page == false
         courses = JSON.parse(response)
 
-        courses_inserts += courses.map { |c| "('#{org}', #{c['year']}, #{c['term']}, '#{c['code']}', '#{c['name']}', '#{c['lecturer']}', '#{c['general_code']}', '#{c['department_code']}')" }
+        courses_inserts += courses.map { |c| "('#{org}-#{c['code']}', '#{org}', #{c['year']}, #{c['term']}, '#{c['code']}', '#{c['name']}', '#{c['lecturer']}', '#{c['general_code']}', '#{c['department_code']}')" }
 
         if next_match = response.headers[:link].match(/<(?<url>[^<>]+)>; rel="next"/)
           response = RestClient.get next_match[:url]
@@ -30,7 +33,7 @@ class Course < ActiveRecord::Base
       if courses_inserts.length > 0
         Course.where(organization_code: org, year: year, term: term).delete_all
         sql = <<-eof
-          INSERT INTO courses (organization_code, year, term, code, name, lecturer_name, general_code, department_code)
+          INSERT INTO courses (ucode, organization_code, year, term, code, name, lecturer_name, general_code, department_code)
           VALUES #{courses_inserts.join(', ')}
         eof
         ActiveRecord::Base.connection.execute(sql)

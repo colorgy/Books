@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150624042717) do
+ActiveRecord::Schema.define(version: 20150624060402) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,7 +33,7 @@ ActiveRecord::Schema.define(version: 20150624042717) do
     t.string   "payment_code"
     t.datetime "paid_at"
     t.integer  "used_credits"
-    t.datetime "deadline",     default: '2015-06-24 03:43:41', null: false
+    t.datetime "deadline",     default: '2015-06-24 06:26:00', null: false
   end
 
   add_index "bills", ["deadline"], name: "index_bills_on_deadline", using: :btree
@@ -83,6 +83,20 @@ ActiveRecord::Schema.define(version: 20150624042717) do
   add_index "books", ["isbn"], name: "index_books_on_isbn", using: :btree
   add_index "books", ["organization_code"], name: "index_books_on_organization_code", using: :btree
 
+  create_table "course_books", force: :cascade do |t|
+    t.string   "course_ucode"
+    t.string   "book_isbn"
+    t.boolean  "book_known"
+    t.string   "updated_by"
+    t.boolean  "confirmed"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "course_books", ["book_isbn"], name: "index_course_books_on_book_isbn", using: :btree
+  add_index "course_books", ["book_known"], name: "index_course_books_on_book_known", using: :btree
+  add_index "course_books", ["course_ucode"], name: "index_course_books_on_course_ucode", using: :btree
+
   create_table "courses", force: :cascade do |t|
     t.string   "organization_code", null: false
     t.string   "department_code"
@@ -94,9 +108,11 @@ ActiveRecord::Schema.define(version: 20150624042717) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "general_code"
+    t.string   "ucode"
   end
 
   add_index "courses", ["general_code"], name: "index_courses_on_general_code", using: :btree
+  add_index "courses", ["ucode"], name: "index_courses_on_ucode", using: :btree
 
   create_table "groups", force: :cascade do |t|
     t.string   "code",                                     null: false
