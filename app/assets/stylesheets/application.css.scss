@@ -12,36 +12,10 @@
  *
  *= require select2
  *= require select2-bootstrap
- *= require animate
  *= require_self
  */
 
-@import "bootstrap";
+// @import "colorgy_sprockets";
+@import "colorgy";
 @import "components/*";
 @import "pages/*";
-@import "main/main";
-@import "search-box/component";
-@import "dropdown-select/cs-select";
-@import "dropdown-select/cs-skin-elastic";
-@import "cart/demo";
-@import "cart/checkout-boxes";
-@import "cart/checkout-cornerflat";
-@import "component-table";
-@import "slider/bjqs";
-// @import "default";
-
-
-.pro-update-books{
-	margin-top: 50px;
-}
-
-.pro-updte-books-btn{
-	padding: 30px;
-}
-
-.updte-book-h3 {
-	margin-left: -20px;
-}
-// .optional > label , .required > label{
-// 	display: none;
-// }

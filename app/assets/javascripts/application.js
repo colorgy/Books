@@ -10,15 +10,6 @@
 // Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require jquery
+//= require colorgy
 //= require jquery_ujs
-//x= require turbolinks
-//= require validations_bootstrap_simple_form
-//= require select2
-//= require select2_locale_zh-TW
-//= require bootstrap-sprockets
-//= require modernizr_custom
-//= require modernizr
-//= require velocity_min
-//= require jquery_textfill_min
-//= require URI
+//= require components
