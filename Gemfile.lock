@@ -15,6 +15,13 @@ GIT
       rails (>= 4.0.0, < 4.3.0)
 
 GIT
+  remote: git://github.com/Neson/api_helper.git
+  revision: 1191f408fa928ba1cea296cfae4c0c0d2c1488b8
+  specs:
+    api_helper (0.0.9)
+      activesupport (>= 3)
+
+GIT
   remote: git://github.com/Neson/rails-settings-cached.git
   revision: 39b336e3fe1b4f1204f715f21943052a37797d7c
   specs:
@@ -510,6 +517,7 @@ DEPENDENCIES
   activeadmin!
   activerecord-import (~> 0.7.0)
   activeresource (~> 4.0.0)
+  api_helper!
   awesome_print
   babosa
   better_errors (~> 2.0.0)
