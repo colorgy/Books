@@ -91,7 +91,7 @@ LecturerBooks = React.createClass
       bookSavingState: 'saving'
     $.ajax
       method: 'PUT'
-      url: "courses/#{currentCourse.ucode}"
+      url: "/lecturer-books/courses/#{currentCourse.ucode}"
       dataType: 'json'
       data:
         org: currentOrgCode
