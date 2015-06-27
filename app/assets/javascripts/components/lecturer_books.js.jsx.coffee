@@ -104,6 +104,7 @@ LecturerBooks = React.createClass
       @setState
         courses: newCourses
         bookSavingState: 'success'
+      @refs.bookSelect?.autoloadAsyncOptions?()
     .fail (data, textStatus, xhr) =>
       @setState bookSavingState: 'faild'
 
@@ -174,6 +175,7 @@ LecturerBooks = React.createClass
               <p>
                 {savingState}
                 <Select
+                  ref="bookSelect"
                   value={initialCourseBookIsbn}
                   options={[]}
                   asyncOptions={this.getBookSelections}
