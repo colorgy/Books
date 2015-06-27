@@ -16,7 +16,7 @@ LecturerBooks = React.createClass
     @setState loading: true
     $.ajax
       method: 'GET'
-      url: 'organization_selections'
+      url: '/lecturer-books/organization_selections'
       dataType: 'json'
     .done (data, textStatus, xhr) =>
       @setState
@@ -33,7 +33,7 @@ LecturerBooks = React.createClass
   getLecturerSelections: (input, callback) ->
     $.ajax
       method: 'GET'
-      url: 'lecturer_selections'
+      url: '/lecturer-books/lecturer_selections'
       dataType: 'json'
       data:
         q: input
@@ -53,7 +53,7 @@ LecturerBooks = React.createClass
     @setState loading: true
     $.ajax
       method: 'GET'
-      url: 'courses'
+      url: '/lecturer-books/courses'
       dataType: 'json'
       data:
         org: @state.orgCode
@@ -75,7 +75,7 @@ LecturerBooks = React.createClass
   getBookSelections: (input, callback) ->
     $.ajax
       method: 'GET'
-      url: 'book_data_selections'
+      url: '/lecturer-books/book_data_selections'
       dataType: 'json'
       data:
         q: input
