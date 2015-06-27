@@ -6,7 +6,7 @@ class Course < ActiveRecord::Base
   has_many :course_book, primary_key: :ucode, foreign_key: :course_ucode
   has_many :groups
 
-  accepts_nested_attributes_for :course_book, allow_destroy: true
+  accepts_nested_attributes_for :course_book, allow_destroy: true, limit: 10
 
   def self.sync_from(org, year: DatetimeService.current_year, term: DatetimeService.current_term)
     org = org.to_s.upcase

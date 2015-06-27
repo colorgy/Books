@@ -12,4 +12,8 @@
 //
 //= require colorgy
 //= require jquery_ujs
+//= require react
+//= require react_ujs
+//= require vendor/classnames
+//= require_tree ./vendor
 //= require components

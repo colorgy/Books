@@ -5,6 +5,14 @@ Rails.application.routes.draw do
     :unlocks => "supplier/unlocks"
   }
 
+  namespace 'lecturer_books', path: 'lecturer-books' do
+    get '/' => 'lecturer_books#index'
+    resources :organization_selections
+    resources :lecturer_selections
+    resources :book_data_selections
+    resources :courses
+  end
+
   namespace 'supplier', path: nil do
     namespace 'control_panel', path: :scp do
       get '/' => 'dashboard#index'

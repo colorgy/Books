@@ -12,12 +12,7 @@ class BookData < ActiveRecord::Base
 
   def self.search(query)
     query.downcase!
-    book_datas = where("lower(name) LIKE ? OR isbn LIKE ? or lower(publisher) LIKE ? OR lower(author) LIKE ?", "%#{query}%", "%#{query}%", "%#{query}%", "%#{query}%").limit(100)
-    if book_datas.empty?
-      [new(isbn: "NEW+>#{query}", name: "新增: \"#{query}\" (請儘可能詳述書名、作者、版次、出版社)")]
-    else
-      book_datas
-    end
+    where("lower(name) LIKE ? OR isbn LIKE ? or lower(publisher) LIKE ? OR lower(author) LIKE ?", "%#{query}%", "%#{query}%", "%#{query}%", "%#{query}%").limit(100)
   end
 
   def set_image_file_name
