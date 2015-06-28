@@ -169,8 +169,15 @@ LecturerBooks = React.createClass
 
       selectArea = ''
       # show book confirm dialog if ...
-      if currentCourse?.possible_course_book?.length && !currentCourse?.course_book?.length
-        selectArea = `<p>這學期用的書還是這本嗎？</p>`
+      if currentCourse?.possible_course_book?[0]?.book_data && !currentCourse?.course_book?.length
+        bookData = currentCourse.possible_course_book[0].book_data
+        selectArea = `<div>
+          <p>這學期用的書還是這本嗎？</p>
+          <div className="thumbnail" style={{ 'max-width': '180px', 'margin': 'auto' }}>
+            <img src={bookData.image_url} />
+          </div>
+          <p>{bookData.name}，作者：{bookData.author}，出版社：{bookData.publisher}</p>
+        </div>`
         actions = `<div>
           <a className="btn btn--primary btn--raised btn--success" onClick={function() { this.handleBookSelect(currentCourse.possible_course_book[0].book_isbn); this.handleCourseClick(nextCourseUcode) }.bind(this)}>是</a>
           &nbsp;
@@ -178,6 +185,16 @@ LecturerBooks = React.createClass
         </div>`
       # show book selection dialog if ...
       else
+        bookInfo = ''
+        if currentCourse?.course_book?[0]?.book_data
+          bookData = currentCourse.course_book[0].book_data
+          console.log bookData, bookData.image_url
+          bookInfo = `<div>
+            <div className="thumbnail" style={{ 'max-width': '180px', 'margin': 'auto' }}>
+              <img src={bookData.image_url} />
+            </div>
+            <p>{bookData.name}，作者：{bookData.author}，出版社：{bookData.publisher}</p>
+          </div>`
         selectArea = `<div>
           <p>請選擇用書～</p>
           <p>
@@ -192,6 +209,7 @@ LecturerBooks = React.createClass
               noResultsText="查無此書"
             />
           </p>
+          {bookInfo}
           <p>&nbsp;</p>
         </div>`
 

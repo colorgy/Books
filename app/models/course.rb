@@ -65,7 +65,7 @@ class Course < ActiveRecord::Base
   end
 
   def possible_course_book
-    last_year_course = Course.find_by(year: year - 1, term: term, general_code: general_code, organization_code: organization_code)
+    last_year_course = Course.includes(course_book: [:book_data]).find_by(year: year - 1, term: term, general_code: general_code, organization_code: organization_code)
     if last_year_course.present?
       return last_year_course.course_book
     end
