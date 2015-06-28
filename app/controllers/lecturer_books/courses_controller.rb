@@ -4,7 +4,7 @@ class LecturerBooks::CoursesController < ApplicationController
 
   def index
     @courses = scoped_collection.all
-    @courses_array = @courses.as_json(include: :course_book)
+    @courses_array = @courses.as_json(include: :course_book, methods: :possible_course_book)
     @courses_hash = Hash[@courses_array.map { |c| [c['ucode'], c] }]
     render json: @courses_hash
   end
@@ -12,9 +12,9 @@ class LecturerBooks::CoursesController < ApplicationController
   def update
     @course = scoped_collection.find_by(ucode: params[:id])
     if @course.update_attributes(course_params)
-      render json: @course.as_json(include: :course_book)
+      render json: @course.as_json(include: :course_book, methods: :possible_course_book)
     else
-      render json: @course.as_json(include: :course_book), status: 400
+      render json: @course.as_json(include: :course_book, methods: :possible_course_book), status: 400
     end
   end
 
@@ -31,6 +31,6 @@ class LecturerBooks::CoursesController < ApplicationController
   end
 
   def course_params
-    params.require(:course).permit(course_book_attributes: [:id, :book_isbn, :_delete])
+    params.require(:course).permit(course_book_attributes: [:id, :book_isbn, :book_known, :_delete])
   end
 end

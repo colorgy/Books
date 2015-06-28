@@ -89,15 +89,23 @@ LecturerBooks = React.createClass
     currentLecturerName = @state.lecturerName
     @setState
       bookSavingState: 'saving'
-    $.ajax
-      method: 'PUT'
-      url: "/lecturer-books/courses/#{currentCourse.ucode}"
-      dataType: 'json'
-      data:
+    if isbn
+      postData =
         org: currentOrgCode
         lecturer: currentLecturerName
         'course[course_book_attributes][0][id]': currentCourse.course_book?[0]?.id
         'course[course_book_attributes][0][book_isbn]': isbn
+    else
+      postData =
+        org: currentOrgCode
+        lecturer: currentLecturerName
+        'course[course_book_attributes][0][id]': currentCourse.course_book?[0]?.id
+        'course[course_book_attributes][0][book_known]': false
+    $.ajax
+      method: 'PUT'
+      url: "/lecturer-books/courses/#{currentCourse.ucode}"
+      dataType: 'json'
+      data: postData
     .done (data, textStatus, xhr) =>
       newCourses = @state.courses
       newCourses[currentCourse.ucode] = data
@@ -159,6 +167,34 @@ LecturerBooks = React.createClass
       else if @state.bookSavingState == 'success'
         savingState = `<i className="glyphicon glyphicon-ok pull-right" style={{ padding: '12px' }}></i>`
 
+      selectArea = ''
+      # show book confirm dialog if ...
+      if currentCourse?.possible_course_book?.length && !currentCourse?.course_book?.length
+        selectArea = `<p>這學期用的書還是這本嗎？</p>`
+        actions = `<div>
+          <a className="btn btn--primary btn--raised btn--success" onClick={function() { this.handleBookSelect(currentCourse.possible_course_book[0].book_isbn); this.handleCourseClick(nextCourseUcode) }.bind(this)}>是</a>
+          &nbsp;
+          <a className="btn btn--primary btn--raised btn--danger" onClick={this.handleBookSelect.bind(this, null)}>不是</a>
+        </div>`
+      # show book selection dialog if ...
+      else
+        selectArea = `<div>
+          <p>請選擇用書～</p>
+          <p>
+            {savingState}
+            <Select
+              ref="bookSelect"
+              value={initialCourseBookIsbn}
+              options={[]}
+              asyncOptions={this.getBookSelections}
+              onChange={this.handleBookSelect}
+              placeholder="輸入書名、ISBN、作者名來找書..."
+              noResultsText="查無此書"
+            />
+          </p>
+          <p>&nbsp;</p>
+        </div>`
+
       `<div>
         <h1>{this.state.orgCode} {this.state.lecturerName} 老師</h1>
         <h2>這學期總共有 {coursesNavItems.length} 門課</h2>
@@ -171,19 +207,7 @@ LecturerBooks = React.createClass
           <div className="col-md-9">
             <div key={this.state.currentCourseUcode} className="card bg-white">
               <h2>{currentCourse && currentCourse.name}</h2>
-              <p>請選擇用書～</p>
-              <p>
-                {savingState}
-                <Select
-                  ref="bookSelect"
-                  value={initialCourseBookIsbn}
-                  options={[]}
-                  asyncOptions={this.getBookSelections}
-                  onChange={this.handleBookSelect}
-                  placeholder="輸入書名、ISBN、作者名來找書..."
-                  noResultsText="查無此書"
-                />
-              </p>
+              {selectArea}
               {actions}
             </div>
           </div>
