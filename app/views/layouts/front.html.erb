@@ -55,7 +55,12 @@
                             前往結帳 (<span id="cart-item-counts">0</span>)
                           </a>
                         </li>
-                        <li><a href="">Hi, 交大電機 :D</a></li>
+                        <li><a href="">Hi, <%= current_user.name %> :D</a></li>
+                        <li><%= link_to '登出', sign_out_url %></li>
+                    </ul>
+                    <% else %>
+                    <ul>
+                        <li><%= link_to '登入', user_omniauth_authorize_path(:colorgy) %></li>
                     </ul>
                     <% end %>
                 </div>

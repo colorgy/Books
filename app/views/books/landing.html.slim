@@ -36,7 +36,8 @@
       .go-login-inner
         h4 快加入這個為你們量身打造的便利購書服務吧！
         a href="#"
-          button.large-btn.larger-btn 立即登入
+          = link_to "立即登入", user_omniauth_authorize_path(:colorgy), class: 'large-btn larger-btn'
+
 javascript:
   $(document).ready(function(){
     $('.layer1').addClass('active');
