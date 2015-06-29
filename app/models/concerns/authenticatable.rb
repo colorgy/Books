@@ -26,10 +26,10 @@ module Authenticatable
         user.identities.destroy_all
 
         identities = auth.info.identities
-        identities_inserts = identities.map { |i| "(#{i[:id]}, #{user.id}, '#{i[:organization_code]}', '#{i[:department_code]}', '#{i[:name]}', '#{i[:uid]}', '#{i[:email]}', '#{i[:identity]}')" }
+        identities_inserts = identities.map { |i| "(#{i[:id]}, #{i[:id]}, #{user.id}, '#{i[:organization_code]}', '#{i[:department_code]}', '#{i[:name]}', '#{i[:uid]}', '#{i[:email]}', '#{i[:identity]}')" }
         if identities_inserts.length > 0
           sql = <<-eof
-            INSERT INTO user_identities (sid, user_id, organization_code, department_code, name, uid, email, identity)
+            INSERT INTO user_identities (id, sid, user_id, organization_code, department_code, name, uid, email, identity)
             VALUES #{identities_inserts.join(', ')}
           eof
           ActiveRecord::Base.connection.execute(sql)
