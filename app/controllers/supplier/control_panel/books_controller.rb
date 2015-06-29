@@ -17,7 +17,7 @@ class Supplier::ControlPanel::BooksController < Supplier::ControlPanelController
         pagination collection,
                    default_per_page: 25,
                    maxium_per_page: 1000
-        @books = collection.order(sort).page(page).per(per_page)
+        @books = collection.order(sortable_sort).page(pagination_page).per(pagination_per_page)
         render :book
       end
     end

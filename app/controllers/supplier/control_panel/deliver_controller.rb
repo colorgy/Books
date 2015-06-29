@@ -12,7 +12,7 @@ class Supplier::ControlPanel::DeliverController < Supplier::ControlPanelControll
     pagination collection,
                default_per_page: 25,
                maxium_per_page: 1000
-    @groups = collection.order(sort).page(page).per(per_page)
+    @groups = collection.order(sortable_sort).page(pagination_page).per(pagination_per_page)
 
     respond_to do |format|
       format.html
