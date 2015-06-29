@@ -1,0 +1,30 @@
+.large-btn{
+	background-color: $darker-gray;
+	color: $white;
+	padding: 15px 25px;
+	border-radius: 10px;
+	border: 0;
+	@include transition-all(0.5s);
+
+	&:focus, &:hover{
+		background-color: rgba($darker-gray, 0.8);
+	}
+	&.larger-btn{
+		padding: 15px 80px;
+		font-size: 2em;
+	}
+}
+.process-btn{
+	background-color: $orange;
+	color: $white;
+	padding: 15px 50px;
+	border-radius: 10px;
+	border: 0;
+	margin-right: 24px;
+	margin-left: 24px;
+	@include transition-all(0.5s);
+
+	&:focus, &:hover{
+		background-color: rgba($orange, 0.8);
+	}
+}

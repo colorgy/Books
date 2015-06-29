@@ -548,6 +548,7 @@ DEPENDENCIES
   jquery-rails
   launchy
   letter_opener
+  materialize-sass
   meta_request
   modernizr-rails
   newrelic_rpm

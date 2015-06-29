@@ -1,0 +1,101 @@
+.book-show{
+	padding: 24px 0;
+	max-width: 1300px;
+	.book-show-box{
+		.book-pic{
+			overflow: hidden;
+			border-radius: $border-radius;
+			background-color: $dark-gray;
+		}
+		.book-info{
+			border-radius: $border-radius;
+			background-color: $dark-gray;
+			> .book-info-inner{
+				color: $products-info-font;
+				padding: 20px 20px;
+				hr{
+					margin: 15px 0 !important;
+				}
+				> .book-name{
+					font-size: $third-size;
+					padding: 2px 0;
+				}
+				> .book-from{
+					font-size: $normal-size;
+					padding: 2px 0;
+				}
+				> .book-edition{
+					font-size: $normal-size;
+					padding: 2px 0;
+				}
+				> .book-isbn{
+					font-size: $normal-size;
+					padding: 2px 0;
+					@include text-overflow-ellipse;
+				}
+				> .book-author{
+					font-size: $normal-size;
+					padding: 2px 0;
+				}
+
+			}
+			> .book-price{
+				padding: 10px 20px;
+				background-color: $black;
+				span{
+					display: block;
+				}
+				> span.book-disc-price{
+					font-size: $second-size;
+					color: $green;
+				}
+				> span.book-orginal-price{
+					> del{
+						color: $products-info-font;
+					}
+				}
+			}
+		}
+	}
+	.group-field{
+		padding: 20px;
+		.title{
+			width: 100%;
+			h3{
+				font-size: 1.4em;
+				line-height: 2em;
+				margin: 0;
+			}
+			span{
+				color: $font;
+				display: inline-block;
+				margin-left: 12px;
+				font-size: $normal-size;
+				a{
+					color: $green;
+				}
+			}
+			span:nth-child(1){
+				background-color: $green;
+				padding: 5px 20px;
+				color: $white;
+				border-bottom: 0 !important;
+				margin-left: 0px;
+				border-radius: 15px;
+			}
+		}
+		.has-group-field{
+
+		}
+		.not-group-yet-field{
+
+		}
+		.buy-my-self-field{
+
+		}
+		.groups-select-field{
+			padding: 20px;
+		}
+	}
+
+}

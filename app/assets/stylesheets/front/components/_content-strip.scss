@@ -1,0 +1,26 @@
+.content-strip{
+	padding: 15px 40px;
+
+	.content-strip-inner{
+		.strip-title{
+			color: $white;
+		}
+		.strip-description{
+			color: $white;
+		}
+	}
+	&.primary{
+		background-color: $darker-gray;
+		.strip-title{
+			color: $white;
+			display: inline-block;
+		}
+		.strip-description{
+			color: $white;
+			display: inline-block;
+		}
+	}
+	&.secondary{
+
+	}
+}

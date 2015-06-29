@@ -1,0 +1,49 @@
+.container-fluid style=("padding: 0;")
+  .row
+    .col-md-12 style=("padding: 0;")
+      .slideshow
+        .slideshow-inner
+          .active.layer1
+          = image_tag('front/layer2.png')
+          .active.layer3
+          a href="#" /
+          .active.layer4
+  .row.service-introduction.odd
+    .col-md-5
+      .icon.odd
+        = image_tag('front/man2.png')
+    .col-md-7
+      .text-content
+        h3 安心、快速、便利的購物流程
+        p 全新的購物流程、更多付款的選擇、更棒尋找書籍的模式，也可認班代、主揪直接跟團，讓同學們更方便，聚集各校同學在此平台也讓這裡只要買一本書即為團購價！
+  .row.service-introduction
+    .col-md-7
+      .text-content.even
+        h3 班代、主揪更輕鬆啦！
+        p 省去班代、主揪統計、收錢、加退訂書的麻煩，專用主揪介面讓你看到所有跟團的同學，一目瞭然，到貨地點選擇也更加自由，再也不煩惱。
+    .col-md-5
+      .icon.even
+        = image_tag('front/man1.png')
+  .row.service-introduction.odd style=("padding-bottom: 0;")
+    .col-md-5
+      .icon.odd
+        = image_tag('front/man3.png')
+    .col-md-7
+      .text-content
+        h3 快速地配送模式
+        p 成團即出貨，絕不拖延同學們拿到書的時間，保障大家有書上課的權力！
+    .col-md-12.go-login
+      .go-login-inner
+        h4 快加入這個為你們量身打造的便利購書服務吧！
+        a href="#"
+          button.large-btn.larger-btn 立即登入
+javascript:
+  $(document).ready(function(){
+    $('.layer1').addClass('active');
+    var delay = setTimeout(function(){
+      $('.layer3').addClass('active');
+    }, 1100);
+    var delay = setTimeout(function(){
+      $('.layer4').addClass('active');
+    }, 1500);
+  })

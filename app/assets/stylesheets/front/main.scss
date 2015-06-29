@@ -1,0 +1,115 @@
+.service-introduction{
+	padding: 36px 0;
+	&.odd{
+		background-color: #E8EFEF;
+	}
+	.icon{
+		text-align: center;
+		&.odd{
+			@media screen and (min-width: 992px){
+				text-align: right !important;
+			}
+		}
+		&.even{
+			@media screen and (min-width: 992px){
+				text-align: left !important;
+			}
+		}
+		img{
+			max-width: 250px;
+		}
+	}
+	.text-content{
+		padding-top: 16px;
+		padding-left: 24px;
+		padding-right: 24px;
+		@media screen and (min-width: 992px){
+			max-width: 450px;
+			padding-left: 12px;
+			padding-right: 12px;
+			&.even{
+				margin-left: auto;
+			}
+		}
+		h3{
+			color: black;
+			font-size: 2em;
+		}
+		p{
+			color: $dark-gray;
+		}
+	}
+}
+.row.service-introduction {
+  margin-bottom: 0;
+}
+.go-login{
+  background: rgb(0, 208, 173);
+  padding-top: 80px;
+  padding-bottom: 150px;
+  text-align: center;
+  margin-top: 36px;
+  h4{
+  	color: #fff;
+  	margin-bottom: 60px;
+  }
+}
+.list-icon{
+  display: inline-block !important;
+  margin-right: 5px;
+}
+.order-complete{
+	.notice{
+		margin: 24px 0 48px 0;
+		h5{
+			text-align: center;
+		}
+		i{
+			margin-right: 12px;
+			font-size: 5em;
+			display: inline-block;
+		}
+	}
+	.payment{
+		.title{
+			font-size: 1.4em;
+			text-align: center;
+		}
+		.description{
+			font-size: 1.2em;
+			color: $orange;
+			text-align: center;
+			margin-bottom: 24px;
+		}
+		.payment-countdown{
+
+		}
+		.payment-info{
+			background-color: rgb(249, 249, 249);
+			padding: 24px 36px;
+			box-shadow: 1px 1px 2px rgba(0,0,0,.2);
+
+			.inner{
+				p{
+
+				}
+				.payment-notice{
+					background-color: $orange;
+					padding: 12px 24px;
+					text-align: center;
+					margin: 24px 0;
+					i{
+						font-size: 1.8em;
+					}
+					p{
+						color: #fff;
+						font-size: 1em;
+					}
+				}
+			}
+		}
+	}
+	.order-info{
+		padding: 24px 24px;
+	}
+}
