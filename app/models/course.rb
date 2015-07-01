@@ -16,6 +16,7 @@ class Course < ActiveRecord::Base
       response = RestClient.get "#{ENV['CORE_URL']}/api/v1/organizations/#{org}/courses.json?per_page=10000&page=#{page}&fields=year,term,code,name,lecturer,general_code,department_code&filter[year]=#{year}&filter[term]=#{term}"
     rescue RestClient::Exception
     else
+      puts " - Getting courses form #{org}"
       last_page = false
       courses_inserts = []
       while last_page == false
@@ -23,7 +24,7 @@ class Course < ActiveRecord::Base
 
         courses_inserts += courses.map { |c| "('#{org}-#{c['code']}', '#{org}', #{c['year']}, #{c['term']}, '#{c['code']}', '#{c['name'].gsub("'", "''")}', '#{c['lecturer'].gsub("'", "''")}', '#{c['general_code']}', '#{c['department_code']}')" }
 
-        if next_match = response.headers[:link].match(/<(?<url>[^<>]+)>; rel="next"/)
+        if next_match = response.headers[:link] && response.headers[:link].match(/<(?<url>[^<>]+)>; rel="next"/)
           response = RestClient.get next_match[:url]
         else
           last_page = true
