@@ -21,7 +21,7 @@ class Course < ActiveRecord::Base
       while last_page == false
         courses = JSON.parse(response)
 
-        courses_inserts += courses.map { |c| "('#{org}-#{c['code']}', '#{org}', #{c['year']}, #{c['term']}, '#{c['code']}', '#{c['name'].gsub("'", "\\\\'")}', '#{c['lecturer'].gsub("'", "\\\\'")}', '#{c['general_code']}', '#{c['department_code']}')" }
+        courses_inserts += courses.map { |c| "('#{org}-#{c['code']}', '#{org}', #{c['year']}, #{c['term']}, '#{c['code']}', '#{c['name'].gsub("'", "''")}', '#{c['lecturer'].gsub("'", "''")}', '#{c['general_code']}', '#{c['department_code']}')" }
 
         if next_match = response.headers[:link].match(/<(?<url>[^<>]+)>; rel="next"/)
           response = RestClient.get next_match[:url]
