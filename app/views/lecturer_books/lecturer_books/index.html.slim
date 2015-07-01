@@ -1,5 +1,7 @@
 #wrapper.wrapper
   .l-intro.bg-theme
+    .logo(style="position: absolute; top: 0; right: 0;")
+      = image_tag 'colorgy/colorgy_logo_with_text_white.svg', style: 'width: 200px;'
     .l-intro-body
       .container.max-width-800
         = react_component 'LecturerBooks'

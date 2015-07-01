@@ -119,21 +119,29 @@ LecturerBooks = React.createClass
   handleDone: ->
     @setState step: 4
 
-  handleBack: ->
-    @setState step: 1
+  handleBack: (step = 1) ->
+    @setState step: step
 
   render: ->
     if @state.step == 2 && @state.orgCode
       `<div>
+        <div className="pull-left">
+          <a onClick={this.handleBack.bind(this, 1)} className="h1" style={{ opacity: '.5', color: 'white' }}>上一步</a>
+        </div>
+        <div className="pull-right">
+          <a className="h1" style={{ opacity: '.5', color: 'white' }}>　　　</a>
+        </div>
         <h1>{this.state.orgCode}</h1>
         <h2>步驟二：輸入老師姓名</h2>
 
         <Select
+          key="select-2"
           options={[]}
           asyncOptions={this.getLecturerSelections}
           onChange={this.handleLecturerSelect}
           placeholder="輸入老師姓名..."
           noResultsText="查無此師"
+          searchPromptText="打個字來尋找老師..."
         />
       </div>`
 
@@ -200,6 +208,7 @@ LecturerBooks = React.createClass
           <p>
             {savingState}
             <Select
+              key="select-3"
               ref="bookSelect"
               value={initialCourseBookIsbn}
               options={[]}
@@ -214,6 +223,12 @@ LecturerBooks = React.createClass
         </div>`
 
       `<div>
+        <div className="pull-left">
+          <a onClick={this.handleBack.bind(this, 2)} className="h1" style={{ opacity: '.5', color: 'white' }}>上一步</a>
+        </div>
+        <div className="pull-right">
+          <a className="h1" style={{ opacity: '.5', color: 'white' }}>　　　</a>
+        </div>
         <h1>{this.state.orgCode} {this.state.lecturerName} 老師</h1>
         <h2>這學期總共有 {coursesNavItems.length} 門課</h2>
         <div className="row">
@@ -246,6 +261,7 @@ LecturerBooks = React.createClass
         <h2>第一步驟：請選擇學校 <small>共三步驟</small></h2>
         <p>&nbsp;</p>
         <Select
+          key="select-1"
           options={this.state.orgSelections}
           onChange={this.handleOrgSelect}
           placeholder="輸入學校名稱或簡稱..."
