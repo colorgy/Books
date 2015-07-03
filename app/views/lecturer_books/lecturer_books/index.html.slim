@@ -15,3 +15,55 @@ css:
   .steps-step::after, .steps-step.active::after {
     background-color: white;
   }
+
+  .search-select-selections {
+    height: 200px;
+    overflow: auto;
+  }
+
+  .search-select-selections > * {
+    height: 48px;
+  }
+
+  .search-select-selections > *:nth-child(even) {
+    background-color: rgba(0,0,0, .05)
+  }
+
+  .search-select-selections > *:nth-child(odd) {
+    background-color: rgba(0,0,0, .01)
+  }
+
+  .search-select-selections > .active {
+    background-color: rgb(0, 208, 173);
+    color: white;
+  }
+
+  .search-select-selections > *:hover {
+    background-color: rgba(0, 208, 173, .5);
+  }
+
+  .search-select-selections img {
+    height: 40px;
+    float: left;
+    margin-right: 8px;
+  }
+
+  .search-select-selections .info {
+    white-space: nowrap;
+  }
+
+  .search-select-selections {
+    text-align: left;
+  }
+
+  .search-select-selections .annotation {
+    opacity: .5;
+  }
+
+  .search-select input {
+    margin-bottom: 8px;
+  }
+
+  .search-select {
+    margin-bottom: 8px;
+  }

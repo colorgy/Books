@@ -7,4 +7,16 @@ class CourseBook < ActiveRecord::Base
            to: :book_data, prefix: true, allow_nil: true
   delegate :name, :lecturer_name,
            to: :course, prefix: true, allow_nil: true
+
+  before_save :check_known_book
+
+  def check_known_book
+    if self.book_data.present?
+      self.book_known = true
+    else
+      self.book_known = false
+    end
+
+    return true
+  end
 end

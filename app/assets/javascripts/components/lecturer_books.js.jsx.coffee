@@ -8,6 +8,7 @@ LecturerBooks = React.createClass
     courses: []
     loading: false
     currentCourseUcode: ''
+    bookSelectActive: false
 
   componentDidMount: ->
     @getOrgSelections()
@@ -29,6 +30,7 @@ LecturerBooks = React.createClass
     @setState
       orgCode: value
       step: 2
+      bookSelectActive: false
 
   getLecturerSelections: (input, callback) ->
     $.ajax
@@ -46,6 +48,7 @@ LecturerBooks = React.createClass
     @setState
       lecturerName: value
       step: 3
+      bookSelectActive: false
     , =>
       @getCourses()
 
@@ -71,6 +74,7 @@ LecturerBooks = React.createClass
       currentCourseUcode: ucode
       currentCourseBookIsbn: null
       bookSavingState: null
+      bookSelectActive: false
 
   getBookSelections: (input, callback) ->
     $.ajax
@@ -80,7 +84,7 @@ LecturerBooks = React.createClass
       data:
         q: input
     .done (data, textStatus, xhr) =>
-      callback(null, { options: data })
+      callback(data)
     .fail (data, textStatus, xhr) =>
 
   handleBookSelect: (isbn) ->
@@ -100,7 +104,7 @@ LecturerBooks = React.createClass
         org: currentOrgCode
         lecturer: currentLecturerName
         'course[course_book_attributes][0][id]': currentCourse.course_book?[0]?.id
-        'course[course_book_attributes][0][book_known]': false
+        'course[course_book_attributes][0][book_isbn]': ' '
     $.ajax
       method: 'PUT'
       url: "/lecturer-books/courses/#{currentCourse.ucode}"
@@ -112,7 +116,6 @@ LecturerBooks = React.createClass
       @setState
         courses: newCourses
         bookSavingState: 'success'
-      @refs.bookSelect?.autoloadAsyncOptions?()
     .fail (data, textStatus, xhr) =>
       @setState bookSavingState: 'faild'
 
@@ -122,7 +125,33 @@ LecturerBooks = React.createClass
   handleBack: (step = 1) ->
     @setState step: step
 
+  nextCourseUcode: ->
+    currentCourse = @state.courses[@state.currentCourseUcode]
+    i = Object.keys(@state.courses).indexOf?(@state.currentCourseUcode)
+    Object.keys(@state.courses)[i + 1]
+
+  handleBookReject: ->
+    @handleBookSelect(null)
+    @setState bookSelectActive: true
+
+  handleBookInherit: ->
+    currentCourse = @state.courses[@state.currentCourseUcode]
+    @handleBookSelect(currentCourse.possible_course_book[0].book_isbn)
+    @handleNextCourse()
+
+  handleBookConfirm: ->
+    currentCourse = @state.courses[@state.currentCourseUcode]
+    @handleBookSelect(currentCourse.course_book[0].book_isbn)
+    @handleNextCourse()
+
+  handleNextCourse: ->
+    if @nextCourseUcode()
+      @handleCourseClick(@nextCourseUcode())
+    else
+      @handleDone()
+
   render: ->
+    console.log @state.bookSelectActive, @state.step
     if @state.step == 2 && @state.orgCode
       `<div>
         <div className="pull-left">
@@ -155,15 +184,10 @@ LecturerBooks = React.createClass
         </a>`
 
       currentCourse = @state.courses[@state.currentCourseUcode]
-      i = Object.keys(@state.courses).indexOf?(@state.currentCourseUcode)
-      window.aa = @state.courses
-      console.log i
-      nextCourseUcode = Object.keys(@state.courses)[i + 1]
-      console.log nextCourseUcode
-
       actions = ''
+      nextCourseUcode = @nextCourseUcode()
       if nextCourseUcode
-        actions = `<a className="btn btn--primary btn--raised" onClick={this.handleCourseClick.bind(this, nextCourseUcode)}>下一本</a>`
+        actions = `<a className="btn btn--primary btn--raised" onClick={this.handleNextCourse}>下一本</a>`
       else
         actions = `<a className="btn btn--primary btn--raised" onClick={this.handleDone}>完成！</a>`
 
@@ -171,54 +195,72 @@ LecturerBooks = React.createClass
 
       savingState = `<i></i>`
       if @state.bookSavingState == 'saving'
-        savingState = `<i className="glyphicon glyphicon-refresh spin pull-right" style={{ padding: '12px' }}></i>`
+        savingState = `<i className="glyphicon glyphicon-refresh spin" style={{ padding: '12px' }}></i>`
       else if @state.bookSavingState == 'success'
-        savingState = `<i className="glyphicon glyphicon-ok pull-right" style={{ padding: '12px' }}></i>`
+        savingState = `<i className="glyphicon glyphicon-ok" style={{ padding: '12px' }}></i>`
 
       selectArea = ''
-      # show book confirm dialog if ...
-      if currentCourse?.possible_course_book?[0]?.book_data && !currentCourse?.course_book?.length
-        bookData = currentCourse.possible_course_book[0].book_data
-        selectArea = `<div>
-          <p>這學期用的書還是這本嗎？</p>
-          <div className="thumbnail" style={{ 'max-width': '180px', 'margin': 'auto' }}>
-            <img src={bookData.image_url} />
-          </div>
-          <p>{bookData.name}，作者：{bookData.author}，出版社：{bookData.publisher}</p>
-        </div>`
-        actions = `<div>
-          <a className="btn btn--primary btn--raised btn--success" onClick={function() { this.handleBookSelect(currentCourse.possible_course_book[0].book_isbn); this.handleCourseClick(nextCourseUcode) }.bind(this)}>是</a>
-          &nbsp;
-          <a className="btn btn--primary btn--raised btn--danger" onClick={this.handleBookSelect.bind(this, null)}>不是</a>
-        </div>`
+
+      if !@state.bookSelectActive
+        # show book confirm dialog if ...
+        if !currentCourse?.course_book?.length && currentCourse?.possible_course_book?[0]?.book_data
+          bookData = currentCourse.possible_course_book[0].book_data
+          selectArea = `<div>
+            <p>這學期用的書還是這本嗎？</p>
+            <div className="thumbnail" style={{ 'max-width': '180px', 'margin': 'auto' }}>
+              <img src={bookData.image_url} />
+            </div>
+            <p>{bookData.name}，作者：{bookData.author}，出版社：{bookData.publisher}</p>
+            <p>ISBN：{bookData.isbn}</p>
+          </div>`
+          actions = `<div>
+            <a className="btn btn--primary btn--raised btn--success" onClick={this.handleBookInherit}>是</a>
+            &nbsp;
+            <a className="btn btn--primary btn--raised btn--danger" onClick={this.handleBookReject}>不是</a>
+          </div>`
+        else if currentCourse?.course_book?.length && currentCourse.course_book[0].book_data
+          bookData = currentCourse.course_book[0].book_data
+          selectArea = `<div>
+            <p>這門課用的書是這本嗎？</p>
+            <div className="thumbnail" style={{ 'max-width': '180px', 'margin': 'auto' }}>
+              <img src={bookData.image_url} />
+            </div>
+            <p>{bookData.name}，作者：{bookData.author}，出版社：{bookData.publisher}</p>
+            <p>ISBN：{bookData.isbn}</p>
+          </div>`
+          actions = `<div>
+            <a className="btn btn--primary btn--raised btn--success" onClick={this.handleBookConfirm}>是</a>
+            &nbsp;
+            <a className="btn btn--primary btn--raised btn--danger" onClick={this.handleBookReject}>不是</a>
+          </div>`
+        else if currentCourse
+          @state.bookSelectActive = true
+
       # show book selection dialog if ...
-      else
+      if @state.bookSelectActive
         bookInfo = ''
         if currentCourse?.course_book?[0]?.book_data
           bookData = currentCourse.course_book[0].book_data
           console.log bookData, bookData.image_url
           bookInfo = `<div>
-            <div className="thumbnail" style={{ 'max-width': '180px', 'margin': 'auto' }}>
-              <img src={bookData.image_url} />
-            </div>
-            <p>{bookData.name}，作者：{bookData.author}，出版社：{bookData.publisher}</p>
+            <p>您選擇了：{bookData.name} ({bookData.isbn})，作者：{bookData.author}，出版社：{bookData.publisher}</p>
           </div>`
         selectArea = `<div>
           <p>請選擇用書～</p>
-          <p>
-            {savingState}
-            <Select
+          <div>
+            <SearchSelect
               key="select-3"
               ref="bookSelect"
               value={initialCourseBookIsbn}
-              options={[]}
-              asyncOptions={this.getBookSelections}
+              asyncSelections={this.getBookSelections}
               onChange={this.handleBookSelect}
               placeholder="輸入書名、ISBN、作者名來找書..."
               noResultsText="查無此書"
+              searchInputClassName="form-control"
             />
-          </p>
+          </div>
           {bookInfo}
+          {savingState}
           <p>&nbsp;</p>
         </div>`
 

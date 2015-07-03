@@ -20,6 +20,14 @@
 @import "components/*";
 @import "pages/*";
 
+.search-select-selections {
+
+	> * {
+		cursor: pointer;
+		padding: 4px 3px;
+	}
+}
+
 /**
  * React Select
  * ============

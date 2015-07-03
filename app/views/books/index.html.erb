@@ -1,232 +1,334 @@
-<style type="text/css">
-  div.cs-skin-elastic{
-    margin: 20px;
-  }
-  .col-green-block{
-    padding: 10px !important;
-  }
-  @media screen and ( min-width: 1300px ){
-    .col-md-3{ width: 20%; float: left;}
-  }
-  @media ( min-width: 1038px ) and ( max-width: 1300px ){
-    .col-md-3{ width: 25%; float: left;}
-  }
-  @media ( max-width: 1038px ) and ( min-width: 768px ){
-    .col-md-3{ width: 33.33333%; float: left;}
-  }
-  @media ( max-width: 768px ) and ( min-width: 527px ){
-    .col-md-3{ width: 50%; float: left;}
-  }
-
-  .selection-section .select2-container {
-    width: 100%;
-    margin-top: 28px;
-  }
-  #my-slideshow{
-    max-width: 100% !important;
+<style>
+  .slideshow{
+    max-height: 600px;
   }
 </style>
-
-
-    <!---SlideShow首頁header大圖-->
-    <section class="slideshow">
-      <div id="my-slideshow">
-        <ul class="bjqs">
-          <li><%= image_tag 'slider-ntust.jpg' %></li>
-          <li><%= image_tag 'slider-tunghua.jpg' %></li>
-          <li><%= image_tag 'slider-ntu.jpg' %></li>
-        </ul>
+<div class="popup-notification group-leader-notice">
+  <div class="popup-title">
+    你是班代或學藝嗎？
+  </div>
+  <div class="popup-content">
+    <div class="row">
+      <div class="col-md-12">
+        <p>成為團長，馬上開啟新書團購，讓同堂課的同學ㄧ起訂書！
+        屆時所有的書本將寄到你指定的時間與地點！
+        最後，身為團主只需利用課堂，將書送至同學手中即可！
+        Colorgy欣賞和我們ㄧ樣服務同學的你，揪團成功後將直接獲得NT$35折扣金！
+        按下這個按鈕，開始揪團訂書去！
+        </p>
       </div>
-    </section><!--首頁header大圖end-->
-    <!--filter 篩選區塊-->
-    <section class="selection-section">
-      <div class="row" style="max-width:1000px; margin-right:auto; margin-left:auto;">
-        <!-- div class="col-md-4 home-dropdown" -->
-        <!-- # select_tag "books-org-code-select", options_for_select(Organization.all_for_select, current_org_code) -->
-        <!-- div -->
-        <!-- div class="col-md-4 home-dropdown" -->
-          <!-- # select_tag "books-dep-code-select", options_for_select(Organization.find(current_org_code).departments_for_select('D').insert(0, ['所有開課系別', '']), @dep_code) %> -->
-        <!-- /div -->
-        <!-- <div class="col-md-4" style="margin-right: -15px;"> -->
-        <!-- <div style="margin-right: -15px;"> -->
-        <div>
-            <div id="sb-search" class="sb-search sb-search-open">
-              <form id="books-search" style="padding-right: 39px;">
-                <input class="sb-search-input" placeholder="搜尋書名、課名、老師名..." type="text" value="<%= params[:q] %>" name="search" id="search">
-                <input class="sb-search-submit" type="submit" value="">
-                <span class="sb-icon-search">
-                <%= link_to image_tag("search.png", style: 'vertical-align: top;') %>
-                </span>
-              </form>
+    </div>
+  </div>
+  <div class="popup-footer">
+    <button class="popup-btn group-leader-notice-btn">了解</button>
+  </div>
+</div>
+<div class="popup-notification teaching-steps">
+  <div class="popup-title">
+    團購流程教室
+  </div>
+  <div class="popup-content">
+    <div class="row">
+      <div class="col-md-4">
+        <div class="steps-icon">
+          <%= image_tag('front/teaching-step1.png') %>
+        </div>
+        <p>以課堂分類，讓您用最方便的方式選取書籍！輕鬆將書本加入購物書包～</p>
+      </div>
+      <div class="col-md-4">
+        <div class="steps-icon">
+          <%= image_tag('front/teaching-step2.png') %>
+        </div>
+        <p>以課堂分類，讓您用最方便的方式選取書籍！輕鬆將書本加入購物書包～</p>
+      </div>
+      <div class="col-md-4">
+        <div class="steps-icon">
+          <%= image_tag('front/teaching-step3.png') %>
+        </div>
+        <p>以課堂分類，讓您用最方便的方式選取書籍！輕鬆將書本加入購物書包～</p>
+      </div>
+    </div>
+  </div>
+  <div class="popup-footer">
+    <button class="popup-btn steps-intro-btn">好哦</button>
+  </div>
+</div>
+<div class="container-fluid" style="padding: 0;">
+  <div class="row">
+    <div class="col-md-12" style="padding: 0;">
+      <div class="slideshow">
+        <div class="slideshow-inner">
+          <%= image_tag('front/slideshow3.jpg') %>
+          <div class="layer1"></div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-12">
+      <div class="search-field">
+        <div class="search-bar">
+          <input type="text" name="search-bar" placeholder="搜尋書名、課名、老師名">
+          <input type="submit" value="Submit">
+        </div>
+        <div class="clear" style="clear:both;"></div>
+      </div>
+    </div>
+  </div>
+  <div class="row row-inner">
+    <div class="col-md-3 col-sm-4 col-xs-6">
+      <div class="product-box">
+        <a href="/ColorgyV2-frontend/books-show.html">
+          <div class="product-box-inner">
+            <div class="product-box-pic">
+              <%= image_tag ('book-sample1.jpg') %>
             </div>
-        </div>
-      </div>
-
-
-    </section>
-    <!--篩選filter區塊end-->
-    <div class="countdown">
-       <%= image_tag 'close.png',class:'close-btn' %>
-       #注意：第二波團購時間至 3/08 23:59 為止，還剩下..<br>
-       <span id="clock"></span>
-    </div>
-    <div class="sweet-tip">
-        <%= image_tag 'close.png',class:'close-btn' %>
-            ＃貼心小提醒 : 使用電腦版網頁時也可以按 " Ctrl + F " 或 " Command + F " 來輸入書名、作者、課程名稱、教授名字來搜尋您要的書籍。
-    </div>
-    <!--書的呈現區塊-->
-    <section class="book-section" style="overflow: visible !important;">
-      <div class="container-fluid home-book-container" id="container">
-          <% if @books.present? %>
-            <% @books.each do |book| %>
-              <div class="col-md-3 home-book-box">
-                <div class="product-box" >
-                  <a href="<%= book_url(book) %>">
-                  <div class="product-box-image">
-                      <%= image_tag(book.image_url) %>
-                  </div>
-                  <div class="product-text-box">
-                    <div class="product-title">
-                      <div class="book-name">
-                        <span><%= book.name %></span>
-                      </div>
-                      <div class="book-author">
-                        <span>作者: <%= book.author %></span>
-                      </div>
-                      <div class="book-edition">
-                        <% if book.edition %><span>版次: <%= book.edition %></span><% end %>
-                      </div>
-                      <div class="book-course">
-                        <span>使用課程 :
-                          <% book.courses.where(organization_code: current_org_code).each do |course| %>
-                            <span class="book-course-tag">
-                             <%= "#{course.name} - #{course.lecturer_name}" %>
-                            </span>
-                          <% end %>
-                          ...
-                        </span>
-                      </div>
-                    </div>
-                    <div class="product-price">
-
-                      <p><% if book.original_price %><del> 定價: <%= book.original_price %> </del><% end %></p>
-                      <h4>團購價: <%= book.price %></h4>
-                    </div>
-                    <!--
-                    <div class="add-to-cart">
-                      <div class="row">
-                          <div class="col-md-12">
-                            <div class="select-box cart-select">
-                              <select class="cs-select cs-skin-elastic">
-                                <option value="" disabled selected>請選擇您的課程</option>
-                                <option value="台科大">電子學-彭盛裕</option>
-                                <option value="元智大學">電子學-蔡超人</option>
-                              </select>
-                            </div>
-                          </div>
-                          <div class="col-md-12"><p style="color: #fff; margin-left: 20px; margin-top:5px; float: left;">數量 ： </p><input class="input-number" type="number" name="quantity" min="0" placeholder="1"></div>
-                      </div>
-                      <div class="add-to-cart-button">
-                        <h5 class="modal-toggle-h5">加入書包</h5>
-                      </div>
-                    </div>
-                    -->
-                  </div>
-                  </a>
-                </div>
+            <div class="product-box-info">
+              <div class="product-box-name">
+                Microelectronic Circuits
               </div>
-            <% end %>
-          <% else %>
-          <p style="text-align: center;">您所選的條件範圍找不到書！請改用其他條件找看看 :)</p>
-          <% end %>
-
-        </div>
-
-    </section>
-
-<script type="text/javascript">
-  $(window).on('load', waterfall);
-  $( window ).resize(waterfall);
-  function waterfall(){
-    var $boxs = $('div.home-book-box');
-    var w=$boxs.eq(0).outerWidth();
-    var cols= Math.floor($(window).width() / w );
-    $('div.home-book-container').width(w*cols).css('margin','0 auto');
-    /*
-    var hArr=[];
-    $boxs.each(function(index,value){
-      var h=$boxs.eq(index).outerHeight();
-      if (index < cols) {
-        hArr[index] = h;
-      }else{
-        var minH = Math.min.apply(null,hArr);
-        var minHIndex = $.inArray(minH,hArr);
-        $(value).css({
-          'position':'absolute',
-          'top': minH + 'px',
-          'left': minHIndex*w + 'px',
-
-        })
-        hArr[minHIndex] += $boxs.eq(index).outerHeight();
-      }
-    })*/
-  }
-
-</script>
-
-<%= javascript_include_tag "masonry.pkgd.min.js" %>
-<script type="text/javascript">
+              <div class="product-box-origin">
+                作者 ： Sedra Smith
+              </div>
+              <div class="product-box-subname">
+                版次 ： 5 / e
+              </div>
+              <div class="product-box-price">
+                <span class="product-box-originprice">定價 ： 1399</span>
+                <span class="product-box-realprice">團購價 ： 899</span>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+    <div class="col-md-3 col-sm-4 col-xs-6">
+      <div class="product-box">
+        <a href="/ColorgyV2-frontend/books-show.html">
+          <div class="product-box-inner">
+            <div class="product-box-pic">
+              <%= image_tag ('book-sample1.jpg') %>
+            </div>
+            <div class="product-box-info">
+              <div class="product-box-name">
+                Microelectronic Circuits
+              </div>
+              <div class="product-box-origin">
+                作者 ： Sedra Smith
+              </div>
+              <div class="product-box-subname">
+                版次 ： 5 / e
+              </div>
+              <div class="product-box-price">
+                <span class="product-box-originprice">定價 ： 1399</span>
+                <span class="product-box-realprice">團購價 ： 899</span>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+    <div class="col-md-3 col-sm-4 col-xs-6">
+      <div class="product-box">
+        <a href="/ColorgyV2-frontend/books-show.html">
+          <div class="product-box-inner">
+            <div class="product-box-pic">
+              <%= image_tag ('book-sample1.jpg') %>
+            </div>
+            <div class="product-box-info">
+              <div class="product-box-name">
+                Microelectronic Circuits
+              </div>
+              <div class="product-box-origin">
+                作者 ： Sedra Smith
+              </div>
+              <div class="product-box-subname">
+                版次 ： 5 / e
+              </div>
+              <div class="product-box-price">
+                <span class="product-box-originprice">定價 ： 1399</span>
+                <span class="product-box-realprice">團購價 ： 899</span>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+    <div class="col-md-3 col-sm-4 col-xs-6">
+      <div class="product-box">
+        <a href="/ColorgyV2-frontend/books-show.html">
+          <div class="product-box-inner">
+            <div class="product-box-pic">
+              <%= image_tag ('book-sample1.jpg') %>
+            </div>
+            <div class="product-box-info">
+              <div class="product-box-name">
+                Microelectronic Circuits
+              </div>
+              <div class="product-box-origin">
+                作者 ： Sedra Smith
+              </div>
+              <div class="product-box-subname">
+                版次 ： 5 / e
+              </div>
+              <div class="product-box-price">
+                <span class="product-box-originprice">定價 ： 1399</span>
+                <span class="product-box-realprice">團購價 ： 899</span>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+    <div class="col-md-3 col-sm-4 col-xs-6">
+      <div class="product-box">
+        <a href="/ColorgyV2-frontend/books-show.html">
+          <div class="product-box-inner">
+            <div class="product-box-pic">
+              <%= image_tag ('book-sample1.jpg') %>
+            </div>
+            <div class="product-box-info">
+              <div class="product-box-name">
+                Microelectronic Circuits
+              </div>
+              <div class="product-box-origin">
+                作者 ： Sedra Smith
+              </div>
+              <div class="product-box-subname">
+                版次 ： 5 / e
+              </div>
+              <div class="product-box-price">
+                <span class="product-box-originprice">定價 ： 1399</span>
+                <span class="product-box-realprice">團購價 ： 899</span>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+    <div class="col-md-3 col-sm-4 col-xs-6">
+      <div class="product-box">
+        <a href="/ColorgyV2-frontend/books-show.html">
+          <div class="product-box-inner">
+            <div class="product-box-pic">
+              <%= image_tag ('book-sample1.jpg') %>
+            </div>
+            <div class="product-box-info">
+              <div class="product-box-name">
+                Microelectronic Circuits
+              </div>
+              <div class="product-box-origin">
+                作者 ： Sedra Smith
+              </div>
+              <div class="product-box-subname">
+                版次 ： 5 / e
+              </div>
+              <div class="product-box-price">
+                <span class="product-box-originprice">定價 ： 1399</span>
+                <span class="product-box-realprice">團購價 ： 899</span>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+    <div class="col-md-3 col-sm-4 col-xs-6">
+      <div class="product-box">
+        <a href="/ColorgyV2-frontend/books-show.html">
+          <div class="product-box-inner">
+            <div class="product-box-pic">
+              <%= image_tag ('book-sample1.jpg') %>
+            </div>
+            <div class="product-box-info">
+              <div class="product-box-name">
+                Microelectronic Circuits
+              </div>
+              <div class="product-box-origin">
+                作者 ： Sedra Smith
+              </div>
+              <div class="product-box-subname">
+                版次 ： 5 / e
+              </div>
+              <div class="product-box-price">
+                <span class="product-box-originprice">定價 ： 1399</span>
+                <span class="product-box-realprice">團購價 ： 899</span>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+    <div class="col-md-3 col-sm-4 col-xs-6">
+      <div class="product-box">
+        <a href="/ColorgyV2-frontend/books-show.html">
+          <div class="product-box-inner">
+            <div class="product-box-pic">
+              <%= image_tag ('book-sample1.jpg') %>
+            </div>
+            <div class="product-box-info">
+              <div class="product-box-name">
+                Microelectronic Circuits
+              </div>
+              <div class="product-box-origin">
+                作者 ： Sedra Smith
+              </div>
+              <div class="product-box-subname">
+                版次 ： 5 / e
+              </div>
+              <div class="product-box-price">
+                <span class="product-box-originprice">定價 ： 1399</span>
+                <span class="product-box-realprice">團購價 ： 899</span>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+    <div class="col-md-3 col-sm-4 col-xs-6">
+      <div class="product-box">
+        <a href="/ColorgyV2-frontend/books-show.html">
+          <div class="product-box-inner">
+            <div class="product-box-pic">
+              <%= image_tag ('book-sample1.jpg') %>
+            </div>
+            <div class="product-box-info">
+              <div class="product-box-name">
+                Microelectronic Circuits
+              </div>
+              <div class="product-box-origin">
+                作者 ： Sedra Smith
+              </div>
+              <div class="product-box-subname">
+                版次 ： 5 / e
+              </div>
+              <div class="product-box-price">
+                <span class="product-box-originprice">定價 ： 1399</span>
+                <span class="product-box-realprice">團購價 ： 899</span>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function(){
+    $('.black-mask').addClass('active');
+  })
   $(window).load(function(){
-    var container = document.querySelector('#container');
-    var msnry = new Masonry( container, {
-      // options
-      columnWidth: 280,
-      itemSelector: '.home-book-box'
-    });
+    $("html").addClass('lock');
+    $("body").addClass('lock');
+    var windowWidth = window.innerWidth;
+    if( windowWidth > 992 ){
+      var groupup_pos = $('.group-up').position().left;
+      $('.group-leader-notice').css({ 'left': groupup_pos + 'px' });
+    }
+  })
+  $(window).resize(function(){
+    var windowWidth = window.innerWidth;
+    if( windowWidth > 992 ){
+      var groupup_pos = $('.group-up').position().left;
+      $('.group-leader-notice').css({ 'left': groupup_pos + 'px' });
+    }
   })
 </script>
-<%= javascript_include_tag "countdown.min.js" %>
-<script type="text/javascript">
 
-   $('#clock').countdown('2015/3/09 00:00:00')
-    .on('update.countdown', function(event) {
-      var format = '%H:%M:%S';
-      if(event.offset.days > 0) {
-        format = '%-d day%!d ' + format;
-      }
-      if(event.offset.weeks > 0) {
-        format = '%-w week%!w ' + format;
-      }
-     $(this).html(event.strftime(format));
-   })
-   .on('finish.countdown', function(event) {
-     $(this).html(' 『第二波訂購已經結束了！』 ').parent().addClass('disabled');
-
-   });
-
-</script>
-
-<script>
-  $('#books-org-code-select').select2()
-  .on('change', function(e) {
-    window.location.href = URI(window.location.href).removeSearch('dep').removeSearch('org').addSearch('org', e.val).toString();
-  });
-
-  $('#books-dep-code-select').select2()
-  .on('change', function(e) {
-    window.location.href = URI(window.location.href).removeSearch('dep').addSearch('dep', e.val).toString();
-  });
-
-  $('#books-search').submit(function() {
-    window.location.href = URI(window.location.href).removeSearch('q').addSearch('q', $('#search').val()).toString();
-    return false;
-  });
-
-  $(document).ready(function($) {
-    $('#my-slideshow').bjqs({
-      'height' : 500,
-      'width' : 1280,
-      'responsive' : true
-    });
-  });
-</script>

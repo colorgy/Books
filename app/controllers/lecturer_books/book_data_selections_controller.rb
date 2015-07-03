@@ -3,8 +3,30 @@ class LecturerBooks::BookDataSelectionsController < ApplicationController
 
   def index
     @book_data = BookData.search(params[:q])
-    @selections = @book_data.map { |data| { value: data.isbn, label: "#{data.name} - #{data.author} (#{data.isbn})" } }
-    @selections = [{ value: "#{params[:q]}   ", label: "#{params[:q]}" }] if @selections.blank?
+    @selections = @book_data.map { |data| { value: data.isbn, label: <<-EOS
+        <img src="#{data.image_url}" />
+        <span class="info">
+          <span class="annotation">書名</span>
+          #{data.name}
+        </span>
+        <span class="info">
+          <span class="annotation">作者</span>
+          #{data.author}
+        </span>
+        <span class="info">
+          <span class="annotation">ISBN</span>
+          #{data.isbn}
+        </span>
+      EOS
+    } }
+    @selections = [{ value: "#{params[:q]}", label: <<-EOS
+      <img src="https://placeholdit.imgix.net/~text?txtsize=300&txt=?&w=400&h=500" />
+      #{params[:q]}
+      <span class="annotation">
+        (此本書尚未在我們的資料庫中登錄，但您仍然可以選擇它，請盡量填入完整資料！)
+      </span>
+      EOS
+    }] if @selections.blank?
     render json: @selections
   end
 
