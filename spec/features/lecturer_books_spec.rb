@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-feature "The lecturer-books registration", :type => :feature, :retry => 3 do
+feature "The lecturer-books registration", :type => :feature do
   before do
     # ActiveResource::HttpMock.respond_to do |mock|
     #   mock.post   "/people.json",   {}, @matz, 201, "Location" => "/people/1.json"
@@ -72,6 +72,7 @@ feature "The lecturer-books registration", :type => :feature, :retry => 3 do
     execute_script("React.addons.TestUtils.Simulate.click($('.Select-option')[0])")
 
     execute_script("React.addons.TestUtils.Simulate.change($('.Select-input input')[0], { target: { value: 'Lecturer One' } })")
+    sleep 1
     expect(page).to have_content('Lecturer One')
     execute_script("React.addons.TestUtils.Simulate.click($('.Select-option')[0])")
 
