@@ -11,6 +11,7 @@ FactoryGirl.define do
     name { Faker::Company.name }
     general_code { Faker::Address.building_number }
     code { "#{year}-#{term}-#{general_code}" }
+    ucode { "#{organization_code}-#{code}" }
 
     trait :current do
       year { BatchCodeService.current_year }

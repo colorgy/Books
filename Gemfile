@@ -110,6 +110,7 @@ end
 # RSpec
 group :development, :test do
   gem 'rspec-rails', '~> 3.0'
+  gem 'selenium-webdriver'
   gem 'spring-commands-rspec'
   gem 'shoulda-matchers', require: false
   gem 'rspec-its', require: false

@@ -274,7 +274,7 @@ LecturerBooks = React.createClass
         <h1>{this.state.orgCode} {this.state.lecturerName} 老師</h1>
         <h2>這學期總共有 {coursesNavItems.length} 門課</h2>
         <div className="row">
-          <div className="col-md-3">
+          <div className="col-md-3 hidden-sm hidden-xs">
             <div className="steps steps--vertical steps--sm-arrow">
               {coursesNavItems}
             </div>
