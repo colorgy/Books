@@ -48,7 +48,7 @@ GIT
 
 GIT
   remote: git://github.com/colorgy/Style.git
-  revision: ea0a61f7dec4ab73424ecc3f12715b3f1e59643b
+  revision: ab9a1cd607eb853c9602b84d614af9dfd53332e4
   specs:
     colorgy_style (0.0.0.4)
       bootstrap-sass (~> 3.3.4.1)
@@ -290,7 +290,7 @@ GEM
     mini_portile (0.6.2)
     minitest (5.7.0)
     modernizr-rails (2.7.1)
-    multi_json (1.11.1)
+    multi_json (1.11.2)
     multi_xml (0.5.5)
     multipart-post (2.0.0)
     netrc (0.10.3)

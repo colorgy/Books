@@ -207,7 +207,7 @@ LecturerBooks = React.createClass
           bookData = currentCourse.possible_course_book[0].book_data
           selectArea = `<div>
             <p>這學期用的書還是這本嗎？</p>
-            <div className="thumbnail" style={{ 'max-width': '180px', 'margin': 'auto' }}>
+            <div className="thumbnail" style={{ 'maxWidth': '180px', 'margin': 'auto' }}>
               <img src={bookData.image_url} />
             </div>
             <p>{bookData.name}，作者：{bookData.author}，出版社：{bookData.publisher}</p>
@@ -275,7 +275,7 @@ LecturerBooks = React.createClass
         <h2>這學期總共有 {coursesNavItems.length} 門課</h2>
         <div className="row">
           <div className="col-md-3 hidden-sm hidden-xs">
-            <div className="steps steps--vertical steps--sm-arrow">
+            <div className="steps steps--vertical steps--sm-arrow width-100">
               {coursesNavItems}
             </div>
           </div>
