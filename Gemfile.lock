@@ -427,6 +427,8 @@ GEM
       rspec-expectations (~> 3.2.0)
       rspec-mocks (~> 3.2.0)
       rspec-support (~> 3.2.0)
+    rspec-retry (0.4.0)
+      rspec-core
     rspec-support (3.2.2)
     ruby-graphviz (1.2.2)
     ruby-pinyin (0.4.5)
@@ -581,6 +583,7 @@ DEPENDENCIES
   rest-client
   rspec-its
   rspec-rails (~> 3.0)
+  rspec-retry
   ruby-pinyin
   sass-rails (~> 5.0.1)
   sdoc (~> 0.4.0)

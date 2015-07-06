@@ -114,6 +114,7 @@ group :development, :test do
   gem 'spring-commands-rspec'
   gem 'shoulda-matchers', require: false
   gem 'rspec-its', require: false
+  gem 'rspec-retry', require: false
   gem 'simplecov', '~> 0.9.1', require: false
   gem 'coveralls', require: false
   gem 'capybara-webkit', '>= 1.2.0'

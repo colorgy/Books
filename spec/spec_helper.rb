@@ -14,6 +14,7 @@
 # users commonly want.
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
+require 'rspec/retry'
 require 'simplecov'
 require 'coveralls'
 SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
@@ -45,6 +46,8 @@ RSpec.configure do |config|
     # `true` in RSpec 4.
     mocks.verify_partial_doubles = true
   end
+
+  config.verbose_retry = true # show retry status in spec process
 
 # The settings below are suggested to provide a good initial experience
 # with RSpec, but feel free to customize to your heart's content.
