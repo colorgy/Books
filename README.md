@@ -6,16 +6,24 @@ Books
 [![Code Climate](https://img.shields.io/codeclimate/github/colorgy/Books.svg?style=flat)](https://codeclimate.com/github/colorgy/Books)
 [![Dependency Status](https://img.shields.io/gemnasium/colorgy/Books.svg?style=flat)](https://gemnasium.com/colorgy/Books)
 
-大專院校教科書團訂平台。A part of the Colorgy platform。
+大專院校教科書團訂平台。A part of Colorgy。
 
 
 ## Requirements
 
+### Colorgy Core
+
+本系統倚賴 Colorgy Core 運作。
+
+### 學校資料
+
+需要 [Core](https://github.com/colorgy/Core) 設定好各校 (組織) 的資料，包括代碼、名稱、簡稱與底下的各系所 (部門)。
+
 ### 課程資料
 
-需要 Core 的 data API 提供各校的課程資料，API path 固定為 `{org_code}/courses`，並需要以下欄位：
+需要 [Core](https://github.com/colorgy/Core) 開設相應的 data API 提供各校課程資料，API path 固定為 `{org_code}/courses` (`org_code` 為學校代碼小寫)，並需要以下欄位：
 
-- `year`: (integer) 課程的學年度，使用公元表示。
+- `year`: (integer) 課程的學年度，使用公元年 (e.g. 2015) 表示。
 - `term`: (integer) 課程的學期，1 或 2。
 - `code`: (string) 橫跨年度、學期的課程唯一代碼，且不被上課時間、地點等細部改變影響。
 - `name`: (string) 課程名稱。
