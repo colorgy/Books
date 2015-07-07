@@ -282,6 +282,7 @@ LecturerBooks = React.createClass
           <div className="col-md-9">
             <div key={this.state.currentCourseUcode} className="card bg-white">
               <h2>{currentCourse && currentCourse.name}</h2>
+              <h3>{currentCourse && currentCourse.code}</h3>
               {selectArea}
               {actions}
             </div>
