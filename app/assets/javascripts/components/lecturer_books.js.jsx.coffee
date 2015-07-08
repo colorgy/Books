@@ -113,6 +113,7 @@ LecturerBooks = React.createClass
     .done (data, textStatus, xhr) =>
       newCourses = @state.courses
       newCourses[currentCourse.ucode] = data
+      newCourses[currentCourse.ucode].completed = true
       @setState
         courses: newCourses
         bookSavingState: 'success'
@@ -177,9 +178,14 @@ LecturerBooks = React.createClass
     else if @state.step == 3 && @state.orgCode && @state.lecturerName
       coursesNavItems = []
       for key, course of @state.courses
-        coursesNavItems.push `<a onClick={this.handleCourseClick.bind(this, course.ucode)} key={course.ucode} className={classNames({ 'steps-step': true, active: (course.ucode == this.state.currentCourseUcode) })}>
-          <div className="title">{course.name}</div>
-          <div className="description">{course.name}</div>
+        image = ''
+        if course.course_book?[0]?.book_data?.image_url
+          url = course.course_book?[0]?.book_data?.image_url
+          image = `<div className="steps-step-icon"><img src={url} /></div>`
+        coursesNavItems.push `<a onClick={this.handleCourseClick.bind(this, course.ucode)} key={course.ucode} className={classNames({ 'steps-step': true, active: (course.ucode == this.state.currentCourseUcode), completed: course.completed })}>
+          {image}
+          <div className="steps-step-title">{course.name}</div>
+          <div className="steps-step-description">{course.name}</div>
           {(course.ucode == this.state.currentCourseUcode)}
         </a>`
 
@@ -299,8 +305,8 @@ LecturerBooks = React.createClass
 
     else
       `<div>
-        <h1>歡迎使用 Colorgy Books 課程用書整理平台！</h1>
-        <p>&nbsp;</p>
+        <h1>Colorgy Books 課程用書整理平台</h1>
+        <p>歡迎使用！本平台是同學們為了提早確認上課需要用的書籍而架設，您可以點幾下滑鼠打個字來和我們確認上課用書，將資訊事先給同學們提前準備。先從選擇學校開始吧！</p>
         <h2>第一步驟：請選擇學校 <small>共三步驟</small></h2>
         <p>&nbsp;</p>
         <Select
