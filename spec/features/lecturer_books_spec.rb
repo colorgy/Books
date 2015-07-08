@@ -68,7 +68,12 @@ feature "The lecturer-books registration", :type => :feature do
     visit(lecturer_books_path)
     expect(page).to have_content('歡迎使用')
     execute_script("React.addons.TestUtils.Simulate.change($('.Select-input input')[0], { target: { value: 'NTUST' } })")
-    expect(page).to have_content('大學')
+    execute_script("React.addons.TestUtils.Simulate.change($('.Select-input input')[0], { target: { value: 'NTUST' } })")
+    execute_script("React.addons.TestUtils.Simulate.change($('.Select-input input')[0], { target: { value: 'NTUST' } })")
+    execute_script("React.addons.TestUtils.Simulate.change($('.Select-input input')[0], { target: { value: 'NTUST' } })")
+    execute_script("React.addons.TestUtils.Simulate.change($('.Select-input input')[0], { target: { value: 'NTUST' } })")
+    sleep 1
+    expect(page).to have_content('科技大學')
     execute_script("React.addons.TestUtils.Simulate.click($('.Select-option')[0])")
 
     execute_script("React.addons.TestUtils.Simulate.change($('.Select-input input')[0], { target: { value: 'Lecturer One' } })")
