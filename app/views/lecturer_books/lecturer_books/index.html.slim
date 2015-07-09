@@ -1,12 +1,13 @@
-#wrapper.wrapper
-  .l-intro.bg-theme
-    .logo(style="position: absolute; top: 0; right: 0;")
-      = image_tag 'colorgy/colorgy_logo_with_text_white.svg', style: 'width: 200px;'
-    .l-intro-body
-      .container.max-width-800
-        = react_component 'LecturerBooks'
+#wrapper.wrapper.bg-theme
+  .logo(style="position: absolute; top: 0; right: 0;")
+    = image_tag 'colorgy/colorgy_logo_with_text_white.svg', style: 'width: 200px;'
+  = react_component 'LecturerBooks', class: 'l-full-window'
 
 css:
+
+  .wrapper > * {
+    height: 100%;
+  }
 
   .steps-step, .steps-step.active {
     background-color: white;
@@ -66,4 +67,73 @@ css:
 
   .search-select {
     margin-bottom: 8px;
+  }
+
+  .change-page-from-left-enter {
+    position: absolute;
+    transform: translateX(-100%);
+  }
+
+  .change-page-from-left-enter.change-page-from-left-enter-active {
+    transform: translateX(0%);
+    transition: all .5s ease-in-out;
+  }
+
+  .change-page-from-left-leave {
+    position: absolute;
+    transform: translateX(0%);
+  }
+
+  .change-page-from-left-leave.change-page-from-left-leave-active {
+    transform: translateX(100%);
+    transition: all .5s ease-in-out;
+  }
+
+
+
+
+
+
+
+  .change-page-from-right-enter {
+    position: absolute;
+    transform: translateX(100%);
+  }
+
+  .change-page-from-right-enter.change-page-from-right-enter-active {
+    transform: translateX(0%);
+    transition: all .5s ease-in-out;
+  }
+
+  .change-page-from-right-leave {
+    position: absolute;
+    transform: translateX(0%);
+  }
+
+  .change-page-from-right-leave.change-page-from-right-leave-active {
+    transform: translateX(-100%);
+    transition: all .5s ease-in-out;
+  }
+
+
+
+
+  .change-page-from-bottom-enter {
+    position: absolute;
+    transform: translateY(100%);
+  }
+
+  .change-page-from-bottom-enter.change-page-from-bottom-enter-active {
+    transform: translateY(0%);
+    transition: all .5s ease-in-out;
+  }
+
+  .change-page-from-bottom-leave {
+    position: absolute;
+    transform: translateY(0%);
+  }
+
+  .change-page-from-bottom-leave.change-page-from-bottom-leave-active {
+    transform: translateY(-100%);
+    transition: all .5s ease-in-out;
   }

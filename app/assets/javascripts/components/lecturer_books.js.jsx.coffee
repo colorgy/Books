@@ -1,7 +1,10 @@
+ReactCSSTransitionGroup = React.addons.CSSTransitionGroup
+
 LecturerBooks = React.createClass
 
   getInitialState: ->
     step: 1
+    prevStep: 1
     orgSelections: []
     orgCode: null
     lecturerName: null
@@ -30,6 +33,7 @@ LecturerBooks = React.createClass
     @setState
       orgCode: value
       step: 2
+      prevStep: @state.step
       bookSelectActive: false
 
   getLecturerSelections: (input, callback) ->
@@ -48,6 +52,7 @@ LecturerBooks = React.createClass
     @setState
       lecturerName: value
       step: 3
+      prevStep: @state.step
       bookSelectActive: false
     , =>
       @getCourses()
@@ -121,10 +126,14 @@ LecturerBooks = React.createClass
       @setState bookSavingState: 'faild'
 
   handleDone: ->
-    @setState step: 4
+    @setState
+      step: 4
+      prevStep: @state.step
 
   handleBack: (step = 1) ->
-    @setState step: step
+    @setState
+      step: step
+      prevStep: @state.step
 
   nextCourseUcode: ->
     currentCourse = @state.courses[@state.currentCourseUcode]
@@ -154,38 +163,52 @@ LecturerBooks = React.createClass
   render: ->
     console.log @state.bookSelectActive, @state.step
     if @state.step == 2 && @state.orgCode
-      `<div>
-        <div className="pull-left">
-          <a onClick={this.handleBack.bind(this, 1)} className="h1" style={{ opacity: '.5', color: 'white' }}>上一步</a>
-        </div>
-        <div className="pull-right">
-          <a className="h1" style={{ opacity: '.5', color: 'white' }}>　　　</a>
-        </div>
-        <h1>{this.state.orgCode}</h1>
-        <h2>步驟二：輸入老師姓名</h2>
+      if @state.prevStep < 2
+        pageAnimationName = 'change-page-from-right'
+      else
+        pageAnimationName = 'change-page-from-left'
 
-        <Select
-          key="select-2"
-          options={[]}
-          asyncOptions={this.getLecturerSelections}
-          onChange={this.handleLecturerSelect}
-          placeholder="輸入老師姓名..."
-          noResultsText="查無此師"
-          searchPromptText="打個字來尋找老師..."
-        />
-      </div>`
+      `<ReactCSSTransitionGroup transitionName={pageAnimationName}>
+        <div className="l-full-window" key="step-2-container">
+          <div className="l-full-window-body">
+            <div className="max-width-800px margin-center text-center">
+              <div className="pull-left">
+                <a onClick={this.handleBack.bind(this, 1)} className="h1" style={{ opacity: '.5', color: 'white' }}>上一步</a>
+              </div>
+              <div className="pull-right">
+                <a className="h1" style={{ opacity: '.5', color: 'white' }}>　　　</a>
+              </div>
+              <h1>{this.state.orgCode}</h1>
+              <h2>步驟二：輸入老師姓名</h2>
+
+              <Select
+                key="select-2"
+                options={[]}
+                asyncOptions={this.getLecturerSelections}
+                onChange={this.handleLecturerSelect}
+                placeholder="輸入老師姓名..."
+                noResultsText="查無此師"
+                searchPromptText="打個字來尋找老師..."
+              />
+            </div>
+          </div>
+        </div>
+      </ReactCSSTransitionGroup>`
 
     else if @state.step == 3 && @state.orgCode && @state.lecturerName
       coursesNavItems = []
       for key, course of @state.courses
-        image = ''
+        image = `<div className="steps-step-icon"><img src="https://placeholdit.imgix.net/~text?txtsize=300&txt=?&w=400&h=500" /></div>`
         if course.course_book?[0]?.book_data?.image_url
           url = course.course_book?[0]?.book_data?.image_url
           image = `<div className="steps-step-icon"><img src={url} /></div>`
+        bookName = `<i>用書未知</i>`
+        if course.course_book?[0]?.book_data?.name
+          bookName = "使用：#{course.course_book[0].book_data.name}"
         coursesNavItems.push `<a onClick={this.handleCourseClick.bind(this, course.ucode)} key={course.ucode} className={classNames({ 'steps-step': true, active: (course.ucode == this.state.currentCourseUcode), completed: course.completed })}>
           {image}
           <div className="steps-step-title">{course.name}</div>
-          <div className="steps-step-description">{course.name}</div>
+          <div className="steps-step-description">{bookName}</div>
           {(course.ucode == this.state.currentCourseUcode)}
         </a>`
 
@@ -270,52 +293,75 @@ LecturerBooks = React.createClass
           <p>&nbsp;</p>
         </div>`
 
-      `<div>
-        <div className="pull-left">
-          <a onClick={this.handleBack.bind(this, 2)} className="h1" style={{ opacity: '.5', color: 'white' }}>上一步</a>
-        </div>
-        <div className="pull-right">
-          <a className="h1" style={{ opacity: '.5', color: 'white' }}>　　　</a>
-        </div>
-        <h1>{this.state.orgCode} {this.state.lecturerName} 老師</h1>
-        <h2>這學期總共有 {coursesNavItems.length} 門課</h2>
-        <div className="row">
-          <div className="col-md-3 hidden-sm hidden-xs">
-            <div className="steps steps--vertical steps--sm-arrow width-100">
-              {coursesNavItems}
+      `<ReactCSSTransitionGroup transitionName="change-page-from-right">
+        <div className="l-full-window" key="step-3-container">
+          <div className="l-full-window-body">
+            <div className="margin-center text-center container">
+              <div className="pull-left">
+                <a onClick={this.handleBack.bind(this, 2)} className="h1" style={{ opacity: '.5', color: 'white' }}>上一步</a>
+              </div>
+              <div className="pull-right">
+                <a className="h1" style={{ opacity: '.5', color: 'white' }}>　　　</a>
+              </div>
+              <h1>{this.state.orgCode} {this.state.lecturerName} 老師</h1>
+              <h2>這學期總共有 {coursesNavItems.length} 門課</h2>
+              <div className="row">
+                <div className="col-md-3 hidden-sm hidden-xs">
+                  <div className="steps steps--vertical steps--sm-arrow width-100 text-left">
+                    {coursesNavItems}
+                  </div>
+                </div>
+                <div className="col-md-9">
+                  <div key={this.state.currentCourseUcode} className="card bg-white">
+                    <h2>{currentCourse && currentCourse.name}</h2>
+                    <h3>{currentCourse && currentCourse.code}</h3>
+                    {selectArea}
+                    {actions}
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-          <div className="col-md-9">
-            <div key={this.state.currentCourseUcode} className="card bg-white">
-              <h2>{currentCourse && currentCourse.name}</h2>
-              <h3>{currentCourse && currentCourse.code}</h3>
-              {selectArea}
-              {actions}
-            </div>
-          </div>
         </div>
-      </div>`
+      </ReactCSSTransitionGroup>`
 
     else if @state.step == 4
-      `<div>
-        <h1>已完成</h1>
-        <p>感謝您的參與！</p>
-        <a className="btn btn--outline btn--inverse inverse" onClick={this.handleBack}>回去</a>
-      </div>`
+      `<ReactCSSTransitionGroup transitionName="change-page-from-bottom">
+        <div className="l-full-window" key="step-5-container">
+          <div className="l-full-window-body">
+            <div className="margin-center text-center">
+              <h1>已完成</h1>
+              <p>感謝您的參與！</p>
+              <a className="btn btn--outline btn--inverse inverse" onClick={this.handleBack.bind(this, 1)}>回去</a>
+            </div>
+          </div>
+        </div>
+      </ReactCSSTransitionGroup>`
 
     else
-      `<div>
-        <h1>Colorgy Books 課程用書整理平台</h1>
-        <p>歡迎使用！本平台是同學們為了提早確認上課需要用的書籍而架設，您可以點幾下滑鼠打個字來和我們確認上課用書，將資訊事先給同學們提前準備。先從選擇學校開始吧！</p>
-        <h2>第一步驟：請選擇學校 <small>共三步驟</small></h2>
-        <p>&nbsp;</p>
-        <Select
-          key="select-1"
-          options={this.state.orgSelections}
-          onChange={this.handleOrgSelect}
-          placeholder="輸入學校名稱或簡稱..."
-          noResultsText="查無此校"
-        />
-      </div>`
+      if @state.prevStep > 3
+        pageAnimationName = 'change-page-from-bottom'
+      else
+        pageAnimationName = 'change-page-from-left'
+
+      `<ReactCSSTransitionGroup transitionName={pageAnimationName} className="l-full-window">
+        <div className="l-full-window" key="step-1-container">
+          <div className="l-full-window-body">
+            <div className="max-width-800px margin-center text-center">
+              <h1>Colorgy Books 課程用書整理平台</h1>
+              <p>歡迎使用！本平台是同學們為了提早確認上課需要用的書籍而架設，您可以點幾下滑鼠打個字來和我們確認上課用書，將資訊事先給同學們提前準備。先從選擇學校開始吧！</p>
+              <h2>第一步驟：請選擇學校 <small>共三步驟</small></h2>
+              <p>&nbsp;</p>
+              <Select
+                key="select-1"
+                options={this.state.orgSelections}
+                onChange={this.handleOrgSelect}
+                placeholder="輸入學校名稱或簡稱..."
+                noResultsText="查無此校"
+              />
+            </div>
+          </div>
+        </div>
+      </ReactCSSTransitionGroup>`
 
 window.LecturerBooks = LecturerBooks
