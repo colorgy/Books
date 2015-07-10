@@ -148,6 +148,27 @@ feature "The lecturer-books registration", :type => :feature do
     # click next to continue
     execute_script("React.addons.TestUtils.Simulate.click($('.btn--primary')[0])")
 
+    # Ask if suggest buy book
+    expect(page).to have_content('好')
+    execute_script("React.addons.TestUtils.Simulate.click($('.btn')[0])")
+
+    # Done, can leave suggestions
     expect(page).to have_content('完成')
+    execute_script("React.addons.TestUtils.Simulate.change($('textarea')[0], { target: { value: 'Great!' } })")
+    execute_script("React.addons.TestUtils.Simulate.click($('.btn')[0])")
+
+    sleep 1
+
+    # Check if the course_books are marked as book_required
+    @courses.each do |course|
+      course.reload
+      expect(course.course_book.first.book_required).to be true
+    end
+
+    # Check the feedback
+    feedback = Feedback.last
+
+    expect(feedback.content).to eq('Great!')
+    expect(feedback.sent_at).to eq('lecturer-books')
   end
 end

@@ -122,6 +122,8 @@ LecturerBooks = React.createClass
       @setState
         courses: newCourses
         bookSavingState: 'success'
+      if data.course_book?[0]?.book_data?.name
+        toast.success("已選取 #{data.course_book[0].book_data.name}")
     .fail (data, textStatus, xhr) =>
       @setState bookSavingState: 'faild'
 
@@ -160,8 +162,41 @@ LecturerBooks = React.createClass
     else
       @handleDone()
 
+  handleMarkBookRequire: (bookRequire) ->
+    if bookRequire
+      $.ajax
+        method: 'PUT'
+        url: "/lecturer-books/courses"
+        dataType: 'json'
+        data:
+          org: @state.orgCode
+          lecturer: @state.lecturerName
+          'courses[book_required]': bookRequire
+    @setState
+      step: 5
+      prevStep: @state.step
+
+  handleFeedbackTextChange: (e) ->
+    @setState feedbackText: e.target.value
+
+  handleComplete: ->
+    @handleBack(1)
+    if @state.feedbackText?.length
+      feedbackText = @state.feedbackText
+      $.ajax
+        method: 'POST'
+        url: "/feedbacks"
+        dataType: 'json'
+        data:
+          'feedback[content]': feedbackText
+          'feedback[sent_by]': ''
+          'feedback[sent_at]': 'lecturer-books'
+      .done (data, textStatus, xhr) =>
+        toast.success '回饋已送出！'
+
+      @setState feedbackText: null
+
   render: ->
-    console.log @state.bookSelectActive, @state.step
     if @state.step == 2 && @state.orgCode
       if @state.prevStep < 2
         pageAnimationName = 'change-page-from-right'
@@ -242,11 +277,18 @@ LecturerBooks = React.createClass
             <p>{bookData.name}，作者：{bookData.author}，出版社：{bookData.publisher}</p>
             <p>ISBN：{bookData.isbn}</p>
           </div>`
-          actions = `<div>
-            <a className="btn btn--primary btn--raised btn--success" onClick={this.handleBookInherit}>是</a>
-            &nbsp;
-            <a className="btn btn--primary btn--raised btn--danger" onClick={this.handleBookReject}>不是</a>
-          </div>`
+          if nextCourseUcode
+            actions = `<div>
+              <a className="btn btn--primary btn--raised btn--success" onClick={this.handleBookInherit}>是</a>
+              &nbsp;
+              <a className="btn btn--primary btn--raised btn--danger" onClick={this.handleBookReject}>不是</a>
+            </div>`
+          else
+            actions = `<div>
+              <a className="btn btn--primary btn--raised btn--success" onClick={this.handleBookInherit}>是，完成！</a>
+              &nbsp;
+              <a className="btn btn--primary btn--raised btn--danger" onClick={this.handleBookReject}>不是</a>
+            </div>`
         else if currentCourse?.course_book?.length && currentCourse.course_book[0].book_data
           bookData = currentCourse.course_book[0].book_data
           selectArea = `<div>
@@ -257,11 +299,18 @@ LecturerBooks = React.createClass
             <p>{bookData.name}，作者：{bookData.author}，出版社：{bookData.publisher}</p>
             <p>ISBN：{bookData.isbn}</p>
           </div>`
-          actions = `<div>
-            <a className="btn btn--primary btn--raised btn--success" onClick={this.handleBookConfirm}>是</a>
-            &nbsp;
-            <a className="btn btn--primary btn--raised btn--danger" onClick={this.handleBookReject}>不是</a>
-          </div>`
+          if nextCourseUcode
+            actions = `<div>
+              <a className="btn btn--primary btn--raised btn--success" onClick={this.handleBookConfirm}>是</a>
+              &nbsp;
+              <a className="btn btn--primary btn--raised btn--danger" onClick={this.handleBookReject}>不是</a>
+            </div>`
+          else
+            actions = `<div>
+              <a className="btn btn--primary btn--raised btn--success" onClick={this.handleBookConfirm}>是，完成！</a>
+              &nbsp;
+              <a className="btn btn--primary btn--raised btn--danger" onClick={this.handleBookReject}>不是</a>
+            </div>`
         else if currentCourse
           @state.bookSelectActive = true
 
@@ -270,7 +319,6 @@ LecturerBooks = React.createClass
         bookInfo = ''
         if currentCourse?.course_book?[0]?.book_data
           bookData = currentCourse.course_book[0].book_data
-          console.log bookData, bookData.image_url
           bookInfo = `<div>
             <p>您選擇了：{bookData.name} ({bookData.isbn})，作者：{bookData.author}，出版社：{bookData.publisher}</p>
           </div>`
@@ -327,12 +375,32 @@ LecturerBooks = React.createClass
 
     else if @state.step == 4
       `<ReactCSSTransitionGroup transitionName="change-page-from-bottom">
+        <div className="l-full-window" key="step-4-container">
+          <div className="l-full-window-body">
+            <div className="margin-center text-center max-width-800px">
+              <h1><small>對了，</small>要不要建議修課同學買書呢？</h1>
+              <p>為了讓同學可以提前準備，所以也想問問老師對於修課同學的購書建議，如果老師推薦大家買書的話，我們可以特別通知給同學們知道，好增進老師在學期初的上課效率～</p>
+              <a className="btn btn--outline btn--inverse inverse" onClick={this.handleMarkBookRequire.bind(this, true)}>好，上我的課要買書比較好</a>
+              &nbsp;
+              <a className="btn btn--outline btn--inverse inverse" onClick={this.handleMarkBookRequire.bind(this, false)}>不用</a>
+            </div>
+          </div>
+        </div>
+      </ReactCSSTransitionGroup>`
+
+    else if @state.step == 5
+      backText = '回到開始頁'
+      if @state.feedbackText?.length
+        backText = '送出回饋，並回到開始頁'
+      `<ReactCSSTransitionGroup transitionName="change-page-from-bottom">
         <div className="l-full-window" key="step-5-container">
           <div className="l-full-window-body">
-            <div className="margin-center text-center">
+            <div className="margin-center text-center max-width-800px">
               <h1>已完成</h1>
               <p>感謝您的參與！</p>
-              <a className="btn btn--outline btn--inverse inverse" onClick={this.handleBack.bind(this, 1)}>回去</a>
+              <textarea value={this.state.feedbackText} onChange={this.handleFeedbackTextChange} className="form-control" placeholder="有什麼意見或回饋嗎？歡迎寫在這裡！" />
+              <p>&nbsp;</p>
+              <a className="btn btn--outline btn--inverse inverse" onClick={this.handleComplete}>{backText}</a>
             </div>
           </div>
         </div>

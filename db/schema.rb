@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150624060402) do
+ActiveRecord::Schema.define(version: 20150710044316) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -89,8 +89,9 @@ ActiveRecord::Schema.define(version: 20150624060402) do
     t.boolean  "book_known"
     t.string   "updated_by"
     t.boolean  "confirmed"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.boolean  "book_required"
   end
 
   add_index "course_books", ["book_isbn"], name: "index_course_books_on_book_isbn", using: :btree
@@ -113,6 +114,16 @@ ActiveRecord::Schema.define(version: 20150624060402) do
 
   add_index "courses", ["general_code"], name: "index_courses_on_general_code", using: :btree
   add_index "courses", ["ucode"], name: "index_courses_on_ucode", using: :btree
+
+  create_table "feedbacks", force: :cascade do |t|
+    t.string   "subject"
+    t.text     "content"
+    t.string   "sent_by"
+    t.string   "sent_at"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "groups", force: :cascade do |t|
     t.string   "code",                                     null: false

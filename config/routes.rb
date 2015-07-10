@@ -11,6 +11,7 @@ Rails.application.routes.draw do
     resources :lecturer_selections
     resources :book_data_selections
     resources :courses
+    put 'courses' => 'courses#update_courses'
   end
 
   namespace 'supplier', path: nil do
@@ -66,6 +67,8 @@ Rails.application.routes.draw do
   resources :courses
 
   resources :groups
+
+  resources :feedbacks
 
   post '/my-account' => 'users/my_account#invoice_subsume_confirm'
   post '/invoice_subsume_confirm' => 'users/my_account#invoice_subsume_confirm'

@@ -18,6 +18,21 @@ class LecturerBooks::CoursesController < ApplicationController
     end
   end
 
+  def update_courses
+    @courses_ucodes = scoped_collection.select(:ucode).map(&:ucode)
+    @course_books = CourseBook.where(course_ucode: @courses_ucodes)
+
+    if params[:courses] && params[:courses][:book_required] == 'true'
+      @course_books.update_all(book_required: true)
+    end
+
+    if params[:courses] && params[:courses][:book_required] == 'false'
+      @course_books.update_all(book_required: false)
+    end
+
+    render text: ''
+  end
+
   private
 
   def scoped_collection

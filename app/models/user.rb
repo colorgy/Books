@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
   include CanLeadGroups
 
   has_many :identities, class_name: :UserIdentity
+  has_many :feedbacks
 
   # has_many :groups, through: :orders
 
