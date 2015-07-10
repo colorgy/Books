@@ -378,6 +378,7 @@ LecturerBooks = React.createClass
         <div className="l-full-window" key="step-4-container">
           <div className="l-full-window-body">
             <div className="margin-center text-center max-width-800px">
+              <p className="h2">感謝您提供的資訊，我們收到了！</p>
               <h1><small>對了，</small>要不要建議修課同學買書呢？</h1>
               <p>為了讓同學可以提前準備，所以也想問問老師對於修課同學的購書建議，如果老師推薦大家買書的話，我們可以特別通知給同學們知道，好增進老師在學期初的上課效率～</p>
               <a className="btn btn--outline btn--inverse inverse" onClick={this.handleMarkBookRequire.bind(this, true)}>好，上我的課要買書比較好</a>
