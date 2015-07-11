@@ -110,8 +110,8 @@ feature "The lecturer-books registration", :type => :feature do
     # the data should be written into DB
     @courses.second.reload
     expect(@courses.second.course_book.first.book_isbn).to eq(BookData.second.isbn)
-    # click next to continue
-    execute_script("React.addons.TestUtils.Simulate.click($('.btn--primary')[0])")
+    # click confirm to continue
+    execute_script("React.addons.TestUtils.Simulate.click($('.btn')[0])")
 
     # Third Course - already have book data
     expect(page).to have_content('是這本嗎？')
@@ -134,8 +134,8 @@ feature "The lecturer-books registration", :type => :feature do
     # the data should be written into DB
     @courses.fourth.reload
     expect(@courses.fourth.course_book.first.book_isbn).to eq(BookData.second.isbn)
-    # click next to continue
-    execute_script("React.addons.TestUtils.Simulate.click($('.btn--primary')[0])")
+    # click confirm to continue
+    execute_script("React.addons.TestUtils.Simulate.click($('.btn')[0])")
 
     # Fifth Course - no book data
     execute_script("React.addons.TestUtils.Simulate.change($('.search-select input')[0], { target: { value: '#{BookData.third.isbn}' } })")
@@ -145,8 +145,8 @@ feature "The lecturer-books registration", :type => :feature do
     # the data should be written into DB
     @courses.fifth.reload
     expect(@courses.fifth.course_book.first.book_isbn).to eq(BookData.third.isbn)
-    # click next to continue
-    execute_script("React.addons.TestUtils.Simulate.click($('.btn--primary')[0])")
+    # click confirm to continue
+    execute_script("React.addons.TestUtils.Simulate.click($('.btn')[0])")
 
     # Ask if suggest buy book
     expect(page).to have_content('好')

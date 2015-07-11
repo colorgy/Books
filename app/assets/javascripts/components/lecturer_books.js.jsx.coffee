@@ -122,6 +122,7 @@ LecturerBooks = React.createClass
       @setState
         courses: newCourses
         bookSavingState: 'success'
+        bookSelectActive: false
       if data.course_book?[0]?.book_data?.name
         toast.success("已選取 #{data.course_book[0].book_data.name}")
     .fail (data, textStatus, xhr) =>
@@ -206,7 +207,7 @@ LecturerBooks = React.createClass
       `<ReactCSSTransitionGroup transitionName={pageAnimationName}>
         <div className="l-full-window" key="step-2-container">
           <div className="l-full-window-body">
-            <div className="max-width-800px margin-center text-center">
+            <div className="max-width-800px margin-center text-center container">
               <div className="pull-left">
                 <a onClick={this.handleBack.bind(this, 1)} className="h1" style={{ opacity: '.5', color: 'white' }}>上一步</a>
               </div>
@@ -274,8 +275,9 @@ LecturerBooks = React.createClass
             <div className="thumbnail" style={{ 'maxWidth': '180px', 'margin': 'auto' }}>
               <img src={bookData.image_url} />
             </div>
-            <p>{bookData.name}，作者：{bookData.author}，出版社：{bookData.publisher}</p>
-            <p>ISBN：{bookData.isbn}</p>
+            <p className="h4">{bookData.name}<small>，作者：</small>{bookData.author}<small>，出版社：</small>{bookData.publisher}</p>
+            <p className="h4"><small>ISBN：</small>{bookData.isbn}</p>
+            <p>&nbsp;</p>
           </div>`
           if nextCourseUcode
             actions = `<div>
@@ -296,8 +298,9 @@ LecturerBooks = React.createClass
             <div className="thumbnail" style={{ 'max-width': '180px', 'margin': 'auto' }}>
               <img src={bookData.image_url} />
             </div>
-            <p>{bookData.name}，作者：{bookData.author}，出版社：{bookData.publisher}</p>
-            <p>ISBN：{bookData.isbn}</p>
+            <p className="h3">{bookData.name}<small>，作者：</small>{bookData.author}<small>，出版社：</small>{bookData.publisher}</p>
+            <p className="h4"><small>ISBN：</small>{bookData.isbn}</p>
+            <p>&nbsp;</p>
           </div>`
           if nextCourseUcode
             actions = `<div>
@@ -377,7 +380,7 @@ LecturerBooks = React.createClass
       `<ReactCSSTransitionGroup transitionName="change-page-from-bottom">
         <div className="l-full-window" key="step-4-container">
           <div className="l-full-window-body">
-            <div className="margin-center text-center max-width-800px">
+            <div className="margin-center text-center max-width-800px container">
               <p className="h2">感謝您提供的資訊，我們收到了！</p>
               <h1><small>對了，</small>要不要建議修課同學買書呢？</h1>
               <p>為了讓同學可以提前準備，所以也想問問老師對於修課同學的購書建議，如果老師推薦大家買書的話，我們可以特別通知給同學們知道，好增進老師在學期初的上課效率～</p>
@@ -396,7 +399,7 @@ LecturerBooks = React.createClass
       `<ReactCSSTransitionGroup transitionName="change-page-from-bottom">
         <div className="l-full-window" key="step-5-container">
           <div className="l-full-window-body">
-            <div className="margin-center text-center max-width-800px">
+            <div className="margin-center text-center max-width-800px container">
               <h1>已完成</h1>
               <p>感謝您的參與！</p>
               <textarea value={this.state.feedbackText} onChange={this.handleFeedbackTextChange} className="form-control" placeholder="有什麼意見或回饋嗎？歡迎寫在這裡！" />
@@ -416,7 +419,7 @@ LecturerBooks = React.createClass
       `<ReactCSSTransitionGroup transitionName={pageAnimationName} className="l-full-window">
         <div className="l-full-window" key="step-1-container">
           <div className="l-full-window-body">
-            <div className="max-width-800px margin-center text-center">
+            <div className="max-width-800px margin-center text-center container">
               <h1>Colorgy Books 課程用書整理平台</h1>
               <p>歡迎使用！本平台是同學們為了提早確認上課需要用的書籍而架設，您可以點幾下滑鼠打個字來和我們確認上課用書，將資訊事先給同學們提前準備。先從選擇學校開始吧！</p>
               <h2>第一步驟：請選擇學校 <small>共三步驟</small></h2>
