@@ -4,6 +4,7 @@ class Group < ActiveRecord::Base
 
   self.primary_key = :code
 
+  scope :in_org, ->(org_code) { (org_code.blank? || org_code == 'public') ? where(organization_code: [nil, '', 'public']) : where(organization_code: org_code) }
   scope :publ, ->  { where(public: true) }
   scope :priv, ->  { where(public: false) }
   scope :ended, ->  { where('deadline < ?', Time.now) }
@@ -15,7 +16,7 @@ class Group < ActiveRecord::Base
 
   belongs_to :leader, class_name: User, primary_key: :id, foreign_key: :leader_id
   has_many :orders, primary_key: :code, foreign_key: :group_code
-  belongs_to :course, -> { with_deleted }
+  belongs_to :course, -> { with_deleted }, primary_key: :ucode, foreign_key: :course_ucode
   belongs_to :book, -> { with_deleted }
 
   delegate :name, :avatar_url, :fbid, :gender,

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150710044316) do
+ActiveRecord::Schema.define(version: 20150712080225) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,7 +33,7 @@ ActiveRecord::Schema.define(version: 20150710044316) do
     t.string   "payment_code"
     t.datetime "paid_at"
     t.integer  "used_credits"
-    t.datetime "deadline",     default: '2015-06-24 06:26:00', null: false
+    t.datetime "deadline",     default: '2015-06-24 03:43:41', null: false
   end
 
   add_index "bills", ["deadline"], name: "index_bills_on_deadline", using: :btree
@@ -148,9 +148,11 @@ ActiveRecord::Schema.define(version: 20150710044316) do
     t.string   "supplier_code"
     t.integer  "orders_count",        default: 0,          null: false
     t.integer  "unpaid_orders_count", default: 0,          null: false
+    t.string   "course_ucode"
   end
 
   add_index "groups", ["code"], name: "index_groups_on_code", unique: true, using: :btree
+  add_index "groups", ["course_ucode"], name: "index_groups_on_course_ucode", using: :btree
   add_index "groups", ["deadline"], name: "index_groups_on_deadline", using: :btree
   add_index "groups", ["leader_id"], name: "index_groups_on_leader_id", using: :btree
   add_index "groups", ["organization_code"], name: "index_groups_on_organization_code", using: :btree

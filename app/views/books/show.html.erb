@@ -1,186 +1,150 @@
-<style type="text/css">
-      body{
-        background-color: #DDD !important;
-                padding-bottom: 0px !important;
-      }
-      input{
-        font-size: 30px;
-      }
-</style>
-<section class="book-page-wrapper">
-  <div class="row">
-    <div class="col-md-6 book-image-box">
-      <%= image_tag @book.image_url %>
-    </div>
-    <div class="col-md-6">
-      <div class="book-page-text">
-          <h1 class="book-page-title"><%= @book.name %></h1>
-          <h3 class="book-page-author">作者: <%= @book.author %></h3>
-          <h3>ISBN: <%= @book.isbn %></h3>
-          <% if @book.edition %><h3>版次: <%= @book.edition %></h3><% end %>
-          <h3>團購價: <%= @book.price %></h3>
-      </div>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v2.3&appId=630424637093473";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+<div class="container-fluid">
+  <div class="row row-inner-m book-show">
+    <div class="col m12 s12">
       <div class="row">
-        <div class="col-md-12">
-          <div class="select-box book-page-selector">
-            <h3>所屬課程：<small>可以在搜尋框輸入課名、老師姓名，來查找全校的其他課程喔！</small></h3>
-            <div class="course-select-dropdown">
-              <input id="course-id">
+        <div class="book-show-box">
+          <div class="col m4 s12">
+            <div class="book-pic">
+              <%= image_tag(@book.image_url, class: 'materialboxed responsive-img', width: '250') %>
+            </div>
+          </div>
+          <div class="col m8 s12">
+            <div class="book-info">
+              <div class="book-info-inner">
+                <div class="book-name">
+                  <%= @book.name %>
+                </div>
+                <hr>
+      <div class="share-field">
+        <div class="fb-share-button" data-href="<%= "#{ENV['APP_URL']}/#{book_path(@book)}" %>" data-layout="button_count"></div>
+        <div class="fb-send" data-href="<%= "#{ENV['APP_URL']}/#{book_path(@book)}" %>"></div>
+      </div>
+                <div class="book-from">
+                  出版社：<%= @book.supplier.name %>
+                </div>
+                <div class="book-isbn">
+                  ISBN：<%= @book.isbn %>
+                </div>
+                <div class="book-author">
+                  作者：<%= @book.author %>
+                </div>
+              </div>
+              <div class="book-price">
+                <span class="book-disc-price">團購價：NT$ <%= @book.price %></span>
+                <span class="book-orginal-price"><del>定價：NT$ <%= @book.original_price %></del></span>
+              </div>
             </div>
           </div>
         </div>
       </div>
-      <div class="row">
-        <div class="col-md-3">
-
-          <div class="book-page-quantity">
-            <h3>數量：</h3><input class="input-number" type="number" id="quantity" value="1" min="1" max="10">
+    </div>
+    <div class="col m12 s12">
+      <div class="group-field">
+          <div class="under-line-title">
+            <span>選擇跟團</span>
           </div>
-
+          <div class="groups-select-field">
+            <% @book_groups.each do |group| %>
+              <p>
+                <input class="with-gap" name="group" type="radio" id="checkbox1" />
+                <label for="checkbox1">
+                  <%= group.course.name %> --- <%= group.leader.name %> 揪團（<%= %> 截止繳費)
+                </label>
+              </p>
+            <% end %>
+            <% @book_courses_with_no_group.each do |course| %>
+              <p>
+                <input class="with-gap" name="group" type="radio" id="checkbox2" disabled="disabled" />
+                <label for="checkbox2">
+                <%= course.name %> / <%= course.lecturer_name %>老師 (沒有進行中的團購)
+                </label>
+              </p>
+            <% end %>
+          </div>
+        <div class="buy-my-self-field">
+          <div class="under-line-title">
+            <span>直接購買</span>
+          </div>
+          <div class="groups-select-field">
+            <p>
+              <input class="with-gap" name="group" type="radio" id="checkbox4" />
+              <label for="checkbox4">
+              我不跟團 直接購買到指定配送地點 ( 一次至少購買 <%= @book.minimum_purchase_quantity %> 本，未滿 <%= @book.free_shipping_purchase_quantity %> 本需負擔 <%= @book.shipping_fee %> 元運費。 )
+              </label>
+            </p>
+          </div>
         </div>
-        <div class="col-md-9">
-          <button type="submit" id="add-to-cart" class="btn btn-default book-page-add-to-cart-button" style="margin: 50px 0 !important;">加入購物書包</button>
+        <div class="buy-field">
+          <label style="margin:0 20px;">
+            <span style="font-size: 20px;">數量：</span>
+            <input type="number" value="1" style="width:60px; font-size: 20px;">
+          </label>
+          <button id="add-to-cart" class="btn btn--large">放入購物書包</button>
+        </div>
+        <div class="social-comments">
+          <div class="fb-comments" data-href="<%= "#{ENV['APP_URL']}/#{book_path(@book)}" %>" data-numposts="5" data-colorscheme="light"></div>
         </div>
       </div>
     </div>
   </div>
-</section>
-<!--
-<section class="container-fluid book-page-group-section">
-    <div class="row">
-        <h1 class="book-page-group-h1">揪團班級</h1>
-        <div class="col-md-4">
-            <div class="col-white-block">
-                <div class="book-page-group-headphoto">
-                    <%= image_tag "headphoto.jpg" %>
-                </div>
-
-                <h3 class="book-page-group-title">劉政軒</h3>
-                <p>課程名稱： 電子電路</p>
-                <p>教授： 彭盛裕</p>
-                <p>上課時間： M6 M7 M8</p>
-                <div class="follower-photo-slider-box">
-                  <div class="follower-photo-slider">
-                    <%= image_tag "headphoto.jpg" %>
-                    <%= image_tag "headphoto.jpg" %>
-                    <%= image_tag "headphoto.jpg" %>
-                    <%= image_tag "headphoto.jpg" %>
-                    <%= image_tag "headphoto.jpg" %>
-                    <%= image_tag "headphoto.jpg" %>
-                    <%= image_tag "headphoto.jpg" %>
-                  </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-          <div class="col-white-block">
-                <div class="book-page-group-headphoto">
-                    <%= image_tag "headphoto.jpg" %>
-                </div>
-
-                <h3 class="book-page-group-title">劉政軒</h3>
-                <p>課程名稱： 電子電路</p>
-                <p>教授： 彭盛裕</p>
-                <p>上課時間： M6 M7 M8</p>
-                <div class="follower-photo-slider-box">
-                  <div class="follower-photo-slider">
-                    <%= image_tag "headphoto.jpg" %>
-                    <%= image_tag "headphoto.jpg" %>
-                    <%= image_tag "headphoto.jpg" %>
-                    <%= image_tag "headphoto.jpg" %>
-                    <%= image_tag "headphoto.jpg" %>
-                    <%= image_tag "headphoto.jpg" %>
-                    <%= image_tag "headphoto.jpg" %>
-                  </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="col-white-block">
-                <div class="book-page-group-headphoto">
-                    <%= image_tag "headphoto.jpg" %>
-                </div>
-                <h3 class="book-page-group-title">劉政軒</h3>
-                <p>課程名稱： 電子電路</p>
-                <p>教授： 彭盛裕</p>
-                <p>上課時間： M6 M7 M8</p>
-                <div class="follower-photo-slider-box">
-                  <div id="box1" class="follower-photo-slider">
-                    <img class="follower-photo-slider-img" src="/assets/headphoto.jpg">
-                    <img class="follower-photo-slider-img" src="/assets/headphoto.jpg">
-                    <img class="follower-photo-slider-img" src="/assets/headphoto.jpg">
-                    <img class="follower-photo-slider-img" src="/assets/headphoto.jpg">
-                    <img class="follower-photo-slider-img" src="/assets/headphoto.jpg">
-                    <img class="follower-photo-slider-img" src="/assets/headphoto.jpg">
-                    <img class="follower-photo-slider-img" src="/assets/headphoto.jpg">
-                  </div>
-                </di/assets
-            </div>
-        </div>
-    </div>
-</section>
--->
+</div>
 <script>
-  $('#add-to-cart').click(function() {
-    if ($('#course-id').val() == '') {
-      alert("請先選擇跟團課程！");
-      return;
+  $(window).load(function(){
+    resizeComments();
+    var windowWidth = $(window).innerWidth();
+    var bookpicHeight = $('.book-pic').height();
+    if ( windowWidth > 776 ) {
+      $('.book-info').css({'height' : bookpicHeight + 'px'});
+    }else{
+      $('.book-info').css({'height' : 'auto'});
     }
-    quantity = parseInt($('#quantity').val());
-    if (quantity > 12 || quantity < 1) {
-      alert("哎呀，單次購買量限制在 1-12 本之間喔！");
-      return;
+
+  })
+  $(window).resize(function(){
+    var windowWidth = $(window).innerWidth();
+    var bookpicHeight = $('.book-pic').height();
+    if ( windowWidth > 776 ) {
+      $('.book-info').css({'height' : bookpicHeight + 'px'});
+    }else{
+      $('.book-info').css({'height' : 'auto'});
     }
-    $.ajax({
-      url: '/cart_items.json',
-      type: 'POST',
-      dataType: 'json',
-      data: {
-        book_id: "<%= @book.id %>",
-        course_id: $('#course-id').val(),
-        quantity: $('#quantity').val()
+  })
+  $('#add-to-cart').click(function(){
+    popupNotice('系統通知','已經成功加入購物車囉 :D');
+    $('.go-checkout').addClass('active');
+    $('.cart-item-counts').html('1');
+  })
+  var $comments = null;
+  var $fbComments = null;
+  var resizeTimeout = null;
+
+  function resizeComments() {
+    if (resizeTimeout) clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(function() {
+      resizeTimeout = null;
+      if (typeof FB === 'undefined') return;
+      // The class of the wrapper element above is 'comments'
+      $comments = $comments || $('.social-comments');
+      $fbComments = $fbComments || $(".fb-comments");
+      if ($comments.width() !== parseInt($fbComments.attr("data-width"), 10)) {
+        $fbComments.attr("data-width", $comments.width());
+        FB.XFBML.parse($comments[0]);
       }
-    }).done(function(e) {
-      if (e.error) {
-        alert( "購物書包已經放了太多東西了 QAQ" );
-        return;
-      }
-      alert( "已加入購物書包！點選選單中的「購物車」即可進行結帳~" );
-      location.reload();
+    }, 100);
+  }
+  $(document).ready(function() {
+    resizeComments();
+    $('.materialboxed').materialbox();
+    $(window).resize(function() {
+      resizeComments();
     });
-  });
-
-  defaultCourses = [<% @book.courses.includes(:groups).current.where(organization_code: current_org_code).each do |course| %> <%= course.to_json(methods: [:group_leader_name, :group_book_id]).html_safe %>, <% end %>];
-  bookId = <%= @book.id %>;
-
-  $("#course-id").select2({
-    allowClear: true,
-    placeholder: "選擇跟團課程",
-    containerCssClass: 'course-select',
-    dropdownCssClass: 'course-select',
-    ajax: {
-      url: "/courses.json",
-      dataType: 'json',
-      quietMillis: 250,
-      data: function (term, page) {
-        return {
-          q: term,
-        };
-      },
-      results: function (data) {
-        if (data.length == 0) {
-          data = defaultCourses;
-        }
-        data.forEach(function (item) {
-          if (item.group_leader_name && item.group_book_id == bookId) {
-            item.text = item.lecturer_name + ' - ' + item.name + '（' + item.group_leader_name + '揪的團）';
-          } else {
-            item.text = item.lecturer_name + ' - ' + item.name;
-          }
-        });
-        return { results: data };
-      },
-      cache: true
-    }
   });
 </script>

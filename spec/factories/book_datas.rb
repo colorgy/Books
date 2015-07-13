@@ -7,7 +7,7 @@ FactoryGirl.define do
     external_image_url "http://placehold.it/400x500"
     url { Faker::Internet.url }
     publisher { Faker::Company.name }
-    original_price { Faker::Commerce.price }
+    original_price { Faker::Commerce.price * 100 }
 
     trait :with_courses do
       transient do

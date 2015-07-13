@@ -1,6 +1,8 @@
 class BookData < ActiveRecord::Base
   has_one :book, foreign_key: :isbn, primary_key: :isbn
   has_many :books, foreign_key: :isbn, primary_key: :isbn
+  has_many :course_book, primary_key: :isbn, foreign_key: :book_isbn
+  has_many :courses, through: :course_book
 
   has_attached_file :image, styles: { medium: '1024x1024>', thumb: '300x300#' }
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\Z/

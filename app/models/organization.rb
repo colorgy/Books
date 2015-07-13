@@ -30,7 +30,7 @@ class Organization < ActiveResource::Base
   end
 
   def self.example_cods
-    ['NTUST', 'NTU', 'NCCU', 'NTHU']
+    ['NTUST', 'NTU', 'NTHU']
   end
 
   PARAMS = {

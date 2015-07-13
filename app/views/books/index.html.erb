@@ -74,240 +74,32 @@
     </div>
   </div>
   <div class="row row-inner">
-    <div class="col-md-3 col-sm-4 col-xs-6">
-      <div class="product-box">
-        <a href="/ColorgyV2-frontend/books-show.html">
-          <div class="product-box-inner">
-            <div class="product-box-pic">
-              <%= image_tag ('book-sample1.jpg') %>
+    <% @books.each do |book| %>
+      <div class="col-md-3 col-sm-4 col-xs-6">
+        <div class="product-box">
+          <a href="<%= book_path(book) %>">
+            <div class="product-box-inner">
+              <div class="product-box-pic">
+                <%= image_tag(book.image_url) %>
+              </div>
+              <div class="product-box-info">
+                <div class="product-box-name">
+                  <%= book.name %>
+                </div>
+                <div class="product-box-origin">
+                  作者 ： <%= book.author %>
+                </div>
+                <div class="product-box-price">
+                  <span class="product-box-originprice">定價 ： <%= book.original_price %></span>
+                  <span class="product-box-realprice">團購價 ： <%= book.price %></span>
+                </div>
+              </div>
             </div>
-            <div class="product-box-info">
-              <div class="product-box-name">
-                Microelectronic Circuits
-              </div>
-              <div class="product-box-origin">
-                作者 ： Sedra Smith
-              </div>
-              <div class="product-box-subname">
-                版次 ： 5 / e
-              </div>
-              <div class="product-box-price">
-                <span class="product-box-originprice">定價 ： 1399</span>
-                <span class="product-box-realprice">團購價 ： 899</span>
-              </div>
-            </div>
-          </div>
-        </a>
+          </a>
+        </div>
       </div>
-    </div>
-    <div class="col-md-3 col-sm-4 col-xs-6">
-      <div class="product-box">
-        <a href="/ColorgyV2-frontend/books-show.html">
-          <div class="product-box-inner">
-            <div class="product-box-pic">
-              <%= image_tag ('book-sample1.jpg') %>
-            </div>
-            <div class="product-box-info">
-              <div class="product-box-name">
-                Microelectronic Circuits
-              </div>
-              <div class="product-box-origin">
-                作者 ： Sedra Smith
-              </div>
-              <div class="product-box-subname">
-                版次 ： 5 / e
-              </div>
-              <div class="product-box-price">
-                <span class="product-box-originprice">定價 ： 1399</span>
-                <span class="product-box-realprice">團購價 ： 899</span>
-              </div>
-            </div>
-          </div>
-        </a>
-      </div>
-    </div>
-    <div class="col-md-3 col-sm-4 col-xs-6">
-      <div class="product-box">
-        <a href="/ColorgyV2-frontend/books-show.html">
-          <div class="product-box-inner">
-            <div class="product-box-pic">
-              <%= image_tag ('book-sample1.jpg') %>
-            </div>
-            <div class="product-box-info">
-              <div class="product-box-name">
-                Microelectronic Circuits
-              </div>
-              <div class="product-box-origin">
-                作者 ： Sedra Smith
-              </div>
-              <div class="product-box-subname">
-                版次 ： 5 / e
-              </div>
-              <div class="product-box-price">
-                <span class="product-box-originprice">定價 ： 1399</span>
-                <span class="product-box-realprice">團購價 ： 899</span>
-              </div>
-            </div>
-          </div>
-        </a>
-      </div>
-    </div>
-    <div class="col-md-3 col-sm-4 col-xs-6">
-      <div class="product-box">
-        <a href="/ColorgyV2-frontend/books-show.html">
-          <div class="product-box-inner">
-            <div class="product-box-pic">
-              <%= image_tag ('book-sample1.jpg') %>
-            </div>
-            <div class="product-box-info">
-              <div class="product-box-name">
-                Microelectronic Circuits
-              </div>
-              <div class="product-box-origin">
-                作者 ： Sedra Smith
-              </div>
-              <div class="product-box-subname">
-                版次 ： 5 / e
-              </div>
-              <div class="product-box-price">
-                <span class="product-box-originprice">定價 ： 1399</span>
-                <span class="product-box-realprice">團購價 ： 899</span>
-              </div>
-            </div>
-          </div>
-        </a>
-      </div>
-    </div>
-    <div class="col-md-3 col-sm-4 col-xs-6">
-      <div class="product-box">
-        <a href="/ColorgyV2-frontend/books-show.html">
-          <div class="product-box-inner">
-            <div class="product-box-pic">
-              <%= image_tag ('book-sample1.jpg') %>
-            </div>
-            <div class="product-box-info">
-              <div class="product-box-name">
-                Microelectronic Circuits
-              </div>
-              <div class="product-box-origin">
-                作者 ： Sedra Smith
-              </div>
-              <div class="product-box-subname">
-                版次 ： 5 / e
-              </div>
-              <div class="product-box-price">
-                <span class="product-box-originprice">定價 ： 1399</span>
-                <span class="product-box-realprice">團購價 ： 899</span>
-              </div>
-            </div>
-          </div>
-        </a>
-      </div>
-    </div>
-    <div class="col-md-3 col-sm-4 col-xs-6">
-      <div class="product-box">
-        <a href="/ColorgyV2-frontend/books-show.html">
-          <div class="product-box-inner">
-            <div class="product-box-pic">
-              <%= image_tag ('book-sample1.jpg') %>
-            </div>
-            <div class="product-box-info">
-              <div class="product-box-name">
-                Microelectronic Circuits
-              </div>
-              <div class="product-box-origin">
-                作者 ： Sedra Smith
-              </div>
-              <div class="product-box-subname">
-                版次 ： 5 / e
-              </div>
-              <div class="product-box-price">
-                <span class="product-box-originprice">定價 ： 1399</span>
-                <span class="product-box-realprice">團購價 ： 899</span>
-              </div>
-            </div>
-          </div>
-        </a>
-      </div>
-    </div>
-    <div class="col-md-3 col-sm-4 col-xs-6">
-      <div class="product-box">
-        <a href="/ColorgyV2-frontend/books-show.html">
-          <div class="product-box-inner">
-            <div class="product-box-pic">
-              <%= image_tag ('book-sample1.jpg') %>
-            </div>
-            <div class="product-box-info">
-              <div class="product-box-name">
-                Microelectronic Circuits
-              </div>
-              <div class="product-box-origin">
-                作者 ： Sedra Smith
-              </div>
-              <div class="product-box-subname">
-                版次 ： 5 / e
-              </div>
-              <div class="product-box-price">
-                <span class="product-box-originprice">定價 ： 1399</span>
-                <span class="product-box-realprice">團購價 ： 899</span>
-              </div>
-            </div>
-          </div>
-        </a>
-      </div>
-    </div>
-    <div class="col-md-3 col-sm-4 col-xs-6">
-      <div class="product-box">
-        <a href="/ColorgyV2-frontend/books-show.html">
-          <div class="product-box-inner">
-            <div class="product-box-pic">
-              <%= image_tag ('book-sample1.jpg') %>
-            </div>
-            <div class="product-box-info">
-              <div class="product-box-name">
-                Microelectronic Circuits
-              </div>
-              <div class="product-box-origin">
-                作者 ： Sedra Smith
-              </div>
-              <div class="product-box-subname">
-                版次 ： 5 / e
-              </div>
-              <div class="product-box-price">
-                <span class="product-box-originprice">定價 ： 1399</span>
-                <span class="product-box-realprice">團購價 ： 899</span>
-              </div>
-            </div>
-          </div>
-        </a>
-      </div>
-    </div>
-    <div class="col-md-3 col-sm-4 col-xs-6">
-      <div class="product-box">
-        <a href="/ColorgyV2-frontend/books-show.html">
-          <div class="product-box-inner">
-            <div class="product-box-pic">
-              <%= image_tag ('book-sample1.jpg') %>
-            </div>
-            <div class="product-box-info">
-              <div class="product-box-name">
-                Microelectronic Circuits
-              </div>
-              <div class="product-box-origin">
-                作者 ： Sedra Smith
-              </div>
-              <div class="product-box-subname">
-                版次 ： 5 / e
-              </div>
-              <div class="product-box-price">
-                <span class="product-box-originprice">定價 ： 1399</span>
-                <span class="product-box-realprice">團購價 ： 899</span>
-              </div>
-            </div>
-          </div>
-        </a>
-      </div>
-    </div>
+    <% end %>
+
   </div>
 </div>
 <script>

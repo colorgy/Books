@@ -1,9 +1,11 @@
 class Course < ActiveRecord::Base
-  scope :current, ->  { where(year: DatetimeService.current_year, term: DatetimeService.current_term) }
-  scope :not_current, ->  { where.not(year: DatetimeService.current_year, term: DatetimeService.current_term) }
+  scope :current, -> { where(year: DatetimeService.current_year, term: DatetimeService.current_term) }
+  scope :not_current, -> { where.not(year: DatetimeService.current_year, term: DatetimeService.current_term) }
+  scope :in_org, ->(org_code) { where(organization_code: org_code) }
 
   belongs_to :lecturer_identity, class_name: :UserIdentity, foreign_key: :lecturer_name, primary_key: :name
   has_many :course_book, primary_key: :ucode, foreign_key: :course_ucode
+  has_many :book_data, through: :course_book
   has_many :groups
 
   accepts_nested_attributes_for :course_book, allow_destroy: true, limit: 10

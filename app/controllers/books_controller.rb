@@ -4,6 +4,11 @@ class BooksController < ApplicationController
 
   def index
     render :landing and return if current_user.blank?
+
+    if params[:q].blank?
+      @books = books_collection.all
+    end
+
     # @org_code = current_org_code
     # @dep_code = params[:dep]
     # if @dep_code.present?
@@ -44,5 +49,23 @@ class BooksController < ApplicationController
 
   def show
     @book = Book.includes(:data).find(params[:id])
+    @book_groups = @book.groups.in_org(current_org)
+    @book_group_course_ucodes = @book_groups.map(&:course_ucode)
+
+    @book_courses = @book.courses.in_org(current_org)
+    @book_courses_with_no_group = @book_courses.to_a.delete_if { |course| @book_group_course_ucodes.include?(course.ucode) }
+  end
+
+  private
+
+  def books_collection
+    @org_code = current_user.organization_code
+    @org_code = 'public' if @org_code.blank?
+
+    return Book.for_org(@org_code)
+  end
+
+  def current_org
+    current_user.organization_code
   end
 end
