@@ -146,3 +146,5 @@ gem 'select2-rails', '~> 3.5.9'
 gem 'chosen-rails'
 gem 'font-awesome-rails'
 gem 'materialize-sass'
+
+gem 'rails_stdout_logging', :require => false
