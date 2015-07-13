@@ -106,7 +106,8 @@ feature "The lecturer-books registration", :type => :feature do
     execute_script("React.addons.TestUtils.Simulate.change($('.search-select input')[0], { target: { value: '#{BookData.second.name}' } })")
     expect(page).to have_content(BookData.second.isbn)
     execute_script("React.addons.TestUtils.Simulate.click($('.search-select-selections div')[0])")
-    expect(page).to have_content("您選擇了：#{BookData.second.name}")
+    expect(page).to have_content("嗎")
+    expect(page).to have_content("#{BookData.second.name}")
     # the data should be written into DB
     @courses.second.reload
     expect(@courses.second.course_book.first.book_isbn).to eq(BookData.second.isbn)
@@ -129,8 +130,10 @@ feature "The lecturer-books registration", :type => :feature do
     # then select a new book in the next step
     execute_script("React.addons.TestUtils.Simulate.change($('.search-select input')[0], { target: { value: '#{BookData.second.name}' } })")
     expect(page).to have_content(BookData.second.isbn)
+    sleep(1)
     execute_script("React.addons.TestUtils.Simulate.click($('.search-select-selections div')[1])")
-    expect(page).to have_content("您選擇了：#{BookData.second.name}")
+    expect(page).to have_content("嗎")
+    expect(page).to have_content("#{BookData.second.name}")
     # the data should be written into DB
     @courses.fourth.reload
     expect(@courses.fourth.course_book.first.book_isbn).to eq(BookData.second.isbn)
@@ -141,7 +144,8 @@ feature "The lecturer-books registration", :type => :feature do
     execute_script("React.addons.TestUtils.Simulate.change($('.search-select input')[0], { target: { value: '#{BookData.third.isbn}' } })")
     expect(page).to have_content(BookData.third.name)
     execute_script("React.addons.TestUtils.Simulate.click($('.search-select-selections div')[0])")
-    expect(page).to have_content("您選擇了：#{BookData.third.name}")
+    expect(page).to have_content("嗎")
+    expect(page).to have_content("#{BookData.second.name}")
     # the data should be written into DB
     @courses.fifth.reload
     expect(@courses.fifth.course_book.first.book_isbn).to eq(BookData.third.isbn)
