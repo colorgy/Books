@@ -7,6 +7,9 @@ gem 'rails', '4.2.0'
 # Use sqlite3 or pg as the database for Active Record
 gem 'sqlite3', :groups => [:development, :test]
 gem 'pg'
+# Redis
+gem 'redis'
+gem 'redis-namespace'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0.1'
 # Use Uglifier as compressor for JavaScript assets
@@ -39,6 +42,8 @@ gem 'unicorn'
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
+
+gem 'sinatra', :require => nil
 
 gem 'activeresource', '~> 4.0.0'
 gem 'cached_resource'
@@ -93,6 +98,8 @@ gem 'paper_trail', '~> 4.0.0.beta'
 gem 'activerecord-import', '~> 0.7.0'
 
 gem 'activeadmin', github: 'activeadmin'
+
+gem 'sidekiq'
 
 # Development tools
 group :development do

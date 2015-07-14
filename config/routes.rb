@@ -77,6 +77,11 @@ Rails.application.routes.draw do
 
   get '/sorry_but_forbidden' => 'pages#sorry_but_forbidden'
 
+  require 'sidekiq/web'
+  authenticate :user, ->(u) { u.present? } do
+    mount Sidekiq::Web => '/sidekiq'
+  end
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
