@@ -18,7 +18,7 @@ class Course < ActiveRecord::Base
       response = RestClient.get "#{ENV['CORE_URL']}/api/v1/organizations/#{org}/courses.json?per_page=10000&page=#{page}&fields=year,term,code,name,lecturer,general_code,department_code&filter[year]=#{year}&filter[term]=#{term}"
     rescue RestClient::Exception
     else
-      puts " - Getting courses form #{org}"
+      Rails.logger.info "Course.sync:  - Getting courses form #{org}"
       last_page = false
       courses_inserts = []
       while last_page == false
@@ -49,9 +49,9 @@ class Course < ActiveRecord::Base
     org_codes = JSON.parse(response).map { |org| org['code'] }
 
     org_codes.each do |code|
-      puts "Syncing #{code} ..."
+      Rails.logger.info "Course.sync: Syncing #{code} ..."
       sync_from(code, year: year, term: term)
-      puts "Sync from #{code} done."
+      Rails.logger.info "Course.sync: Sync from #{code} done."
     end
   end
 

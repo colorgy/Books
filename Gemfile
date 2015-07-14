@@ -100,6 +100,7 @@ gem 'activerecord-import', '~> 0.7.0'
 gem 'activeadmin', github: 'activeadmin'
 
 gem 'sidekiq'
+gem 'clockwork'
 
 # Development tools
 group :development do
