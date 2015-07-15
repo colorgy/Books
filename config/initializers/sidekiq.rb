@@ -1,3 +1,5 @@
+Sidekiq::Logging.logger = Rails.logger
+
 redis_url = ENV['REDIS_URL'] || 'redis://localhost:6379'
 app_name = (ENV['APP_NAME'] || Rails.application.class.parent_name).underscore.gsub(' ', '_')
 
