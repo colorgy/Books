@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-feature "The lecturer-books registration", :type => :feature do
+feature "The lecturer-books registration", :type => :feature, :retry => 10 do
   before do
     # ActiveResource::HttpMock.respond_to do |mock|
     #   mock.post   "/people.json",   {}, @matz, 201, "Location" => "/people/1.json"
