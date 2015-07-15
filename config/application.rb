@@ -38,7 +38,7 @@ module Books
         app_name = ENV['APP_NAME'] || Rails.application.class.parent_name
         config.logger = \
           RemoteSyslogLogger.new(ENV['REMOTE_LOGGER_HOST'], ENV['REMOTE_LOGGER_PORT'],
-                                 local_hostname: "#{app_name.underscore}-#{Rails.application.class.parent_name.underscore}-#{Socket.gethostname}".gsub(' ', '_'),
+                                 local_hostname: "#{app_name.underscore}-#{Socket.gethostname}".gsub(' ', '_'),
                                  program: ('rails-' + Rails.application.class.parent_name.underscore))
       end
     end
