@@ -49,7 +49,7 @@ gem 'activeresource', '~> 4.0.0'
 gem 'cached_resource'
 
 # Loads environment variables from `.env`
-gem 'dotenv-rails', :groups => [:development, :test]
+gem 'dotenv-rails'
 
 # Handle settings by rails-settings-cached
 gem 'rails-settings-cached', github: 'Neson/rails-settings-cached'
