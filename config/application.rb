@@ -35,10 +35,11 @@ module Books
     when 'remote'
       # Send logs to a remote server
       if !ENV['REMOTE_LOGGER_HOST'].blank? && !ENV['REMOTE_LOGGER_PORT'].blank?
+        app_name = ENV['APP_NAME'] || Rails.application.class.parent_name
         config.logger = \
-        RemoteSyslogLogger.new(ENV['REMOTE_LOGGER_HOST'], ENV['REMOTE_LOGGER_PORT'],
-                               local_hostname: "#{ENV['APP_NAME'].underscore}-#{Rails.application.class.parent_name.underscore}-#{Socket.gethostname}".gsub(' ', '_'),
-                               program: ('rails-' + Rails.application.class.parent_name.underscore))
+          RemoteSyslogLogger.new(ENV['REMOTE_LOGGER_HOST'], ENV['REMOTE_LOGGER_PORT'],
+                                 local_hostname: "#{app_name.underscore}-#{Rails.application.class.parent_name.underscore}-#{Socket.gethostname}".gsub(' ', '_'),
+                                 program: ('rails-' + Rails.application.class.parent_name.underscore))
       end
     end
   end
