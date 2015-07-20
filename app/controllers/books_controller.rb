@@ -1,9 +1,7 @@
 class BooksController < ApplicationController
-  before_action :authenticate_user!, except: :index
-  layout 'front'
+  before_action :authenticate_user!
 
   def index
-    render :landing and return if current_user.blank?
 
     if params[:q].blank?
       @books = books_collection.all

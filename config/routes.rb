@@ -32,9 +32,12 @@ Rails.application.routes.draw do
     delete 'logout', to: 'devise/sessions#destroy', as: :destroy_user_session
   end
 
-  root 'books#index'
+  authenticated :user do
+    root 'books#index'
+  end
 
-  get '/index' => 'pages#index', as: :new_user_session
+  root 'pages#index', as: :new_user_session
+
   get '/faq' => 'pages#faq'
   get '/flow' => 'pages#flow'
   get '/flow/buy' => 'pages#shopping_flow_buy'
@@ -69,6 +72,9 @@ Rails.application.routes.draw do
   resources :groups
 
   resources :feedbacks
+
+  resources :book_selections
+  resources :course_selections
 
   post '/my-account' => 'users/my_account#invoice_subsume_confirm'
   post '/invoice_subsume_confirm' => 'users/my_account#invoice_subsume_confirm'

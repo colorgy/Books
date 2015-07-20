@@ -14,6 +14,7 @@ class Book < ActiveRecord::Base
   validates :data, presence: true
 
   def self.for_org(org_code = 'public')
+    org_code = 'public' if org_code.blank?
     where("
       books.id IN (
         SELECT DISTINCT ON (books.isbn) books.id FROM books

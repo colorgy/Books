@@ -1,0 +1,48 @@
+.container-fluid style=("padding: 0;")
+  .row
+    .content-strip.primary
+      .content-strip-inner
+        h4.strip-title 書庫瀏覽
+        p.strip-description 輸入老師名、課名、書名、作者去搜尋書籍吧！
+    .col.m12.s12 style=("padding: 0; display:none;")
+      .slideshow
+        .slideshow-inner
+          img src="images/slideshow3.jpg" /
+          .layer1
+    .col.m12.s12
+      .search-field
+        .search-bar.search-bar--center
+          form
+            input name="search-bar" placeholder="搜尋書名、課名、老師名" type="text" /
+            input type="submit" value="Submit" /
+        .clear style="clear:both;"
+  .row.row-inner-s
+    .col.m12.s12
+      - @books.each do |book|
+        .product-list
+          .product-list-inner
+            .col.s3.m2
+              .product-list-pic
+                a href=book_path(book)
+                  img.responsive-img src=book.image_url
+            .col.s9.m10
+              .row
+                .col.s12.m8
+                  .product-list-info
+                    h5.name
+                      a href=book_path(book)
+                        = book.name
+                    p.details.text-overflow-ellipse
+                      | 作者 ：
+                      span.author= book.author
+                    p.details.text-overflow-ellipse
+                      | ISBN ：
+                      span.isbn= book.isbn
+                .col.s12.m4
+                  .product-list-price
+                    h5.discount-price 團購價 ： #{book.price}
+                    p.origin-price
+                      del 定價 ： #{book.original_price}
+                    a href=book_path(book)
+                      button.btn-highlight 購買本書
+            .clear-fix

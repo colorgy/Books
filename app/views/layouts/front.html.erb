@@ -71,13 +71,13 @@
               <% if current_user %>
               <ul class="right hide-on-med-and-down main-nav">
                 <li class="group-up">
-                  <a href="/ColorgyV2-frontend/groupon.html" class="tooltipped" data-position="bottom" data-delay="0" data-tooltip="主揪或是班代可以在這邊選擇課程&書籍開團讓同學們跟團喲！">
+                  <a href="<%= new_group_path %>" class="tooltipped" data-position="bottom" data-delay="0" data-tooltip="主揪或是班代可以在這邊選擇課程&書籍開團讓同學們跟團喲！">
                     <i class="mdi-content-send list-icon"></i>
                     開始揪團
                   </a>
                 </li>
                 <li>
-                  <a href="/ColorgyV2-frontend" class="tooltipped" data-position="bottom" data-delay="0" data-tooltip="書籍總覽！可以利用課程、老師、isbn等關鍵字搜尋書籍！">
+                  <a href="<%= books_path %>" class="tooltipped" data-position="bottom" data-delay="0" data-tooltip="書籍總覽！可以利用課程、老師、isbn等關鍵字搜尋書籍！">
                     <i class="mdi-av-my-library-books list-icon"></i>
                     書庫瀏覽
                   </a>
@@ -96,7 +96,7 @@
                 </li>
               </ul>
               <ul class="side-nav" id="mobile-demo">
-                <li><a href="/ColorgyV2-frontend/groupon.html">開始揪團</a></li>
+                <li><a href="<%= new_group_path %>">開始揪團</a></li>
                 <li><a href="<%= books_path %>">書庫瀏覽</a></li>
                 <li><a href="/ColorgyV2-frontend/follow-group.html">即時跟團 (0)</a></li>
                 <li><a href="mobile.html">建議書單</a></li>

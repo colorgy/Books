@@ -1,0 +1,45 @@
+.navbar-fixed
+  nav.colorgy-nav
+    .top
+      .top-bar
+        ul
+          li
+            = link_to '常見問題', '#'
+          li.go-checkout
+            a href="#"
+              i.material-icons.list-icon shopping_cart
+              | 前往結帳
+          - if current_user
+            li.nav-bar-drop-down
+              a href=""
+                | Hi, #{current_user.name}
+                i.material-icons.list-icon expand_more
+              ul.drop-down-list
+                li
+                  = link_to '登出', sign_out_url
+          - else
+            li.nav-bar
+              = link_to '登入', user_omniauth_authorize_path(:colorgy)
+    .nav-wrapper
+      a.brand-logo href=root_path
+        = image_tag 'colorgy-books-logo.png'
+      a.button-collapse data-activates="mobile-demo" href="/"
+        i.material-icons dehaze
+      ul.right.hide-on-med-and-down.main-nav
+        li.group-up
+          a.tooltipped data-delay="0" data-position="bottom" data-tooltip="主揪或是班代可以在這邊選擇課程&書籍開團讓同學們跟團喲！" href="/ColorgyV2-frontend/groupon.html"
+            i.material-icons.list-icon send
+            | 班代 / 助教開團
+        li
+          a.tooltipped data-delay="0" data-position="bottom" data-tooltip="書籍總覽！可以利用課程、老師、isbn等關鍵字搜尋書籍！" href="/ColorgyV2-frontend/book-browser.html"
+            i.material-icons.list-icon view_list
+            | 我要找書
+        li
+          a.tooltipped data-delay="0" data-position="bottom" data-tooltip="所有團購總覽！同學們可以從這邊找到已開的團！" href="/ColorgyV2-frontend/follow-group.html"
+            i.material-icons.list-icon group_add
+            | 即時跟團 (
+            span#group-counter> 0
+            | )
+        li.nav-bar-drop-down
+          a href="#"
+            i.material-icons.list-icon more_vert

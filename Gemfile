@@ -59,7 +59,7 @@ gem 'aasm', '~> 4.1.0'
 
 gem 'paperclip', '~> 4.2'
 
-# Model factory
+# Model factory and tools
 gem 'factory_girl_rails', '~> 4.5.0'
 gem 'faker'
 gem 'timecop'

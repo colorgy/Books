@@ -1,0 +1,68 @@
+.container-fluid
+  .row.row-inner-m.book-show
+    .col.m12.s12
+      .row
+        .message-bar-container
+          .message
+            .message-close-btn
+              i.material-icons close
+            .row
+              .col.m2.s12
+                .message-icon
+              .col.m10.s12
+                .message-content
+                  p
+                    | 請勾擇您要跟的團或是自行購買，確定數量之後按底下的 "放入購物車"。
+                    br
+                    | 您也可以用FB分享或傳送轉貼至系版或朋友讓他們來跟團。
+        .book-show-box
+          .col.m4.s12
+            .book-pic
+              img.materialboxed.responsive-img src=@book.image_url width="250"
+          .col.m8.s12
+            .book-info
+              .book-info-inner
+                .book-name
+                  = @book.name
+                hr
+                .share-field
+                  .fb-share-button
+                  .fb-send
+                .book-from
+                  | 出版社：#{@book.publisher}
+                .book-isbn
+                  | ISBN：#{@book.isbn}
+                .book-author
+                  | 作者：#{@book.author}
+              .book-price
+                span.book-disc-price 團購價：NT$ #{@book.price}
+                span.book-orginal-price
+                  del 定價：NT$ #{@book.original_price}
+    .col.m12.s12
+      = react_component 'AddBookToCart', bookGroups: @book_groups, bookCoursesWithNoGroup: @book_courses_with_no_group
+      .group-field
+        .under-line-title
+          span 選擇跟團
+        .groups-select-field
+          - @book_groups.each do |group|
+            p
+              input class="with-gap" name="group" type="radio" id="checkbox1"
+              label for="checkbox1"
+                | #{group.course.name} --- #{group.leader.name} 揪團（#{} 截止繳費)
+          - @book_courses_with_no_group.each do |course|
+            p
+              input class="with-gap" name="group" type="radio" id="checkbox2" disabled="disabled"
+              label for="checkbox2"
+                | #{course.name} / #{course.lecturer_name} 老師 (沒有進行中的團購)
+        .buy-field
+          label style=("margin:0 20px;")
+            span style=("font-size: 20px;") 數量：
+            input style=("width:60px; font-size: 20px;") type="number" value="1" /
+          button#add-to-cart.btn-highlight.btn--large 放入購物書包
+        .social-comments
+          .fb-comments data-colorscheme="light" data-href="#{ENV['APP_URL']}/#{book_path(@book)}" data-numposts="5"
+
+javascript:
+  $(document).ready(function() {
+    $('.materialboxed').materialbox();
+  });

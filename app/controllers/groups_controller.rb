@@ -1,5 +1,6 @@
 class GroupsController < ApplicationController
   before_action :authenticate_user!
+  layout 'front'
 
   def index
     @groups = current_user.lead_groups
@@ -11,8 +12,9 @@ class GroupsController < ApplicationController
   end
 
   def new
-    @course = Course.find(params[:course])
-    @book = Book.find(params[:book])
+    @course = Course.find_by(ucode: params[:course_ucode])
+    @book = Book.find_by(id: params[:book_id])
+    @group = Group.new(book: @book, course: @course)
   end
 
   def create
