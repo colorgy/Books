@@ -4,7 +4,7 @@ AddBookToCart = React.createClass
   mixins: [React.addons.LinkedStateMixin]
 
   getDefaultProps: ->
-    bookID: null
+    book: null
     bookGroups: []
     bookCoursesWithNoGroup: []
 
@@ -36,6 +36,7 @@ AddBookToCart = React.createClass
     @state.purchaseMethod && @state.quantity && (@state.quantity > 0)
 
   render: ->
+    book = @props.book
     submitButtonClass = classNames(disabled: !@canSubmit())
     packageSelections = ['true'].map (p, i) =>
       onChange = @handleSelectionChange.bind(this, 'package', null)
@@ -61,15 +62,16 @@ AddBookToCart = React.createClass
                className="with-gap"
                checked={checked} />
         <label htmlFor={'checkbox-group-' + group.code}>
-          {group.course_name} --- {group.leader_name} 揪團（{} 截止繳費)
+          {group.course_lecturer_name} 老師 / {group.course_name} --- {group.leader_name} 揪的團（{group.deadline} 截止繳費)
         </label>
       </p>`
 
     coursesWithNoGroupSelections = @props.bookCoursesWithNoGroup.map (course, i) =>
+      newGroupHref = "/groups/new?book_id=#{book.id}&course_ucode=#{course.ucode}"
       `<p key={course.ucode}>
         <input className="with-gap" disabled="disabled" id={'checkbox-' + course.ucode} type="radio" />
         <label htmlFor={'checkbox-' + course.ucode}>
-          {course.lecturer_name} 老師 / {course.name} (沒有進行中的團購)
+          {course.lecturer_name} 老師 / {course.name} (沒有進行中的團購，<a href={newGroupHref} target="_blank">立即揪團！</a>)
         </label>
       </p>`
 

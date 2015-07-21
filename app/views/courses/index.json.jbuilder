@@ -1,3 +1,3 @@
 json.array!(@courses) do |course|
-  json.extract! course, :id, :name, :lecturer_name, :organization_code, :year, :term, :book_isbn, :confirmed_at
+  json.extract! course, :id, :ucode, :code, :name, :lecturer_name, :organization_code, :year, :term
 end

@@ -39,26 +39,7 @@
                 span.book-orginal-price
                   del 定價：NT$ #{@book.original_price}
     .col.m12.s12
-      = react_component 'AddBookToCart', bookGroups: @book_groups, bookCoursesWithNoGroup: @book_courses_with_no_group
-      .group-field
-        .under-line-title
-          span 選擇跟團
-        .groups-select-field
-          - @book_groups.each do |group|
-            p
-              input class="with-gap" name="group" type="radio" id="checkbox1"
-              label for="checkbox1"
-                | #{group.course.name} --- #{group.leader.name} 揪團（#{} 截止繳費)
-          - @book_courses_with_no_group.each do |course|
-            p
-              input class="with-gap" name="group" type="radio" id="checkbox2" disabled="disabled"
-              label for="checkbox2"
-                | #{course.name} / #{course.lecturer_name} 老師 (沒有進行中的團購)
-        .buy-field
-          label style=("margin:0 20px;")
-            span style=("font-size: 20px;") 數量：
-            input style=("width:60px; font-size: 20px;") type="number" value="1" /
-          button#add-to-cart.btn-highlight.btn--large 放入購物書包
+      = react_component 'AddBookToCart', book: @book, bookGroups: @book_groups, bookCoursesWithNoGroup: @book_courses_with_no_group
         .social-comments
           .fb-comments data-colorscheme="light" data-href="#{ENV['APP_URL']}/#{book_path(@book)}" data-numposts="5"
 

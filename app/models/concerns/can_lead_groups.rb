@@ -5,19 +5,19 @@ module CanLeadGroups
     has_many :lead_groups, class_name: Group, foreign_key: :leader_id
   end
 
-  def lead_new_group(book, course: nil, org_code: nil)
-    book = Book.find(book) if book.is_a?(Integer)
-    group = nil
+  def lead_group(group)
+    # setup the group for the leader
+    group.leader_id = id
+    group.public = true
 
-    if book.organization_code.present?
-      org_code ||= book.organization_code
-      raise if book.organization_code != org_code
+    # check and initalize attributes of the group
+    if group.book && group.book.organization_code.present?
+      group.organization_code ||= group.book.organization_code
+      raise if group.organization_code != group.book.organization_code
     end
 
-    course = Course.find(course) if course.is_a?(Integer)
-    ActiveRecord::Base.transaction do
-      group = lead_groups.create!(book: book, course: course, organization_code: org_code, public: true)
-    end
+    # save the group
+    group.save!
 
     group
   end

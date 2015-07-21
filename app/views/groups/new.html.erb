@@ -15,8 +15,8 @@
             <span class="under-line-title">揪團課程</span>
             <p>＃請搜尋並選擇您想要揪團的課程</p>
             <%= simple_form_for @group do |f| %>
-              <%= f.input :book_id %>
-              <%= f.input :course_ucode %>
+              <%= react_component 'NewGroupBookSelect', value: @group.book_id %>
+              <%= react_component 'NewGroupCourseSelect', value: @group.course_ucode %>
               <%= f.input :recipient_name %>
               <%= f.input :recipient_mobile %>
               <%= f.input :pickup_datetime %>

@@ -6,7 +6,7 @@ FactoryGirl.define do
     department_code { Faker::Address.building_number }
     lecturer_name { lecturer_names.sample }
 
-    year { Faker::Time.between(5.years.ago, Time.now).year }
+    year { Faker::Time.between(2.years.ago, Time.now).year }
     term { [1, 2].sample }
     name { Faker::Company.name }
     general_code { Faker::Address.building_number }

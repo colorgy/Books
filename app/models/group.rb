@@ -16,14 +16,14 @@ class Group < ActiveRecord::Base
 
   belongs_to :leader, class_name: User, primary_key: :id, foreign_key: :leader_id
   has_many :orders, primary_key: :code, foreign_key: :group_code
-  belongs_to :course, -> { with_deleted }, primary_key: :ucode, foreign_key: :course_ucode
+  belongs_to :course, primary_key: :ucode, foreign_key: :course_ucode
   belongs_to :book, -> { with_deleted }
 
   delegate :name, :avatar_url, :fbid, :gender,
            to: :leader, prefix: true, allow_nil: true
   delegate :name, :lecturer_name,
            to: :course, prefix: true, allow_nil: true
-  delegate :name, :isbn, :internal_code, :price,
+  delegate :name, :isbn, :internal_code, :price, :image_url,
            to: :book, prefix: true, allow_nil: true
 
   validates :code, :book, :leader, :pickup_datetime, presence: true
@@ -79,12 +79,12 @@ class Group < ActiveRecord::Base
   end
 
   class << self
-    def code_for(batch: nil, year: nil, term: nil, book_id: nil, course_id: nil, org_code: nil, rand: nil)
+    def code_for(batch: nil, year: nil, term: nil, book_id: nil, course_ucode: nil, org_code: nil, rand: nil)
       year ||= DatetimeService.current_year
       term ||= DatetimeService.current_term
       batch = DatetimeService.batch(year: year, term: term) if batch.blank?
       rand ||= SecureRandom.hex(4)[1..7]
-      "#{batch}-#{org_code}-#{book_id}-#{course_id}-#{rand}"
+      "#{batch}-#{org_code}-#{book_id}-#{course_ucode}-#{rand}"
     end
 
     alias_method :code, :code_for
@@ -99,7 +99,7 @@ class Group < ActiveRecord::Base
 
   def set_code_if_blank
     return unless self.code.blank?
-    self.code = Group.code_for(book_id: book_id, course_id: course_id, org_code: org_code)
+    self.code = Group.code_for(book_id: book_id, course_ucode: course_ucode, org_code: org_code)
   end
 
   def set_deadline

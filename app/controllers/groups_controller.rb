@@ -1,6 +1,5 @@
 class GroupsController < ApplicationController
   before_action :authenticate_user!
-  layout 'front'
 
   def index
     @groups = current_user.lead_groups
@@ -18,7 +17,7 @@ class GroupsController < ApplicationController
   end
 
   def create
-    @group = current_user.lead_course_group(params[:course], params[:book])
+    @group = current_user.lead_group(Group.new(new_group_params))
     redirect_to @group
   end
 
@@ -37,7 +36,11 @@ class GroupsController < ApplicationController
 
   private
 
+  def new_group_params
+    params.require(:group).permit(:book_id, :course_ucode, :recipient_name, :recipient_mobile, :pickup_point, :pickup_datetime)
+  end
+
   def group_params
-    params.require(:group).permit(:pickup_point, :pickup_date, :pickup_time, :mobile, :recipient_name)
+    params.require(:group).permit(:recipient_name, :recipient_mobile, :pickup_point, :pickup_datetime)
   end
 end

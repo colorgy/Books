@@ -99,6 +99,8 @@ gem 'activerecord-import', '~> 0.7.0'
 
 gem 'activeadmin', github: 'activeadmin'
 
+gem 'active_model_serializers', '~> 0.9.0'
+
 gem 'sidekiq'
 gem 'clockwork'
 

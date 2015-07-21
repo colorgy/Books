@@ -83,6 +83,8 @@ GEM
       erubis (~> 2.7.0)
       rails-dom-testing (~> 1.0, >= 1.0.5)
       rails-html-sanitizer (~> 1.0, >= 1.0.1)
+    active_model_serializers (0.9.3)
+      activemodel (>= 3.2)
     activejob (4.2.0)
       activesupport (= 4.2.0)
       globalid (>= 0.3.0)
@@ -549,6 +551,7 @@ PLATFORMS
 
 DEPENDENCIES
   aasm (~> 4.1.0)
+  active_model_serializers (~> 0.9.0)
   activeadmin!
   activerecord-import (~> 0.7.0)
   activeresource (~> 4.0.0)

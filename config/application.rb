@@ -16,6 +16,9 @@ module Books
     config.paths.add File.join('app', 'services'), glob: File.join('**', '*.rb')
     config.autoload_paths += Dir[Rails.root.join('app', 'services', '*')]
 
+    config.paths.add File.join('app', 'serializers'), glob: File.join('**', '*.rb')
+    config.autoload_paths += Dir[Rails.root.join('app', 'serializers', '*')]
+
     config.active_record.raise_in_transactional_callbacks = true
 
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.

@@ -9,6 +9,7 @@ SearchSelect = React.createClass
     selectionClassName: ''
     placeholder: ''
     noResultsText: ''
+    name: ''
     onChange: ->
 
   getInitialState: ->
@@ -79,7 +80,7 @@ SearchSelect = React.createClass
       selections = activeSelections.concat selections
 
     if !selections || !selections.length
-      selections = `<div>
+      selections = `<div className="search-select-selections-blank">
         {this.props.noResultsText}
       </div>`
 
@@ -89,6 +90,7 @@ SearchSelect = React.createClass
         onChange={this.handleSearchInputChange}
         className={this.props.searchInputClassName}
         placeholder={this.props.placeholder}
+        name={this.props.name}
       />
       <div className="search-select-selections">
         {selections}

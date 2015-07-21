@@ -15,7 +15,8 @@ namespace :dev do
         end
       end
 
-      create_list(:course, 200)
+      create_list(:course, 100)
+      create_list(:course, 300, year: DatetimeService.current_year, term: DatetimeService.current_term)
 
       Course.all.each do |course|
         if [true, true, true, true, true, true, true, false].sample

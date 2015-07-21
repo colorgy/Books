@@ -1,9 +1,12 @@
 class Course < ActiveRecord::Base
+  scope :simple_search, ->(q) { q.downcase!; where('lower(name) LIKE ? OR lower(lecturer_name) LIKE ? OR lower(ucode) LIKE ?', "%#{q}%", "%#{q}%", "%#{q}%") }
+
   scope :current, -> { where(year: DatetimeService.current_year, term: DatetimeService.current_term) }
   scope :not_current, -> { where.not(year: DatetimeService.current_year, term: DatetimeService.current_term) }
   scope :in_org, ->(org_code) { where(organization_code: (org_code.blank? ? 'public' : org_code)) }
 
   belongs_to :lecturer_identity, class_name: :UserIdentity, foreign_key: :lecturer_name, primary_key: :name
+  has_many :course_books, primary_key: :ucode, foreign_key: :course_ucode
   has_many :course_book, primary_key: :ucode, foreign_key: :course_ucode
   has_many :book_data, through: :course_book
   has_many :groups
@@ -53,25 +56,6 @@ class Course < ActiveRecord::Base
       sync_from(code, year: year, term: term)
       Rails.logger.info "Course.sync: Sync from #{code} done."
     end
-  end
-
-  def self.search(query, organization_code: nil, year: nil, term: nil)
-    query.downcase!
-
-    scope = all
-    scope = scope.where(organization_code: organization_code) if organization_code
-    scope = scope.where(year: year) if year
-    scope = scope.where(term: term) if term
-
-    courses = scope.where("(lower(name) LIKE ? OR lower(lecturer_name) LIKE ?)", "%#{query}%", "%#{query}%").limit(100)
-
-    if courses.empty?
-      queries = query.split(' ')
-      courses = scope.where("(lower(name) LIKE ? AND lower(lecturer_name) LIKE ?)", "%#{queries[0]}%", "%#{queries[1]}%").limit(100)
-      courses = scope.where("(lower(name) LIKE ? AND lower(lecturer_name) LIKE ?)", "%#{queries[1]}%", "%#{queries[0]}%").limit(100) if courses.empty?
-    end
-
-    return courses
   end
 
   def current?

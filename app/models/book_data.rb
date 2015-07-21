@@ -1,4 +1,6 @@
 class BookData < ActiveRecord::Base
+  scope :simple_search, ->(q) { q.downcase!; where('lower(isbn) LIKE ? OR lower(name) LIKE ? OR lower(author) LIKE ? OR lower(publisher) LIKE ?', "%#{q}%", "%#{q}%", "%#{q}%", "%#{q}%") }
+
   has_one :book, foreign_key: :isbn, primary_key: :isbn
   has_many :books, foreign_key: :isbn, primary_key: :isbn
   has_many :course_book, primary_key: :isbn, foreign_key: :book_isbn
@@ -11,11 +13,6 @@ class BookData < ActiveRecord::Base
   validates :name, presence: true
 
   before_validation :set_image_file_name
-
-  def self.search(query)
-    query.downcase!
-    where("lower(name) LIKE ? OR isbn LIKE ? or lower(publisher) LIKE ? OR lower(author) LIKE ?", "%#{query}%", "%#{query}%", "%#{query}%", "%#{query}%").limit(100)
-  end
 
   def set_image_file_name
     return unless image_file_name_changed?

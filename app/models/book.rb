@@ -7,7 +7,7 @@ class Book < ActiveRecord::Base
   has_many :groups
 
   delegate :name, :author, :isbn, :edition, :image_url,
-           :publisher, :original_price, :courses,
+           :publisher, :original_price, :original_url, :url, :courses,
            to: :data, allow_nil: true
   delegate :name, to: :supplier, prefix: true, allow_nil: true
 
