@@ -6,7 +6,7 @@
           li
             = link_to '常見問題', '#'
           li.go-checkout
-            a href="#"
+            a href=cart_items_path
               i.material-icons.list-icon shopping_cart
               | 前往結帳
           - if current_user
@@ -27,11 +27,11 @@
         i.material-icons dehaze
       ul.right.hide-on-med-and-down.main-nav
         li.group-up
-          a.tooltipped data-delay="0" data-position="bottom" data-tooltip="主揪或是班代可以在這邊選擇課程&書籍開團讓同學們跟團喲！" href="/ColorgyV2-frontend/groupon.html"
+          a.tooltipped data-delay="0" data-position="bottom" data-tooltip="主揪或是班代可以在這邊選擇課程&書籍開團讓同學們跟團喲！" href=new_group_path
             i.material-icons.list-icon send
             | 班代 / 助教開團
         li
-          a.tooltipped data-delay="0" data-position="bottom" data-tooltip="書籍總覽！可以利用課程、老師、isbn等關鍵字搜尋書籍！" href="/ColorgyV2-frontend/book-browser.html"
+          a.tooltipped data-delay="0" data-position="bottom" data-tooltip="書籍總覽！可以利用課程、老師、isbn等關鍵字搜尋書籍！" href=books_path
             i.material-icons.list-icon view_list
             | 我要找書
         li
