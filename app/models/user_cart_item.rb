@@ -3,7 +3,7 @@ class UserCartItem < ActiveRecord::Base
 
   validates :user, :item_type, :item_code, :quantity, presence: true
   validates :quantity, inclusion: 1..100
-  validates :item_type, inclusion: { in: %w(group) }
+  validates :item_type, inclusion: { in: %w(group package) }
 
   # Return the corresponding group
   def group

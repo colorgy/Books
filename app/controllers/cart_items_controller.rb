@@ -25,20 +25,7 @@ class CartItemsController < ApplicationController
   end
 
   def create
-    current_user.check_cart!
-
-    book = Book.find(params[:book_id])
-    course = Course.find(params[:course_id])
-    quantity = (params[:quantity] || 1).to_i
-    @cart_item = current_user.add_to_cart(book, course, quantity)
-
-    if course.book_data.blank?
-      course.book_isbn = book.isbn
-      course.updated_through = 'add_to_cart'
-      course.save!
-    end
-
-    @cart_item ||= { error: 'not_created' }
+    @cart_item = current_user.add_to_cart(cart_item_params[:item_type], cart_item_params[:item_code], quantity: cart_item_params[:quantity])
 
     respond_to do |format|
       format.html do
@@ -61,5 +48,11 @@ class CartItemsController < ApplicationController
       end
       format.json { render json: @cart_item }
     end
+  end
+
+  private
+
+  def cart_item_params
+    @cart_item_params ||= params.require(:cart_item).permit(:quantity, :item_type, :item_code)
   end
 end

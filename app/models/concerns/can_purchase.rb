@@ -12,8 +12,8 @@ module CanPurchase
   # Params:
   #
   # +item_type+::
-  #   +String+ the type of item, +group+ for following a group, or +book+ for
-  #   directly purchasing a book.
+  #   +String+ the type of item, +group+ for following a group, +package+ for
+  #   package, or +book+ for directly purchasing a book.
   #
   # +item_code+::
   #   +String+ the group code for following a group, or a id of the book to
@@ -26,6 +26,8 @@ module CanPurchase
     else
       case item_type.to_sym
       when :group
+        cart_items.create!(item_type: item_type, item_code: item_code, quantity: quantity)
+      when :package
         cart_items.create!(item_type: item_type, item_code: item_code, quantity: quantity)
       else
         raise 'invalid item_type'
@@ -44,7 +46,6 @@ module CanPurchase
   # for faster queries later on. This also removes invalid items in the cart,
   # e.g.: deleted books, books for an organization that the user is not in, and
   # ended groups.
-  # TODO: Implement `when 'book'`
   def check_cart!
     ActiveRecord::Base.transaction do
       # for each item in the cart
@@ -65,6 +66,17 @@ module CanPurchase
           # updates the item's name and price
           item.item_price = group.book.price
           item.item_name = "#{group.book.name} (#{group.book.isbn}) - #{group.pickup_datetime.strftime('%-m/%-d')}"
+          item.save!
+        when 'package'
+          book = Book.for_org(self.organization_code).find_by(id: item.item_code)
+          # remove items with non-existing book
+          if book.blank?
+            item.destroy
+            next
+          end
+          # updates the item's name and price
+          item.item_price = book.price
+          item.item_name = "#{book.name} (#{book.isbn}) - 包裹專送"
           item.save!
         end
       end

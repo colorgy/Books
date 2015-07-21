@@ -35,6 +35,37 @@ AddBookToCart = React.createClass
   canSubmit: ->
     @state.purchaseMethod && @state.quantity && (@state.quantity > 0)
 
+  submit: ->
+    return unless @canSubmit()
+    itemType = @state.purchaseMethod
+    quantity = @state.quantity
+    switch itemType
+      when 'package'
+        itemCode = @props.book.id
+      when 'group'
+        itemCode = @state.groupCode
+    $.ajax
+      method: 'POST'
+      url: "/cart_items.json"
+      dataType: 'json'
+      data:
+        'cart_item[item_type]': itemType
+        'cart_item[item_code]': itemCode
+        'cart_item[quantity]': quantity
+    .done (data, textStatus, xhr) =>
+      flash.success('好！')
+      @reset()
+    .fail (data, textStatus, xhr) =>
+      flash.success('不好！')
+      # TODO: reload the page if 4xx error
+
+  reset: ->
+    @setState
+      quantity: 1
+      purchaseMethod: null
+      courseUCode: null
+      groupCode: null
+
   render: ->
     book = @props.book
     submitButtonClass = classNames(disabled: !@canSubmit())
@@ -97,7 +128,12 @@ AddBookToCart = React.createClass
         <span style={{ 'font-size': '20px' }}>數量：</span>
         <input style={{ 'width': '60px', 'font-size': '20px' }} type="number" value={this.state.quantity} onChange={this.handleQuantityChange} />
         &nbsp;&nbsp;&nbsp;
-        <button className={'btn-highlight btn--large ' + submitButtonClass} id="add-to-cart">放入購物書包</button>
+        <button
+          onClick={this.submit}
+          className={'btn-highlight btn--large ' + submitButtonClass}
+          id="add-to-cart">
+          放入購物書包
+        </button>
       </div>
     </div>`
 
