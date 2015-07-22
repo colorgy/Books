@@ -23,6 +23,10 @@ class PagesController < ApplicationController
 
   end
 
+  def not_open_for_orders
+
+  end
+
   def sorry_but_forbidden
     redirect_to root_path if current_user
   end

@@ -64,6 +64,7 @@ Rails.application.routes.draw do
   resources :books
 
   resources :cart_items
+  resources :orders
 
   resources :bills
 
@@ -82,6 +83,8 @@ Rails.application.routes.draw do
   get '/tasks/payment_code_check' => 'tasks#payment_code_check'
 
   get '/sorry_but_forbidden' => 'pages#sorry_but_forbidden'
+
+  get '/not_open_for_orders' => 'pages#not_open_for_orders'
 
   require 'sidekiq/web'
   authenticate :user, ->(u) { u.present? } do

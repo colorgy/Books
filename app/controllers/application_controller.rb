@@ -21,4 +21,9 @@ class ApplicationController < ActionController::Base
       'public'
     end
   end
+
+  def check_if_open_for_orders!
+    return if Settings.open_for_orders
+    redirect_to not_open_for_orders_path and return
+  end
 end

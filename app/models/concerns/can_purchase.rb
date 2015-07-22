@@ -51,7 +51,7 @@ module CanPurchase
   def check_cart!
     ActiveRecord::Base.transaction do
       # for each item in the cart
-      cart_items.find_each do |item|
+      cart_items.includes_default.find_each do |item|
         case item.item_type
         when 'group'
           group = Group.find_by(code: item.item_code)

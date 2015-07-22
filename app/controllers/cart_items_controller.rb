@@ -1,26 +1,13 @@
 class CartItemsController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, :check_if_open_for_orders!
 
   def index
     current_user.check_cart!
-    @cart_items = current_user.cart_items.includes(:book, :course)
-    @group_codes = []
-    @group_datas = {}
-
-    @cart_items.each do |item|
-      group_code = BatchCodeService.generate_group_code(item.course.organization_code, item.course_id, item.book_id)
-      @group_codes << group_code
-      @group_datas[group_code] = { book_id: item.book_id, course_id: item.course_id, course_name: item.course_name, course_lecturer_name: item.course_lecturer_name }
-    end
-
-    @existing_groups = Group.where(code: @group_codes)
-    @existing_group_codes = @existing_groups.map(&:code)
-
-    @new_group_datas = @group_datas.delete_if { |k, v| @existing_group_codes.include?(k) }
+    @cart_items_data = cart_items_data
 
     respond_to do |format|
       format.html
-      format.json { render json: @cart_items }
+      format.json { render json: cart_items_data }
     end
   end
 
@@ -32,21 +19,36 @@ class CartItemsController < ApplicationController
         flash[:notice] = "已經將 #{@cart_item.book_name} 加入購物書包～"
         redirect_to :back
       end
-      format.json { render json: @cart_item }
+      format.json { render json: cart_items_data }
+    end
+  end
+
+  def update
+    @cart_item = current_user.cart_items.find(params[:id])
+    updated = @cart_item.update(cart_item_params)
+    current_user.check_cart!
+
+    respond_to do |format|
+      if updated
+        format.html { redirect_to @cart_item, notice: 'cart_item was successfully updated.' }
+        format.json { render json: cart_items_data }
+      else
+        format.html { render :edit }
+        format.json { render json: cart_items_data }
+      end
     end
   end
 
   def destroy
-    current_user.check_cart!
-
     @cart_item = current_user.cart_items.find(params[:id]).destroy!
+    current_user.check_cart!
 
     respond_to do |format|
       format.html do
         flash[:notice] = "已經將 #{@cart_item.book_name} 移出購物書包～"
         redirect_to :back
       end
-      format.json { render json: @cart_item }
+      format.json { render json: cart_items_data }
     end
   end
 
@@ -54,5 +56,9 @@ class CartItemsController < ApplicationController
 
   def cart_item_params
     @cart_item_params ||= params.require(:cart_item).permit(:quantity, :item_type, :item_code, :course_ucode)
+  end
+
+  def cart_items_data
+    @cart_items_data ||= ActiveModel::ArraySerializer.new(current_user.cart_items.includes_default, each_serializer: CartItemSerializer).as_json
   end
 end
