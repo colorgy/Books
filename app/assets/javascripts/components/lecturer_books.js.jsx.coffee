@@ -275,7 +275,7 @@ LecturerBooks = React.createClass
             <div className="thumbnail" style={{ 'maxWidth': '180px', 'margin': 'auto' }}>
               <img src={bookData.image_url} />
             </div>
-            <p className="h4">{bookData.name}<small>，作者：</small>{bookData.author}<small>，出版社：</small>{bookData.publisher}</p>
+            <p className="h4"><span className="nowrap">{bookData.name}<small>，</small></span><span className="nowrap"><small>作者：</small>{bookData.author}<small>，</small></span><span className="nowrap"><small>出版社：</small>{bookData.publisher}</span></p>
             <p className="h4"><small>ISBN：</small>{bookData.isbn}</p>
             <p>&nbsp;</p>
           </div>`
@@ -298,7 +298,7 @@ LecturerBooks = React.createClass
             <div className="thumbnail" style={{ 'max-width': '180px', 'margin': 'auto' }}>
               <img src={bookData.image_url} />
             </div>
-            <p className="h3">{bookData.name}<small>，作者：</small>{bookData.author}<small>，出版社：</small>{bookData.publisher}</p>
+            <p className="h4"><span className="nowrap">{bookData.name}<small>，</small></span><span className="nowrap"><small>作者：</small>{bookData.author}<small>，</small></span><span className="nowrap"><small>出版社：</small>{bookData.publisher}</span></p>
             <p className="h4"><small>ISBN：</small>{bookData.isbn}</p>
             <p>&nbsp;</p>
           </div>`
@@ -354,7 +354,7 @@ LecturerBooks = React.createClass
               <div className="pull-right">
                 <a className="h1" style={{ opacity: '.5', color: 'white' }}>　　　</a>
               </div>
-              <h1>{this.state.orgCode} {this.state.lecturerName} 老師</h1>
+              <h1><span className="nowrap">{this.state.orgCode}</span> <span className="nowrap">{this.state.lecturerName}</span> 老師</h1>
               <h2>這學期總共有 {coursesNavItems.length} 門課</h2>
               <div className="row">
                 <div className="col-md-3 hidden-sm hidden-xs">
@@ -365,7 +365,7 @@ LecturerBooks = React.createClass
                 <div className="col-md-9">
                   <div key={this.state.currentCourseUcode} className="card bg-white">
                     <h2>{currentCourse && currentCourse.name}</h2>
-                    <h3>{currentCourse && currentCourse.code}</h3>
+                    <h3><small>{currentCourse && currentCourse.code}</small></h3>
                     {selectArea}
                     {actions}
                   </div>

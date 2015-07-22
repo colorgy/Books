@@ -48,7 +48,7 @@ GIT
 
 GIT
   remote: git://github.com/colorgy/Style.git
-  revision: 8ab16661f615eaeba1d34513f067c068107e404a
+  revision: 58aecccbcff7e80e82a440eb29b3f0eb632e4338
   specs:
     colorgy_style (0.0.0.4)
       bootstrap-sass (~> 3.3.4.1)
@@ -111,7 +111,7 @@ GEM
     arbre (1.0.3)
       activesupport (>= 3.0.0)
     arel (6.0.0)
-    autoprefixer-rails (5.2.1)
+    autoprefixer-rails (5.2.1.1)
       execjs
       json
     awesome_print (1.6.1)
@@ -449,7 +449,7 @@ GEM
       rmmseg-cpp (~> 0.2)
     rubyzip (1.1.7)
     safe_yaml (1.0.4)
-    sass (3.4.15)
+    sass (3.4.16)
     sass-globbing (1.1.1)
       sass (>= 3.1)
     sass-rails (5.0.1)
