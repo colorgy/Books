@@ -234,10 +234,10 @@ LecturerBooks = React.createClass
     else if @state.step == 3 && @state.orgCode && @state.lecturerName
       coursesNavItems = []
       for key, course of @state.courses
-        image = `<div className="steps-step-icon"><img src="https://placeholdit.imgix.net/~text?txtsize=300&txt=?&w=400&h=500" /></div>`
+        image = `<div className="steps-step-icon"><ImgPrevError src="https://placeholdit.imgix.net/~text?txtsize=300&txt=?&w=400&h=500" /></div>`
         if course.course_book?[0]?.book_data?.image_url
-          url = course.course_book?[0]?.book_data?.image_url
-          image = `<div className="steps-step-icon"><img src={url} /></div>`
+          url = course.course_book[0].book_data.image_url
+          image = `<div className="steps-step-icon"><ImgPrevError src={url} name={course.course_book[0].book_data.name} /></div>`
         bookName = `<i>用書未知</i>`
         if course.course_book?[0]?.book_data?.name
           bookName = "使用：#{course.course_book[0].book_data.name}"
@@ -273,7 +273,7 @@ LecturerBooks = React.createClass
           selectArea = `<div>
             <p>這學期用的書還是這本嗎？</p>
             <div className="thumbnail" style={{ 'maxWidth': '180px', 'margin': 'auto' }}>
-              <img src={bookData.image_url} />
+              <ImgPrevError src={bookData.image_url} name={bookData.name} />
             </div>
             <p className="h4"><span className="nowrap">{bookData.name}<small>，</small></span><span className="nowrap"><small>作者：</small>{bookData.author}<small>，</small></span><span className="nowrap"><small>出版社：</small>{bookData.publisher}</span></p>
             <p className="h4"><small>ISBN：</small>{bookData.isbn}</p>
@@ -296,7 +296,7 @@ LecturerBooks = React.createClass
           selectArea = `<div>
             <p>這門課用的書是這本嗎？</p>
             <div className="thumbnail" style={{ 'max-width': '180px', 'margin': 'auto' }}>
-              <img src={bookData.image_url} />
+              <ImgPrevError src={bookData.image_url} name={bookData.name} />
             </div>
             <p className="h4"><span className="nowrap">{bookData.name}<small>，</small></span><span className="nowrap"><small>作者：</small>{bookData.author}<small>，</small></span><span className="nowrap"><small>出版社：</small>{bookData.publisher}</span></p>
             <p className="h4"><small>ISBN：</small>{bookData.isbn}</p>
