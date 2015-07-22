@@ -2,7 +2,7 @@ class LecturerBooks::BookDataSelectionsController < ApplicationController
   before_filter :check_params
 
   def index
-    @book_data = BookData.search(params[:q])
+    @book_data = BookData.simple_search(params[:q])
     @selections = @book_data.map { |data| { value: data.isbn, label: <<-EOS
         <img src="#{data.image_url}" />
         <span class="info">
