@@ -18,17 +18,19 @@ module CanPurchase
   # +item_code+::
   #   +String+ the group code for following a group, or a id of the book to
   #   purchase directly.
-  def add_to_cart(item_type, item_code, quantity: 1)
+  def add_to_cart(item_type, item_code, quantity: 1, course_ucode: nil)
+    quantity = quantity.to_i
     existed_item = cart_items.find_by(item_type: item_type, item_code: item_code)
     if existed_item.present?
       existed_item.quantity += quantity
+      existed_item.course_ucode = course_ucode if course_ucode.present?
       existed_item.save!
     else
       case item_type.to_sym
       when :group
         cart_items.create!(item_type: item_type, item_code: item_code, quantity: quantity)
       when :package
-        cart_items.create!(item_type: item_type, item_code: item_code, quantity: quantity)
+        cart_items.create!(item_type: item_type, item_code: item_code, quantity: quantity, course_ucode: course_ucode)
       else
         raise 'invalid item_type'
       end

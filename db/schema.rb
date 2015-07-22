@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150712080225) do
+ActiveRecord::Schema.define(version: 20150722014723) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -163,15 +163,16 @@ ActiveRecord::Schema.define(version: 20150712080225) do
   add_index "groups", ["supplier_code"], name: "index_groups_on_supplier_code", using: :btree
 
   create_table "orders", force: :cascade do |t|
-    t.integer  "user_id",    null: false
-    t.string   "group_code", null: false
-    t.integer  "book_id",    null: false
+    t.integer  "user_id",      null: false
+    t.string   "group_code",   null: false
+    t.integer  "book_id",      null: false
     t.integer  "price"
-    t.string   "state",      null: false
+    t.string   "state",        null: false
     t.datetime "deleted_at"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "bill_uuid"
+    t.string   "course_ucode"
   end
 
   add_index "orders", ["bill_uuid"], name: "index_orders_on_bill_uuid", using: :btree
@@ -267,12 +268,13 @@ ActiveRecord::Schema.define(version: 20150712080225) do
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "quantity",   default: 1, null: false
+    t.integer  "quantity",     default: 1, null: false
     t.string   "item_type"
     t.string   "item_code"
     t.string   "item_name"
     t.string   "item_link"
     t.integer  "item_price"
+    t.string   "course_ucode"
   end
 
   add_index "user_cart_items", ["user_id"], name: "index_user_cart_items_on_user_id", using: :btree

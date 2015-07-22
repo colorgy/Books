@@ -25,7 +25,7 @@ class CartItemsController < ApplicationController
   end
 
   def create
-    @cart_item = current_user.add_to_cart(cart_item_params[:item_type], cart_item_params[:item_code], quantity: cart_item_params[:quantity])
+    @cart_item = current_user.add_to_cart(cart_item_params[:item_type], cart_item_params[:item_code], quantity: cart_item_params[:quantity], course_ucode: cart_item_params[:course_ucode])
 
     respond_to do |format|
       format.html do
@@ -53,6 +53,6 @@ class CartItemsController < ApplicationController
   private
 
   def cart_item_params
-    @cart_item_params ||= params.require(:cart_item).permit(:quantity, :item_type, :item_code)
+    @cart_item_params ||= params.require(:cart_item).permit(:quantity, :item_type, :item_code, :course_ucode)
   end
 end

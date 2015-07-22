@@ -6,6 +6,7 @@ AddBookToCart = React.createClass
   getDefaultProps: ->
     book: null
     bookGroups: []
+    bookCourses: []
     bookCoursesWithNoGroup: []
 
   getInitialState: ->
@@ -39,6 +40,7 @@ AddBookToCart = React.createClass
     return unless @canSubmit()
     itemType = @state.purchaseMethod
     quantity = @state.quantity
+    courseUCode = @state.courseUCode
     switch itemType
       when 'package'
         itemCode = @props.book.id
@@ -52,12 +54,16 @@ AddBookToCart = React.createClass
         'cart_item[item_type]': itemType
         'cart_item[item_code]': itemCode
         'cart_item[quantity]': quantity
+        'cart_item[course_ucode]': courseUCode
     .done (data, textStatus, xhr) =>
       flash.success('好！')
       @reset()
     .fail (data, textStatus, xhr) =>
       flash.success('不好！')
       # TODO: reload the page if 4xx error
+
+  handleCourseChange: (courseUCode) ->
+    @setState courseUCode: courseUCode
 
   reset: ->
     @setState
@@ -72,6 +78,13 @@ AddBookToCart = React.createClass
     packageSelections = ['true'].map (p, i) =>
       onChange = @handleSelectionChange.bind(this, 'package', null)
       checked = (@state.purchaseMethod == 'package')
+      options = ''
+      if checked
+        bookCourses = @props.bookCourses
+        handleCourseChange = @handleCourseChange
+        courseUCode = @state.courseUCode
+        options = `<AddToCartCourseSelect defaultCourses={bookCourses} onChange={handleCourseChange} value={courseUCode} />`
+
       `<p>
         <input id="checkbox-package-buy"
                type="radio"
@@ -81,6 +94,7 @@ AddBookToCart = React.createClass
         <label htmlFor="checkbox-package-buy">
           直接購買 (單包購買未滿 2 本須負擔 NT$ 100 運費)
         </label>
+        {options}
       </p>`
 
     groupSelections = @props.bookGroups.map (group, i) =>
@@ -136,5 +150,94 @@ AddBookToCart = React.createClass
         </button>
       </div>
     </div>`
+
+AddToCartCourseSelect = React.createClass
+
+  getDefaultProps: ->
+    value: null
+    defaultCourses: []
+    onChange: (payload) ->
+      console.log payload
+
+  getInitialState: ->
+    courseUCode: null
+
+  getData: (input, callback) ->
+    if !input || !input.length
+      options = @props.defaultCourses.map (course) ->
+        value: course.ucode
+        label: `<div className="complex-selection">
+            <div className="complex-selection-info">
+              <span className="complex-selection-label">
+                授課教師
+              </span>
+              <span className="complex-selection-name">
+                {course.lecturer_name}
+              </span>
+            </div>
+            <div className="complex-selection-info">
+              <span className="complex-selection-label">
+                課程名稱
+              </span>
+              <span className="complex-selection-name">
+                {course.name}
+              </span>
+            </div>
+          </div>`
+      callback null, options: options
+    else
+      $.ajax
+        method: 'GET'
+        url: "/courses.json"
+        dataType: 'json'
+        data:
+          q: input
+      .done (data, textStatus, xhr) =>
+        options = data.map (course) ->
+          value: course.ucode
+          label: `<div className="complex-selection">
+              <div className="complex-selection-info">
+                <span className="complex-selection-label">
+                  授課教師
+                </span>
+                <span className="complex-selection-name">
+                  {course.lecturer_name}
+                </span>
+              </div>
+              <div className="complex-selection-info">
+                <span className="complex-selection-label">
+                  課程名稱
+                </span>
+                <span className="complex-selection-name">
+                  {course.name}
+                </span>
+              </div>
+            </div>`
+        callback null, options: options
+      .fail (data, textStatus, xhr) =>
+        callback 'error', options: []
+
+  filterOption: ->
+    true
+
+  componentDidMount: ->
+    @refs.select.autoloadAsyncOptions()
+    setTimeout( =>
+      @refs.select.autoloadAsyncOptions()
+    , 50)
+
+  render: ->
+    value = @props.value?.toString()
+
+    `<div>
+      <Select className="with-complex-selection" ref="select"
+        asyncOptions={this.getData}
+        value={value}
+        placeholder="您是為哪門課買書呢？"
+        filterOption={this.filterOption}
+        onChange={this.props.onChange}
+      />
+    </div>`
+
 
 window.AddBookToCart = AddBookToCart

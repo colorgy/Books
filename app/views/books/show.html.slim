@@ -39,7 +39,7 @@
                 span.book-orginal-price
                   del 定價：NT$ #{@book.original_price}
     .col.m12.s12
-      = react_component 'AddBookToCart', book: @book, bookGroups: @book_groups, bookCoursesWithNoGroup: @book_courses_with_no_group
+      = react_component 'AddBookToCart', book: @book, bookGroups: @book_groups, bookCourses: @book_courses, bookCoursesWithNoGroup: @book_courses_with_no_group
         .social-comments
           .fb-comments data-colorscheme="light" data-href="#{ENV['APP_URL']}/#{book_path(@book)}" data-numposts="5"
 

@@ -9,6 +9,8 @@
             a href=cart_items_path
               i.material-icons.list-icon shopping_cart
               | 前往結帳
+              - if current_user
+                | (#{current_user.cart_items_count})
           - if current_user
             li.nav-bar-drop-down
               a href=""
