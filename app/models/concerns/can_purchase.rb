@@ -4,6 +4,7 @@ module CanPurchase
   included do
     has_many :cart_items, class_name: :UserCartItem
     has_many :orders
+    has_many :packages
     has_many :bills
   end
 
@@ -54,7 +55,7 @@ module CanPurchase
       cart_items.includes_default.find_each do |item|
         case item.item_type
         when 'group'
-          group = Group.find_by(code: item.item_code)
+          group = item.group
           # remove groups that is not grouping
           if group.blank? || group.state != 'grouping'
             item.destroy
@@ -103,14 +104,18 @@ module CanPurchase
   end
 
   # Pre-checkout, returns the unsaved orders and bill that should be created
-  def checkout(bill_attrs = {})
+  def checkout(bill_attrs = {}, package_attrs: {})
     check_cart!
     return { orders: [], bill: nil } unless Settings.open_for_orders
     return { orders: [], bill: nil } if cart_items.blank?
+
+    # start to build the orders and the bill
     orders = []
     total_price = 0
     bill = self.bills.build(bill_attrs)
+    package = nil
 
+    # proceed each cart item
     cart_items.each do |item|
       case item.item_type
       when 'group'
@@ -121,14 +126,33 @@ module CanPurchase
           order = self.orders.build(
             bill: bill,
             book_id: group.book_id,
+            course_ucode: group.course_ucode,
             group: group)
           total_price += order.price
+          orders << order
+        end
+      when 'package'
+        package ||= self.packages.build(package_attrs)
+        package.price ||= 0
+
+        (item.quantity || 1).times do
+          order = self.orders.build(
+            bill: bill,
+            book_id: item.item_code,
+            course_ucode: item.course_ucode,
+            package: package)
+          package.price += order.price
+          package.orders_count += 1
           orders << order
         end
       end
     end
 
+    package.calculate_amount if package.present?
+
     bill.price = total_price
+
+    bill.price += package.amount if package.present?
 
     if credits > 0 && bill.amount > 100
       use_credits = (credits < (bill.amount - 100)) ? credits : (bill.amount - 100)
@@ -139,15 +163,22 @@ module CanPurchase
 
     reload
 
-    { orders: orders, bill: bill }
+    data = { orders: orders, bill: bill }
+
+    if package.present?
+      data[:package] = package
+    end
+
+    data
   end
 
   # Checkout, clears the cart, and return the created orders and bill
-  def checkout!(bill_attrs = {})
-    checkouts = checkout(bill_attrs)
+  def checkout!(bill_attrs = {}, package_attrs: {})
+    checkouts = checkout(bill_attrs, package_attrs: package_attrs)
     return checkouts if checkouts[:bill].blank?
     transaction do
       checkouts[:bill].save!
+      checkouts[:package].save! if checkouts[:package]
       checkouts[:orders].each(&:save!)
       clear_cart!
     end

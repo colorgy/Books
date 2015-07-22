@@ -1,0 +1,68 @@
+.container-fluid
+  = form_tag(orders_path, method: 'POST')
+    = hidden_field_tag :confirmed, true
+    - params.each do |key, value|
+      - if value.is_a?(Hash)
+        - value.each do |k, v|
+          = hidden_field_tag "#{key}[#{k}]", v
+      - else
+        = hidden_field_tag key, value
+
+    .row
+      .content-strip.primary
+        .content-strip-inner
+          h4.strip-title 確認訂單！
+          p.strip-description 在送出訂單之前仔細確認過吧！
+    .row.row-inner
+      .order-confirm-table
+        p ＃如果沒問題就按 "送出訂單" 吧！
+        table.responsive-table
+          thead
+            tr
+              th 書名
+              th 作者
+              th 版次
+              th 老師 / 課名
+              th 價格
+              th 數量
+              th 小計
+          tbody
+            - @cart_items.each do |item|
+              tr
+                td= item.book.name
+                td= item.book.author
+                td
+                td= "#{item.course.lecturer_name} / #{item.course.name}"
+                td= "NT$ #{item.item_price}"
+                td= item.quantity
+                td= "NT$ #{item.item_price * item.quantity}"
+    .row.row-inner
+      .col.m4.s12
+        .order-options-confirm
+          .content
+            p= BillService.bill_type_label(@data[:bill].type)
+            - if @data[:bill].processing_fee > 0
+              p 金流手續費：+ NT$ #{@data[:bill].processing_fee}
+            p= BillService.invoice_type_label(@data[:bill].invoice_type)
+      .col.m4.s12
+        .order-options-confirm
+          .content
+            - if @data[:package]
+              p 收件人姓名：#{@data[:package].recipient_name}
+              p 收件地址：#{@data[:package].pickup_address}
+              p 希望送達時間：#{@data[:package].pickup_datetime}
+              p 收件人手機：#{@data[:package].recipient_mobile}
+              - if @data[:package].shipping_fee > 0
+                p 運費：+ NT$ #{@data[:package].shipping_fee}
+              - else
+                p 免額外運費
+
+      .col.m4.s12
+        .order-options-confirm
+          .content
+            p 總計： NT$ #{@data[:bill].amount}
+            p 繳費期限：#{@data[:bill].deadline}
+      .col.m12.s12
+        .order-confirm-submit
+          a.btn-second.btn--large href=cart_items_path 上一步
+          button.btn-highlight.btn--large type="submit" 送出訂單

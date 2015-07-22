@@ -74,13 +74,11 @@ class Bill < ActiveRecord::Base
   # Calaulate and update the total amount (addes the payment fees,
   # minus credits used) to pay
   def calculate_amount
-    self.amount = price
-    self.amount -= used_credits if used_credits.present?
     if type == 'payment_code'
-      self.amount = price + 35
-    else
-      self.amount = price
+      self.processing_fee = 35
     end
+
+    self.amount = price + processing_fee - used_credits
   end
 
   # Get the payment information from 3rd services to make this bill payable

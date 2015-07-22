@@ -6,7 +6,8 @@ FactoryGirl.define do
 
     initialize_with do
       user.add_to_cart(:group, group.code, quantity: quantity)
-      checkouts = user.checkout!(type: :test, invoice_type: :digital)
+      bill_attrs = { type: :test, invoice_type: :digital }
+      checkouts = user.checkout!(bill_attrs, package_attrs: nil)
       if quantity == 1
         checkouts[:orders].first
       else

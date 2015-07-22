@@ -12,6 +12,7 @@ class Order < ActiveRecord::Base
   belongs_to :book, -> { with_deleted }
   belongs_to :bill, -> { with_deleted }, primary_key: :uuid, foreign_key: :bill_uuid
   belongs_to :group, primary_key: :code, foreign_key: :group_code
+  belongs_to :package
 
   delegate :name, :author, :isbn, :edition, :image_url,
            :publisher, :original_price, :price,
@@ -103,7 +104,7 @@ class Order < ActiveRecord::Base
   end
 
   def count_group_orders
-    group.count_orders!
+    group.count_orders! if group.present?
   end
 
   # def save_with_bill!(bill)

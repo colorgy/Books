@@ -5,6 +5,7 @@ CartItemsCashier = React.createClass
 
   getDefaultProps: ->
     cartItems: []
+    billTypeSelections: []
 
   getInitialState: ->
     cartItems: @props.cartItems
@@ -32,7 +33,8 @@ CartItemsCashier = React.createClass
   canSubmit: ->
     if @packageBookCount > 0
       return false unless @state.packageRecipientName &&
-                          @state.packageRecipientAddress &&
+                          @state.packagePickupAddress &&
+                          @state.packagePickupDatetime &&
                           @state.packageRecipientMobile
     return true
 
@@ -96,8 +98,15 @@ CartItemsCashier = React.createClass
                   <label className="string control-label" htmlFor="group_recipient_name">收件地址</label>
                   <input className="string form-control"
                     type="text"
-                    valueLink={this.linkState('packageRecipientAddress')}
-                    name="package[recipient_address]" />
+                    valueLink={this.linkState('packagePickupAddress')}
+                    name="package[pickup_address]" />
+                </div>
+                <div className="form-group">
+                  <label className="string control-label" htmlFor="group_recipient_name">收件日期</label>
+                  <input className="string form-control"
+                    type="text"
+                    valueLink={this.linkState('packagePickupDatetime')}
+                    name="package[pickup_datetime]" />
                 </div>
                 <div className="form-group">
                   <label className="string control-label" htmlFor="group_recipient_name">收件人手機</label>
@@ -111,6 +120,12 @@ CartItemsCashier = React.createClass
           </div>
         </div>
       </div>`
+
+    billTypeSelections = @props.billTypeSelections.map (selection, i) =>
+      `<p key={'bill-selection-' + selection[1]}>
+        <input name="bill[type]" type="radio" id={'payment-convience-' + selection[1]} defaultChecked={i == 0} value={selection[1]} />
+        <label htmlFor={'payment-convience-' + selection[1]}>{selection[0]}</label>
+      </p>`
 
     `<div>
       <div className="row row-inner">
@@ -152,44 +167,33 @@ CartItemsCashier = React.createClass
               </div>
               <div className="checkout-options-field-body">
                 <div className="payment-options">
-                    <p>
-                      <input name="bill[type]" type="radio" id="payment-convience-store" defaultChecked="checked" />
-                      <label htmlFor="payment-convience-store">超商付款</label>
-                    </p>
-                    <p>
-                      <input name="bill[type]" type="radio" id="payment-credit-card" />
-                      <label htmlFor="payment-credit-card">線上刷卡</label>
-                    </p>
-                    <p>
-                      <input name="bill[type]" type="radio" id="payment-atm" />
-                      <label htmlFor="payment-atm">ATM匯款</label>
-                    </p>
+                  {billTypeSelections}
                 </div>
                 <div className="reciept-options">
                     <p>
-                      <input name="bill[invoice_type]" type="radio" id="reciept-e-reciept" defaultChecked="checked" />
+                      <input name="bill[invoice_type]" value="digital" type="radio" id="reciept-e-reciept" defaultChecked="checked" />
                       <label htmlFor="reciept-e-reciept">電子發票</label>
                     </p>
                     <a className="slide-field-trigger" href="#reciept-more">更多..</a>
                     <div className="slide-field" id="reciept-more">
                       <p>
-                        <input name="bill[invoice_type]" type="radio" id="reciept-mobile-phone" />
+                        <input name="bill[invoice_type]" value="code" type="radio" id="reciept-mobile-phone" />
                         <label htmlFor="reciept-mobile-phone">手機條碼</label>
                       </p>
                       <p>
-                        <input name="bill[invoice_type]" type="radio" id="reciept-nature-human" />
+                        <input name="bill[invoice_type]" value="cert" type="radio" id="reciept-nature-human" />
                         <label htmlFor="reciept-nature-human">自然憑證</label>
                       </p>
                       <p>
-                        <input name="bill[invoice_type]" type="radio" id="reciept-vat" />
+                        <input name="bill[invoice_type]" value="uni_num" type="radio" id="reciept-vat" />
                         <label htmlFor="reciept-vat">統一編號</label>
                       </p>
                       <p>
-                        <input name="bill[invoice_type]" type="radio" id="reciept-love" />
+                        <input name="bill[invoice_type]" value="love_code" type="radio" id="reciept-love" />
                         <label htmlFor="reciept-love">愛心號碼</label>
                       </p>
                       <p>
-                        <input name="bill[invoice_type]" type="radio" id="reciept-paper" />
+                        <input name="bill[invoice_type]" value="paper" type="radio" id="reciept-paper" />
                         <label htmlFor="reciept-paper">紙本發票</label>
                       </p>
                     </div>

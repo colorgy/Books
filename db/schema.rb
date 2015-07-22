@@ -11,29 +11,30 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150722014723) do
+ActiveRecord::Schema.define(version: 20150722192938) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "bills", force: :cascade do |t|
-    t.string   "uuid",                                         null: false
-    t.integer  "user_id",                                      null: false
-    t.string   "type",                                         null: false
-    t.integer  "price",                                        null: false
-    t.integer  "amount",                                       null: false
+    t.string   "uuid",                                           null: false
+    t.integer  "user_id",                                        null: false
+    t.string   "type",                                           null: false
+    t.integer  "price",                                          null: false
+    t.integer  "amount",                                         null: false
     t.integer  "invoice_id"
-    t.string   "invoice_type",                                 null: false
+    t.string   "invoice_type",                                   null: false
     t.text     "invoice_data"
     t.text     "data"
-    t.string   "state",                                        null: false
+    t.string   "state",                                          null: false
     t.datetime "deleted_at"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "payment_code"
     t.datetime "paid_at"
-    t.integer  "used_credits"
-    t.datetime "deadline",     default: '2015-06-24 03:43:41', null: false
+    t.integer  "used_credits",   default: 0,                     null: false
+    t.datetime "deadline",       default: '2015-07-22 15:53:09', null: false
+    t.integer  "processing_fee", default: 0,                     null: false
   end
 
   add_index "bills", ["deadline"], name: "index_bills_on_deadline", using: :btree
@@ -164,7 +165,7 @@ ActiveRecord::Schema.define(version: 20150722014723) do
 
   create_table "orders", force: :cascade do |t|
     t.integer  "user_id",      null: false
-    t.string   "group_code",   null: false
+    t.string   "group_code"
     t.integer  "book_id",      null: false
     t.integer  "price"
     t.string   "state",        null: false
@@ -173,14 +174,36 @@ ActiveRecord::Schema.define(version: 20150722014723) do
     t.datetime "updated_at"
     t.string   "bill_uuid"
     t.string   "course_ucode"
+    t.integer  "package_id"
   end
 
   add_index "orders", ["bill_uuid"], name: "index_orders_on_bill_uuid", using: :btree
   add_index "orders", ["book_id"], name: "index_orders_on_book_id", using: :btree
   add_index "orders", ["deleted_at"], name: "index_orders_on_deleted_at", using: :btree
   add_index "orders", ["group_code"], name: "index_orders_on_group_code", using: :btree
+  add_index "orders", ["package_id"], name: "index_orders_on_package_id", using: :btree
   add_index "orders", ["state"], name: "index_orders_on_state", using: :btree
   add_index "orders", ["user_id"], name: "index_orders_on_user_id", using: :btree
+
+  create_table "packages", force: :cascade do |t|
+    t.integer  "user_id",                      null: false
+    t.string   "recipient_name",               null: false
+    t.string   "pickup_address",               null: false
+    t.string   "recipient_mobile",             null: false
+    t.datetime "pickup_datetime",              null: false
+    t.integer  "orders_count",     default: 0, null: false
+    t.string   "state",                        null: false
+    t.integer  "price",                        null: false
+    t.integer  "amount",                       null: false
+    t.integer  "shipping_fee",     default: 0, null: false
+    t.datetime "shipped_at"
+    t.datetime "received_at"
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+  end
+
+  add_index "packages", ["state"], name: "index_packages_on_state", using: :btree
+  add_index "packages", ["user_id"], name: "index_packages_on_user_id", using: :btree
 
   create_table "pickup_selections_dates", force: :cascade do |t|
     t.string   "organization_code"
