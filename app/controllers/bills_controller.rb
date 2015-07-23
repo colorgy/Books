@@ -8,6 +8,8 @@ class BillsController < ApplicationController
   def show
     @bill = current_user.bills.find(params[:id])
     @orders = @bill.orders
+
+    @bill.pay! if params[:pay] == 'true' && @bill.type == 'test_clickpay' && @bill.may_pay?
   end
 
   def create

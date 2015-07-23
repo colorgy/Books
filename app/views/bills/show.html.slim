@@ -1,0 +1,44 @@
+.container-fluid
+  .row
+    .content-strip.primary
+      .content-strip-inner
+        h4.strip-title 完成訂購！
+        p.strip-description 您已完成訂購程序！請在繳款期限內繳費完畢，剩下就只要等書來就可以囉！ :D
+  .row.row-inner
+    .order-complete
+      .payment
+        .under-line-title 付款資訊
+        - case @bill.type
+          - when 'payment_code'
+          - when 'credit_card'
+          - when 'virtual_account'
+          - when 'test_clickpay'
+            .col.m6.s12
+              .payment-info
+                .inner
+                  p
+                    | 點擊
+                    a href="?pay=true" 這裏
+                    | 來讓系統為你付帳。
+                  - if @bill.paid?
+                    p 已付款！
+                  .payment-notice
+                    i.material-icons warning
+                    p 這是測試演示模式的付款方式，不應該在正式網站中出現！
+          - when 'test_autopay'
+            .col.m6.s12
+              .payment-info
+                .inner
+                  p 本帳單會在建立後最多十分鐘之內被系統自動付掉。
+                  - if @bill.paid?
+                    p 已付款！
+                  .payment-notice
+                    i.material-icons warning
+                    p 這是測試演示模式的付款方式，不應該在正式網站中出現！
+        .col.m6.s12
+          .payment-countdown
+        div style="clear:both;"
+      .order-info
+        .under-line-title 訂單明細
+        .order-confirm-table
+          = render "partials/orders_table"

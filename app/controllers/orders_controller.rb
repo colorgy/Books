@@ -9,9 +9,12 @@ class OrdersController < ApplicationController
     if params[:confirmed]
       # really checkout
       @data = current_user.checkout!(bill_params, package_attrs: package_params)
+      redirect_to @data[:bill] if @data[:bill].id.present?
     else
       # let the user to confirm their order
       @data = current_user.checkout(bill_params, package_attrs: package_params)
+      @bill = @data[:bill]
+      @orders = @data[:orders]
     end
   end
 

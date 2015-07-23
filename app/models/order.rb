@@ -8,7 +8,7 @@ class Order < ActiveRecord::Base
   scope :unpaid, ->  { where(state: [:new, :payment_pending, :expired, :cancelled]) }
 
   belongs_to :user
-  belongs_to :course, -> { with_deleted }
+  belongs_to :course, primary_key: :ucode, foreign_key: :course_ucode
   belongs_to :book, -> { with_deleted }
   belongs_to :bill, -> { with_deleted }, primary_key: :uuid, foreign_key: :bill_uuid
   belongs_to :group, primary_key: :code, foreign_key: :group_code
