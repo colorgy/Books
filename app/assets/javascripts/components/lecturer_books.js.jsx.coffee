@@ -2,6 +2,9 @@ ReactCSSTransitionGroup = React.addons.CSSTransitionGroup
 
 LecturerBooks = React.createClass
 
+  getDefaultProps: ->
+    code: null
+
   getInitialState: ->
     step: 1
     prevStep: 1
@@ -104,12 +107,15 @@ LecturerBooks = React.createClass
         lecturer: currentLecturerName
         'course[course_book_attributes][0][id]': currentCourse.course_book?[0]?.id
         'course[course_book_attributes][0][book_isbn]': isbn
+        'course[course_book_attributes][0][updater_code]': @props.code
     else
       postData =
+        code: @props.code
         org: currentOrgCode
         lecturer: currentLecturerName
         'course[course_book_attributes][0][id]': currentCourse.course_book?[0]?.id
         'course[course_book_attributes][0][book_isbn]': ' '
+        'course[course_book_attributes][0][updater_code]': @props.code
     $.ajax
       method: 'PUT'
       url: "/lecturer-books/courses/#{currentCourse.ucode}"
@@ -267,8 +273,23 @@ LecturerBooks = React.createClass
       selectArea = ''
 
       if !@state.bookSelectActive
+        # show locked dialog if ...
+        if currentCourse?.book_locked
+          bookData = currentCourse?.course_book[0]?.book_data || {}
+          selectArea = `<div>
+            <p>本課的用書已確認並鎖定，如有問題歡迎與我們聯繫。</p>
+            <div className="thumbnail" style={{ 'max-width': '180px', 'margin': 'auto' }}>
+              <ImgPrevError src={bookData.image_url} name={bookData.name} />
+            </div>
+            <p className="h4"><span className="nowrap">{bookData.name}<small>，</small></span><span className="nowrap"><small>作者：</small>{bookData.author}<small>，</small></span><span className="nowrap"><small>出版社：</small>{bookData.publisher}</span></p>
+            <p className="h4"><small>ISBN：</small>{bookData.isbn}</p>
+            <p>&nbsp;</p>
+          </div>`
+          actions = `<div>
+            <a className="btn btn--primary btn--raised btn--success" onClick={this.handleNextCourse}>好</a>
+          </div>`
         # show book confirm dialog if ...
-        if !currentCourse?.course_book?.length && currentCourse?.possible_course_book?[0]?.book_data
+        else if !currentCourse?.course_book?.length && currentCourse?.possible_course_book?[0]?.book_data
           bookData = currentCourse.possible_course_book[0].book_data
           selectArea = `<div>
             <p>本系統已紀錄您上學期所使用的教科書，若這學期您也將沿用同一本書，請點選「是」。若老師這學期選用的教科書和上學期不同，請點選「不是」。</p>
@@ -291,6 +312,7 @@ LecturerBooks = React.createClass
               &nbsp;
               <a className="btn btn--primary btn--raised btn--danger" onClick={this.handleBookReject}>不是</a>
             </div>`
+        # show book confirm dialog if ...
         else if currentCourse?.course_book?.length && currentCourse.course_book[0].book_data
           bookData = currentCourse.course_book[0].book_data
           selectArea = `<div>

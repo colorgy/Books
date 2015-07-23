@@ -70,4 +70,8 @@ class Course < ActiveRecord::Base
 
     return CourseBook.none
   end
+
+  def book_locked
+    course_books.where(locked: true).present?
+  end
 end

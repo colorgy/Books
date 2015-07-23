@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150722192938) do
+ActiveRecord::Schema.define(version: 20150723083044) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -64,6 +64,7 @@ ActiveRecord::Schema.define(version: 20150722192938) do
     t.string   "image_content_type"
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
+    t.string   "internal_code"
   end
 
   add_index "book_datas", ["isbn"], name: "index_book_datas_on_isbn", unique: true, using: :btree
@@ -93,6 +94,8 @@ ActiveRecord::Schema.define(version: 20150722192938) do
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
     t.boolean  "book_required"
+    t.string   "updater_code"
+    t.boolean  "locked"
   end
 
   add_index "course_books", ["book_isbn"], name: "index_course_books_on_book_isbn", using: :btree

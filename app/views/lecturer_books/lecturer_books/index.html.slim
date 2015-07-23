@@ -1,7 +1,7 @@
 #wrapper.wrapper.bg-theme
   .logo(style="position: absolute; top: 0; right: 0;")
     = image_tag 'colorgy/colorgy_logo_with_text_white.svg', style: 'width: 200px;'
-  = react_component 'LecturerBooks', class: 'l-full-window'
+  = react_component 'LecturerBooks', class: 'l-full-window', code: params[:code]
 
 css:
 

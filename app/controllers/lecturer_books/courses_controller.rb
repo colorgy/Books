@@ -11,7 +11,15 @@ class LecturerBooks::CoursesController < ApplicationController
 
   def update
     @course = scoped_collection.find_by(ucode: params[:id])
-    if @course.update_attributes(course_params)
+
+    updated = false
+
+    # ignore update if the course has locked course_book
+    unless @course.book_locked
+      updated = @course.update_attributes(course_params)
+    end
+
+    if updated
       render json: serialize_course(@course)
     else
       render json: serialize_course(@course), status: 400
@@ -46,10 +54,10 @@ class LecturerBooks::CoursesController < ApplicationController
   end
 
   def course_params
-    params.require(:course).permit(course_book_attributes: [:id, :book_isbn, :book_known, :_delete])
+    params.require(:course).permit(course_book_attributes: [:id, :book_isbn, :book_known, :updater_code, :_delete])
   end
 
   def serialize_course(course)
-    course.as_json(include: { course_book: { include: { book_data: { methods: [:image_url] } } }, possible_course_book: { include: { book_data: { methods: [:image_url] } } } })
+    course.as_json(methods: [:book_locked], include: { course_book: { include: { book_data: { methods: [:image_url] } } }, possible_course_book: { include: { book_data: { methods: [:image_url] } } } })
   end
 end

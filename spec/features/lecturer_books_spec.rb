@@ -83,7 +83,7 @@ feature "The lecturer-books registration", :type => :feature, :retry => 10 do
 
     # First Course - with historical book data
     # ask if the old book will be continued used
-    expect(page).to have_content('這學期用的書還是這本嗎？')
+    expect(page).to have_content('是')
     expect(@courses.first.course_book).to be_blank
     execute_script("React.addons.TestUtils.Simulate.click($('.btn--success')[0])")
     sleep 1
@@ -93,7 +93,7 @@ feature "The lecturer-books registration", :type => :feature, :retry => 10 do
 
     # Second Course - with historical book data
     # ask if the old book will be continued used
-    expect(page).to have_content('這學期用的書還是這本嗎？')
+    expect(page).to have_content('是')
     expect(@courses.second.course_book).to be_blank
     # reject it
     execute_script("React.addons.TestUtils.Simulate.click($('.btn--danger')[0])")
@@ -106,7 +106,7 @@ feature "The lecturer-books registration", :type => :feature, :retry => 10 do
     execute_script("React.addons.TestUtils.Simulate.change($('.search-select input')[0], { target: { value: '#{BookData.second.name}' } })")
     expect(page).to have_content(BookData.second.isbn)
     execute_script("React.addons.TestUtils.Simulate.click($('.search-select-selections div')[0])")
-    expect(page).to have_content("嗎")
+    expect(page).to have_content("是")
     expect(page).to have_content("#{BookData.second.name}")
     # the data should be written into DB
     @courses.second.reload
@@ -115,11 +115,11 @@ feature "The lecturer-books registration", :type => :feature, :retry => 10 do
     execute_script("React.addons.TestUtils.Simulate.click($('.btn')[0])")
 
     # Third Course - already have book data
-    expect(page).to have_content('是這本嗎？')
+    expect(page).to have_content('是')
     execute_script("React.addons.TestUtils.Simulate.click($('.btn--success')[0])")
 
     # Fourth Course - already have book data
-    expect(page).to have_content('是這本嗎？')
+    expect(page).to have_content('是')
     # reject it
     execute_script("React.addons.TestUtils.Simulate.click($('.btn--danger')[0])")
     sleep 1
@@ -132,7 +132,7 @@ feature "The lecturer-books registration", :type => :feature, :retry => 10 do
     expect(page).to have_content(BookData.second.isbn)
     sleep(1)
     execute_script("React.addons.TestUtils.Simulate.click($('.search-select-selections div')[1])")
-    expect(page).to have_content("嗎")
+    expect(page).to have_content("是")
     expect(page).to have_content("#{BookData.second.name}")
     # the data should be written into DB
     @courses.fourth.reload
@@ -144,7 +144,7 @@ feature "The lecturer-books registration", :type => :feature, :retry => 10 do
     execute_script("React.addons.TestUtils.Simulate.change($('.search-select input')[0], { target: { value: '#{BookData.third.isbn}' } })")
     expect(page).to have_content(BookData.third.name)
     execute_script("React.addons.TestUtils.Simulate.click($('.search-select-selections div')[0])")
-    expect(page).to have_content("嗎")
+    expect(page).to have_content("是")
     expect(page).to have_content("#{BookData.second.name}")
     # the data should be written into DB
     @courses.fifth.reload
