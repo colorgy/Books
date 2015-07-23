@@ -40,10 +40,10 @@
       .col.m4.s12
         .order-options-confirm
           .content
-            p= BillService.bill_type_label(@data[:bill].type)
+            p= Bill.type_label(@data[:bill].type)
             - if @data[:bill].processing_fee > 0
               p 金流手續費：+ NT$ #{@data[:bill].processing_fee}
-            p= BillService.invoice_type_label(@data[:bill].invoice_type)
+            p= Bill.invoice_type_label(@data[:bill].invoice_type)
       .col.m4.s12
         .order-options-confirm
           .content

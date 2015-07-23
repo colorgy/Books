@@ -3,7 +3,7 @@ class Bill < ActiveRecord::Base
   acts_as_paranoid
   has_paper_trail
 
-  TYPES = %w(payment_code credit_card virtual_account test)
+  TYPES = %w(payment_code credit_card virtual_account test_clickpay test_autopay)
   INVOICE_TYPES = %w(digital paper code cert love_code uni_num)
   PAYMENT_DEADLINE_PRE = 2.hours
 
@@ -60,9 +60,23 @@ class Bill < ActiveRecord::Base
     end
   end
 
-  # Return the allowed bill types i.e. payment methods
-  def self.allowed_types
-    @@allowed_types ||= ENV['ALLOWED_BILL_TYPES'].split(',') & TYPES
+  class << self
+    def allowed_types
+      return @allowed_types if @allowed_types.present?
+      @allowed_types = (ENV['ALLOWED_BILL_TYPES'].split(',') & TYPES)
+    end
+
+    def type_selections
+      @bill_type_selections ||= allowed_types.map { |bt| [I18n.t(bt, scope: :bill_types), bt] }
+    end
+
+    def type_label(bt)
+      I18n.t(bt, scope: :bill_types)
+    end
+
+    def invoice_type_label(bit)
+      I18n.t(bit, scope: :invoice_types)
+    end
   end
 
   # Initialize the uuid on creation

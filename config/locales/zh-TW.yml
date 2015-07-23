@@ -3,10 +3,14 @@ zh-TW:
     payment_code: '超商付款'
     virtual_account: 'ATM 虛擬帳號匯款'
     credit_card: '信用卡'
+    test_clickpay: '測試用付款方式 - 點擊即付款'
+    test_autopay: '測試用付款方式 - 十分鐘自動付款'
   bill_type_descriptions:
     payment_code: '超商付款 (金流手續費 35 元)'
     virtual_account: 'ATM 虛擬帳號匯款'
     credit_card: '信用卡'
+    test_clickpay: '測試用付款方式 - 點擊即付款'
+    test_autopay: '測試用付款方式 - 十分鐘自動付款'
   invoice_types:
     digital: 電子發票
     paper: 索取紙本發票
