@@ -2,6 +2,17 @@ class Group < ActiveRecord::Base
   include AASM
   has_paper_trail
 
+  # What hour in a day will the grouping end?
+  END_AT_DAY_HOUR = 3
+  # The bill's deadline
+  BILL_DEADLINE_DELAY = 30.minutes
+  # Wait for this time for a ended group to become ready (for shipping, i.e.
+  # all order and bill status will not change)
+  # CAUTION: this must be bigger then
+  # Bill::PAYMENT_DEADLINE_ADJ + BILL_DEADLINE_DELAY
+  # since bills can be continually paid before the group is ready
+  WAIT_BEFORE_READY_AFTER_ENDED = 3.hours
+
   self.primary_key = :code
 
   scope :in_org, ->(org_code) { (org_code.blank? || org_code == 'public') ? where(organization_code: [nil, '', 'public']) : where(organization_code: org_code) }
@@ -35,22 +46,34 @@ class Group < ActiveRecord::Base
 
   aasm column: :state do
     state :grouping, initial: true
-    state :ended
-    state :delivering
+    state :ended  # the group has passed it's deadline, no new orders can add
+    state :faild  # the grouping has faild and all orders has been canceled
+    state :ready  # the group order are expected to be proceeded by supplier
+    state :delivering  # the supplier states that (s)he shipped the order
     state :delivered
-    state :received
+    state :received  # the group leader states that (s)he has received it
 
     event :end do
       transitions from: :grouping, to: :ended
-      after do
-        orders.each do |order|
-          order.expire! if order.may_expire?
+    end
+
+    event :ready do
+      transitions from: :grouping, to: :ready do
+        # a group can not be ready if it contains orders that might change
+        # their state (e.g. payment_pending)
+        guard do
+          order_states = orders.map(&:state)
+          !(order_states.include?('new') || order_states.include?('payment_pending'))
         end
+      end
+      after do
+        # the orders may be processing, so mark them (to prevent being refund)
+        orders.each(&:ready!)
       end
     end
 
     event :ship do
-      transitions from: :ended, to: :delivering
+      transitions from: :ready, to: :delivering
       after do
         update_attributes(shipped_at: Time.now)
         orders.each do |order|
@@ -103,7 +126,7 @@ class Group < ActiveRecord::Base
   end
 
   def set_deadline
-    self.deadline = (pickup_datetime - book.delivery_processing_time).change(hour: 0)
+    self.deadline = (pickup_datetime - book.delivery_processing_time).change(hour: END_AT_DAY_HOUR)
   end
 
   def set_supplier_code
@@ -123,6 +146,10 @@ class Group < ActiveRecord::Base
   def count_orders!
     count_orders
     save!
+  end
+
+  def bill_deadline
+    deadline + BILL_DEADLINE_DELAY
   end
 
   # Deprecated

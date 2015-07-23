@@ -39,12 +39,16 @@ class Package < ActiveRecord::Base
     end
   end
 
-
   # Calaulate and update the total amount (addes the shipping fee)
   def calculate_amount
     if price < 1000
       self.shipping_fee = 100
     end
     self.amount = price + shipping_fee
+  end
+
+  def bill_deadline
+    return pickup_datetime - 5.days if pickup_datetime
+    1.week.from_now
   end
 end

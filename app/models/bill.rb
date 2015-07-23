@@ -3,15 +3,21 @@ class Bill < ActiveRecord::Base
   acts_as_paranoid
   has_paper_trail
 
+  # All allowed payment types
   TYPES = %w(payment_code credit_card virtual_account test_clickpay test_autopay)
+  # All allowed invoice types
   INVOICE_TYPES = %w(digital paper code cert love_code uni_num)
-  PAYMENT_DEADLINE_PRE = 2.hours
+  # Deadline adjustment of the bill, we will not mark the bill as expired
+  # (marking as expired also means stop tracking its status) after the bill
+  # deadline haven't been overdue for more than this time.
+  PAYMENT_DEADLINE_ADJ = 2.hours
 
   self.inheritance_column = :_type_disabled
 
   cattr_accessor :test
 
   scope :paid, -> { where(state: 'paid') }
+  scope :payment_pending, -> { where(state: 'payment_pending') }
   scope :unpaid, -> { where.not(state: 'paid') }
 
   store :data, accessors: [:invoice_code, :invoice_love_code, :invoice_uni_num, :invoice_cert]
@@ -110,13 +116,7 @@ class Bill < ActiveRecord::Base
     end
   end
 
-  # Sets the deadline
-  def deadline=(d)
-    d -= PAYMENT_DEADLINE_PRE
-    self[:deadline] = d
-  end
-
   def expire_if_deadline_passed
-    self.expire! if may_expire? && deadline.present? && Time.now > deadline + PAYMENT_DEADLINE_PRE
+    self.expire! if may_expire? && deadline.present? && Time.now > deadline + PAYMENT_DEADLINE_ADJ
   end
 end

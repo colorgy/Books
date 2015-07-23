@@ -34,14 +34,15 @@ class Order < ActiveRecord::Base
 
   aasm column: :state do
     state :new, initial: true
-    state :payment_pending
-    state :expired
-    state :paid
-    state :delivering
-    state :leader_received
-    state :delivered
-    state :received
-    state :cancelled
+    state :payment_pending  # has a non-expired bill
+    state :expired  # invalid order, dead state
+    state :paid  # paid, but can be refund automatically
+    state :ready  # order processing, cannot be refund automatically
+    state :delivering  # order has marked as shiped by the supplier
+    state :leader_received  # group leader has stated that (s)he has recived it
+    state :delivered  # group leader or supplier has stated that its delivered
+    state :received  # orderer states that (s)he has received it
+    state :cancelled  # the order has been cancelled and refunded (if paid)
 
     event :bill_created do
       transitions :from => :new, :to => :payment_pending
@@ -51,6 +52,11 @@ class Order < ActiveRecord::Base
     event :pay, after: :count_group_orders do
       transitions :from => :new, :to => :paid
       transitions :from => :payment_pending, :to => :paid
+    end
+
+    event :ready do
+      transitions :from => :paid, :to => :ready
+      transitions :from => :expired, :to => :expired
     end
 
     event :expire do

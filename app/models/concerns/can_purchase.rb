@@ -120,8 +120,8 @@ module CanPurchase
       case item.item_type
       when 'group'
         group = item.group
-        bill.deadline = group.deadline if bill.deadline.blank? ||
-                                          bill.deadline > group.deadline
+        bill.deadline = group.bill_deadline if bill.deadline.blank? ||
+                                            bill.deadline > group.bill_deadline
         (item.quantity || 1).times do
           order = self.orders.build(
             bill: bill,
@@ -148,7 +148,12 @@ module CanPurchase
       end
     end
 
-    package.calculate_amount if package.present?
+    if package.present?
+      package.calculate_amount
+
+      bill.deadline = package.bill_deadline if bill.deadline.blank? ||
+                                               bill.deadline > package.bill_deadline
+    end
 
     bill.price = total_price
 
