@@ -215,7 +215,7 @@ LecturerBooks = React.createClass
                 <a className="h1" style={{ opacity: '.5', color: 'white' }}>　　　</a>
               </div>
               <h1>{this.state.orgCode}</h1>
-              <h2>步驟二：輸入老師姓名</h2>
+              <h2>步驟二：請老師輸入您的姓名</h2>
 
               <Select
                 key="select-2"
@@ -223,7 +223,7 @@ LecturerBooks = React.createClass
                 asyncOptions={this.getLecturerSelections}
                 onChange={this.handleLecturerSelect}
                 placeholder="輸入老師姓名..."
-                noResultsText="查無此師"
+                noResultsText="找不到資料"
                 searchPromptText="打個字來尋找老師..."
               />
             </div>
@@ -271,7 +271,7 @@ LecturerBooks = React.createClass
         if !currentCourse?.course_book?.length && currentCourse?.possible_course_book?[0]?.book_data
           bookData = currentCourse.possible_course_book[0].book_data
           selectArea = `<div>
-            <p>這學期用的書還是這本嗎？</p>
+            <p>本系統已紀錄您上學期所使用的教科書，若這學期您也將沿用同一本書，請點選「是」。若老師這學期選用的教科書和上學期不同，請點選「不是」。</p>
             <div className="thumbnail" style={{ 'maxWidth': '180px', 'margin': 'auto' }}>
               <ImgPrevError src={bookData.image_url} name={bookData.name} />
             </div>
@@ -294,7 +294,7 @@ LecturerBooks = React.createClass
         else if currentCourse?.course_book?.length && currentCourse.course_book[0].book_data
           bookData = currentCourse.course_book[0].book_data
           selectArea = `<div>
-            <p>這門課用的書是這本嗎？</p>
+            <p>本系統已紀錄您這學期將使用的教科書，若確定資料正確，請點選「是」，若不正確請點選「不是」。</p>
             <div className="thumbnail" style={{ 'max-width': '180px', 'margin': 'auto' }}>
               <ImgPrevError src={bookData.image_url} name={bookData.name} />
             </div>
@@ -335,7 +335,7 @@ LecturerBooks = React.createClass
               asyncSelections={this.getBookSelections}
               onChange={this.handleBookSelect}
               placeholder="輸入書名、ISBN、作者名來找書..."
-              noResultsText="查無此書"
+              noResultsText="在輸入框中輸入這學期將採用的教科書書名、ISBN 或者是作者名，即可查詢並選擇用書。"
               searchInputClassName="form-control"
             />
           </div>
@@ -355,7 +355,8 @@ LecturerBooks = React.createClass
                 <a className="h1" style={{ opacity: '.5', color: 'white' }}>　　　</a>
               </div>
               <h1><span className="nowrap">{this.state.orgCode}</span> <span className="nowrap">{this.state.lecturerName}</span> 老師</h1>
-              <h2>這學期總共有 {coursesNavItems.length} 門課</h2>
+              <h2><small>這學期總共有 {coursesNavItems.length} 門課</small></h2>
+              <p>請老師就本學期開授的每堂課逐一登錄教科書資訊。</p>
               <div className="row">
                 <div className="col-md-3 hidden-sm hidden-xs">
                   <div className="steps steps--vertical steps--sm-arrow width-100 text-left">
@@ -381,12 +382,12 @@ LecturerBooks = React.createClass
         <div className="l-full-window" key="step-4-container">
           <div className="l-full-window-body">
             <div className="margin-center text-center max-width-800px container">
-              <p className="h2">感謝您提供的資訊，我們收到了！</p>
-              <h1><small>對了，</small>要不要建議修課同學買書呢？</h1>
-              <p>為了讓同學可以提前準備，所以也想問問老師對於修課同學的購書建議，如果老師推薦大家買書的話，我們可以特別通知給同學們知道，好增進老師在學期初的上課效率～</p>
-              <a className="btn btn--outline btn--inverse inverse" onClick={this.handleMarkBookRequire.bind(this, true)}>好，上我的課要買書比較好</a>
+              <p className="h2">感謝老師提供的資訊，我們收到了！</p>
+              <h1><small>對了，</small>老師是否希望同學能夠在上課前即備齊教科書呢？</h1>
+              <p>老師是否希望同學能夠在上課前即備齊教科書？我們可以特別標註給同學們知道，好增進老師在學期初的上課效率。</p>
+              <a className="btn btn--outline btn--inverse inverse" onClick={this.handleMarkBookRequire.bind(this, true)}>好，盡量在上課前備齊教科書</a>
               &nbsp;
-              <a className="btn btn--outline btn--inverse inverse" onClick={this.handleMarkBookRequire.bind(this, false)}>不用</a>
+              <a className="btn btn--outline btn--inverse inverse" onClick={this.handleMarkBookRequire.bind(this, false)}>沒關係</a>
             </div>
           </div>
         </div>
@@ -401,8 +402,8 @@ LecturerBooks = React.createClass
           <div className="l-full-window-body">
             <div className="margin-center text-center max-width-800px container">
               <h1>已完成</h1>
-              <p>感謝您的參與！</p>
-              <textarea value={this.state.feedbackText} onChange={this.handleFeedbackTextChange} className="form-control" placeholder="有什麼意見或回饋嗎？歡迎寫在這裡！" />
+              <p>再次感謝老師的協助與參與！</p>
+              <textarea value={this.state.feedbackText} onChange={this.handleFeedbackTextChange} className="form-control" placeholder="若老師有任何建議， 歡迎在此留下您的意見，您的寶貴建議和鼓勵是我們成長的動力！" />
               <p>&nbsp;</p>
               <a className="btn btn--outline btn--inverse inverse" onClick={this.handleComplete}>{backText}</a>
             </div>
@@ -420,8 +421,8 @@ LecturerBooks = React.createClass
         <div className="l-full-window" key="step-1-container">
           <div className="l-full-window-body">
             <div className="max-width-800px margin-center text-center container">
-              <h1>Colorgy Books 課程用書整理平台</h1>
-              <p>歡迎使用！本平台是同學們為了提早確認上課需要用的書籍而架設，您可以點幾下滑鼠打個字來和我們確認上課用書，將資訊事先給同學們提前準備。先從選擇學校開始吧！</p>
+              <h1>Colorgy Books 課程用書平台</h1>
+              <p>老師您好，歡迎使用 Colorgy Books 課程用書平台！非常感謝您撥空至此登錄書籍資料，幫助同學能提早確認及準備上課用書。書籍資料輸入主要有三個步驟，第一步請老師選擇您目前所在的學校。</p>
               <h2>第一步驟：請選擇學校 <small>共三步驟</small></h2>
               <p>&nbsp;</p>
               <Select
@@ -429,7 +430,7 @@ LecturerBooks = React.createClass
                 options={this.state.orgSelections}
                 onChange={this.handleOrgSelect}
                 placeholder="輸入學校名稱或簡稱..."
-                noResultsText="查無此校"
+                noResultsText="找不到這間學校"
               />
             </div>
           </div>
