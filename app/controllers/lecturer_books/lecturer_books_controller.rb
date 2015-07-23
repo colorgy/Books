@@ -1,5 +1,5 @@
 class LecturerBooks::LecturerBooksController < ApplicationController
-  layout 'blank'
+  layout 'lecturer_books'
 
   def index
 
