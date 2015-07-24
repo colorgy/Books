@@ -35,7 +35,7 @@ class BooksController < ApplicationController
 
       @book_isbns.reject!(&:blank?)
 
-      @books = books_collection.where(Book.arel_table[:id].eq(query).or(Book.arel_table[:isbn].in(@book_isbns))).first_with(query).page(params[:page])
+      @books = books_collection.where(Book.arel_table[:id].eq(query).or(Book.arel_table[:isbn].in(@book_isbns))).first_with(query.to_i).page(params[:page])
     end
   end
 

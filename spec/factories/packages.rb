@@ -1,4 +1,4 @@
-FactoryGirl.define do
-  factory :package do
-  end
-end
+# FactoryGirl.define do
+#   factory :package do
+#   end
+# end

@@ -122,4 +122,12 @@ class Order < ActiveRecord::Base
   def recently_updated
     updated_at > 3.minute.ago
   end
+
+  def has_paid?
+    %w(paid delivering leader_received delivered received).include?(state)
+  end
+
+  def paid?
+    state == 'paid'
+  end
 end
