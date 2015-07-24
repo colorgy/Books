@@ -32,7 +32,10 @@
                 td= item.book.name
                 td= item.book.author
                 td
-                td= "#{item.course.lecturer_name} / #{item.course.name}"
+                - if item.course
+                  td= "#{item.course.lecturer_name} / #{item.course.name}"
+                - else
+                  td 未知
                 td= "NT$ #{item.item_price}"
                 td= item.quantity
                 td= "NT$ #{item.item_price * item.quantity}"
