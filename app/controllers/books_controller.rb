@@ -4,7 +4,7 @@ class BooksController < ApplicationController
   def index
 
     if params[:q].blank?
-      @books = books_collection.all
+      @books = books_collection.page(params[:page])
     else
       # prepare the query
       query = params[:q]
@@ -35,46 +35,8 @@ class BooksController < ApplicationController
 
       @book_isbns.reject!(&:blank?)
 
-      @books = []
-      @books += Book.includes(data: [:courses]).where(id: query)
-      @books += Book.includes(data: [:courses]).where(isbn: @book_isbns)
+      @books = books_collection.where(Book.arel_table[:id].eq(query).or(Book.arel_table[:isbn].in(@book_isbns))).first_with(query).page(params[:page])
     end
-    # @org_code = current_org_code
-    # @dep_code = params[:dep]
-    # if @dep_code.present?
-    #   @org = Organization.find(@org_code)
-    #   @dep = @org.departments
-    #   @dep_codes = @dep_code.split(',')
-    #   @all_dep_codes = @dep.map(&:code)
-    #   @dep_codes &= @all_dep_codes
-    # end
-
-    # if @dep_codes.present?
-    #   @courses = Course.current.where(organization_code: @org_code, department_code: @dep_codes)
-    # else
-    #   @courses = Course.current.where(organization_code: @org_code)
-    # end
-
-    # if params[:q].blank?
-    #   @book_isbns = @courses.map(&:book_isbn)
-    #   @book_isbns.reject!(&:blank?)
-    #   @books = Book.includes(:data).where(isbn: @book_isbns)
-    # else
-    #   @book_isbns = []
-    #   query = params[:q]
-    #   query.downcase!
-    #   queries = query.split(' ')[0..4]
-    #   c = @courses.where('lower(name) LIKE ? OR lower(lecturer_name) LIKE ?', "%#{query}%", "%#{query}%")
-    #   @book_isbns << c.map(&:book_isbn)
-    #   queries.each do |q|
-    #     c = @courses.where('lower(name) LIKE ? OR lower(lecturer_name) LIKE ?', "%#{q}%", "%#{q}%")
-    #     @book_isbns << c.map(&:book_isbn)
-    #   end
-    #   @book_datas = BookData.search(query)
-    #   @book_isbns << @book_datas.map(&:isbn)
-    #   @book_isbns.reject!(&:blank?)
-    #   @books = Book.includes(:data).where(isbn: @book_isbns)
-    # end
   end
 
   def show
@@ -90,7 +52,7 @@ class BooksController < ApplicationController
   private
 
   def books_collection
-    Book.for_org(current_org_code)
+    Book.for_org(current_org_code).includes_full_data
   end
 
   def courses_collection

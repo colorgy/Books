@@ -2,6 +2,9 @@ class Book < ActiveRecord::Base
   acts_as_paranoid
   has_paper_trail
 
+  scope :first_with, ->(id) { order(sanitize_sql_array(['CASE WHEN id = ? THEN 0 END', id])) }
+  scope :includes_full_data, -> { includes(data: [:courses], supplier: []) }
+
   belongs_to :data, class_name: :BookData, foreign_key: :isbn, primary_key: :isbn
   belongs_to :supplier, foreign_key: :supplier_code, primary_key: :code
   has_many :groups

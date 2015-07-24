@@ -158,3 +158,6 @@ gem 'font-awesome-rails'
 gem 'materialize-sass'
 
 gem 'rails_stdout_logging', :require => false
+
+gem 'kaminari'
+gem 'bootstrap-kaminari-views'
