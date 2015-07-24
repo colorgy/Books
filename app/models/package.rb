@@ -60,6 +60,6 @@ class Package < ActiveRecord::Base
   end
 
   def check_if_all_paid
-    self.paid! if may_paid? && !orders.map(&:has_paid?).include(false)
+    self.paid! if may_paid? && !orders.map(&:has_paid?).include?(false)
   end
 end
