@@ -1,0 +1,8 @@
+.container-fluid
+  .row
+    .content-strip.primary
+      .content-strip-inner
+        h4.strip-title 訂單
+  .row.row-inner
+    = render "partials/orders_table"
+    = paginate @orders, theme: 'twitter-bootstrap-3'

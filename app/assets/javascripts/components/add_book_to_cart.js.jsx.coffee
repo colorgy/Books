@@ -56,10 +56,10 @@ AddBookToCart = React.createClass
         'cart_item[quantity]': quantity
         'cart_item[course_ucode]': courseUCode
     .done (data, textStatus, xhr) =>
-      flash.success('好！')
+      flash.success('已加入購物書包！選完需要的書籍，按下右上角的「前往結帳」就可以下訂囉。')
       @reset()
     .fail (data, textStatus, xhr) =>
-      flash.success('不好！')
+      flash.alert('糟糕，發生錯誤了！')
       # TODO: reload the page if 4xx error
 
   handleCourseChange: (courseUCode) ->

@@ -1,6 +1,10 @@
 class OrdersController < ApplicationController
   before_action :authenticate_user!
 
+  def index
+    @orders = current_user.orders.page(params[:page])
+  end
+
   def create
     @cart_items = current_user.cart_items.includes_default
 

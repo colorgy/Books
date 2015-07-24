@@ -1,19 +1,28 @@
 table.responsive-table
   thead
     tr
+      th 團購／專送
       th 書名
       th 作者
-      th 版次
-      th 老師 / 課名
+      th 老師／課名
       th 價格
+      th 訂單狀態
+      th 帳單
   tbody
     - @orders.each do |order|
       tr
+        - if order.group
+          td= order.group.name
+        - elsif order.package
+          td 專送
+        - else
+          td 未知
         td= order.book.name
         td= order.book.author
-        td
         - if order.course
           td= "#{order.course.lecturer_name} / #{order.course.name}"
         - else
           td 未知
         td= "NT$ #{order.price}"
+        td= order.state
+        td= link_to '查看', order.bill
