@@ -5,15 +5,22 @@ class Package < ActiveRecord::Base
   belongs_to :user
   has_many :orders
 
+  after_initialize :check_if_all_paid
+
   aasm column: :state do
     state :new, initial: true
-    state :pending
-    state :delivering
-    state :delivered
-    state :received
+    state :pending  # the package is pending for delivery
+    state :delivering  # the package is marked as shipped by the supplier
+    state :delivered  # the package is marked as delivered by the deliverer
+    state :received  # the buyer states thet (s)he has received the package
+    state :cancelled  # the package canceled, dead state
 
     event :paid do
       transitions from: :new, to: :pending
+      after do
+        # the orders may be processing, so mark them (to prevent being refund)
+        orders.each(&:ready!)
+      end
     end
 
     event :ship do
@@ -50,5 +57,9 @@ class Package < ActiveRecord::Base
   def bill_deadline
     return pickup_datetime - 5.days if pickup_datetime
     1.week.from_now
+  end
+
+  def check_if_all_paid
+    self.paid! if may_paid? && !orders.map(&:has_paid?).include(false)
   end
 end

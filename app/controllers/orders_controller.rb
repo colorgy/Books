@@ -4,14 +4,14 @@ class OrdersController < ApplicationController
   def create
     @cart_items = current_user.cart_items.includes_default
 
-    redirect_to root_path and return if @cart_items.blank?
-
     if params[:confirmed]
       # really checkout
       @data = current_user.checkout!(bill_params, package_attrs: package_params)
-      redirect_to @data[:bill] if @data[:bill].id.present?
+      redirect_to @data[:bill] and return if @data[:bill].id.present?
+    elsif @cart_items.blank?
+      redirect_to root_path and return
     else
-      # let the user to confirm their order
+      # let the user confirm their order
       @data = current_user.checkout(bill_params, package_attrs: package_params)
       @bill = @data[:bill]
       @orders = @data[:orders]

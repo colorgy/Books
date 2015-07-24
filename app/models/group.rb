@@ -40,7 +40,7 @@ class Group < ActiveRecord::Base
   validates :code, :book, :leader, :pickup_datetime, presence: true
   validate :book_org_code_matches_org_code
 
-  after_initialize :end_if_deadline_passed
+  after_initialize :end_if_deadline_passed, :automatically_be_ready
   before_create :set_deadline
   before_validation :set_organization_code_if_blank, :set_code_if_blank, :set_supplier_code
 
@@ -136,6 +136,10 @@ class Group < ActiveRecord::Base
 
   def end_if_deadline_passed
     self.end! if may_end? && deadline.present? && Time.now > deadline
+  end
+
+  def automatically_be_ready
+    self.ready! if may_ready? && deadline.present? && Time.now > deadline + WAIT_BEFORE_READY_AFTER_ENDED
   end
 
   def count_orders
