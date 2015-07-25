@@ -2,38 +2,9 @@ class Book < ActiveRecord::Base
   acts_as_paranoid
   has_paper_trail
 
-  scope :first_with, ->(id) { order(sanitize_sql_array(['CASE WHEN id = ? THEN 0 END', id])) }
+  scope :first_with, ->(id) { order(sanitize_sql_array(['CASE WHEN "books"."id" = ? THEN 0 END', id])) }
   scope :includes_full_data, -> { includes(data: [:courses], supplier: []) }
-  scope :simple_search, ->(query, org_code = nil) do
-    if org_code.blank? || org_code == 'public'
-      org_codes = ['public', '', nil]
-    else
-      org_codes = [org_code]
-    end
-    queries = query.split(' ')[0..10]
-    sql_queries = queries.map { |s| "%#{s}%" }
-
-    uniq.joins(sanitize_sql_array([<<-SQL, org_codes
-      LEFT OUTER JOIN "book_datas" ON "book_datas"."isbn" = "books"."isbn"
-      LEFT OUTER JOIN "course_books" ON "course_books"."book_isbn" = "book_datas"."isbn"
-      LEFT OUTER JOIN "courses" ON "courses"."ucode" = "course_books"."course_ucode" AND "courses"."organization_code" IN ( ? )
-    SQL
-    ])).where(<<-SQL, sql_queries, sql_queries
-      ("book_datas"."name" || ' ' ||
-       "book_datas"."author" || ' ' ||
-       "book_datas"."publisher" || ' ' ||
-       "courses"."name" || ' ' ||
-       "courses"."lecturer_name" || ' ' ||
-       "courses"."ucode" || ' ' ||
-       "books"."isbn") ILIKE ALL (array[?])
-      OR
-      ("book_datas"."name" || ' ' ||
-       "book_datas"."author" || ' ' ||
-       "book_datas"."publisher" || ' ' ||
-       "books"."isbn") ILIKE ALL (array[?])
-    SQL
-    )
-  end
+  scope :simple_search, SIMPLE_SEARCH_LAMBDA
 
   belongs_to :data, class_name: :BookData, foreign_key: :isbn, primary_key: :isbn
   belongs_to :supplier, foreign_key: :supplier_code, primary_key: :code
