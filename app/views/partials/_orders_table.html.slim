@@ -12,7 +12,7 @@ table.responsive-table
     - @orders.each do |order|
       tr
         - if order.group
-          td= order.group.name
+          td= order.group.leader.name
         - elsif order.package
           td 專送
         - else
