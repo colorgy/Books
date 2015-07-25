@@ -2,10 +2,12 @@ class Package < ActiveRecord::Base
   include AASM
   has_paper_trail
 
+  scope :is_new, ->  { where(state: 'new') }
+
   belongs_to :user
   has_many :orders
 
-  after_initialize :check_if_all_paid
+  after_initialize :mark_paid_if_all_paid
 
   aasm column: :state do
     state :new, initial: true
@@ -59,7 +61,7 @@ class Package < ActiveRecord::Base
     1.week.from_now
   end
 
-  def check_if_all_paid
+  def mark_paid_if_all_paid
     return false if orders.blank? || !persisted?
     self.paid! if may_paid? && !orders.map(&:has_paid?).include?(false)
   end

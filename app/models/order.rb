@@ -86,7 +86,13 @@ class Order < ActiveRecord::Base
 
     event :cancel, after: :count_group_orders do
       transitions :from => :new, :to => :cancelled
-      transitions :from => :payment_pending, :to => :cancelled
+      transitions :from => :expired, :to => :cancelled
+      transitions :from => :paid, :to => :cancelled do
+        after do
+          user.credits += price
+          user.save!
+        end
+      end
     end
 
     event :revert do

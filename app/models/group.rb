@@ -18,8 +18,8 @@ class Group < ActiveRecord::Base
   scope :in_org, ->(org_code) { (org_code.blank? || org_code == 'public') ? where(organization_code: [nil, '', 'public']) : where(organization_code: org_code) }
   scope :publ, ->  { where(public: true) }
   scope :priv, ->  { where(public: false) }
-  scope :ended, ->  { where('deadline < ?', Time.now) }
-  scope :grouping, ->  { where('deadline > ?', Time.now) }
+  scope :ended, ->  { where(state: 'ended') }
+  scope :grouping, ->  { where(state: 'grouping') }
   scope :unshipped, ->  { where(shipped_at: nil) }
   scope :shipped, ->  { where.not(shipped_at: nil) }
   scope :unreceived, ->  { where(received_at: nil) }
@@ -40,14 +40,14 @@ class Group < ActiveRecord::Base
   validates :code, :book, :leader, :pickup_datetime, presence: true
   validate :book_org_code_matches_org_code
 
-  after_initialize :end_if_deadline_passed, :automatically_be_ready
+  after_initialize :end_if_deadline_passed, :automatically_be_ready_or_fail
   before_create :set_deadline
   before_validation :set_organization_code_if_blank, :set_code_if_blank, :set_supplier_code
 
   aasm column: :state do
     state :grouping, initial: true
     state :ended  # the group has passed it's deadline, no new orders can add
-    state :faild  # the grouping has faild and all orders has been canceled
+    state :failed  # the grouping has failed and all orders has been canceled
     state :ready  # the group order are expected to be proceeded by supplier
     state :delivering  # the supplier states that (s)he shipped the order
     state :delivered
@@ -58,7 +58,7 @@ class Group < ActiveRecord::Base
     end
 
     event :ready do
-      transitions from: :grouping, to: :ready do
+      transitions from: :ended, to: :ready do
         # a group can not be ready if it contains orders that might change
         # their state (e.g. payment_pending)
         guard do
@@ -69,6 +69,21 @@ class Group < ActiveRecord::Base
       after do
         # the orders may be processing, so mark them (to prevent being refund)
         orders.each(&:ready!)
+      end
+    end
+
+    event :fail do
+      transitions from: :ended, to: :failed do
+        # a group can not be failed if it contains orders that might change
+        # their state (e.g. payment_pending)
+        guard do
+          order_states = orders.map(&:state)
+          !(order_states.include?('new') || order_states.include?('payment_pending'))
+        end
+      end
+      after do
+        # cancel orders and refund
+        orders.each(&:cancel!)
       end
     end
 
@@ -138,8 +153,47 @@ class Group < ActiveRecord::Base
     self.end! if may_end? && deadline.present? && Time.now > deadline
   end
 
-  def automatically_be_ready
-    self.ready! if may_ready? && deadline.present? && Time.now > deadline + WAIT_BEFORE_READY_AFTER_ENDED
+  def automatically_be_ready_or_fail
+    # do not do this until...
+    return unless state == 'end' &&
+                  deadline.present? &&
+                  Time.now > deadline + WAIT_BEFORE_READY_AFTER_ENDED
+
+    count_orders!
+
+    total_price = 0
+    orders.each do |order|
+      total_price += order.price
+    end
+
+    case grouping_success_condition
+    when 'and'
+      if orders_count >= grouping_success_orders_count_condition &&
+         total_price >= grouping_success_total_price_condition
+        self.ready! if may_ready?
+      else
+        self.fail! if may_fail?
+      end
+    when 'or'
+      if orders_count >= grouping_success_orders_count_condition ||
+         total_price >= grouping_success_total_price_condition
+        self.ready! if may_ready?
+      else
+        self.fail! if may_fail?
+      end
+    end
+  end
+
+  def grouping_success_condition
+    'or'
+  end
+
+  def grouping_success_orders_count_condition
+    3
+  end
+
+  def grouping_success_total_price_condition
+    5000
   end
 
   def count_orders

@@ -9,5 +9,11 @@ module Clockwork
   end
 
   every(3.hours, 'course.sync') { CourseSyncWorker.perform_async }
+
+  every(10.minutes, 'group.state_check.end') { GroupEndCheckWorker.perform_async }
+  every(10.minutes, 'group.state_check.ready') { GroupReadyCheckWorker.perform_async }
+
+  every(10.minutes, 'package.state_check.paid') { PackagePaidCheckWorker.perform_async }
+
   every(10.minutes, 'bill.test_autopay.pay') { TestingBillWorker.perform_async }
 end
