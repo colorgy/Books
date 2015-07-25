@@ -3,39 +3,10 @@ class BooksController < ApplicationController
 
   def index
 
-    if params[:q].blank?
-      @books = books_collection.page(params[:page])
+    if params[:q].present? && params[:q].is_a?(String)
+      @books = books_collection.simple_search(params[:q], current_org_code).page(params[:page])
     else
-      # prepare the query
-      query = params[:q]
-      query.downcase!
-      queries = query.split(' ')[0..4]
-      queries << query if queries.count > 1
-
-      # create a list to save matching ISBNs
-      @book_isbns = []
-
-      # search through the courses
-      @courses = []
-      queries.each do |q|
-        @courses += courses_collection.simple_search(q)
-      end
-      @courses.each do |course|
-        course.course_books.each do |course_book|
-          @book_isbns << course_book.book_isbn
-        end
-      end
-
-      # search through the book_data
-      @book_data = []
-      queries.each do |q|
-        @book_data += BookData.simple_search(q)
-      end
-      @book_isbns += @book_data.map(&:isbn)
-
-      @book_isbns.reject!(&:blank?)
-
-      @books = books_collection.where(Book.arel_table[:id].eq(query).or(Book.arel_table[:isbn].in(@book_isbns))).first_with(query.to_i).page(params[:page])
+      @books = books_collection.page(params[:page])
     end
   end
 
