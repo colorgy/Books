@@ -423,7 +423,7 @@ LecturerBooks = React.createClass
           <div className="l-full-window-body">
             <div className="margin-center text-center max-width-800px container">
               <h1>已完成</h1>
-              <p>再次感謝老師的協助與參與！</p>
+              <p>再次感謝老師的協助與參與！本平台為全年無休開放，若未來用書資訊有更新，也隨時歡迎再回來這裡做修改。</p>
               <textarea value={this.state.feedbackText} onChange={this.handleFeedbackTextChange} className="form-control" placeholder="若老師有任何建議， 歡迎在此留下您的意見，您的寶貴建議和鼓勵是我們成長的動力！" />
               <p>&nbsp;</p>
               <a className="btn btn--outline btn--inverse inverse" onClick={this.handleComplete}>{backText}</a>
