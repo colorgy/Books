@@ -29,7 +29,12 @@ class Course < ActiveRecord::Base
 
         next if courses.blank?
 
-        courses_inserts += courses.map { |c| "('#{org}-#{c['code']}', '#{org}', #{c['year']}, #{c['term']}, '#{c['code']}', '#{c['name'].gsub("'", "''")}', '#{c['lecturer'].gsub("'", "''")}', '#{c['general_code']}', '#{c['department_code']}')" }
+        courses_inserts += courses.map do |c|
+          c['name'] && c['name'].gsub!("'", "''")
+          c['lecturer'] && c['lecturer'].gsub!("'", "''")
+
+          "('#{org}-#{c['code']}', '#{org}', #{c['year']}, #{c['term']}, '#{c['code']}', '#{c['name']}', '#{c['lecturer']}', '#{c['general_code']}', '#{c['department_code']}')"
+        end
 
         if next_match = response.headers[:link] && response.headers[:link].match(/<(?<url>[^<>]+)>; rel="next"/)
           response = RestClient.get next_match[:url]
