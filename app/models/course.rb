@@ -27,6 +27,7 @@ class Course < ActiveRecord::Base
       while last_page == false
         courses = JSON.parse(response)
 
+        last_page = true if response.headers[:link].nil?
         next if courses.blank?
 
         courses_inserts += courses.map do |c|
