@@ -38,4 +38,10 @@ class BookData < ActiveRecord::Base
     self.image = open(external_image_url)
     save
   end
+
+  def supplier_name
+    return nil if book.blank?
+    return book.supplier_code if book.supplier.blank?
+    book.supplier.name
+  end
 end

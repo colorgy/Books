@@ -2,7 +2,7 @@ class LecturerBooks::BookDataSelectionsController < ApplicationController
   before_filter :check_params
 
   def index
-    @book_data = BookData.simple_search(params[:q]).limit(100)
+    @book_data = BookData.simple_search(params[:q]).includes(book: [:supplier]).limit(100)
     @selections = @book_data.map { |data| { value: data.isbn, label: <<-EOS
         <img src="#{data.image_url}" />
         <span class="info">
@@ -16,6 +16,10 @@ class LecturerBooks::BookDataSelectionsController < ApplicationController
         <span class="info">
           <span class="annotation">ISBN</span>
           #{data.isbn}
+        </span>
+        <span class="info">
+          <span class="annotation">代理商</span>
+          #{data.supplier_name || '未知'}
         </span>
       EOS
     } }
