@@ -1,4 +1,6 @@
 module SinoPacService
+  include ActionView::Helpers::FormHelper
+
   REALM = "DataWebService"
   PFNO = ENV['SINO_PAC_PFNO']
   KEY_DATA = ENV['SINO_PAC_KEY_DATA']
@@ -6,6 +8,7 @@ module SinoPacService
 
   class << self
     def get_virtual_account(order_number, amount, duedate: 3.days.from_now, payname: 'pay', memo: nil, payername: nil, payermobile: nil, payeraddress: nil)
+      amount = amount * 100
       target_url = "#{API_BASE_URL}/WebAPI/Service.svc/CreateATMorIBonTrans"
       xml_context = <<-EOF
       <ATMOrIBonClientRequest xmlns="http://schemas.datacontract.org/2004/07/SinoPacWebAPI.Contract">
@@ -76,6 +79,71 @@ module SinoPacService
       end
     end
 
+    def credit_card_pay_link(order_number, amount, text: '付款')
+      amount = amount * 100
+      form = []
+
+      form << form_tag("#{API_BASE_URL}/SinoPacWebCard/Pages/PageRedirect.aspx")
+      form << hidden_field_tag('ShopNO', PFNO)
+      form << hidden_field_tag('KeyNum', '3')
+      form << hidden_field_tag('OrderNO', order_number)
+      form << hidden_field_tag('Amount', amount)
+      form << hidden_field_tag('CurrencyID', 'NTD')
+      form << hidden_field_tag('PrdtName', 'pay')
+      form << hidden_field_tag('Memo', '')
+      form << hidden_field_tag('AutoBilling', 'Y')
+      form << hidden_field_tag('Digest', Digest::SHA256.hexdigest("POST:#{order_number}:#{PFNO}:#{KEY_DATA}"))
+      form << button_tag(text)
+      form << '</form>'
+
+      form.join('')
+    end
+
+    def credit_card_paid?(order_number)
+      target_url = "#{API_BASE_URL}/WebAPI/Service.svc/QueryTradeStatus"
+      xml_context = <<-EOF
+      <QueryTradeStatusRequest xmlns="http://schemas.datacontract.org/2004/07/SinoPacWebAPI.Contract.QueryTradeStatus">
+        <ShopNO>#{PFNO}</ShopNO>
+        <KeyNum>3</KeyNum>
+        <OrderNO>#{order_number}</OrderNO>
+        <PayType>C</PayType>
+        <OrderDateS></OrderDateS>
+        <OrderTimeS></OrderTimeS>
+        <OrderDateE></OrderDateE>
+        <OrderTimeE></OrderTimeE>
+        <PayFlag>A</PayFlag>
+        <PrdtNameFlag>Y</PrdtNameFlag>
+        <MemoFlag>Y</MemoFlag>
+        <PayerNameFlag>Y</PayerNameFlag>
+        <PayerMobileFlag>Y</PayerMobileFlag>
+        <PayerAddressFlag>Y</PayerAddressFlag>
+        <PayerEmailFlag>Y</PayerEmailFlag>
+        <ReceiverNameFlag>Y</ReceiverNameFlag>
+        <ReceiverMobileFlag>Y</ReceiverMobileFlag>
+        <ReceiverAddressFlag>Y</ReceiverAddressFlag>
+        <ReceiverEmailFlag>Y</ReceiverEmailFlag>
+        <ParamFlag1>Y</ParamFlag1>
+        <ParamFlag2>Y</ParamFlag2>
+        <ParamFlag3>Y</ParamFlag3>
+      </QueryTradeStatusRequest>
+      EOF
+
+      response = post(target_url, xml_context)
+      response = Hash.from_xml(response)
+
+      if response['QueryTradeStatusResponse'] && response['QueryTradeStatusResponse']['ECWebAPI']
+        status_code = response['QueryTradeStatusResponse']['ECWebAPI']['PayStatus'].to_i
+      else
+        status_code = 999999
+      end
+
+      if status_code > 15 && status_code < 100
+        return true
+      else
+        return false
+      end
+    end
+
     # Send an authorized API POST request
     def post(uri, body)
       RestClient.post(uri, body, :content_type => 'text/xml;charset="utf-8"', :accept => 'text/xml') do |_response, _request, result|
@@ -106,6 +174,10 @@ module SinoPacService
       request_authorization = "Digest realm=\"#{realm}\", nonce=\"#{nonce}\", uri=\"#{url}\", verifycode=\"#{verifycode}\", qop=#{qop}, cnonce=\"#{cnonce}\""
 
       return request_authorization
+    end
+
+    def protect_against_forgery?
+      false
     end
   end
 
