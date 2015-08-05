@@ -234,7 +234,7 @@ Devise.setup do |config|
   # up on your models and hooks.
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
   config.omniauth :colorgy, ENV['APP_ID'], ENV['APP_SECRET'],
-                  scope: 'email account write identity facebook info notifications notifications:send sms api api:write offline_access',
+                  scope: 'public email account write identity facebook info notifications notifications:send sms api api:write offline_access',
                   client_options: { site: (ENV['CORE_URL'] || 'https://colorgy.io') }
 
   # ==> Warden configuration
