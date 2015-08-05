@@ -16,4 +16,6 @@ module Clockwork
   every(10.minutes, 'package.state_check.paid') { PackagePaidCheckWorker.perform_async }
 
   every(10.minutes, 'bill.test_autopay.pay') { TestingBillWorker.perform_async }
+
+  every(10.minutes, 'bill.check_pay') { PendingBillCheckWorker.perform_async }
 end

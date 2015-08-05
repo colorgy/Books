@@ -1,12 +1,12 @@
 module SinoPacService
-  include ActionView::Helpers::FormHelper
-
   REALM = "DataWebService"
   PFNO = ENV['SINO_PAC_PFNO']
   KEY_DATA = ENV['SINO_PAC_KEY_DATA']
-  API_BASE_URL = 'http://ecapisandbox.sinopac.com'
+  API_BASE_URL = ENV['SINO_PAC_API_BASE_URL']
 
   class << self
+    include ActionView::Helpers::FormHelper
+
     def get_virtual_account(order_number, amount, duedate: 3.days.from_now, payname: 'pay', memo: nil, payername: nil, payermobile: nil, payeraddress: nil)
       amount = amount * 100
       target_url = "#{API_BASE_URL}/WebAPI/Service.svc/CreateATMorIBonTrans"

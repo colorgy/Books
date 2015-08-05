@@ -106,17 +106,36 @@ class Bill < ActiveRecord::Base
   def get_payment_info
     raise 'bill type not allowed' unless Bill.allowed_types.include?(type)
     return if Rails.env.test?
+
+    self.deadline = 28.days.from_now if deadline > 28.days.from_now
+
     case type
     when 'payment_code'
-      if Settings.orders_close_date.is_a? Time
-        self.payment_code = NewebPayService.get_payment_code(uuid, amount, payname: user.name, duedate: Settings.orders_close_date)
-      else
-        self.payment_code = NewebPayService.get_payment_code(uuid, amount, payname: user.name)
-      end
+      self.payment_code = NewebPayService.get_payment_code(uuid, amount, payname: user.name, duedate: deadline)
+
+    when 'virtual_account'
+      self.virtual_account = SinoPacService.get_virtual_account(uuid, amount, payname: user.name, duedate: deadline)
+    end
+  end
+
+  def pay_if_paid!
+    case type
+    when 'payment_code'
+      pay! if NewebPayService.reget_payment_code(uuid, amount)
+
+    when 'virtual_account'
+      pay! if SinoPacService.virtual_account_paid?(uuid)
+
+    when 'credit_card'
+      pay! if SinoPacService.credit_card_paid?(uuid)
     end
   end
 
   def expire_if_deadline_passed
     self.expire! if may_expire? && deadline.present? && Time.now > deadline + PAYMENT_DEADLINE_ADJ
+  end
+
+  def credit_card_pay_link(text = '按此進行信用卡付款')
+    SinoPacService.credit_card_pay_link(uuid, amount, text: text)
   end
 end

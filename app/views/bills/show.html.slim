@@ -10,8 +10,33 @@
         .under-line-title 付款資訊
         - case @bill.type
           - when 'payment_code'
+            .col.m6.s12
+              .payment-info
+                .inner
+                  p 繳費代碼：#{@bill.payment_code}
+                  p 繳費金額：#{@bill.amount}
+                  - if @bill.paid?
+                    p 已付款！
           - when 'credit_card'
+            .col.m6.s12
+              .payment-info
+                .inner
+                  - if @bill.paid?
+                    p 已付款！
+                  - else
+                    = @bill.credit_card_pay_link.html_safe
           - when 'virtual_account'
+            .col.m6.s12
+              .payment-info
+                .inner
+                  p 付款帳號：#{@bill.virtual_account}
+                  p 繳費金額：#{@bill.amount}
+                  - if @bill.paid?
+                    p 已付款！
+                  - else
+                    .payment-notice
+                      i.material-icons warning
+                      p 請務必匯入正確的金額！若金額或帳號不正確皆會遭到退款。
           - when 'test_clickpay'
             .col.m6.s12
               .payment-info

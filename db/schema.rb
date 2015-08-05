@@ -11,30 +11,31 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150725073615) do
+ActiveRecord::Schema.define(version: 20150805032012) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "bills", force: :cascade do |t|
-    t.string   "uuid",                       null: false
-    t.integer  "user_id",                    null: false
-    t.string   "type",                       null: false
-    t.integer  "price",                      null: false
-    t.integer  "amount",                     null: false
+    t.string   "uuid",                        null: false
+    t.integer  "user_id",                     null: false
+    t.string   "type",                        null: false
+    t.integer  "price",                       null: false
+    t.integer  "amount",                      null: false
     t.integer  "invoice_id"
-    t.string   "invoice_type",               null: false
+    t.string   "invoice_type",                null: false
     t.text     "invoice_data"
     t.text     "data"
-    t.string   "state",                      null: false
+    t.string   "state",                       null: false
     t.datetime "deleted_at"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "payment_code"
     t.datetime "paid_at"
-    t.integer  "used_credits",   default: 0, null: false
-    t.datetime "deadline",                   null: false
-    t.integer  "processing_fee", default: 0, null: false
+    t.integer  "used_credits",    default: 0, null: false
+    t.datetime "deadline",                    null: false
+    t.integer  "processing_fee",  default: 0, null: false
+    t.string   "virtual_account"
   end
 
   add_index "bills", ["deadline"], name: "index_bills_on_deadline", using: :btree
