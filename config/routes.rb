@@ -91,6 +91,9 @@ Rails.application.routes.draw do
     mount Sidekiq::Web => '/sidekiq'
   end
 
+  get '/pay/credit_card/success' => 'bills#credit_card_success'
+  get '/pay/credit_card/fail' => 'bills#credit_card_fail'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

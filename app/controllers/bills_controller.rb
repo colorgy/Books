@@ -33,6 +33,28 @@ class BillsController < ApplicationController
     redirect_to bill_path(@bill)
   end
 
+  def credit_card_success
+    flash[:alert] = "信用卡付款成功！"
+
+    if params[:OrderNO]
+      @bill = Bill.find_by(uuid: params[:OrderNO])
+    end
+
+    @bill.pay_if_paid!
+
+    redirect_to bill_path(@bill)
+  end
+
+  def credit_card_fail
+    flash[:alert] = "信用卡授權失敗！"
+
+    if params[:OrderNO]
+      @bill = Bill.find_by(uuid: params[:OrderNO])
+    end
+
+    redirect_to bill_path(@bill)
+  end
+
   private
 
   def bill_params
