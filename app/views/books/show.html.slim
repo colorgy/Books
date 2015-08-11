@@ -18,7 +18,7 @@
         .book-show-box
           .col.m4.s12
             .book-pic
-              img.materialboxed.responsive-img src=@book.image_url width="250"
+              = react_component 'ImgPrevError', src: @book.image_url, name: @book.name, className: 'materialboxed responsive-img', width: 250
           .col.m8.s12
             .book-info
               .book-info-inner
@@ -45,5 +45,5 @@
 
 javascript:
   $(document).ready(function() {
-    $('.materialboxed').materialbox();
+    // $('.materialboxed').materialbox();
   });

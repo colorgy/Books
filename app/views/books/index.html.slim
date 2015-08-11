@@ -24,7 +24,7 @@
             .col.s3.m2
               .product-list-pic
                 a href=book_path(book)
-                  img.responsive-img src=book.image_url
+                  = react_component 'ImgPrevError', src: book.image_url, name: book.name, className: 'responsive-img'
             .col.s9.m10
               .row
                 .col.s12.m8
