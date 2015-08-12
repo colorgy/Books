@@ -1,0 +1,167 @@
+#wrapper.wrapper.bg-theme
+  .logo(style="position: absolute; top: 0; right: 0;")
+    = image_tag 'colorgy/colorgy_logo_with_text_white.svg', style: 'width: 200px;'
+  = react_component 'CourseBooks', class: 'l-full-window', code: params[:code]
+
+css:
+
+  .wrapper {
+    padding-top: 0;
+    padding-bottom: 0;
+    background-color: rgb(50, 180, 160) !important;
+  }
+
+  .steps-step-icon img {
+    max-width: 40px;
+    max-height: 40px;
+    width: auto;
+  }
+
+  .wrapper > * {
+    height: 100%;
+    overflow: auto;
+  }
+
+  .steps-step, .steps-step.active {
+    background-color: white;
+  }
+
+  .steps-step::after, .steps-step.active::after {
+    background-color: white;
+  }
+
+  .search-select-selections {
+    height: 200px;
+    overflow: auto;
+  }
+
+  .search-select-selections > * {
+    height: 48px;
+  }
+
+  .search-select-selections > *:nth-child(even) {
+    background-color: rgba(0,0,0, .05)
+  }
+
+  .search-select-selections > *:nth-child(odd) {
+    background-color: rgba(0,0,0, .01)
+  }
+
+  .search-select-selections > .active {
+    background-color: rgb(0, 208, 173);
+    color: white;
+  }
+
+  .search-select-selections > *:hover {
+    background-color: rgba(0, 208, 173, .5);
+  }
+
+  .search-select-selections img {
+    height: 40px;
+    float: left;
+    margin-right: 8px;
+    width: auto;
+    max-width: 40px;
+  }
+
+  .search-select-selections .info {
+    white-space: nowrap;
+  }
+
+  .search-select-selections {
+    text-align: left;
+  }
+
+  .search-select-selections .annotation {
+    opacity: .5;
+  }
+
+  .search-select input {
+    margin-bottom: 8px;
+  }
+
+  .search-select {
+    margin-bottom: 8px;
+  }
+
+
+  .change-page-from-left-enter {
+    position: absolute;
+    transform: translateX(-100%);
+    opacity: .1;
+  }
+
+  .change-page-from-left-enter.change-page-from-left-enter-active {
+    transform: translateX(0%);
+    opacity: 1;
+    transition: all .3s ease-in-out;
+  }
+
+  .change-page-from-left-leave {
+    position: absolute;
+    transform: translateX(0%);
+    opacity: 1;
+  }
+
+  .change-page-from-left-leave.change-page-from-left-leave-active {
+    transform: translateX(100%);
+    opacity: .1;
+    transition: all .3s ease-in-out;
+  }
+
+
+
+
+
+
+
+  .change-page-from-right-enter {
+    position: absolute;
+    transform: translateX(100%);
+    opacity: .1;
+  }
+
+  .change-page-from-right-enter.change-page-from-right-enter-active {
+    transform: translateX(0%);
+    opacity: 1;
+    transition: all .3s ease-in-out;
+  }
+
+  .change-page-from-right-leave {
+    position: absolute;
+    transform: translateX(0%);
+    opacity: 1;
+  }
+
+  .change-page-from-right-leave.change-page-from-right-leave-active {
+    transform: translateX(-100%);
+    opacity: .1;
+    transition: all .3s ease-in-out;
+  }
+
+
+
+
+  .change-page-from-bottom-enter {
+    position: absolute;
+    transform: translateY(100%);
+    opacity: .1;
+  }
+
+  .change-page-from-bottom-enter.change-page-from-bottom-enter-active {
+    transform: translateY(0%);
+    opacity: 1;
+    transition: all .3s ease-in-out;
+  }
+
+  .change-page-from-bottom-leave {
+    position: absolute;
+    transform: translateY(0%);
+    opacity: 1;
+  }
+
+  .change-page-from-bottom-leave.change-page-from-bottom-leave-active {
+    transform: translateY(-100%);
+    opacity: .1;
+    transition: all .3s ease-in-out;
+  }

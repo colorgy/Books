@@ -14,6 +14,24 @@ Rails.application.routes.draw do
     put 'courses' => 'courses#update_courses'
   end
 
+  namespace 'course_books', path: 'course-books' do
+    get '/' => 'course_books#index'
+    resources :organization_selections
+    resources :lecturer_selections
+    resources :book_data_selections
+    resources :courses
+    put 'courses' => 'courses#update_courses'
+  end
+
+  namespace 'course_books', path: 'course-books/:code' do
+    get '/' => 'course_books#index'
+    resources :organization_selections
+    resources :lecturer_selections
+    resources :book_data_selections
+    resources :courses
+    put 'courses' => 'courses#update_courses'
+  end
+
   namespace 'supplier', path: nil do
     namespace 'control_panel', path: :scp do
       get '/' => 'dashboard#index'
