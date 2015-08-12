@@ -12,6 +12,7 @@ class Book < ActiveRecord::Base
 
   delegate :name, :author, :isbn, :edition, :image_url,
            :publisher, :original_price, :original_url, :url, :courses,
+           :course_titles_in,
            to: :data, allow_nil: true
   delegate :name, to: :supplier, prefix: true, allow_nil: true
 

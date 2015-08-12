@@ -34,6 +34,9 @@
                   | ISBN：#{@book.isbn}
                 .book-author
                   | 作者：#{@book.author}
+                .book-courses
+                  | 使用本書的課程：
+                  span.courses= @book.course_titles_in(current_user.organization_code).map { |c| "<span class=\"label\">#{c}</span>" }.join(' 、 ').html_safe
               .book-price
                 span.book-disc-price 團購價：NT$ #{@book.price}
                 span.book-orginal-price

@@ -1,0 +1,39 @@
+.message-bar-container{
+	margin: 8px 0 24px 0;
+}
+.message{
+	position: relative;
+	background-color: $primary-color;
+	padding: 8px;
+	border-radius: 2px;
+	@extend .z-depth-1;
+
+	> .row{
+		margin-bottom: 0;
+	}
+}
+.message-icon{
+	background-image: url(image_path('colorgy-icon.png'));
+	background-position: center;
+	background-size: 100%;
+	width: 48px;
+	height: 48px;
+	margin: 0 auto;
+}
+.message-content{
+	> p{
+		font-size: 1em;
+		color: #fff;
+		margin: 0;
+	}
+}
+.message-close-btn{
+	position: absolute;
+	top: 16px;
+	right: 16px;
+	cursor: pointer;
+
+	> i {
+		color: #fff;
+	}
+}

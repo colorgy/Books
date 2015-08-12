@@ -1,0 +1,44 @@
+.product-list{
+	padding: 16px 8px;
+	border-bottom: 1px solid #eee;
+}
+.product-list-pic{
+	max-width: 100px;
+}
+.product-list-info{
+	> .name{
+		font-size: 1.4em;
+		color: $primary-color;
+		margin-top: 0;
+		@media screen and (max-width: 600px){
+			margin: 0 0 8px 0;
+		}
+
+		> a{
+			color: $primary-color;
+			&:hover{
+				color: lighten($primary-color, 20%);
+			}
+		}
+	}
+
+	> .details{
+		display: block;
+		margin: 8px 0;
+		color: $darker-gray;
+		font-size: 1em;
+	}
+}
+.product-list-price{
+	> .discount-price{
+		color: $darker-gray;
+		font-size: 1.4em;
+		margin-top: 0;
+	}
+	> .origin-price{
+		display: block;
+		margin: 8px 0;
+		color: $darker-gray;
+		font-size: 1em;
+	}
+}

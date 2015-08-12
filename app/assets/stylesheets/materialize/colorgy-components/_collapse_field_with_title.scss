@@ -1,0 +1,36 @@
+.collapse-field-with-title{
+	margin-bottom: 12px;
+
+	.title{
+		position: relative;
+		padding: 8px 8px 8px 0;
+		font-size: $fourth-size;
+		cursor: pointer;
+		border-bottom: #eee solid 1px;
+		color: $darker-gray;
+
+		.trigger{
+			position: absolute;
+			width: 12px;
+			height: 12px;
+			top: calc( 50% - 7px );
+			right: 20px;
+			background-image: image-url('cross.png');
+			background-repeat: no-repeat;
+			background-size: 100%;
+			background-position: center;
+			@include transform-rotate(45deg);
+			@include transition-all(0.5s);
+
+			&.active{
+				@include transform-rotate(180deg);
+			}
+		}
+	}
+	.content{
+		display: none;
+		padding: 16px 32px 16px 32px;
+		font-size: $fourth-size;
+		color: $dark-gray;
+	}
+}

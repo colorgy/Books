@@ -12,3 +12,4 @@ Rails.application.config.assets.paths << "#{Rails.root}/vendor/assets/admin_lte"
 Rails.application.config.assets.precompile += %w( lecturer_books.css supplier.css supplier.js supplier_cp.css supplier_cp.js pages/* colorgy_front.js classie.js selectFx.js jquery_textfill_min.js main.js velocity_min.js bjqs.js masonry.pkgd.min.js countdown.min.js countdown.min.js )
 
 Rails.application.config.assets.precompile += %w( front/main.js )
+Rails.application.config.assets.precompile += %w( inbox.css )

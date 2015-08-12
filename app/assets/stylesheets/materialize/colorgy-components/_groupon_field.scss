@@ -1,0 +1,47 @@
+.groupon-field{
+	.groupon-field-inner{
+		padding: 36px 12px;
+	}
+}
+.course-item{
+	background-color: rgb(240,240,240);
+	visibility: hidden;
+	opacity: 0;
+	@include transition-all(0.2s);
+
+	&.active{
+		visibility: visible;
+		opacity: 1;
+	}
+
+	&:nth-child(2n-1){
+		background-color: #fff;
+	}
+	.book-img{
+		width: 30px;
+		display: inline-block;
+		vertical-align: text-bottom;
+	}
+	.course-info{
+		display: inline-block;
+
+		span{
+			font-size: 1.1em;
+			margin: 5px 10px;
+			display: inline-block;
+		}
+	}
+	.course-item-checkbox{
+		display: inline-block;
+		margin-left: 24px;
+		vertical-align: top;
+	}
+}
+.course-search-results{
+	margin-bottom: 36px;
+	border: 1px solid rgb(226, 226, 226);
+	padding: 12px;
+	height: 300px;
+	overflow-y: auto;
+	width: 100%;
+}

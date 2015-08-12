@@ -11,7 +11,13 @@ class OrdersController < ApplicationController
     if params[:confirmed]
       # really checkout
       @data = current_user.checkout!(bill_params, package_attrs: package_params)
-      redirect_to @data[:bill] and return if @data[:bill].id.present?
+      if @data[:bill].id.present?
+        if @data[:bill].type == 'credit_card'
+          redirect_to credit_card_pay_redirect_path(@data[:bill]) and return
+        else
+          redirect_to @data[:bill] and return
+        end
+      end
     elsif @cart_items.blank?
       redirect_to root_path and return
     else
@@ -29,6 +35,6 @@ class OrdersController < ApplicationController
   end
 
   def package_params
-    params.fetch(:package, ActionController::Parameters.new).permit(:recipient_name, :pickup_address, :recipient_mobile, :pickup_datetime)
+    params.fetch(:package, ActionController::Parameters.new).permit(:recipient_name, :pickup_address, :recipient_mobile, :pickup_datetime, additional_items: %w(1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16))
   end
 end

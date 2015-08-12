@@ -1,0 +1,72 @@
+.checkout-options-field{
+	width: 100%;
+	max-width: 800px;
+	margin: auto;
+
+	> .checkout-options-field-inner{
+
+		padding: 24px;
+
+		> .checkout-options-field-title{
+
+			background-color: $primary-color;
+
+			> .payment-title{
+				display: inline-block;
+				text-align: center;
+				width: 50%;
+				float: left;
+				padding: 8px 0;
+				color: $white;
+			}
+			> .reciept-title{
+				display: inline-block;
+				text-align: center;
+				width: 50%;
+				padding: 8px 0;
+				float: left;
+				color: $white;
+			}
+			> .total-title{
+				text-align: center;
+				padding: 8px 0;
+				color: $white;
+			}
+		}
+
+		> .checkout-options-field-body{
+			> .payment-options{
+				display: inline-block;
+				text-align: center;
+				width: 50%;
+				float: left;
+				padding: 8px 0;
+			}
+
+			> .reciept-options{
+				display: inline-block;
+				text-align: center;
+				width: 50%;
+				float: left;
+				padding: 8px 0;
+			}
+
+			&.text-center{
+				p{
+					text-align: center;
+					margin-top: 10px;
+					font-size: 1.6em;
+					color: $darker-gray;
+				}
+			}
+		}
+	}
+}
+.go-checkout{
+	text-align: center;
+	button{
+		margin-top: 24px;
+		padding-right: 100px;
+		padding-left: 100px;
+	}
+}

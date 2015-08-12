@@ -1,0 +1,30 @@
+.main-nav.hide-on-med-and-down {
+
+	li {
+		line-height: 64px;
+	}
+}
+
+.navbar-fixed {
+	height: 100px;
+}
+
+.label {
+	padding: .3em .6em .2em;
+}
+
+.go-checkout,
+.order-confirm-submit {
+
+	> * {
+		vertical-align: bottom;
+	}
+}
+
+.add-buy {
+	padding: 8px;
+}
+
+.order-options-confirm {
+	padding: 8px;
+}

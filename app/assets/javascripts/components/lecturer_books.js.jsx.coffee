@@ -258,7 +258,7 @@ LecturerBooks = React.createClass
       actions = ''
       nextCourseUcode = @nextCourseUcode()
       if nextCourseUcode
-        actions = `<a className="btn btn--primary btn--raised" onClick={this.handleNextCourse}>下一本</a>`
+        actions = `<a className="btn btn--primary btn--raised" onClick={this.handleNextCourse}>確認</a>`
       else
         actions = `<a className="btn btn--primary btn--raised" onClick={this.handleDone}>完成！</a>`
 

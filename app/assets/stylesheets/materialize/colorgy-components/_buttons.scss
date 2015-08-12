@@ -1,0 +1,40 @@
+.large-btn{
+	background-color: $darker-gray;
+	color: $white;
+	padding: 15px 25px;
+	border-radius: $border-radius;
+	border: 0;
+	@include transition-all(0.5s);
+
+	&:focus, &:hover{
+		background-color: rgba($darker-gray, 0.8);
+	}
+	&.larger-btn{
+		padding: 15px 50px;
+		font-size: 1.6em;
+	}
+}
+.process-btn{
+	background-color: $orange;
+	color: $white;
+	padding: 15px 50px;
+	border-radius: $border-radius;
+	border: 0;
+	margin-right: 24px;
+	margin-left: 24px;
+	@include transition-all(0.5s);
+
+	&:focus, &:hover{
+		background-color: rgba($orange, 0.8);
+	}
+}
+.garbage-can-delete{
+	background-image: image-url('garbage-can.png');
+	background-repeat: no-repeat;
+	background-size: 100%;
+	background-position: center;
+	width: 19px;
+	height: 24px;
+	background-color: transparent;
+	border: 0 !important;
+}

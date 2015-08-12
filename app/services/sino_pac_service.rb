@@ -83,7 +83,7 @@ module SinoPacService
       amount = amount * 100
       form = []
 
-      form << form_tag("#{API_BASE_URL}/SinoPacWebCard/Pages/PageRedirect.aspx")
+      form << form_tag("#{API_BASE_URL}/SinoPacWebCard/Pages/PageRedirect.aspx", id: 'credit-card-pay')
       form << hidden_field_tag('ShopNO', PFNO)
       form << hidden_field_tag('KeyNum', '3')
       form << hidden_field_tag('OrderNO', order_number)

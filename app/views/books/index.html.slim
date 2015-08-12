@@ -33,11 +33,14 @@
                       a href=book_path(book)
                         = book.name
                     p.details.text-overflow-ellipse
-                      | 作者 ：
+                      | 作者：
                       span.author= book.author
                     p.details.text-overflow-ellipse
-                      | ISBN ：
+                      | ISBN：
                       span.isbn= book.isbn
+                    p.details
+                      | 使用本書的課程：
+                      span.courses= book.course_titles_in(current_user.organization_code).map { |c| "<span class=\"label\">#{c}</span>" }.join(' 、 ').html_safe
                 .col.s12.m4
                   .product-list-price
                     h5.discount-price 團購價 ： #{book.price}

@@ -109,6 +109,7 @@ Rails.application.routes.draw do
     mount Sidekiq::Web => '/sidekiq'
   end
 
+  get '/pay/credit_card/pay_redirect/:id' => 'bills#credit_card_pay_redirect', as: 'credit_card_pay_redirect'
   get '/pay/credit_card/success' => 'bills#credit_card_success'
   get '/pay/credit_card/fail' => 'bills#credit_card_fail'
 

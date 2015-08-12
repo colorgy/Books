@@ -1,0 +1,77 @@
+.follow-group-card{
+	position: relative;
+	.inner{
+		padding: 20px;
+		border: 2px solid $dark-gray;
+		border-radius: $border-radius;
+
+		.prof-name{
+			color: $dark-gray;
+			font-size: $third-size;
+		}
+		.course-name{
+			color: $dark-gray;
+			font-size: $second-size
+		}
+		.book-info{
+			padding: 15px 0;
+			border-bottom: 2px solid $gray;
+
+			img{
+				vertical-align: middle;
+				width: 50px;
+			}
+			.book-name{
+				color: $dark-gray;
+				display: inline-block;
+				margin: 15px 0 0 0;
+			}
+		}
+		.book-price{
+			margin: 15px 0;
+			text-align: right;
+
+			.dsic-price{
+				color: $primary-color;
+			}
+			.origin-price{
+				color: $black;
+			}
+		}
+		.group-leader{
+			background-color: $primary-color;
+			margin: 0 -20px;
+			padding: 5px 20px;
+			text-align: center;
+			img{
+				width: 50px;
+				border-radius: 100px;
+				border: 2px solid $gray;
+				vertical-align: middle;
+			}
+			.group-leader-name{
+				color: $white;
+				font-size: $third-size;
+				margin: 0 15px;
+				display: inline-block;
+			}
+		}
+		.gorup-info{
+			color: $dark-gray;
+			p{
+				margin-top: 20px;
+				margin-bottom: 0;
+				text-align: center;
+			}
+		}
+	}
+	.follow-btn{
+		margin: 20px 0 40px 0;
+		text-align: center;
+	}
+	.edit-btn-field{
+		position: absolute;
+		top: 12px;
+		right: 12px;
+	}
+}

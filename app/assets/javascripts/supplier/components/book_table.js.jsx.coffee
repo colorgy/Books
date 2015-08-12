@@ -58,6 +58,7 @@ BookTable = React.createClass
           preventClose.allow()
           location.reload()
     .done (data, textStatus, xhr) =>
+      window.xhr = xhr
       @setState
         books: data
         loading: false

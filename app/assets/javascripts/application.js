@@ -16,4 +16,5 @@
 //= require react_ujs
 //= require vendor/classnames
 //= require_tree ./vendor
+//= require materialize-all
 //= require components

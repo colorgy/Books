@@ -2,7 +2,11 @@ class Package < ActiveRecord::Base
   include AASM
   has_paper_trail
 
+  SHIPPING_FEE = 80
+
   scope :is_new, ->  { where(state: 'new') }
+
+  store :additional_items
 
   belongs_to :user
   has_many :orders
@@ -50,10 +54,27 @@ class Package < ActiveRecord::Base
 
   # Calaulate and update the total amount (addes the shipping fee)
   def calculate_amount
-    if price < 1000
-      self.shipping_fee = 100
+    if price < 100000000
+      self.shipping_fee = SHIPPING_FEE
     end
+
     self.amount = price + shipping_fee
+
+    additional_items.each_pair do |k, v|
+      p = PackageAdditionalItem.find(k.to_i)
+      self.amount += p.price
+    end
+  end
+
+  def additional_items_description
+    descriptions = []
+
+    additional_items.each_pair do |k, v|
+      p = PackageAdditionalItem.find(k.to_i)
+      descriptions << "#{p.name} (NT$ #{p.price})"
+    end
+
+    descriptions.join('、')
   end
 
   def bill_deadline

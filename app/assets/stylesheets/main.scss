@@ -1,0 +1,596 @@
+@import "materialize/core/prefixer";
+@import "materialize/core/mixins";
+@import "materialize/core/colors";
+@import "materialize/core/helpers";
+
+// Variables;
+@import "materialize/core/variables";
+
+// materialize/components
+@import "materialize/core/global";
+@import "materialize/core/icons-material-design";
+@import "materialize/core/grid";
+@import "materialize/core/preloader";
+@import "materialize/core/roboto";
+@import "materialize/core/typography";
+@import "materialize/core/waves";
+@import "materialize/core/materialbox";
+
+//-----------------
+//-----------------
+/*
+
+1. Landing Page
+2. 完成訂購
+3. 訂單狀態
+4. 主揪
+5. 手機版固定 Btn
+6. Pin Menu 側邊固定 menu
+7. 超商付款教學
+8. Type Form
+9. 上傳書籍
+10. Others
+
+
+*/
+//-----------------
+//-----------------
+
+
+
+
+// --------
+// 1. Landing Page
+// --------
+
+.service-introduction{
+	padding: 36px 0;
+	&.odd{
+		background-color: #eee;
+	}
+	.icon{
+		text-align: center;
+		&.odd{
+			@media screen and (min-width: 992px){
+				text-align: right !important;
+			}
+		}
+		&.even{
+			@media screen and (min-width: 992px){
+				text-align: left !important;
+			}
+		}
+		img{
+			max-width: 250px;
+		}
+	}
+	.text-content{
+		padding-top: 16px;
+		padding-left: 24px;
+		padding-right: 24px;
+		@media screen and (min-width: 992px){
+			max-width: 450px;
+			padding-left: 12px;
+			padding-right: 12px;
+			&.even{
+				margin-left: auto;
+			}
+		}
+		h3{
+			color: black;
+			font-size: 2em;
+		}
+		p{
+			color: #717071;
+		}
+	}
+}
+.row.service-introduction {
+  margin-bottom: 0;
+}
+.go-login{
+  background: rgb(0, 208, 173);
+  padding-top: 80px !important;
+  padding-bottom: 150px !important;
+  text-align: center;
+  margin-top: 36px;
+  h4{
+  	color: #fff;
+  	margin-bottom: 40px;
+  	font-size: 1.6em;
+  }
+}
+
+// End
+
+
+
+// ---------
+// 2. 完成訂購
+// --------
+
+.order-complete{
+	.notice{
+		margin: 24px 0 48px 0;
+		h5{
+			text-align: center;
+		}
+		i{
+			margin-right: 12px;
+			font-size: 5em;
+			display: inline-block;
+		}
+	}
+	.payment{
+		.title{
+			font-size: 1.6em;
+			text-align: center;
+		}
+		.description{
+			font-size: 1.2em;
+			color: #F5A623;
+			text-align: center;
+			margin-bottom: 24px;
+		}
+		.payment-countdown{
+
+		}
+		.payment-info{
+			padding: 0 16px;
+
+			.inner{
+				p{
+
+				}
+				.payment-notice{
+					background-color: #F5A623;
+					padding: 12px 24px;
+					text-align: center;
+					margin: 24px 0;
+					i{
+						font-size: 1.8em;
+					}
+					p{
+						color: #fff;
+						font-size: 1em;
+					}
+				}
+			}
+		}
+	}
+	.order-info{
+		padding: 24px 24px;
+		.title{
+			font-size: 1.6em;
+			text-align: center;
+		}
+	}
+}
+
+// End
+
+
+
+// --------
+// 3. 訂單狀態
+// --------
+
+.situation-not-send{
+	border: 1px solid $orange;
+	color: $orange;
+	border-radius: $border-radius;
+	padding: 3px 0;
+	text-align: center;
+	width: 100px;
+	margin: 0 auto;
+}
+.situation-has-send{
+	border: 1px solid $dark-gray;
+	color: $dark-gray;
+	border-radius: $border-radius;
+	padding: 3px 0;
+	text-align: center;
+	width: 100px;
+	margin: 0 auto;
+}
+.situation-has-got{
+	border: 1px solid $primary-color;
+	color: $primary-color;
+	border-radius: $border-radius;
+	padding: 3px 0;
+	text-align: center;
+	width: 100px;
+	margin: 0 auto;
+}
+.situation-has-paid{
+	border: 1px solid $primary-color;
+	color: $primary-color;
+	border-radius: $border-radius;
+	padding: 3px 0;
+	text-align: center;
+	width: 100px;
+	margin: 0 auto;
+}
+
+// End
+
+// --------
+// 4. 主揪
+// --------
+
+.leader-name{
+	display: inline-block;
+	font-weight: 600;
+}
+.leader-avatar{
+	display: inline-block;
+	border-radius: 1000px;
+	border: 2px solid $dark-gray;
+	overflow: hidden;
+	margin: 0 8px;
+	vertical-align: middle;
+	width: 35px;
+	height: 35px;
+}
+
+// End
+
+// --------
+// 5. 手機版固定 Btn
+// --------
+
+.login-mobile-btn{
+	@media screen and (max-width: 992px){
+		position: fixed;
+		top: 14px;
+		right: 18px;
+		z-index: 99999999999;
+		display: none;
+
+		a{
+			padding: 6px 12px;
+			background-color: $primary-color;
+			display: block;
+			font-size: 12px;
+			color: #fff;
+			border-radius: $border-radius;
+		}
+	}
+	@media screen and (min-width: 992px){
+		display: none;
+	}
+}
+.shopping-cart-mobile-btn{
+	@media screen and (max-width: 992px){
+		position: fixed;
+		top: 12px;
+		right: 18px;
+		z-index: 99999999999;
+
+
+		a{
+			display: block;
+			font-size: 24px;
+			color: $darker-gray;
+			i{
+				color: $darker-gray;
+				font-size: 24px !important;
+			}
+		}
+	}
+	@media screen and (min-width: 992px){
+		display: none;
+	}
+}
+
+// End
+
+// --------
+// 6. Pin Menu 側邊固定 menu
+// --------
+
+.pin-menu.fixed-menu{
+	position: fixed;
+	top: 120px;
+}
+
+.table-of-contents{
+	a{
+		height: 1.8em;
+		line-height: 1.8em;
+		font-size: 1.2em;
+
+		&.active{
+			border-left: 2px solid $primary-color;
+		}
+		&:hover{
+			border-left: 2px solid $primary-color;
+			opacity: 0.5;
+		}
+	}
+}
+
+// End
+
+// --------
+// 7. 超商付款教學
+// --------
+
+.supermarket-payment-info-item{
+	a{
+		display: block;
+		text-align: center;
+		img{
+			max-width: 150px;
+			display: block;
+			margin: 0 auto;
+		}
+		button{
+			margin-top: 16px;
+			margin: 16px auto;
+		}
+	}
+}
+button.look-btn {
+	background: transparent;
+	border: 0;
+	font-size: 2em;
+	color: black;
+}
+
+// --------
+// 8. 主揪介面 - 訂單
+// --------
+
+.group-show-book-info{
+	.title{
+		font-size: 2em;
+	}
+	.book-pic{
+		width: 30px;
+		display: inline-block;
+		font-size: 1.4em;
+		margin: 0 12px;
+	}
+	.book-name{
+		display: inline-block;
+		font-size: 1.4em;
+		margin: 0 12px;
+	}
+	.book-author{
+		display: inline-block;
+		font-size: 1.4em;
+		margin: 0 12px;
+	}
+	.book-edition{
+		display: inline-block;
+		font-size: 1.4em;
+		margin: 0 12px;
+	}
+}
+.group-show-members{
+	margin-top: 36px;
+
+	.title{
+		font-size: 2em;
+	}
+}
+.books-counter{
+	.total-left{
+		color: $primary-color;
+		font-size: 1.6em;
+	}
+	margin-bottom: 24px;
+}
+
+// End
+
+
+// --------
+// 9. Type Form
+// --------
+
+#typeform-wrapper{
+	z-index: 999999999999 !important;
+	width: 100% !important;
+
+	> img{
+		width: 40px !important;
+		background-color: black !important;
+		right: 12px !important;
+	}
+}
+
+
+// End
+
+
+// --------
+// 10. 上傳書籍
+// --------
+
+.upload-books{
+	.step{
+		background-color: #fff;
+		padding: 36px 12px;
+		.title{
+			font-size: 1.6em;
+			text-align: center;
+		}
+		.inner{
+			padding: 12px 24px;
+		}
+	}
+	.upload-books-step{
+		width: 100%;
+		height: 100%;
+		overflow: auto;
+		position: absolute;
+		background-color: #EEE;
+		padding: 36px 12px;
+		opacity: 0;
+		visibility: hidden;
+
+		@include transition-all(0.3s);
+
+		&.active{
+			opacity: 1;
+			visibility: visible;
+		}
+	}
+	.upload-books-step1{
+		z-index: 3;
+	}
+	.upload-books-step2{
+		z-index: 2;
+		.lecturer-search-results{
+			height: 300px;
+			overflow-y: auto;
+			border: 1px solid rgb(240,240,240);
+
+			.lecturer-item{
+				padding: 12px 24px;
+				cursor: pointer;
+
+				&:hover{
+					background-color: $primary-color !important;
+					color: #fff;
+				}
+
+				&:nth-child(2n-1){
+					background-color: #eee;
+				}
+			}
+		}
+	}
+	.upload-books-step3{
+		z-index: 1;
+		.courses-results{
+			height: 300px;
+			overflow-y: auto;
+			padding: 0;
+
+			.course-option{
+				padding: 16px 12px;
+				text-align: center;
+				background-color: $darker-gray;
+				color: #fff;
+				cursor: pointer;
+
+				&:hover{
+					opacity: 0.8;
+				}
+
+				&.active{
+					background-color: #fff !important;
+					color: $darker-gray !important;
+				}
+			}
+		}
+		.course-book-confirm-option{
+			background-color: #fff;
+			opacity: 0;
+			visibility: hidden;
+			position: absolute;
+			width: 100%;
+			min-height: 400px;
+			max-height: 800px;
+			@include transition-all(0.3s);
+
+			&.active{
+				opacity: 1;
+				visibility: visible;
+			}
+
+			.book-info{
+				.book-img{
+					width: 50%;
+					float: left;
+					text-align: center;
+					img{
+						max-width: 100px;
+						width: 100%;
+					}
+				}
+				.book-info-inner{
+					display: inline-block;
+  					vertical-align: middle;
+  					width: 50%;
+				}
+				.confirm{
+					text-align: center;
+					color: #26A69A;
+					padding: 12px;
+				}
+			}
+			.change-book-search-field{
+				.books-search-results{
+					height: 300px;
+					overflow-y: auto;
+					border: 1px solid rgb(240,240,240);
+
+					.book-item{
+						.book-img{
+							width: 60px;
+						}
+						.book-info{
+
+						}
+					}
+				}
+			}
+		}
+		.course-book-confirm-option-field{
+			padding: 0;
+
+			.title{
+				background-color: $primary-color;
+				color: #fff;
+				padding: 6px 0;
+			}
+			.inner{
+				padding: 0 !important;
+
+				.course-book-confirm-option{
+					padding: 36px 24px;
+				}
+			}
+		}
+		.courses-select-options{
+			padding: 0 !important;
+
+			.title{
+				background-color: $primary-color;
+				color: #fff;
+				padding: 6px 0;
+			}
+		}
+	}
+}
+
+
+
+// --------
+// Others
+// --------
+
+
+i{
+	vertical-align: middle;
+}
+.list-icon{
+  display: inline-block !important;
+  margin-right: 5px;
+}
+.help-btn{
+  background-image: url("/images/help.png");
+  background-size: 80%;
+  background-position: 4px 2px;
+  width: 40px !important;
+  height: 40px;
+  background-repeat: no-repeat;
+}
+.wrapper{
+	min-height: 100vh;
+}
+

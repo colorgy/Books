@@ -1,0 +1,72 @@
+html.lock, body.lock { overflow: hidden; height: 100% }
+.popup-notification{
+	position: fixed;
+	width: 100%;
+	max-width: 800px;
+	min-width: 250px;
+	border-radius: $border-radius;
+	z-index: 1000;
+	background-color: $white;
+	opacity: 1;
+	visibility: visible;
+	left: 50%;
+	@media screen and (max-width: 992px) {
+		@include translate(-50% , -50%);
+		top: 50%;
+	}
+	@media screen and (min-width: 992px) {
+	    @include translateX(-50%);
+		top: 120px;
+	}
+    @include transition-all( 0.3s );
+
+	.popup-title{
+		background-color: $dark-gray;
+		color: $white;
+		padding: 15px 30px;
+		text-align: center;
+		font-size: $title-size;
+	}
+	.popup-content{
+		max-height: 300px;
+		padding: 15px 30px;
+		overflow: auto;
+	}
+	.popup-footer{
+		text-align: right;
+		padding: 10px 30px;
+		border-top: 1px solid $gray;
+
+		.popup-btn{
+			background-color: $black;
+			color: $yellow;
+			width: 50px;
+			height: 50px;
+			padding: 5px;
+			border-radius: 100px;
+			border: 0;
+			box-shadow: none;
+		}
+	}
+	&.teaching-steps{
+		.steps-icon{
+			max-width: 100px;
+			margin: 30px auto;
+		}
+	}
+	&.close{
+		opacity: 0 !important;
+		visibility: hidden !important;
+		@include translateX(-100%);
+	}
+	&.group-leader-notice{
+		opacity: 0;
+		&:before{
+			@include before-icons("caret.png", -50px, calc( 50% - 90px), auto, auto, 80px , 80px);
+			z-index: -1;
+		}
+	}
+	&.group-leader-notice.active{
+		opacity: 1;
+	}
+}

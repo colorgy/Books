@@ -1,0 +1,13 @@
+// 問題回報按鈕
+
+.issue-response-btn{
+	position: fixed;
+	left: 12px;
+	bottom: 12px;
+	background-color: rgb(51, 199, 171);
+	border-radius: $border-radius;
+
+	a{
+		color: #fff;
+	}
+}

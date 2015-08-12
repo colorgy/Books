@@ -55,6 +55,10 @@ class BillsController < ApplicationController
     redirect_to bill_path(@bill)
   end
 
+  def credit_card_pay_redirect
+    @bill = Bill.find(params[:id])
+  end
+
   private
 
   def bill_params

@@ -1,0 +1,32 @@
+footer{
+	width: 100%;
+	min-height: 150px;
+	background-color: $darker-gray;
+	padding: 24px 12px;
+	text-align: center;
+	.footer-inner{
+		.footer-menu{
+			ul{
+				li{
+					display: inline-block;
+					margin: 8px 12px;
+					a{
+						color: #fff;
+						padding: 8px 12px;
+						&:hover{
+							color: #fff;
+						}
+					}
+				}
+			}
+		}
+		.company-rights{
+			p{
+				color: #fff;
+				a{
+					color: $primary-color;
+				}
+			}
+		}
+	}
+}

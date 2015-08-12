@@ -1,0 +1,120 @@
+
+// --------
+// 訂單查詢
+// --------
+
+.orders{
+	.orders-inner{
+		.order-item{
+			border: 1.5px solid gray;
+			border-radius: $border-radius;
+			.order-title{
+				background-color: $primary-color;
+				color: #fff;
+				font-size: 1.2em;
+				padding: 8px 12px;
+			}
+			.groups{
+
+				table{
+					thead{
+						tr{
+							background-color: #BDBDBD;
+							th{
+								padding: 8px 0;
+								border-radius: 0;
+							}
+						}
+					}
+					tbody{
+						tr{
+							td{
+								a{
+									color: $primary-color;
+									display: block;
+								}
+								p{
+									margin: 0;
+								}
+							}
+						}
+					}
+				}
+				.group-item{
+					width: 25%;
+					max-width: 150px;
+					height: auto;
+					position: relative;
+					margin-top: 150px;
+					text-align: center;
+					border: 1px solid $dark-gray;
+					border-radius: $border-radius;
+
+					.leader-avatar{
+						position: absolute;
+						border-radius: 1000px;
+						overflow: hidden;
+						border: 2px solid;
+						height: 150px;
+						top: -150px;
+						a{
+							display: block;
+							img{
+
+							}
+							.group-situation{
+								background-color: $primary-color;
+								color: #fff;
+							}
+						}
+					}
+					.leader-name{
+						background-color: $primary-color;
+						color: #fff;
+					}
+					.lecturer-name{
+						display: inline-block;
+					}
+					.course-name{
+						display: inline-block;
+					}
+					.pickup-location{
+
+					}
+				}
+			}
+			.order-info{
+				display: none;
+				padding: 12px 24px 48px 24px;
+			}
+			.payment-counter{
+				position: relative;
+				&.trigger-active{
+					border-bottom: 1px solid;
+				}
+				.order-info-trigger{
+					cursor: pointer;
+					position: absolute;
+					background-color: $dark-gray;
+					padding: 8px 16px;
+					height: 44px;
+					border-radius: 0 0 $border-radius $border-radius;
+					color: #fff;
+					left: 50%;
+					transform: translateX(-50%);
+					-moz-transform: translateX(-50%);
+					-ms-transform: translateX(-50%);
+					-webkit-transform: translateX(-50%);
+					-o-transform: translateX(-50%);
+
+					&:hover{
+						background-color: $primary-color !important;
+					}
+					p{
+						display: inline;
+					}
+				}
+			}
+		}
+	}
+}

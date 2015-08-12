@@ -11,6 +11,10 @@ class Bill < ActiveRecord::Base
   # (marking as expired also means stop tracking its status) after the bill
   # deadline haven't been overdue for more than this time.
   PAYMENT_DEADLINE_ADJ = 2.hours
+  TYPE_FEE_EQUATIONS = {
+    payment_code: 'n + 35',
+    credit_card: 'n * 1.018 + 0.5'
+  }
 
   self.inheritance_column = :_type_disabled
 
@@ -24,6 +28,7 @@ class Bill < ActiveRecord::Base
 
   belongs_to :user
   has_many :orders, primary_key: :uuid, foreign_key: :bill_uuid
+  has_many :packages, through: :orders
 
   delegate :sid, :uid, :name, :fbid, :username, :avatar_url, :cover_photo_url,
            to: :user, prefix: true, allow_nil: true
@@ -92,13 +97,19 @@ class Bill < ActiveRecord::Base
   end
 
   # Calaulate and update the total amount (addes the payment fees,
-  # minus credits used) to pay
+  # minus credits used) to pay, with price
+  # and used_credits already set
   def calculate_amount
-    if type == 'payment_code'
-      self.processing_fee = 35
+    processing_fee = 0
+    amount = price - used_credits
+
+    if TYPE_FEE_EQUATIONS[type.to_sym].present?
+      n = amount
+      self.processing_fee = eval(TYPE_FEE_EQUATIONS[type.to_sym]) - amount
     end
 
-    self.amount = price + processing_fee - used_credits
+    amount += self.processing_fee
+    self.amount = amount
   end
 
   # Get the payment information from 3rd services to make this bill payable

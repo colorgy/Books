@@ -42,13 +42,17 @@
     .row.row-inner
       .col.m4.s12
         .order-options-confirm
+          .title 概述
           .content
             p= Bill.type_label(@data[:bill].type)
             - if @data[:bill].processing_fee > 0
               p 金流手續費：+ NT$ #{@data[:bill].processing_fee}
             p= Bill.invoice_type_label(@data[:bill].invoice_type)
+            - if @data[:package] && @data[:package].additional_items_description.present?
+              p 額外購買：#{@data[:package].additional_items_description}
       .col.m4.s12
         .order-options-confirm
+          .title 詳細資訊
           .content
             - if @data[:package]
               p 收件人姓名：#{@data[:package].recipient_name}
@@ -62,10 +66,12 @@
 
       .col.m4.s12
         .order-options-confirm
+          .title 付款資訊
           .content
             p 總計： NT$ #{@data[:bill].amount}
             p 繳費期限：#{@data[:bill].deadline}
       .col.m12.s12
         .order-confirm-submit
           a.btn-second.btn--large href=cart_items_path 上一步
-          button.btn-highlight.btn--large type="submit" 送出訂單
+          | &nbsp;
+          button.btn-highlight.btn--large type="submit" 送出訂單，前往付款

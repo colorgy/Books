@@ -1,0 +1,92 @@
+@mixin box-shadow-2($args1, $args2) {
+    -webkit-box-shadow: $args1, $args2;
+    -moz-box-shadow: $args1, $args2;
+    box-shadow: $args1, $args2;
+}
+
+// Colorgy
+
+// Mixins
+
+@mixin box-padding{
+	padding: 24px 24px;
+}
+@mixin margin-top-l{
+	margin-top: 40px;
+}
+
+@mixin margin-top-md{
+	margin-top: 24px;
+}
+@mixin margin-top-s{
+	margin-top: 8px;
+}
+@mixin before-icons($image-url, $top, $right, $bottom, $left, $width, $height){
+  width: $width;
+  height: $height;
+  top: $top;
+  right: $right;
+  bottom: $bottom;
+  left: $left;
+  position: absolute;
+  content: '';
+  background-image: image-url($image-url);
+  background-repeat: no-repeat;
+  background-size: 100%;
+  background-position: center;
+}
+@mixin transform-rotate($rotate){
+	transform: rotate($rotate);
+	-webkit-transform: rotate($rotate);
+	-ms-transform: rotate($rotate);
+	-o-transform: rotate($rotate);
+	-moz-transform: rotate($rotate);
+}
+@mixin transform-scale($scale){
+	transform: scale($scale);
+	-webkit-transform: scale($scale);
+	-ms-transform: scale($scale);
+	-o-transform: scale($scale);
+	-moz-transform: scale($scale);
+}
+@mixin transition-all( $time ){
+	transition: all $time;
+	-webkit-transition: all $time;
+	-ms-transition: all $time;
+	-o-transition: all $time;
+	-moz-transition: all $time;
+}
+@mixin translate( $X, $Y ){
+	transform: translate($X, $Y);
+	-webkit-transform: translate($X, $Y);
+	-moz-transform: translate($X, $Y);
+	-o-transform: translate($X, $Y);
+	-ms-transform: translate($X, $Y);
+}
+@mixin translateX( $X ){
+	transform: translateX($X);
+	-webkit-transform: translateX($X);
+	-moz-transform: translateX($X);
+	-o-transform: translateX($X);
+	-ms-transform: translateX($X);
+}
+@mixin translateY( $Y ){
+	transform: translateY($Y);
+	-webkit-transform: translateY($Y);
+	-moz-transform: translateY($Y);
+	-o-transform: translateY($Y);
+	-ms-transform: translateY($Y);
+}
+@mixin text-overflow-ellipse{
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
+}
+@mixin under-line-title{
+	padding: 0 5px 5px 5px;
+	color: #3B3A3B;
+	display: block;
+	border-bottom: 1px solid #ccc !important;
+	font-size: 1.6em;
+	margin-bottom: 16px;
+}

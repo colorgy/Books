@@ -1,0 +1,19 @@
+.responsive-table{
+	img{
+		max-width: 45px;
+	}
+	thead{
+		tr{
+			background-color: $primary-color;
+			th{
+				color: $white;
+			}
+		}
+	}
+	th{
+		text-align: center;
+	}
+	td{
+		text-align: center;
+	}
+}

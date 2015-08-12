@@ -36,7 +36,16 @@ CartItemsCashier = React.createClass
                           @state.packagePickupAddress &&
                           @state.packagePickupDatetime &&
                           @state.packageRecipientMobile
-    return true
+    if @state.billType
+      return true
+    else
+      return false
+
+  handleBillTypeChange: (v) ->
+    @setState billType: v
+
+  handlePackagePickupDatetimeChange: (e) ->
+    @setState packagePickupDatetime: e.target.value
 
   render: ->
     bookCount = 0
@@ -60,8 +69,8 @@ CartItemsCashier = React.createClass
       deleteItem = @deleteItem
 
       `<tr key={item.id}>
-        <td><img src={item.book.image_url} /></td>
-        <td>{item.item_type}</td>
+        <td><ImgPrevError src={item.book.image_url} name={item.book.name} /></td>
+        <td>{item.human_item_type}</td>
         <td>{item.book.name}</td>
         <td>{item.book.author}</td>
         <td>10</td>
@@ -77,8 +86,19 @@ CartItemsCashier = React.createClass
     packageDeliverForm = ''
 
     if packageBookCount > 0
-      packageDeliverForm = `<div>
+      totalPrice += @props.packageShippingFee
+      packageAdditionalItems = @props.packageAdditionalItems.map (item, i) =>
+        totalPrice += item.price if @state['packageAdditionalItems' + item.id]
+        self = this
+        `<p key={'p-a-item' + item.id}>
+          <input name={'package[additional_items][' + item.id + ']'} type="checkbox" id={'p-a-item' + item.id} checkedLink={self.linkState('packageAdditionalItems' + item.id)} />
+          <label htmlFor={'p-a-item' + item.id}>我想多用 NT$ {item.price} 來購買 {item.name} (<a href={item.url} target="_blank">簡介</a>)</label>
+        </p>`
+      packageDeliverForm = `<div className="row">
         <div className="col m12 s12">
+          <p>＃您有一或多件訂單是以包裹專送的形式下訂，請在以下表單填寫您的收件資訊，以及選擇加價購商品！</p>
+        </div>
+        <div className="col m8 s12">
           <div className="checkout-options-field">
             <div className="checkout-options-field-inner">
               <div className="checkout-options-field-title">
@@ -102,10 +122,11 @@ CartItemsCashier = React.createClass
                     name="package[pickup_address]" />
                 </div>
                 <div className="form-group">
-                  <label className="string control-label" htmlFor="group_recipient_name">收件日期</label>
-                  <input className="string form-control"
+                  <label className="string control-label" htmlFor="group_recipient_name">預計收件日期/時間</label>
+                  <input className="string form-control datepicker packagePickupDatetime"
                     type="text"
-                    valueLink={this.linkState('packagePickupDatetime')}
+                    value={this.state.packagePickupDatetime}
+                    onChange={this.handlePackagePickupDatetimeChange}
                     name="package[pickup_datetime]" />
                 </div>
                 <div className="form-group">
@@ -119,13 +140,34 @@ CartItemsCashier = React.createClass
             </div>
           </div>
         </div>
+        <div className="col m4 s12">
+          <div className="checkout-options-field">
+            <div className="checkout-options-field-inner">
+              <div className="checkout-options-field-title">
+                <div className="total-title">
+                  專送包裹－加價購
+                </div>
+              </div>
+              <div className="checkout-options-field-body add-buy">
+                {packageAdditionalItems}
+              </div>
+            </div>
+          </div>
+        </div>
       </div>`
 
+    self = this
     billTypeSelections = @props.billTypeSelections.map (selection, i) =>
       `<p key={'bill-selection-' + selection[1]}>
-        <input name="bill[type]" type="radio" id={'payment-convience-' + selection[1]} defaultChecked={i == 0} value={selection[1]} />
+        <input name="bill[type]" onClick={self.handleBillTypeChange.bind(null, selection[1])} type="radio" id={'payment-convience-' + selection[1]} value={selection[1]} />
         <label htmlFor={'payment-convience-' + selection[1]}>{selection[0]}</label>
       </p>`
+
+    if @props.billTypeFeeEquations?[@state.billType]
+      n = totalPrice
+      totalPrice = eval(@props.billTypeFeeEquations?[@state.billType])
+
+    totalPrice = parseInt(totalPrice)
 
     `<div>
       <div className="row row-inner">
@@ -230,5 +272,15 @@ CartItemsCashier = React.createClass
         </div>
       </div>
     </div>`
+
+  componentDidMount: ->
+    $('.datepicker').pickadate
+      selectMonths: true
+      selectYears: 2
+
+    setInterval =>
+      console.log $('.packagePickupDatetime').val()
+      @setState packagePickupDatetime: $('.packagePickupDatetime').val()
+    , 500
 
 window.CartItemsCashier = CartItemsCashier

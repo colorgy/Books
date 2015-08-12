@@ -33,6 +33,8 @@ namespace :dev do
       create(:supplier_staff, supplier_code: 'supplier_b', username: 'b_admin', password: 'b_password')
       create(:supplier_staff, supplier_code: 'supplier_c', username: 'c_admin', password: 'c_password')
       create(:supplier_staff, supplier_code: 'supplier_d', username: 'd_admin', password: 'd_password')
+
+      create_list(:package_additional_item, 8)
     end
   end
 end

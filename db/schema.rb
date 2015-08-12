@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150805032012) do
+ActiveRecord::Schema.define(version: 20150812210750) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -189,6 +189,15 @@ ActiveRecord::Schema.define(version: 20150805032012) do
   add_index "orders", ["state"], name: "index_orders_on_state", using: :btree
   add_index "orders", ["user_id"], name: "index_orders_on_user_id", using: :btree
 
+  create_table "package_additional_items", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "price"
+    t.string   "url"
+    t.string   "external_image_url"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+  end
+
   create_table "packages", force: :cascade do |t|
     t.integer  "user_id",                      null: false
     t.string   "recipient_name",               null: false
@@ -204,6 +213,7 @@ ActiveRecord::Schema.define(version: 20150805032012) do
     t.datetime "received_at"
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false
+    t.text     "additional_items"
   end
 
   add_index "packages", ["state"], name: "index_packages_on_state", using: :btree

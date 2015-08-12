@@ -5,4 +5,4 @@
         .content-strip-inner
           h4.strip-title 購物書包
           p.strip-description
-    = react_component 'CartItemsCashier', cartItems: @cart_items_data, billTypeSelections: Bill.type_selections
+    = react_component 'CartItemsCashier', cartItems: @cart_items_data, billTypeSelections: Bill.type_selections, billTypeFeeEquations: Bill::TYPE_FEE_EQUATIONS, packageShippingFee: Package::SHIPPING_FEE, packageAdditionalItems: PackageAdditionalItem.all

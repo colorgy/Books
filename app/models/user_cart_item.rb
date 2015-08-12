@@ -36,6 +36,15 @@ class UserCartItem < ActiveRecord::Base
     end
   end
 
+  def human_item_type
+    case item_type
+    when 'group'
+      '跟團'
+    when 'package'
+      '包裹專送'
+    end
+  end
+
   # def item_price
   #   price * quantity
   # end

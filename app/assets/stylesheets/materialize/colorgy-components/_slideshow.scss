@@ -1,0 +1,84 @@
+.slideshow{
+	position: relative;
+	overflow: hidden;
+
+	.slideshow-inner{
+		.layer1{
+			background-image: image-url('layer1.png');
+			background-size: 100%;
+			background-position: 0 0;
+			background-repeat: no-repeat;
+			position: absolute;
+			width: 100%;
+			top: 0;
+			right: 0;
+			left: 0;
+			bottom: 0;
+
+			@include transition-all(2s);
+			@include translateY(-100%);
+
+			&.active{
+				transform: translateY(0%);
+				-webkit-transform: translateY(0%);
+				-moz-transform: translateY(0%);
+				-o-transform: translateY(0%);
+				-ms-transform: translateY(0%);
+			}
+		}
+		.layer3{
+			background-image: image-url('layer3.png');
+			background-size: 100%;
+			background-position: 0 0;
+			background-repeat: no-repeat;
+			position: absolute;
+			width: 100%;
+			top: 0;
+			right: 0;
+			left: 0;
+			bottom: 0;
+			opacity: 0;
+
+			@include transition-all(0.5s);
+			@include translateY(300px);
+			@include translateX(-100px);
+
+			&.active{
+				opacity: 1;
+				transform: translateY(0%);
+				-webkit-transform: translateY(0%);
+				-moz-transform: translateY(0%);
+				-o-transform: translateY(0%);
+				-ms-transform: translateY(0%);
+				@include translateX(0px);
+			}
+		}
+		.layer4{
+			background-image: image-url('layer4.png');
+			background-size: 100%;
+			background-position: 0 0;
+			background-repeat: no-repeat;
+			position: absolute;
+			width: 100%;
+			top: 0;
+			right: 0;
+			left: 0;
+			bottom: 0;
+			opacity: 0;
+
+			@include transition-all(0.5s);
+			@include translateY(300px);
+			@include translateX(-100px);
+
+			&.active{
+				opacity: 1;
+				transform: translateY(0%);
+				-webkit-transform: translateY(0%);
+				-moz-transform: translateY(0%);
+				-o-transform: translateY(0%);
+				-ms-transform: translateY(0%);
+				@include translateX(0px);
+			}
+		}
+	}
+}

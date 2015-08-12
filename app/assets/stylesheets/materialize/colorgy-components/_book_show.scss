@@ -1,0 +1,116 @@
+.book-show{
+	padding: 24px 0;
+	max-width: 1300px;
+	.book-show-box{
+		.book-pic{
+			border-radius: $border-radius;
+			text-align: center;
+			max-width: 250px;
+			margin: 0 auto;
+		}
+		.book-info{
+			border-radius: $border-radius;
+
+			> .book-info-inner{
+				color: $dark-gray;
+				padding: 16px 16px;
+				hr{
+					margin: 16px 0 !important;
+				}
+				> .book-name{
+					font-size: $third-size;
+					padding: 2px 0;
+				}
+				> .book-from{
+					font-size: $normal-size;
+					padding: 2px 0;
+				}
+				> .book-edition{
+					font-size: $normal-size;
+					padding: 2px 0;
+				}
+				> .book-isbn{
+					font-size: $normal-size;
+					padding: 2px 0;
+					@include text-overflow-ellipse;
+				}
+				> .book-author{
+					font-size: $normal-size;
+					padding: 2px 0;
+				}
+
+			}
+			> .book-price{
+				padding: 8px 16px;
+				background-color: $black;
+				span{
+					display: block;
+				}
+				> span.book-disc-price{
+					font-size: $second-size;
+					color: $primary-color;
+				}
+				> span.book-orginal-price{
+					> del{
+						color: $products-info-font;
+					}
+				}
+			}
+		}
+	}
+	.group-field, .package-field {
+		padding: 16px;
+		.title{
+			width: 100%;
+			h3{
+				font-size: 1.4em;
+				line-height: 2em;
+				margin: 0;
+			}
+			span{
+				color: $font;
+				display: inline-block;
+				margin-left: 16px;
+				font-size: $normal-size;
+				a{
+					color: $primary-color;
+				}
+			}
+			span:nth-child(1){
+				background-color: $primary-color;
+				padding: 8px 16px;
+				color: $white;
+				border-bottom: 0 !important;
+				margin-left: 0px;
+				border-radius: $border-radius;
+			}
+		}
+		.has-group-field{
+
+		}
+		.not-group-yet-field{
+
+		}
+		.buy-my-self-field{
+
+		}
+		.groups-select-field{
+			padding: 0 16px 16px 16px;
+			.not-group-yet-course-item{
+				p{
+					display: inline-block;
+					margin-right: 8px;
+				}
+				a{
+					display: inline-block;
+					margin: 0 8px;
+				}
+
+			}
+		}
+	}
+
+}
+.share-field{
+	padding: 0px 0px 16px 0;
+}
