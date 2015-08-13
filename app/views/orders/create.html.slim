@@ -4,7 +4,11 @@
     - params.each do |key, value|
       - if value.is_a?(Hash)
         - value.each do |k, v|
-          = hidden_field_tag "#{key}[#{k}]", v
+          - if v.is_a?(Hash)
+            - v.each do |k2, v2|
+              = hidden_field_tag "#{key}[#{k}][#{k2}]", v2
+          - else
+            = hidden_field_tag "#{key}[#{k}]", v
       - else
         = hidden_field_tag key, value
 
