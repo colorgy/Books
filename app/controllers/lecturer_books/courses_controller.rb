@@ -58,6 +58,6 @@ class LecturerBooks::CoursesController < ApplicationController
   end
 
   def serialize_course(course)
-    course.as_json(methods: [:book_locked], include: { course_book: { include: { book_data: { methods: [:image_url] } } }, possible_course_book: { include: { book_data: { methods: [:image_url] } } } })
+    course.as_json(methods: [:book_locked])
   end
 end

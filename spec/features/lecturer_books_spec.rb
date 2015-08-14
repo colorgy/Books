@@ -63,7 +63,7 @@ feature "The lecturer-books registration", :type => :feature, :retry => 10 do
     @courses.fourth.course_book.create!(book_data: BookData.last)
   end
 
-  scenario "User registers books", js: true do
+  xscenario "User registers books", js: true do
     page.driver.try :block_unknown_urls
     visit(lecturer_books_path)
     expect(page).to have_content('歡迎使用')
