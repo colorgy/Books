@@ -4,7 +4,7 @@
 
 	.slideshow-inner{
 		.layer1{
-			background-image: image-url('layer1.png');
+			background-image: url(image_path('index/layer1.png'));
 			background-size: 100%;
 			background-position: 0 0;
 			background-repeat: no-repeat;
@@ -27,7 +27,7 @@
 			}
 		}
 		.layer3{
-			background-image: image-url('layer3.png');
+			background-image: url(image_path('index/layer3.png'));
 			background-size: 100%;
 			background-position: 0 0;
 			background-repeat: no-repeat;
@@ -54,7 +54,7 @@
 			}
 		}
 		.layer4{
-			background-image: image-url('layer4.png');
+			background-image: url(image_path('index/layer4.png'));
 			background-size: 100%;
 			background-position: 0 0;
 			background-repeat: no-repeat;
