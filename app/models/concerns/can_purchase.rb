@@ -159,6 +159,8 @@ module CanPurchase
 
     bill.price += package.amount if package.present?
 
+    bill.calculate_amount
+
     if credits > 0 && bill.amount > 100
       use_credits = (credits < (bill.amount - 100)) ? credits : (bill.amount - 100)
       bill.used_credits = use_credits

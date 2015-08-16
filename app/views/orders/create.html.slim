@@ -48,12 +48,16 @@
         .order-options-confirm
           .title 概述
           .content
+            - if @data[:package] && @data[:package].additional_items_description.present?
+              p 額外購買：#{@data[:package].additional_items_description}
             p= Bill.type_label(@data[:bill].type)
+            - if @data[:package] && @data[:package].shipping_fee > 0
+              p 運費 + NT$ #{@data[:package].shipping_fee}
+            - if @data[:bill].used_credits > 0
+              p 使用折扣 NT$ #{@data[:bill].used_credits}
             - if @data[:bill].processing_fee > 0
               p 金流手續費：+ NT$ #{@data[:bill].processing_fee}
             p= Bill.invoice_type_label(@data[:bill].invoice_type)
-            - if @data[:package] && @data[:package].additional_items_description.present?
-              p 額外購買：#{@data[:package].additional_items_description}
       .col.m4.s12
         .order-options-confirm
           .title 詳細資訊

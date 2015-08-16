@@ -10,6 +10,9 @@
               a href=new_group_path
                 i.material-icons.list-icon send
                 | 班代 / 助教開團
+          - if current_user && current_user.credits > 0
+            li
+              a 您有折扣金 NT$ #{current_user.credits}
           li
             a href=orders_path
               | 我的訂單
