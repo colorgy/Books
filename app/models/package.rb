@@ -3,6 +3,7 @@ class Package < ActiveRecord::Base
   has_paper_trail
 
   SHIPPING_FEE = 80
+  RELIEVE_SHIPPING_FEE_IF_ITEMS_MORE_THEN = 2
 
   scope :is_new, ->  { where(state: 'new') }
 
@@ -54,7 +55,7 @@ class Package < ActiveRecord::Base
 
   # Calaulate and update the total amount (addes the shipping fee)
   def calculate_amount
-    if price < 100000000
+    if orders.count <= RELIEVE_SHIPPING_FEE_IF_ITEMS_MORE_THEN
       self.shipping_fee = SHIPPING_FEE
     end
 
