@@ -17,7 +17,9 @@ when 'remote'
 end
 
 # Redis
-redis_url = ENV['REDIS_URL'] || 'redis://localhost:6379'
+redis_url = (ENV['REDIS_URL'].present? && ENV['REDIS_URL']) ||
+            (ENV['REDISCLOUD_URL'].present? && ENV['REDISCLOUD_URL']) ||
+            'redis://localhost:6379'
 app_name = (ENV['APP_NAME'] || Rails.application.class.parent_name).underscore.gsub(' ', '_')
 
 redis_conn = lambda do
