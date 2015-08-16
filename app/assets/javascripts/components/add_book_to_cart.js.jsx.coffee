@@ -83,7 +83,10 @@ AddBookToCart = React.createClass
         bookCourses = @props.bookCourses
         handleCourseChange = @handleCourseChange
         courseUCode = @state.courseUCode
-        options = `<AddToCartCourseSelect defaultCourses={bookCourses} onChange={handleCourseChange} value={courseUCode} />`
+        options = `<div>
+            <AddToCartCourseSelect defaultCourses={bookCourses} onChange={handleCourseChange} value={courseUCode} />
+            <p>請先選擇課程再加入購物書包。</p>
+          </div>`
 
       `<p>
         <input id="checkbox-package-buy"

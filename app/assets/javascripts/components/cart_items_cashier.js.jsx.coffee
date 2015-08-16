@@ -86,7 +86,7 @@ CartItemsCashier = React.createClass
     packageDeliverForm = ''
 
     if packageBookCount > 0
-      totalPrice += @props.packageShippingFee
+      totalPrice += @props.packageShippingFee if packageBookCount <= @props.packageRShippingFeeMinI
       packageAdditionalItems = @props.packageAdditionalItems.map (item, i) =>
         totalPrice += item.price if @state['packageAdditionalItems' + item.id]
         self = this
@@ -274,9 +274,13 @@ CartItemsCashier = React.createClass
     </div>`
 
   componentDidMount: ->
+    now = (new Date())
+    nextWeek = new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000)
+    nextWeek = (new Date('2015/09/07')) if nextWeek < (new Date('2015/09/07'))
     $('.datepicker').pickadate
       selectMonths: true
       selectYears: 2
+      min: nextWeek
 
     setInterval =>
       console.log $('.packagePickupDatetime').val()
