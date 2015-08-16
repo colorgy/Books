@@ -147,6 +147,6 @@ class Bill < ActiveRecord::Base
   end
 
   def credit_card_pay_link(text = '按此進行信用卡付款')
-    SinoPacService.credit_card_pay_link(uuid, amount, text: text)
+    SinoPacService.credit_card_pay_link(uuid, amount, text: text) if Time.now < deadline
   end
 end
