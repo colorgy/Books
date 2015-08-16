@@ -92,7 +92,7 @@ AddBookToCart = React.createClass
                className="with-gap"
                checked={checked} />
         <label htmlFor="checkbox-package-buy">
-          直接購買 (單包購買未滿 2 本須負擔 NT$ 100 運費)
+          直接購買 (運費 NT$ 80)
         </label>
         {options}
       </p>`
@@ -120,6 +120,14 @@ AddBookToCart = React.createClass
         </label>
       </p>`
 
+    if groupSelections.length || coursesWithNoGroupSelections.length
+      groupTitle =
+        `<div className="under-line-title">
+          <span>選擇跟團</span>
+        </div>`
+    else
+      groupTitle = ''
+
     `<div>
       <div className="package-field">
         <div className="under-line-title">
@@ -130,9 +138,7 @@ AddBookToCart = React.createClass
         </div>
       </div>
       <div className="group-field">
-        <div className="under-line-title">
-          <span>選擇跟團</span>
-        </div>
+        {groupTitle}
         <div className="groups-select-field">
           {groupSelections}
           {coursesWithNoGroupSelections}
