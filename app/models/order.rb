@@ -136,4 +136,8 @@ class Order < ActiveRecord::Base
   def paid?
     state == 'paid'
   end
+
+  def human_state
+    I18n.t(state, scope: :order_states)
+  end
 end

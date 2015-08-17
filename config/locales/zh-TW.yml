@@ -22,6 +22,7 @@ zh-TW:
     payment_pending: 待付款
     paid: 已付款
   order_states:
+    new: 新建立
     payment_pending: 待付款
     paid: 已付款
     shipped: 已出貨
@@ -29,6 +30,8 @@ zh-TW:
     delivered: 已交付
     received: 已確認收到
     cancelled: 已取消
+    expired: 已過期
+    ready: 準備發貨
   user:
     identity:
       student: 學生
