@@ -13,7 +13,7 @@
       .search-field
         .search-bar.search-bar--center
           form method="get"
-            input name="q" placeholder="搜尋書名、課名、老師名" type="text" value=params[:q]
+            = react_component 'BookSearchBar', value: params[:q]
             input type="submit" value="Submit"
         .clear style="clear:both;"
   .row.row-inner-s

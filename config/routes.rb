@@ -80,6 +80,7 @@ Rails.application.routes.draw do
   resources :book_datas
 
   resources :books
+  get 'books_search_suggestions' => 'books#search_suggestions'
 
   resources :cart_items
   resources :orders
