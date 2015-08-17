@@ -10,6 +10,7 @@ CartItemsCashier = React.createClass
   getInitialState: ->
     cartItems: @props.cartItems
     loading: false
+    step: 1
 
   componentDidMount: ->
     window.cartItemsCashier = @
@@ -46,6 +47,24 @@ CartItemsCashier = React.createClass
 
   handlePackagePickupDatetimeChange: (e) ->
     @setState packagePickupDatetime: e.target.value
+
+  nextStep: ->
+    step = @state.step + 1
+    @setState step: step, ->
+      $(window).scrollTop(0)
+      now = (new Date())
+      nextWeek = new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000)
+      nextWeek = (new Date('2015/09/07')) if nextWeek < (new Date('2015/09/07'))
+      $('.datepicker').pickadate
+        format: 'yyyy-mm-dd'
+        selectMonths: true
+        selectYears: 2
+        min: nextWeek
+
+  prevStep: ->
+    step = @state.step - 1
+    @setState step: step, ->
+      $(window).scrollTop(0)
 
   render: ->
     bookCount = 0
@@ -84,77 +103,73 @@ CartItemsCashier = React.createClass
     @packageBookCount = packageBookCount
 
     packageDeliverForm = ''
+    packageAdditionalItemsForm = ''
 
     if packageBookCount > 0
       totalPrice += @props.packageShippingFee if packageBookCount <= @props.packageRShippingFeeMinI
       packageAdditionalItems = @props.packageAdditionalItems.map (item, i) =>
         totalPrice += item.price if @state['packageAdditionalItems' + item.id]
         self = this
-        `<p key={'p-a-item' + item.id}>
+        `<div key={'p-a-item' + item.id} className="col m3 s6">
           <input name={'package[additional_items][' + item.id + ']'} type="checkbox" id={'p-a-item' + item.id} checkedLink={self.linkState('packageAdditionalItems' + item.id)} />
-          <label htmlFor={'p-a-item' + item.id}>我想多用 NT$ {item.price} 來購買 {item.name} (<a href={item.url} target="_blank">簡介</a>)</label>
-        </p>`
-      packageDeliverForm = `<div className="row">
-        <div className="col m12 s12">
-          <p>＃您有一或多件訂單是以包裹專送的形式下訂，請在以下表單填寫您的收件資訊，以及選擇加價購商品！</p>
-        </div>
-        <div className="col m8 s12">
-          <div className="checkout-options-field">
-            <div className="checkout-options-field-inner">
-              <div className="checkout-options-field-title">
-                <div className="total-title">
-                  專送包裹－收件資訊
-                </div>
+          <label htmlFor={'p-a-item' + item.id}><img src={item.external_image_url} />我想多用 NT$ {item.price} 來購買 {item.name} (<a href={item.url} target="_blank">簡介</a>)</label>
+        </div>`
+      packageDeliverForm =
+        `<div className="checkout-options-field">
+          <div className="checkout-options-field-inner">
+            <div className="checkout-options-field-title">
+              <div className="total-title">
+                專送包裹－收件資訊
               </div>
-              <div className="checkout-options-field-body text-center">
-                <div className="form-group">
-                  <label className="string control-label" htmlFor="group_recipient_name">收件人姓名</label>
-                  <input className="string form-control"
-                    type="text"
-                    valueLink={this.linkState('packageRecipientName')}
-                    name="package[recipient_name]" />
-                </div>
-                <div className="form-group">
-                  <label className="string control-label" htmlFor="group_recipient_name">收件地址</label>
-                  <input className="string form-control"
-                    type="text"
-                    valueLink={this.linkState('packagePickupAddress')}
-                    name="package[pickup_address]" />
-                </div>
-                <div className="form-group">
-                  <label className="string control-label" htmlFor="group_recipient_name">預計收件日期/時間</label>
-                  <input className="string form-control datepicker packagePickupDatetime"
-                    type="text"
-                    value={this.state.packagePickupDatetime}
-                    onChange={this.handlePackagePickupDatetimeChange}
-                    name="package[pickup_datetime]" />
-                </div>
-                <div className="form-group">
-                  <label className="string control-label" htmlFor="group_recipient_name">收件人手機</label>
-                  <input className="string form-control"
-                    type="text"
-                    valueLink={this.linkState('packageRecipientMobile')}
-                    name="package[recipient_mobile]" />
-                </div>
+            </div>
+            <div className="checkout-options-field-body text-center">
+              <div className="form-group">
+                <label className="string control-label" htmlFor="group_recipient_name">收件人姓名</label>
+                <input className="string form-control"
+                  type="text"
+                  valueLink={this.linkState('packageRecipientName')}
+                  name="package[recipient_name]" />
+              </div>
+              <div className="form-group">
+                <label className="string control-label" htmlFor="group_recipient_name">收件地址</label>
+                <input className="string form-control"
+                  type="text"
+                  valueLink={this.linkState('packagePickupAddress')}
+                  name="package[pickup_address]" />
+              </div>
+              <div className="form-group">
+                <label className="string control-label" htmlFor="group_recipient_name">預計收件日期/時間</label>
+                <input className="string form-control datepicker packagePickupDatetime"
+                  type="text"
+                  value={this.state.packagePickupDatetime}
+                  onChange={this.handlePackagePickupDatetimeChange}
+                  name="package[pickup_datetime]" />
+              </div>
+              <div className="form-group">
+                <label className="string control-label" htmlFor="group_recipient_name">收件人手機</label>
+                <input className="string form-control"
+                  type="text"
+                  valueLink={this.linkState('packageRecipientMobile')}
+                  name="package[recipient_mobile]" />
               </div>
             </div>
           </div>
-        </div>
-        <div className="col m4 s12">
-          <div className="checkout-options-field">
-            <div className="checkout-options-field-inner">
-              <div className="checkout-options-field-title">
-                <div className="total-title">
-                  專送包裹－加價購
-                </div>
-              </div>
-              <div className="checkout-options-field-body add-buy">
-                {packageAdditionalItems}
+        </div>`
+
+      packageAdditionalItemsForm =
+        `<div className="checkout-options-field">
+          <div className="checkout-options-field-inner">
+            <div className="checkout-options-field-title">
+              <div className="total-title">
+                專送包裹－加價購
               </div>
             </div>
+            <div className="checkout-options-field-body add-buy row">
+              <p></p>
+              {packageAdditionalItems}
+            </div>
           </div>
-        </div>
-      </div>`
+        </div>`
 
     self = this
     billTypeSelections = @props.billTypeSelections.map (selection, i) =>
@@ -169,121 +184,186 @@ CartItemsCashier = React.createClass
 
     totalPrice = parseInt(totalPrice)
 
-    `<div>
-      <div className="row row-inner">
-        <div className="cart-items-field">
-          <p>＃請確認您的購物內容，還有底下的付款方式及發票種類，接著請按 "下一步" ！</p>
-          <table className="responsive-table hoverable">
-            <thead>
-              <tr>
-                <th></th>
-                <th></th>
-                <th>書名</th>
-                <th>作者</th>
-                <th>版次</th>
-                <th>老師 / 課名</th>
-                <th>價格</th>
-                <th>數量</th>
-                <th>小計</th>
-                <th>取消</th>
-              </tr>
-            </thead>
-            <tbody>
-              {cartItems}
-            </tbody>
-          </table>
+    if @state.step == 1
+
+      `<div>
+        <div className="row row-inner">
+          <div className="cart-items-field">
+            <p>請確認您的購物內容，接著請按「下一步」！</p>
+            <table className="responsive-table hoverable">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th></th>
+                  <th>書名</th>
+                  <th>作者</th>
+                  <th>版次</th>
+                  <th>老師 / 課名</th>
+                  <th>價格</th>
+                  <th>數量</th>
+                  <th>小計</th>
+                  <th>取消</th>
+                </tr>
+              </thead>
+              <tbody>
+                {cartItems}
+              </tbody>
+            </table>
+          </div>
         </div>
-      </div>
-      <div className="row row-inner">
-        <div className="col m8 s12">
-          <div className="checkout-options-field">
-            <div className="checkout-options-field-inner">
-              <div className="checkout-options-field-title">
-                <div className="payment-title">
-                  付款方式
+        <div className="row row-inner">
+          <div className="col m8 s12">
+            {packageAdditionalItemsForm}
+          </div>
+          <div className="col m4 s12">
+            <div className="checkout-options-field">
+              <div className="checkout-options-field-inner">
+                <div className="checkout-options-field-title">
+                  <div className="total-title">
+                    總結
+                  </div>
                 </div>
-                <div className="reciept-title">
-                  發票種類
+                <div className="checkout-options-field-body text-center">
+                  <p>共買了 {bookCount} 本書</p>
+                  <p>總共 NT {totalPrice}</p>
                 </div>
-                <div className="clearfix"></div>
-              </div>
-              <div className="checkout-options-field-body">
-                <div className="payment-options">
-                  {billTypeSelections}
-                </div>
-                <div className="reciept-options">
-                    <p>
-                      <input name="bill[invoice_type]" value="digital" type="radio" id="reciept-e-reciept" defaultChecked="checked" />
-                      <label htmlFor="reciept-e-reciept">電子發票</label>
-                    </p>
-                    <a className="slide-field-trigger" href="#reciept-more">更多..</a>
-                    <div className="slide-field" id="reciept-more">
-                      <p>
-                        <input name="bill[invoice_type]" value="code" type="radio" id="reciept-mobile-phone" />
-                        <label htmlFor="reciept-mobile-phone">手機條碼</label>
-                      </p>
-                      <p>
-                        <input name="bill[invoice_type]" value="cert" type="radio" id="reciept-nature-human" />
-                        <label htmlFor="reciept-nature-human">自然憑證</label>
-                      </p>
-                      <p>
-                        <input name="bill[invoice_type]" value="uni_num" type="radio" id="reciept-vat" />
-                        <label htmlFor="reciept-vat">統一編號</label>
-                      </p>
-                      <p>
-                        <input name="bill[invoice_type]" value="love_code" type="radio" id="reciept-love" />
-                        <label htmlFor="reciept-love">愛心號碼</label>
-                      </p>
-                      <p>
-                        <input name="bill[invoice_type]" value="paper" type="radio" id="reciept-paper" />
-                        <label htmlFor="reciept-paper">紙本發票</label>
-                      </p>
-                    </div>
-                </div>
-                <div className="clearfix"></div>
               </div>
             </div>
           </div>
         </div>
-        <div className="col m4 s12">
-          <div className="checkout-options-field">
-            <div className="checkout-options-field-inner">
-              <div className="checkout-options-field-title">
-                <div className="total-title">
-                  總結
-                </div>
-              </div>
-              <div className="checkout-options-field-body text-center">
-                <p>共買了 {bookCount} 本書</p>
-                <p>總共 NT {totalPrice}</p>
-              </div>
+        <div className="row">
+          <div className="col m12 s12">
+            <div className="go-checkout">
+              <a className="btn-second btn--large" key="a" href="/books">上一步</a>
+              &nbsp;
+              <a className="btn-second btn-highlight btn--large" onClick={this.nextStep}>下一步</a>
             </div>
           </div>
         </div>
-        {packageDeliverForm}
-      </div>
-      <div className="row">
-        <div className="col m12 s12">
-          <div className="go-checkout">
-            <a className="btn-second btn--large" href="/books">繼續逛</a>
-            &nbsp;
-            <button type="submit" className={classNames({ 'btn': true, 'btn-highlight': true, 'btn--large': true, 'disabled': !this.canSubmit() })} href="#">下一步</button>
+      </div>`
+
+    else
+
+      `<div>
+        <div className="row row-inner">
+          <div className="cart-items-field">
+            <p>請選擇付款方式，接著請按「下一步」！</p>
+            <table className="responsive-table hoverable" style={{ display: 'none' }}>
+              <thead>
+                <tr>
+                  <th></th>
+                  <th></th>
+                  <th>書名</th>
+                  <th>作者</th>
+                  <th>版次</th>
+                  <th>老師 / 課名</th>
+                  <th>價格</th>
+                  <th>數量</th>
+                  <th>小計</th>
+                  <th>取消</th>
+                </tr>
+              </thead>
+              <tbody>
+                {cartItems}
+              </tbody>
+            </table>
           </div>
         </div>
-      </div>
-    </div>`
+        <div className="row row-inner">
+          <div className="col m8 s12">
+            <div className="checkout-options-field">
+              <div className="checkout-options-field-inner">
+                <div className="checkout-options-field-title">
+                  <div className="payment-title">
+                    付款方式
+                  </div>
+                  <div className="reciept-title">
+                    發票種類
+                  </div>
+                  <div className="clearfix"></div>
+                </div>
+                <div className="checkout-options-field-body">
+                  <div className="payment-options">
+                    {billTypeSelections}
+                  </div>
+                  <div className="reciept-options">
+                      <p>
+                        <input name="bill[invoice_type]" value="digital" type="radio" id="reciept-e-reciept" defaultChecked="checked" />
+                        <label htmlFor="reciept-e-reciept">電子發票</label>
+                      </p>
+                      <a className="slide-field-trigger" href="#reciept-more">更多..</a>
+                      <div className="slide-field" id="reciept-more">
+                        <p>
+                          <input name="bill[invoice_type]" value="code" type="radio" id="reciept-mobile-phone" />
+                          <label htmlFor="reciept-mobile-phone">手機條碼</label>
+                        </p>
+                        <p>
+                          <input name="bill[invoice_type]" value="cert" type="radio" id="reciept-nature-human" />
+                          <label htmlFor="reciept-nature-human">自然憑證</label>
+                        </p>
+                        <p>
+                          <input name="bill[invoice_type]" value="uni_num" type="radio" id="reciept-vat" />
+                          <label htmlFor="reciept-vat">統一編號</label>
+                        </p>
+                        <p>
+                          <input name="bill[invoice_type]" value="love_code" type="radio" id="reciept-love" />
+                          <label htmlFor="reciept-love">愛心號碼</label>
+                        </p>
+                        <p>
+                          <input name="bill[invoice_type]" value="paper" type="radio" id="reciept-paper" />
+                          <label htmlFor="reciept-paper">紙本發票</label>
+                        </p>
+                      </div>
+                  </div>
+                  <div className="clearfix"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="col m4 s12">
+            <div className="checkout-options-field">
+              <div className="checkout-options-field-inner">
+                <div className="checkout-options-field-title">
+                  <div className="total-title">
+                    總結
+                  </div>
+                </div>
+                <div className="checkout-options-field-body text-center">
+                  <p>共買了 {bookCount} 本書</p>
+                  <p>總共 NT {totalPrice}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="col m12 s12" style={{ display: 'none' }}>
+            {packageAdditionalItems}
+          </div>
+          <div className="col m12 s12">
+            {packageDeliverForm}
+          </div>
+        </div>
+        <div className="row">
+          <div className="col m12 s12">
+            <div className="go-checkout">
+              <a className="btn-second btn--large" key="b" href="#" onClick={this.prevStep}>上一步</a>
+              &nbsp;
+              <button type="submit" className={classNames({ 'btn': true, 'btn-highlight': true, 'btn--large': true, 'disabled': !this.canSubmit() })} href="#">下一步，確認訂單</button>
+            </div>
+          </div>
+        </div>
+      </div>`
 
   componentDidMount: ->
     now = (new Date())
     nextWeek = new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000)
     nextWeek = (new Date('2015/09/07')) if nextWeek < (new Date('2015/09/07'))
     $('.datepicker').pickadate
+      format: 'yyyy-mm-dd'
       selectMonths: true
       selectYears: 2
       min: nextWeek
 
     setInterval =>
-      console.log $('.packagePickupDatetime').val()
       @setState packagePickupDatetime: $('.packagePickupDatetime').val()
     , 500
 

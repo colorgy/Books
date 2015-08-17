@@ -1,0 +1,16 @@
+table.responsive-table
+  thead
+    tr
+      th
+      th 名稱
+      th 價格
+      th 簡介
+  tbody
+    - @package_additional_items.each do |package_additional_item|
+      tr
+        td
+          img(src=package_additional_item.external_image_url)
+        td= package_additional_item.name
+        td NT$ #{package_additional_item.price}
+        td
+          a(href=package_additional_item.url target="_blank") 簡介

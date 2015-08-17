@@ -78,6 +78,17 @@ class Package < ActiveRecord::Base
     descriptions.join('、')
   end
 
+  def package_additional_items
+    items = []
+
+    additional_items.each_pair do |k, v|
+      p = PackageAdditionalItem.find(k.to_i)
+      items << p
+    end
+
+    items
+  end
+
   def bill_deadline
     return pickup_datetime - 5.days if pickup_datetime
     1.week.from_now

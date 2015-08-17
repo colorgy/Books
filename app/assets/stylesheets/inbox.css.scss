@@ -23,6 +23,15 @@
 
 .add-buy {
 	padding: 8px;
+
+	img {
+		display: block;
+		max-width: 100%;
+	}
+
+	.col {
+		margin: 4px 0;
+	}
 }
 
 .order-options-confirm {

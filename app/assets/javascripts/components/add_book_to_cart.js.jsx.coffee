@@ -34,7 +34,10 @@ AddBookToCart = React.createClass
           groupCode: code
 
   canSubmit: ->
-    @state.purchaseMethod && @state.quantity && (@state.quantity > 0)
+    if (@state.purchaseMethod == 'package')
+      @state.courseUCode && @state.purchaseMethod && @state.quantity && (@state.quantity > 0)
+    else
+      @state.purchaseMethod && @state.quantity && (@state.quantity > 0)
 
   submit: ->
     return unless @canSubmit()

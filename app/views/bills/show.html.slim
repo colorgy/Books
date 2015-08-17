@@ -70,7 +70,11 @@
 
         - if @bill.packages
           - package = @bill.packages.first
-          - if package.additional_items_description.present?
+          - if package.additional_items.present?
+            - @package_additional_items = package.package_additional_items
+            p 額外購買項目
+            = render "partials/package_additional_items_table"
+
             p 額外購買項目：#{package.additional_items_description}
 
           p 收件人姓名：#{package.recipient_name}
