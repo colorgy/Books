@@ -188,6 +188,9 @@ module CanPurchase
       checkouts[:package].save! if checkouts[:package]
       checkouts[:orders].each(&:save!)
       clear_cart!
+
+      self.credits -= checkouts[:bill].used_credits if checkouts[:bill].used_credits.present?
+      save!
     end
     checkouts
   end
