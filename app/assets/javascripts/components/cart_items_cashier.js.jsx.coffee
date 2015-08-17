@@ -11,6 +11,7 @@ CartItemsCashier = React.createClass
     cartItems: @props.cartItems
     loading: false
     step: 1
+    packagePickupAddressType: 'dorm'
 
   componentDidMount: ->
     window.cartItemsCashier = @
@@ -37,6 +38,10 @@ CartItemsCashier = React.createClass
                           @state.packagePickupAddress &&
                           @state.packagePickupDatetime &&
                           @state.packageRecipientMobile
+    if @state.packagePickupAddressType == 'dorm'
+      return false unless @state.packagePickupAddressDormType &&
+                          @state.packagePickupAddressDormNum &&
+                          @state.packagePickupAddressDormRoomNum
     if @state.billType
       return true
     else
@@ -66,6 +71,25 @@ CartItemsCashier = React.createClass
     @setState step: step, ->
       $(window).scrollTop(0)
 
+  handlePackagePickupAddressDormTypeChange: (e) ->
+    @setState packagePickupAddressDormType: e.target.value, ->
+      @updatePackagePickupAddress()
+
+  handlePackagePickupAddressDormNumChange: (e) ->
+    @setState packagePickupAddressDormNum: e.target.value, ->
+      @updatePackagePickupAddress()
+
+  handlePackagePickupAddressDormRoomNumChange: (e) ->
+    @setState packagePickupAddressDormRoomNum: e.target.value, ->
+      @updatePackagePickupAddress()
+
+  updatePackagePickupAddress: ->
+    @setState packagePickupAddress: "#{@props.orgName} #{@state.packagePickupAddressDormType}#{@state.packagePickupAddressDormNum} #{@state.packagePickupAddressDormRoomNum}"
+
+  handleSubmit: ->
+    return true if @canSubmit()
+    return false
+
   render: ->
     bookCount = 0
     packageBookCount = 0
@@ -73,7 +97,7 @@ CartItemsCashier = React.createClass
 
     if !@state.cartItems || !@state.cartItems.length
       return `<div>
-        沒東西
+        購物書包內還沒有東西！
       </div>`
 
     cartItems = @state.cartItems.map (item, i) =>
@@ -114,6 +138,47 @@ CartItemsCashier = React.createClass
           <input name={'package[additional_items][' + item.id + ']'} type="checkbox" id={'p-a-item' + item.id} checkedLink={self.linkState('packageAdditionalItems' + item.id)} />
           <label htmlFor={'p-a-item' + item.id}><img src={item.external_image_url} />我想多用 NT$ {item.price} 來購買 {item.name} (<a href={item.url} target="_blank">簡介</a>)</label>
         </div>`
+      if @state.packagePickupAddressType == 'dorm'
+        packagePickupAddressInput =
+          `<div className="row dorm-address">
+            <input type="hidden" name="package[pickup_address]" value="this.state.packagePickupAddress" />
+            <div className="col m4">
+              <select className="browser-default" onChange={this.handlePackagePickupAddressDormTypeChange} value={this.state.packagePickupAddressDormType}>
+                <option value="" disabled selected>宿舍別</option>
+                <option value="男">男</option>
+                <option value="女">女</option>
+              </select>
+            </div>
+            <div className="col m4">
+              <select className="browser-default" onChange={this.handlePackagePickupAddressDormNumChange} value={this.state.packagePickupAddressDormNum}>
+                <option value="" disabled selected>宿舍編號</option>
+                <option value="一宿">一宿</option>
+                <option value="二宿">二宿</option>
+                <option value="三宿">三宿</option>
+                <option value="四宿">四宿</option>
+                <option value="五宿">五宿</option>
+                <option value="六宿">六宿</option>
+                <option value="七宿">七宿</option>
+                <option value="八宿">八宿</option>
+                <option value="九宿">九宿</option>
+                <option value="十宿">十宿</option>
+                <option value="十一宿">十一宿</option>
+                <option value="十二宿">十二宿</option>
+                <option value="十三宿">十三宿</option>
+                <option value="十四宿">十四宿</option>
+                <option value="十五宿">十五宿</option>
+              </select>
+            </div>
+            <div className="col m4">
+              <input className="string form-control" placeholder="房間號碼" onChange={this.handlePackagePickupAddressDormRoomNumChange} value={this.state.packagePickupAddressDormRoomNum} />
+            </div>
+          </div>`
+      else
+        packagePickupAddressInput =
+          `<input className="string form-control"
+            type="text"
+            valueLink={this.linkState('packagePickupAddress')}
+            name="package[pickup_address]" />`
       packageDeliverForm =
         `<div className="checkout-options-field">
           <div className="checkout-options-field-inner">
@@ -132,10 +197,17 @@ CartItemsCashier = React.createClass
               </div>
               <div className="form-group">
                 <label className="string control-label" htmlFor="group_recipient_name">收件地址</label>
-                <input className="string form-control"
-                  type="text"
-                  valueLink={this.linkState('packagePickupAddress')}
-                  name="package[pickup_address]" />
+                <div className="row">
+                  <div className="col m3">
+                    <select className="browser-default" valueLink={this.linkState('packagePickupAddressType')}>
+                      <option value="dorm">學校宿舍：</option>
+                      <option value="address">地址：</option>
+                    </select>
+                  </div>
+                  <div className="col m9">
+                    {packagePickupAddressInput}
+                  </div>
+                </div>
               </div>
               <div className="form-group">
                 <label className="string control-label" htmlFor="group_recipient_name">預計收件日期/時間</label>
@@ -291,7 +363,7 @@ CartItemsCashier = React.createClass
                         <input name="bill[invoice_type]" value="digital" type="radio" id="reciept-e-reciept" defaultChecked="checked" />
                         <label htmlFor="reciept-e-reciept">電子發票</label>
                       </p>
-                      <a className="slide-field-trigger" href="#reciept-more">更多..</a>
+
                       <div className="slide-field" id="reciept-more">
                         <p>
                           <input name="bill[invoice_type]" value="code" type="radio" id="reciept-mobile-phone" />
@@ -347,7 +419,7 @@ CartItemsCashier = React.createClass
             <div className="go-checkout">
               <a className="btn-second btn--large" key="b" href="#" onClick={this.prevStep}>上一步</a>
               &nbsp;
-              <button type="submit" className={classNames({ 'btn': true, 'btn-highlight': true, 'btn--large': true, 'disabled': !this.canSubmit() })} href="#">下一步，確認訂單</button>
+              <button type="submit" onClick={this.handleSubmit} className={classNames({ 'btn': true, 'btn-highlight': true, 'btn--large': true, 'disabled': !this.canSubmit() })}>下一步，確認訂單</button>
             </div>
           </div>
         </div>
