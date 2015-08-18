@@ -17,13 +17,13 @@ class Book < ActiveRecord::Base
       CASE
         WHEN books.id = ?
         THEN 0
-        WHEN book_datas.name ILIKE ANY (array[?])
-        THEN 1
-        WHEN book_datas.author ILIKE ANY (array[?])
-        THEN 2
         WHEN courses.name ILIKE ANY (array[?])
-        THEN 3
+        THEN 1
         WHEN courses.lecturer_name ILIKE ANY (array[?])
+        THEN 1
+        WHEN book_datas.name ILIKE ANY (array[?])
+        THEN 2
+        WHEN book_datas.author ILIKE ANY (array[?])
         THEN 3
         ELSE 100
       END
