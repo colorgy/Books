@@ -6,6 +6,7 @@ module CanPurchase
     has_many :orders
     has_many :packages
     has_many :bills
+    has_many :user_credits
   end
 
   # Adds an item into the user's cart
@@ -115,6 +116,8 @@ module CanPurchase
     bill = self.bills.build(bill_attrs)
     package = nil
 
+    book_isbns = []
+
     # proceed each cart item
     cart_items.each do |item|
       case item.item_type
@@ -131,6 +134,8 @@ module CanPurchase
           total_price += order.price
           orders << order
         end
+
+        book_isbns << group.book.isbn
       when 'package'
         package ||= self.packages.build(package_attrs)
         package.price ||= 0
@@ -145,6 +150,8 @@ module CanPurchase
           package.orders_count += 1
           orders << order
         end
+
+        book_isbns << Book.find(item.item_code).isbn
       end
     end
 
@@ -164,6 +171,17 @@ module CanPurchase
     if credits > 0 && bill.amount > 100
       use_credits = (credits < (bill.amount - 100)) ? credits : (bill.amount - 100)
       bill.used_credits = use_credits
+      bill.amount -= use_credits
+    end
+
+    bill.used_credit_ids = []
+    if user_credits.present?
+      user_credits.order(:expires_at).each do |user_credit|
+        next if bill.amount - user_credit.credits < 100
+        next if user_credit.book_isbn.present? && !book_isbns.include?(user_credit.book_isbn)
+        bill.used_credit_ids << user_credit.id
+        bill.used_credits += user_credit.credits
+      end
     end
 
     bill.calculate_amount
@@ -190,8 +208,24 @@ module CanPurchase
       clear_cart!
 
       self.credits -= checkouts[:bill].used_credits if checkouts[:bill].used_credits.present?
+      self.credits = 0 if self.credits < 0
+      checkouts[:bill].used_credit_ids.each do |id|
+        user_credits.find(id).destroy
+      end
       save!
     end
     checkouts
+  end
+
+  def total_credits
+    tc = credits
+    user_credits.each do |uc|
+      tc += uc.credits
+    end
+    tc
+  end
+
+  def first_user_credit_expires_at
+    user_credits.map(&:expires_at).reject(&:blank?).min
   end
 end

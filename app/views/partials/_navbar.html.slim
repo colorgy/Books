@@ -10,9 +10,11 @@
               a href=new_group_path
                 i.material-icons.list-icon send
                 | 班代 / 助教開團
-          - if current_user && current_user.credits > 0
+          - if current_user && current_user.total_credits > 0
             li
-              a 您有折扣金 NT$ #{current_user.credits}
+              a(href=credits_path)
+                | 您有折扣金 NT$ #{current_user.total_credits}
+                span#credits-countdown
           li
             a href=orders_path
               | 我的訂單
@@ -53,3 +55,12 @@
         li.nav-bar-drop-down
           a href="#"
             i.material-icons.list-icon more_vert
+
+- if current_user && current_user.first_user_credit_expires_at.present? && current_user.first_user_credit_expires_at > Time.now
+  javascript:
+    $('#credits-countdown')
+    .countdown("#{current_user.first_user_credit_expires_at.strftime('%Y/%m/%d')}", function(event) {
+      $(this).text(
+        event.strftime(' (%d 天 %H:%M:%S 後將過期)')
+      );
+    });

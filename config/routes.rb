@@ -86,6 +86,7 @@ Rails.application.routes.draw do
   resources :orders
 
   resources :bills
+  resources :credits
 
   resources :courses
 

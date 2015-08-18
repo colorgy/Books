@@ -25,6 +25,7 @@ class Bill < ActiveRecord::Base
   scope :unpaid, -> { where.not(state: 'paid') }
 
   store :data, accessors: [:invoice_code, :invoice_love_code, :invoice_uni_num, :invoice_cert]
+  serialize :used_credit_ids, Array
 
   belongs_to :user
   has_many :orders, primary_key: :uuid, foreign_key: :bill_uuid

@@ -141,7 +141,7 @@ CartItemsCashier = React.createClass
       if @state.packagePickupAddressType == 'dorm'
         packagePickupAddressInput =
           `<div className="row dorm-address">
-            <input type="hidden" name="package[pickup_address]" value="this.state.packagePickupAddress" />
+            <input type="hidden" name="package[pickup_address]" value={this.state.packagePickupAddress} />
             <div className="col m4">
               <select className="browser-default" onChange={this.handlePackagePickupAddressDormTypeChange} value={this.state.packagePickupAddressDormType}>
                 <option value="" disabled selected>宿舍別</option>

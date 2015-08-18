@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150812210750) do
+ActiveRecord::Schema.define(version: 20150817224444) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,6 +36,7 @@ ActiveRecord::Schema.define(version: 20150812210750) do
     t.datetime "deadline",                    null: false
     t.integer  "processing_fee",  default: 0, null: false
     t.string   "virtual_account"
+    t.text     "used_credit_ids"
   end
 
   add_index "bills", ["deadline"], name: "index_bills_on_deadline", using: :btree
@@ -317,6 +318,18 @@ ActiveRecord::Schema.define(version: 20150812210750) do
   end
 
   add_index "user_cart_items", ["user_id"], name: "index_user_cart_items_on_user_id", using: :btree
+
+  create_table "user_credits", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "credits"
+    t.string   "name"
+    t.string   "book_isbn"
+    t.datetime "expires_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "user_credits", ["user_id"], name: "index_user_credits_on_user_id", using: :btree
 
   create_table "user_identities", force: :cascade do |t|
     t.integer  "user_id",           null: false
