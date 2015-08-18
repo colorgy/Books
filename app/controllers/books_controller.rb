@@ -24,11 +24,10 @@ class BooksController < ApplicationController
     query = params[:q]
     results = []
 
-    match_courses = Course.current.in_org(current_user.organization_code).simple_search(query)
+    match_courses = Course.current.in_org(current_user.organization_code).simple_search(query).limit(25)
 
-    results += match_courses.map { |c| c.lecturer_name }.uniq
-    results += match_courses.map { |c| "#{c.lecturer_name} - #{c.name}" }.uniq
     results += match_courses.map { |c| "#{c.name} - #{c.lecturer_name}" }.uniq
+    results += match_courses.map { |c| c.lecturer_name }.uniq
 
     render json: results
   end

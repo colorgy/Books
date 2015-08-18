@@ -1,6 +1,7 @@
 class Course < ActiveRecord::Base
   scope :simple_search, ->(q) { q.downcase!; where('lower(name) LIKE ? OR lower(lecturer_name) LIKE ? OR lower(ucode) LIKE ?', "%#{q}%", "%#{q}%", "%#{q}%") }
 
+  scope :simple_search, SIMPLE_SEARCH_LAMBDA
   scope :current, -> { where(year: DatetimeService.current_year, term: DatetimeService.current_term) }
   scope :not_current, -> { where.not(year: DatetimeService.current_year, term: DatetimeService.current_term) }
   scope :in_org, ->(org_code) { where(organization_code: (org_code.blank? ? 'public' : org_code)) }

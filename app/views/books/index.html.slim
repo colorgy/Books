@@ -13,7 +13,7 @@
       .search-field
         .search-bar.search-bar--center
           form method="get"
-            = react_component 'BookSearchBar', value: params[:q]
+            input class="books-search" name="q" placeholder="搜尋書名、課名、老師名" type="text" value=params[:q]
             input type="submit" value="Submit"
         .clear style="clear:both;"
   .row.row-inner-s
@@ -50,3 +50,19 @@
                       button.btn-highlight 購買本書
             .clear-fix
     = paginate @books, theme: 'twitter-bootstrap-3'
+
+javascript:
+  var booksSearchSuggestions = new Bloodhound({
+    datumTokenizer: Bloodhound.tokenizers.whitespace,
+    queryTokenizer: Bloodhound.tokenizers.whitespace,
+    remote: {
+      url: '/books_search_suggestions.json?q=%QUERY',
+      wildcard: '%QUERY'
+    }
+  });
+
+  $('.books-search').typeahead(null, {
+    name: 'books-search',
+    source: booksSearchSuggestions,
+    limit: 25
+  });
