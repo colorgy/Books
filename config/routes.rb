@@ -88,6 +88,8 @@ Rails.application.routes.draw do
   resources :bills
   resources :credits
 
+  resources :user_course_books
+
   resources :courses
 
   resources :groups

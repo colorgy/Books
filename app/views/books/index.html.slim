@@ -18,6 +18,15 @@
         .clear style="clear:both;"
   .row.row-inner-s
     .col.m12.s12
+      - if @course_with_no_book.present?
+        - @course_with_no_book.each do |course|
+          .card.text-center.bg-dark
+            p
+              | 唉呀，#{course.lecturer_name} 的 #{course.name} 課還不確定用書喔！
+              | 您可以：
+            = link_to '告訴我們', new_user_course_book_path(course_ucode: course.ucode), class: 'btn'
+            br
+            small &nbsp;(並獲得 NT$ 50 折扣金)&nbsp;
       - @books.each do |book|
         .product-list
           .product-list-inner
@@ -38,9 +47,10 @@
                     p.details.text-overflow-ellipse
                       | ISBN：
                       span.isbn= book.isbn
-                    p.details
-                      | 使用本書的課程：
-                      span.courses= book.course_titles_in(current_user.organization_code).map { |c| "<span class=\"label\">#{c}</span>" }.join(' 、 ').html_safe
+                    - if book.course_titles_in(current_user.organization_code).present?
+                      p.details
+                        | 使用本書的課程：
+                        span.courses= book.course_titles_in(current_user.organization_code).map { |c| "<span class=\"label\">#{c}</span>" }.join(' 、 ').html_safe
                 .col.s12.m4
                   .product-list-price
                     h5.discount-price 團購價 ： #{book.price}

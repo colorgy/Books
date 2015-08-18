@@ -24,6 +24,7 @@
                 .book-courses
                   | 使用本書的課程：
                   span.courses= @book.course_titles_in(current_user.organization_code).map { |c| "<span class=\"label\">#{c}</span>" }.join(' 、 ').html_safe
+                  =<> link_to '回報更多使用這本書的課程', new_user_course_book_path(book_isbn: @book.isbn)
               .book-price
                 span.book-disc-price 團購價：NT$ #{@book.price}
                 span.book-orginal-price

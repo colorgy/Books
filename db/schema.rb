@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150817224444) do
+ActiveRecord::Schema.define(version: 20150818224709) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -98,6 +98,7 @@ ActiveRecord::Schema.define(version: 20150817224444) do
     t.boolean  "book_required"
     t.string   "updater_code"
     t.boolean  "locked"
+    t.string   "updater_type"
   end
 
   add_index "course_books", ["book_isbn"], name: "index_course_books_on_book_isbn", using: :btree

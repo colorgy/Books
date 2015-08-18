@@ -5,6 +5,7 @@ class Course < ActiveRecord::Base
   scope :current, -> { where(year: DatetimeService.current_year, term: DatetimeService.current_term) }
   scope :not_current, -> { where.not(year: DatetimeService.current_year, term: DatetimeService.current_term) }
   scope :in_org, ->(org_code) { where(organization_code: (org_code.blank? ? 'public' : org_code)) }
+  scope :no_book, -> { joins('LEFT OUTER JOIN "course_books" ON "course_books"."course_ucode" = "courses"."ucode"').where('course_books.id IS NULL') }
 
   belongs_to :lecturer_identity, class_name: :UserIdentity, foreign_key: :lecturer_name, primary_key: :name
   has_many :course_books, primary_key: :ucode, foreign_key: :course_ucode

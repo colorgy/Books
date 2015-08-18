@@ -18,7 +18,7 @@ NewGroupBookSelect = React.createClass
       options = data.map (book) ->
         value: book.id.toString()
         label: `<div className="complex-selection">
-            <img src={book.image_url} />
+            <ImgPrevError src={book.image_url} name={book.name} />
             <div className="complex-selection-info">
               <span className="complex-selection-label">
                 書名

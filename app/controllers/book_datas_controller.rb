@@ -2,7 +2,7 @@ class BookDatasController < ApplicationController
 
   def index
     if params[:q]
-      @book_datas = BookData.search(params[:q])
+      @book_datas = BookData.simple_search(params[:q]).limit(25)
     else
       @book_datas = []
     end

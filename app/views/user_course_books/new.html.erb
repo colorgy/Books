@@ -1,0 +1,35 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="content-strip primary">
+      <div class="content-strip-inner">
+        <h4 class="strip-title">回報課程用書</h4>
+        <p class="strip-description"></p>
+      </div>
+    </div>
+  </div>
+  <div class="row row-inner-m">
+    <div class="col m12 s12">
+      <div class="groupon-field">
+        <div class="groupon-field-inner">
+          <div class="groupleader-form">
+            <p>在這裏，您可以向我們回報未確認的課程用書資料，讓更多想找書的同學方便的搜尋到他們想要的書。此外，為了感謝您的協助，我們也會給您 NT$ 50 的折扣金來購買該書。</p>
+            <p>&nbsp;</p>
+            <span class="under-line-title">配對新的課程＆用書</span>
+            <%= simple_form_for @course_book, url: user_course_books_path do |f| %>
+              <%= react_component 'UserNewCourseBook', course_ucode: @course_book.course_ucode, book_isbn: @course_book.book_isbn %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  $('.datepicker').pickadate({
+    selectMonths: true, // Creates a dropdown to control month
+    selectYears: 2 // Creates a dropdown of 15 years to control year
+  });
+  $(document).ready(function() {
+    $('select').material_select();
+  });
+</script>

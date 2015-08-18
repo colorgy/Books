@@ -88,7 +88,7 @@ AddBookToCart = React.createClass
         courseUCode = @state.courseUCode
         options = `<div>
             <AddToCartCourseSelect defaultCourses={bookCourses} onChange={handleCourseChange} value={courseUCode} />
-            <p>請先選擇課程再加入購物書包。</p>
+            <p>請先選擇課程再加入購物書包。找不到課嗎？<a href={'/user_course_books/new?book_isbn=' + book.isbn}>回報更多使用這本書的課程</a>。</p>
           </div>`
 
       `<p>
@@ -175,7 +175,7 @@ AddToCartCourseSelect = React.createClass
     courseUCode: null
 
   getData: (input, callback) ->
-    if !input || !input.length
+    if !input || !input.length || true
       options = @props.defaultCourses.map (course) ->
         value: course.ucode
         label: `<div className="complex-selection">
@@ -197,37 +197,37 @@ AddToCartCourseSelect = React.createClass
             </div>
           </div>`
       callback null, options: options
-    else
-      $.ajax
-        method: 'GET'
-        url: "/courses.json"
-        dataType: 'json'
-        data:
-          q: input
-      .done (data, textStatus, xhr) =>
-        options = data.map (course) ->
-          value: course.ucode
-          label: `<div className="complex-selection">
-              <div className="complex-selection-info">
-                <span className="complex-selection-label">
-                  授課教師
-                </span>
-                <span className="complex-selection-name">
-                  {course.lecturer_name}
-                </span>
-              </div>
-              <div className="complex-selection-info">
-                <span className="complex-selection-label">
-                  課程名稱
-                </span>
-                <span className="complex-selection-name">
-                  {course.name}
-                </span>
-              </div>
-            </div>`
-        callback null, options: options
-      .fail (data, textStatus, xhr) =>
-        callback 'error', options: []
+    # else
+    #   $.ajax
+    #     method: 'GET'
+    #     url: "/courses.json"
+    #     dataType: 'json'
+    #     data:
+    #       q: input
+    #   .done (data, textStatus, xhr) =>
+    #     options = data.map (course) ->
+    #       value: course.ucode
+    #       label: `<div className="complex-selection">
+    #           <div className="complex-selection-info">
+    #             <span className="complex-selection-label">
+    #               授課教師
+    #             </span>
+    #             <span className="complex-selection-name">
+    #               {course.lecturer_name}
+    #             </span>
+    #           </div>
+    #           <div className="complex-selection-info">
+    #             <span className="complex-selection-label">
+    #               課程名稱
+    #             </span>
+    #             <span className="complex-selection-name">
+    #               {course.name}
+    #             </span>
+    #           </div>
+    #         </div>`
+    #     callback null, options: options
+    #   .fail (data, textStatus, xhr) =>
+    #     callback 'error', options: []
 
   filterOption: ->
     true
