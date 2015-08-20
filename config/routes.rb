@@ -116,6 +116,7 @@ Rails.application.routes.draw do
   get '/pay/credit_card/pay_redirect/:id' => 'bills#credit_card_pay_redirect', as: 'credit_card_pay_redirect'
   get '/pay/credit_card/success' => 'bills#credit_card_success'
   get '/pay/credit_card/fail' => 'bills#credit_card_fail'
+  get '/pay/credit_card/callback' => 'bills#credit_card_callback'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

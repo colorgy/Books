@@ -55,6 +55,21 @@ class BillsController < ApplicationController
     redirect_to bill_path(@bill)
   end
 
+  def credit_card_callback
+    if params[:OrderNO]
+      @bill = Bill.find_by(uuid: params[:OrderNO])
+    end
+
+    if params[:Status] == 'S'
+      flash[:success] = "信用卡付款成功！"
+      @bill.pay_if_paid!
+    else
+      flash[:alert] = "信用卡授權失敗！"
+    end
+
+    redirect_to bill_path(@bill)
+  end
+
   def credit_card_pay_redirect
     @bill = Bill.find(params[:id])
   end
