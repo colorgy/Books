@@ -22,7 +22,7 @@
         - @course_with_no_book.each do |course|
           .card.text-center.bg-dark
             p
-              | 唉呀，#{course.lecturer_name} 的 #{course.name} 課還不確定用書喔！
+              | 唉呀，#{course.lecturer_name}老師 的 #{course.name} 課還不確定用書喔！
               | 您可以：
             = link_to '告訴我們', new_user_course_book_path(course_ucode: course.ucode), class: 'btn'
             br

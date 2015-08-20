@@ -131,6 +131,9 @@ UserNewCourseBook = React.createClass
         />
       </div>
       <p>
+        找不到書嗎？請<a href="https://www.facebook.com/pages/Colorgy/1529686803975150" target="_blank">向我們回報</a>！
+      </p>
+      <p>
         <input id="ok" type="checkbox" checkedLink={this.linkState('ok')} />
         <label htmlFor="ok">我已確認過，並願意負責擔保所供的資訊是正確的！</label>
       </p>

@@ -98,7 +98,7 @@ AddBookToCart = React.createClass
                className="with-gap"
                checked={checked} />
         <label htmlFor="checkbox-package-buy">
-          直接購買 (同時直接購買兩本以上可免 NT$ 80 運費)
+          直接購買
         </label>
         {options}
       </p>`
