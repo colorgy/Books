@@ -5,14 +5,14 @@
 	}
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (min-width: 992px) {
 
 	.navbar-fixed {
 		height: 100px;
 	}
 }
 
-@media only screen and (min-width: 601px) {
+@media only screen and (max-width: 991px) {
 
 	.navbar-fixed {
 		height: 50px;
