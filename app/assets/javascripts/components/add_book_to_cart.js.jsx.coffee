@@ -150,7 +150,7 @@ AddBookToCart = React.createClass
           {coursesWithNoGroupSelections}
         </div>
       </div>
-      <div className="buy-field">
+      <div className="buy-field text-align-right">
         <span style={{ 'font-size': '20px' }}>數量：</span>
         <input style={{ 'width': '60px', 'font-size': '20px' }} type="number" value={this.state.quantity} onChange={this.handleQuantityChange} />
         &nbsp;&nbsp;&nbsp;

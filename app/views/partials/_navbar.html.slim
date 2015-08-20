@@ -45,6 +45,10 @@
           a.tooltipped data-delay="0" data-position="bottom" data-tooltip="書籍總覽！可以利用課程、老師、isbn等關鍵字搜尋書籍！" href=books_path
             i.material-icons.list-icon view_list
             | 我要找書
+        li
+          a.tooltipped data-delay="0" data-position="bottom" data-tooltip="協助我們確認各課程使用的書籍" href=new_user_course_book_path
+            i.material-icons.list-icon offline_pin
+            | 登記書單
         - unless Settings.disable_groups
           li
             a.tooltipped data-delay="0" data-position="bottom" data-tooltip="所有團購總覽！同學們可以從這邊找到已開的團！" href="/ColorgyV2-frontend/follow-group.html"

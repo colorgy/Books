@@ -13,8 +13,9 @@
                   = @book.name
                 hr
                 .share-field
-                  .fb-share-button
-                  .fb-send
+                  .fb-share-button(data-href="#{ENV['APP_URL']}#{request.path}" data-layout="button_count")
+                  | &nbsp;
+                  .fb-send(data-href="#{ENV['APP_URL']}#{request.path}")
                 .book-from
                   | 出版社：#{@book.publisher}
                 .book-isbn
@@ -34,8 +35,8 @@
         - @book_groups = []
         - @book_courses_with_no_group = []
       = react_component 'AddBookToCart', book: @book, bookGroups: @book_groups, bookCourses: @book_courses, bookCoursesWithNoGroup: @book_courses_with_no_group
-        .social-comments
-          .fb-comments data-colorscheme="light" data-href="#{ENV['APP_URL']}/#{book_path(@book)}" data-numposts="5"
+      .social-comments
+        .fb-comments data-colorscheme="light" data-href="#{ENV['APP_URL']}/#{book_path(@book)}" data-numposts="5"
 
 javascript:
   $(document).ready(function() {
