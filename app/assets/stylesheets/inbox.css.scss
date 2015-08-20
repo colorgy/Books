@@ -5,8 +5,32 @@
 	}
 }
 
-.navbar-fixed {
-	height: 100px;
+@media only screen and (max-width: 600px) {
+
+	.navbar-fixed {
+		height: 100px;
+	}
+}
+
+@media only screen and (min-width: 601px) {
+
+	.navbar-fixed {
+		height: 50px;
+
+		.brand-logo {
+			padding: 0 !important;
+		}
+	}
+}
+
+@media screen and (max-width: 992px) {
+
+	.shopping-cart-mobile-btn {
+		position: fixed;
+		top: 4px;
+		right: 18px;
+		z-index: 99999999999;
+	}
 }
 
 .label {

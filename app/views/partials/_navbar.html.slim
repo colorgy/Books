@@ -3,8 +3,6 @@
     .top
       .top-bar
         ul
-          li
-            = link_to '常見問題', '#'
           - unless Settings.disable_groups
             li
               a href=new_group_path
@@ -38,7 +36,7 @@
     .nav-wrapper
       a.brand-logo href=root_path
         = image_tag 'colorgy-books-logo.png'
-      a.button-collapse data-activates="mobile-demo" href="/"
+      a.button-collapse data-activates="mobile-nav" href="/"
         i.material-icons dehaze
       ul.right.hide-on-med-and-down.main-nav
         li
@@ -59,6 +57,36 @@
         li.nav-bar-drop-down
           a href="#"
             i.material-icons.list-icon more_vert
+      ul#mobile-nav.side-nav
+        - if current_user
+          li#personal-menu
+            .personal-avatar
+              img src=current_user.avatar_url
+            a href="#personal-menu"
+              | 個人工具列
+              i.material-icons.personal-menu-trigger style=("display: inline-block;") keyboard_arrow_down
+          ul.personal-menu-collapse
+            li
+              a href=cart_items_path
+                i.material-icons.list-icon shopping_cart
+                | 前往結帳
+                - if current_user
+                  | (#{current_user.cart_items_count})
+            li
+              a href=books_path
+                | 書庫瀏覽
+            li
+              a href=orders_path
+                | 訂單查詢
+        - else
+          li
+            = link_to '登入', user_omniauth_authorize_path(:colorgy)
+
+.shopping-cart-mobile-btn
+  a href=cart_items_path
+    i.material-icons.list-icon> shopping_cart
+    - if current_user
+      | (#{current_user.cart_items_count})
 
 - if current_user && current_user.first_user_credit_expires_at.present? && current_user.first_user_credit_expires_at > Time.now
   javascript:
@@ -68,3 +96,15 @@
         event.strftime(' (%d 天 %H:%M:%S 後將過期)')
       );
     });
+
+javascript:
+  $(".button-collapse").sideNav();
+    $('#personal-menu').click(function(){
+      $('.personal-menu-collapse').slideToggle(500);
+      if($('.personal-menu-trigger').html() == 'keyboard_arrow_down'){
+        $('.personal-menu-trigger').html('keyboard_arrow_up');
+      }
+      else{
+        $('.personal-menu-trigger').html('keyboard_arrow_down');
+      }
+    })
