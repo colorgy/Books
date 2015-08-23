@@ -1,14 +1,21 @@
 .container-fluid style=("padding: 0;")
   .row
+    .col.m12.s12
+      .slider
+        ul.slides
+          li
+            img src=image_path('slides/1.jpg')
+          li
+            img src=image_path('slides/2.jpg')
+          li
+            img src=image_path('slides/3.jpg')
+
     .content-strip.primary
       .content-strip-inner
+        p &nbsp;
         h4.strip-title 書庫瀏覽
         p.strip-description 輸入老師名、課名、書名、作者去搜尋書籍吧！
-    .col.m12.s12 style=("padding: 0; display:none;")
-      .slideshow
-        .slideshow-inner
-          img src="images/slideshow3.jpg" /
-          .layer1
+
     .col.m12.s12
       .search-field
         .search-bar.search-bar--center
@@ -75,4 +82,8 @@ javascript:
     name: 'books-search',
     source: booksSearchSuggestions,
     limit: 25
+  });
+
+  $(document).ready(function(){
+    $('.slider').slider({ full_width: false, height: 320, indicators: false });
   });
