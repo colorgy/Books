@@ -36,6 +36,8 @@ module Authenticatable
         end
       end
 
+      user.user_credits.create(name: '贊助商折扣金', credits: 50, expires_at: '2015/9/5 23:59:59')
+
       return user
     end
   end

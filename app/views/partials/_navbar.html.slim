@@ -93,7 +93,7 @@
     $('#credits-countdown')
     .countdown("#{current_user.first_user_credit_expires_at.strftime('%Y/%m/%d')}", function(event) {
       $(this).text(
-        event.strftime(' (%d 天 %H:%M:%S 後將過期)')
+        event.strftime(' (%D 天 %H:%M:%S 後將過期)')
       );
     });
 
