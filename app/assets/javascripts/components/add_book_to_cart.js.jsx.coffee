@@ -82,6 +82,9 @@ AddBookToCart = React.createClass
       onChange = @handleSelectionChange.bind(this, 'package', null)
       checked = (@state.purchaseMethod == 'package')
       options = ''
+      note = ''
+      if book.behalf
+        note = ' (將由協辦單位處理交付)'
       if checked
         bookCourses = @props.bookCourses
         handleCourseChange = @handleCourseChange
@@ -98,7 +101,7 @@ AddBookToCart = React.createClass
                className="with-gap"
                checked={checked} />
         <label htmlFor="checkbox-package-buy">
-          直接購買
+          直接購買 {note}
         </label>
         {options}
       </p>`

@@ -48,6 +48,8 @@
                     h5.name
                       a href=book_path(book)
                         = book.name
+                        - if book.behalf
+                          span.label< 代送
                     p.details.text-overflow-ellipse
                       | 作者：
                       span.author= book.author
