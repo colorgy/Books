@@ -15,7 +15,7 @@
 	    border: 1px solid #eee;
 
 		tr{
-			border-bottom: 2px solid #eee;
+			border-bottom: 1px solid #999;
 		}
 	}
 	th{
@@ -24,4 +24,8 @@
 	td{
 		text-align: center;
 	}
+}
+table{
+	border-color: #999;
+	box-shadow: 8px 8px 0 #CCCCCC;
 }

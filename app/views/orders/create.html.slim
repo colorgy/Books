@@ -45,7 +45,8 @@
                 td= "NT$ #{item.item_price * item.quantity}"
         - if @data[:package] && @data[:package].additional_items_description.present?
           - @package_additional_items = @data[:package].package_additional_items
-          p 額外購買項目
+          p style="margin-top: 48px;"
+            | 額外購買項目
           = render "partials/package_additional_items_table"
     .row.row-inner
       .col.m4.s12
@@ -87,8 +88,10 @@
         .order-options-confirm
           .title 付款資訊
           .content
-            p 總計： NT$ #{@data[:bill].amount}
-            p 繳費期限：#{@data[:bill].deadline}
+            label 總計
+            p= "NT$ #{@data[:bill].amount}"
+            label 繳費期限
+            p= "#{@data[:bill].deadline}"
       .col.m12.s12
         .order-confirm-submit
           a.btn-second.btn--large href=cart_items_path 上一步

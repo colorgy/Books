@@ -72,10 +72,10 @@
           - package = @bill.packages.first
           - if package.additional_items.present?
             - @package_additional_items = package.package_additional_items
-            p 額外購買項目
+            .under-line-title style="margin-top: 24px;" 額外購買項目
             = render "partials/package_additional_items_table"
 
-            p 額外購買項目：#{package.additional_items_description}
+            blockquote style="margin-top: 24px;" 額外購買項目敘述：#{package.additional_items_description}
 
           .bill-user-info
             label 收件人姓名

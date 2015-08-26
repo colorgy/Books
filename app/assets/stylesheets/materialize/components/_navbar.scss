@@ -182,7 +182,12 @@ nav{
 nav.colorgy-nav{
   height: auto;
   background-color: #fff;
-  box-shadow: none;
+  box-shadow: 2px 1px 5px rgba(0,0,0,.2);
+  -webkit-box-shadow: 2px 1px 5px rgba(0,0,0,.2);
+  -moz-box-shadow: 2px 1px 5px rgba(0,0,0,.2);
+  -o-box-shadow: 2px 1px 5px rgba(0,0,0,.2);
+  -ms-box-shadow: 2px 1px 5px rgba(0,0,0,.2);
+
   .top{
     overflow: hidden;
     padding: 0 !important;
