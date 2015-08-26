@@ -15,6 +15,7 @@
                 .inner
                   p 繳費代碼：#{@bill.payment_code}
                   p 繳費金額：#{@bill.amount}
+                  p 繳費期限：#{@bill.deadline.strftime('%Y 年 %-m 月 %-d 日 (%a) %H:%M')}
                   - if @bill.paid?
                     p 已由代碼繳費付款！
           - when 'credit_card'
@@ -25,12 +26,14 @@
                     p 已由信用卡完成付款！
                   - else
                     = @bill.credit_card_pay_link.html_safe
+                    p 繳費期限：#{@bill.deadline.strftime('%Y 年 %-m 月 %-d 日 (%a) %H:%M')}
           - when 'virtual_account'
             .col.m6.s12
               .payment-info
                 .inner
-                  p 付款帳號：#{@bill.virtual_account}
+                  p 付款帳號：(807 永豐銀行) #{@bill.virtual_account}
                   p 繳費金額：#{@bill.amount}
+                  p 繳費期限：#{@bill.deadline.strftime('%Y 年 %-m 月 %-d 日 (%a) %H:%M')}
                   - if @bill.paid?
                     p 已由虛擬帳號付款！
                   - else
@@ -83,6 +86,6 @@
             label 收件地址
             p #{package.pickup_address}
             label 希望送達時間
-            p #{package.pickup_datetime}
+            p #{package.pickup_datetime.strftime('%Y 年 %-m 月 %-d 日 (%a)')}
             label 收件人手機
             p #{package.recipient_mobile}

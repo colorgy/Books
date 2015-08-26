@@ -75,7 +75,7 @@
               label 收件地址
               p #{@data[:package].pickup_address}
               lable 希望送達時間
-              p #{@data[:package].pickup_datetime}
+              p #{@data[:package].pickup_datetime.strftime('%Y 年 %-m 月 %-d 日 (%a)')}
               label 收件人手機
               p #{@data[:package].recipient_mobile}
               label 運費計算
@@ -91,7 +91,7 @@
             label 總計
             p= "NT$ #{@data[:bill].amount}"
             label 繳費期限
-            p= "#{@data[:bill].deadline}"
+            p= "#{@data[:bill].deadline.strftime('%Y 年 %-m 月 %-d 日 (%a) %H:%M')}"
       .col.m12.s12
         .order-confirm-submit
           a.btn-second.btn--large href=cart_items_path 上一步
