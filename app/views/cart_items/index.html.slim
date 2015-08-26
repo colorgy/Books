@@ -1,8 +1,10 @@
+.container-fluid
+  .row
+    .content-strip.primary
+      .content-strip-inner
+        h4.strip-title 購物書包
+        p.strip-description
 .container-fluid.cart-items
   = form_tag(orders_path, method: 'POST', onsubmit: 'return window.cartItemsCashier.canSubmit();') do
-    .row
-      .content-strip.primary
-        .content-strip-inner
-          h4.strip-title 購物書包
-          p.strip-description
+
     = react_component 'CartItemsCashier', cartItems: @cart_items_data, billTypeSelections: Bill.type_selections, billTypeFeeEquations: Bill::TYPE_FEE_EQUATIONS, packageShippingFee: Package::SHIPPING_FEE, packageRShippingFeeMinI: Package::RELIEVE_SHIPPING_FEE_IF_ITEMS_MORE_THEN, packageAdditionalItems: PackageAdditionalItem.all, orgName: Organization.find(current_user.organization_code).name
