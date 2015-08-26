@@ -143,13 +143,14 @@ button.btn-floating {
 
 .btn-second{
   @extend .btn;
-  background-color: $darker-gray;
+  background-color: #5E6671;
   i {
     font-size: $button-large-icon-font-size;
   }
   &:hover, &:focus {
-    background-color: lighten( $darker-gray, 5%);
+    background-color: lighten( #5E6671, 5%);
     @extend .z-depth-1-half;
+    color: #fff;
   }
 }
 //Highlight-btn{

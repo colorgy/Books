@@ -54,23 +54,32 @@
           .content
             p= Bill.type_label(@data[:bill].type)
             - if @data[:package] && @data[:package].shipping_fee > 0
-              p 運費 + NT$ #{@data[:package].shipping_fee}
+              label 運費計算
+              p + NT$ #{@data[:package].shipping_fee}
             - if @data[:bill].used_credits > 0
-              p 使用折扣 NT$ #{@data[:bill].used_credits}
+              label 使用折扣
+              p NT$ #{@data[:bill].used_credits}
             - if @data[:bill].processing_fee > 0
-              p 金流手續費：+ NT$ #{@data[:bill].processing_fee}
+              label 金流手續費
+              p + NT$ #{@data[:bill].processing_fee}
+            label 發票種類
             p= Bill.invoice_type_label(@data[:bill].invoice_type)
       .col.m4.s12
         .order-options-confirm
           .title 詳細資訊
           .content
             - if @data[:package]
-              p 收件人姓名：#{@data[:package].recipient_name}
-              p 收件地址：#{@data[:package].pickup_address}
-              p 希望送達時間：#{@data[:package].pickup_datetime}
-              p 收件人手機：#{@data[:package].recipient_mobile}
+              label 收件人姓名
+              p #{@data[:package].recipient_name}
+              label 收件地址
+              p #{@data[:package].pickup_address}
+              lable 希望送達時間
+              p #{@data[:package].pickup_datetime}
+              label 收件人手機
+              p #{@data[:package].recipient_mobile}
+              label 運費計算
               - if @data[:package].shipping_fee > 0
-                p 運費：+ NT$ #{@data[:package].shipping_fee}
+                p + NT$ #{@data[:package].shipping_fee}
               - else
                 p 免額外運費
 

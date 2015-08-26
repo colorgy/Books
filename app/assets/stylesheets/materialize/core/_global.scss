@@ -74,11 +74,7 @@ input:-moz-placeholder { color: #717071 !important; }
   }
 }
 .wrapper{
-  padding-top: 32px;
-  padding-bottom: 100px;
-  @media screen and (max-width: 992px) {
-    padding-top: 0 !important;
-  }
+  height: auto;
 }
 // Grid System
 .container-fluid{
@@ -141,35 +137,36 @@ input:-moz-placeholder { color: #717071 !important; }
     }
   }
 }
-.order-confirm-table{
-  margin-top: 24px;
-  > table{
-    thead{
-      tr{
-        background-color: $gray !important;
-        th{
-          color: $black;
-        }
-      }
-    }
-  }
-}
+
 .order-options-confirm{
-  text-align: center;
+
+  margin-top: 16px;
 
   .title{
-    color: $black;
-    background-color: $gray;
-    font-size: $fourth-size;
+    color: #fff;
     padding: 8px;
+    width: auto;
+    max-width: 280px;
+    margin: 0 auto;
+    border-radius: 2px;
+    z-index: 1;
+    position: relative;
+    box-shadow: 2px 2px 0 #CCCCCC;
+    background-color: #5E6671;
   }
   .content {
-    color: $darker-gray;
-    font-size: $fourth-size;
-    padding: 16px 0;
 
-    > p{
+    padding: 24px 16px;
+    margin-top: -8px;
+    border: 3px dashed #CCC;
+    background-color: #fff;
+    text-align: left;
+
+    >label{
       margin: 0;
+    }
+    > p{
+      margin: 0 0 8px 0;
     }
   }
 }
@@ -575,10 +572,15 @@ thead {
 }
 
 td, th{
-  padding: 15px 5px;
   display: table-cell;
   text-align: left;
   vertical-align: middle;
+}
+th{
+  padding: 8px;
+}
+td{
+  padding: 14px 8px;
 }
 
 // Responsive Table

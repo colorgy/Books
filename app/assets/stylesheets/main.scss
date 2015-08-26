@@ -110,6 +110,9 @@
 // --------
 
 .order-complete{
+
+	padding: 8px 16px;
+
 	.notice{
 		margin: 24px 0 48px 0;
 		h5{
@@ -136,35 +139,52 @@
 
 		}
 		.payment-info{
-			padding: 0 16px;
+			padding: 0 0;
 
 			.inner{
 				p{
 
 				}
 				.payment-notice{
-					background-color: #F5A623;
+				    background: linear-gradient(30deg, #00d0ad 0%, #af3ee8 100%);
+				    background: -webkit-linear-gradient(30deg, #00d0ad 0%, #af3ee8 100%);
+				    background: -moz-linear-gradient(30deg, #00d0ad 0%, #af3ee8 100%);
+				    background: -o-linear-gradient(30deg, #00d0ad 0%, #af3ee8 100%);
+				    background: -ms-linear-gradient(30deg, #00d0ad 0%, #af3ee8 100%);
 					padding: 12px 24px;
 					text-align: center;
 					margin: 24px 0;
+					box-shadow: 6px 6px 0 #5E6671;
+				    border-radius: 2px;
+
 					i{
-						font-size: 1.8em;
+						font-size: 32px !important;
+						color: #fff;
 					}
 					p{
 						color: #fff;
-						font-size: 1em;
+						font-size: 1.2em;
+						padding: 12px 0;
 					}
 				}
 			}
 		}
 	}
 	.order-info{
-		padding: 24px 24px;
+		padding: 24px 0;
 		.title{
 			font-size: 1.6em;
 			text-align: center;
 		}
 	}
+}
+
+.bill-user-info{
+    margin: 16px 0;
+    background-color: #fff;
+    padding: 24px;
+    border: 3px dashed #5E6671;
+    border-radius: 4px;
 }
 
 // End
@@ -594,3 +614,46 @@ i{
 	min-height: 100vh;
 }
 
+
+// ------
+// Coupon
+//
+
+
+.coupon{
+	max-width: 600px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    text-shadow: 1px 1px 2px rgba(0,0,0,.4);
+    color: #fff;
+    padding: 12px;
+
+    > .coupon-inner{
+	    border: 5px dashed #fff;
+	    padding: 16px 0;
+    }
+}
+
+
+.cart-items-field , .order-confirm-table{
+    padding-top: 24px;
+
+    > p{
+		margin-bottom: 40px;
+	    color: #33C7AB;
+	    font-size: 24px;
+	    border-radius: 4px;
+	    border: 2px dashed #33C7AB;
+	    display: inline-block;
+	    padding: 4px 16px;
+    }
+}
+
+.container-fluid.cart-items{
+	padding-bottom: 80px;
+}
+
+.form-control[readonly]{
+	background-color: transparent;
+}

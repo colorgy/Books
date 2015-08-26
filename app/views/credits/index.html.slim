@@ -5,14 +5,15 @@
         h4.strip-title 我的折扣金
   .row.row-inner.max-width-800px
     - @user_credits.each do |user_credit|
-      .card.bg-theme
-        .card-title
-          - if user_credit.name.present?
-            => user_credit.name
-          | NT$ #{user_credit.credits}
-        - if user_credit.book_data.present?
-          | 限制使用於購買 #{user_credit.book_data.name}。
-        - if user_credit.expires_at.present?
-          | 使用期限至 #{user_credit.expires_at.strftime('%Y/%-m/%d')}。
-        - else
-          | 無使用期限。
+      .card.coupon.gradient-bg
+        .coupon-inner
+          .card-title
+            - if user_credit.name.present?
+              => user_credit.name
+            | NT$ #{user_credit.credits}
+          - if user_credit.book_data.present?
+            | 限制使用於購買 #{user_credit.book_data.name}。
+          - if user_credit.expires_at.present?
+            | 使用期限至 #{user_credit.expires_at.strftime('%Y/%-m/%d')}。
+          - else
+            | 無使用期限。

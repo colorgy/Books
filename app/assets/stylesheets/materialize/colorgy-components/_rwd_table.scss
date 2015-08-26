@@ -3,11 +3,18 @@
 		max-width: 45px;
 	}
 	thead{
+		background-color: #5E6671;
 		tr{
-			background-color: $primary-color;
 			th{
 				color: $white;
 			}
+		}
+	}
+	tbody{
+		background: #fff;
+
+		tr{
+			border-bottom: 3px solid #eee;
 		}
 	}
 	th{

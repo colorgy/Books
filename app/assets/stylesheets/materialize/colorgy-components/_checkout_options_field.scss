@@ -1,15 +1,22 @@
 .checkout-options-field{
 	width: 100%;
 	max-width: 800px;
-	margin: auto;
+	margin: 24px auto;
 
 	> .checkout-options-field-inner{
 
-		padding: 24px;
+		padding-right: 24px;
 
 		> .checkout-options-field-title{
 
-			background-color: $primary-color;
+		    background-color: #5E6671;
+		    width: auto;
+		    max-width: 280px;
+		    margin: 0 auto;
+		    border-radius: 2px;
+		    z-index: 1;
+		    position: relative;
+		    box-shadow: 1px 1px 0 #CCCCCC;
 
 			> .payment-title{
 				display: inline-block;
@@ -35,12 +42,18 @@
 		}
 
 		> .checkout-options-field-body{
+			padding: 24px 12px;
+		    margin-top: -8px;
+		    box-shadow: 3px 3px 0 #CCCCCC;
+		    background-color: #fff;
+
 			> .payment-options{
 				display: inline-block;
 				text-align: center;
 				width: 50%;
 				float: left;
-				padding: 8px 0;
+				padding: 8px 16px;
+				border-right: 2px dashed #5E6671;
 			}
 
 			> .reciept-options{
@@ -48,7 +61,7 @@
 				text-align: center;
 				width: 50%;
 				float: left;
-				padding: 8px 0;
+				padding: 8px 16px;
 			}
 
 			&.text-center{
@@ -68,5 +81,21 @@
 		margin-top: 24px;
 		padding-right: 100px;
 		padding-left: 100px;
+	}
+}
+
+.checkout-options-field-body{
+	input[type=text], input[type=password], input[type=email], input[type=url], input[type=time], input[type=date], input[type=datetime-local], input[type=tel], input[type=number], input[type=search], textarea.materialize-textarea{
+		border: 1px solid #CCCCCC;
+	    background-color: #fff;
+	    border-radius: 3px;
+	    margin: 0 8px;
+	    display: block;
+	    box-sizing: border-box;
+	    max-width: calc(100% - 24px);
+	}
+	input[type=text]:focus:not([readonly]), input[type=password]:focus:not([readonly]), input[type=email]:focus:not([readonly]), input[type=url]:focus:not([readonly]), input[type=time]:focus:not([readonly]), input[type=date]:focus:not([readonly]), input[type=datetime-local]:focus:not([readonly]), input[type=tel]:focus:not([readonly]), input[type=number]:focus:not([readonly]), input[type=search]:focus:not([readonly]), textarea.materialize-textarea:focus:not([readonly]){
+		border: 1px solid #66afe9;
+		box-shadow: none;
 	}
 }

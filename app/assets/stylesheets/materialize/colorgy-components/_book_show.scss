@@ -1,15 +1,20 @@
 .book-show{
-	padding: 24px 0;
+	padding: 0 0 24px 0;
 	max-width: 1300px;
 	.book-show-box{
 		.book-pic{
 			border-radius: $border-radius;
 			text-align: center;
-			max-width: 250px;
+			max-width: 85%;
 			margin: 0 auto;
+			margin-top: -40px;
 		}
 		.book-info{
-			border-radius: $border-radius;
+			border-radius: 12px;
+	        margin: 16px 12px;
+		    border: 3px dashed #5E6671;
+		    padding: 8px 0px 24px 0;
+	        background-color: #fff;
 
 			> .book-info-inner{
 				color: $dark-gray;
@@ -18,8 +23,9 @@
 					margin: 16px 0 !important;
 				}
 				> .book-name{
-					font-size: $third-size;
+					font-size: 26px;
 					padding: 2px 0;
+				    text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
 				}
 				> .book-from{
 					font-size: $normal-size;
@@ -39,20 +45,31 @@
 					padding: 2px 0;
 				}
 
+				> .book-courses{
+					> a{
+						display: block;
+						margin: 8px 0 24px 0;
+					}
+				}
+
 			}
 			> .book-price{
-				padding: 8px 16px;
-				background-color: $black;
+				padding: 12px 16px;
+				box-shadow: 8px 8px 0 #D9D9DA;
+			    margin-left: -8px;
+
 				span{
 					display: block;
 				}
 				> span.book-disc-price{
 					font-size: $second-size;
-					color: $primary-color;
+					color: #fff;
+				    text-shadow: 1px 1px 3px rgba(0,0,0,.4);
 				}
 				> span.book-orginal-price{
 					> del{
 						color: $products-info-font;
+						font-size: 1.2em;
 					}
 				}
 			}
@@ -113,4 +130,19 @@
 }
 .share-field{
 	padding: 0px 0px 16px 0;
+}
+.book-info-inner p {
+    margin-bottom: 4px;
+}
+.book-info-inner label {
+    margin: 0;
+}
+.book-show-actions {
+    background-color: #fff;
+    border: 1px solid #eee;
+    border-radius: 4px;
+    max-width: 1000px;
+    padding: 16px 16px;
+    margin: 16px auto;
+	box-shadow: 6px 6px 0 #EAEAEA;
 }

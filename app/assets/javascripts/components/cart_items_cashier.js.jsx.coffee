@@ -187,7 +187,7 @@ CartItemsCashier = React.createClass
                 專送包裹－收件資訊
               </div>
             </div>
-            <div className="checkout-options-field-body text-center">
+            <div className="checkout-options-field-body text-left">
               <div className="form-group">
                 <label className="string control-label" htmlFor="group_recipient_name">收件人姓名</label>
                 <input className="string form-control"
@@ -262,7 +262,7 @@ CartItemsCashier = React.createClass
         <div className="row row-inner">
           <div className="cart-items-field">
             <p>請確認您的購物內容，接著請按「下一步」！</p>
-            <table className="responsive-table hoverable">
+            <table className="responsive-table">
               <thead>
                 <tr>
                   <th></th>

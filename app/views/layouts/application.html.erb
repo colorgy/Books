@@ -23,7 +23,9 @@
     <%= render "partials/navbar" %>
     <%= render "common/flash_messages" %>
     <%= render 'common/fb_js_sdk' %>
-    <%= yield %>
+    <div id="wrapper" class="wrapper">
+      <%= yield %>
+    </div>
     <%= render "partials/footer" %>
   </body>
 </html>

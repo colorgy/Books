@@ -15,7 +15,7 @@
 @media only screen and (max-width: 991px) {
 
 	.navbar-fixed {
-		height: 50px;
+		height: 56px;
 
 		.brand-logo {
 			padding: 0 !important;
@@ -23,11 +23,21 @@
 	}
 }
 
+.button-collapse{
+	padding-top: 3px;
+}
+
+.add-buy{
+	[type="checkbox"] + label{
+		padding-left: 24px;
+	}
+}
+
 @media screen and (max-width: 992px) {
 
 	.shopping-cart-mobile-btn {
 		position: fixed;
-		top: 4px;
+		top: 10px;
 		right: 18px;
 		z-index: 99999999999;
 	}

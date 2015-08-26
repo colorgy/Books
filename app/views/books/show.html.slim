@@ -1,12 +1,18 @@
 .container-fluid
-  .row.row-inner-m.book-show
+  .row style="margin-bottom: 0;"
+    .content-strip.primary style="min-height: 80px;"
+      .content-strip-inner
+        h5.strip-title
+        p.strip-description
+.container-fluid
+  .row.row-inner.book-show
     .col.m12.s12
       .row
         .book-show-box
-          .col.m4.s12
+          .col.m6.s12
             .book-pic
               = react_component 'ImgPrevError', src: @book.image_url, name: @book.name, className: 'materialboxed responsive-img', width: 250
-          .col.m8.s12
+          .col.m6.s12
             .book-info
               .book-info-inner
                 .book-name
@@ -17,28 +23,34 @@
                   | &nbsp;
                   .fb-send(data-href="#{ENV['APP_URL']}#{request.path}")
                 .book-from
-                  | 出版社：#{@book.publisher}
+                  label 出版社
+                  p #{@book.publisher}
                 .book-isbn
-                  | ISBN：#{@book.isbn}
+                  label ISBN
+                  p #{@book.isbn}
                 .book-author
-                  | 作者：#{@book.author}
+                  label 作者
+                  p #{@book.author}
                 .book-courses
-                  | 使用本書的課程：
+                  label 使用本書的課程
+                  br
                   span.courses= @book.course_titles_in(current_user.organization_code).map { |c| "<span class=\"label\">#{c}</span>" }.join(' 、 ').html_safe
-                  =<> link_to '回報更多使用這本書的課程', new_user_course_book_path(book_isbn: @book.isbn)
-              .book-price
+                  =<> link_to '》回報更多使用這本書的課程《', new_user_course_book_path(book_isbn: @book.isbn)
+              .book-price.gradient-bg
                 span.book-disc-price 團購價：NT$ #{@book.price}
                 span.book-orginal-price
                   del 定價：NT$ #{@book.original_price}
     .col.m12.s12
-      - if Settings.disable_groups
-        - @book_groups = []
-        - @book_courses_with_no_group = []
-      = react_component 'AddBookToCart', book: @book, bookGroups: @book_groups, bookCourses: @book_courses, bookCoursesWithNoGroup: @book_courses_with_no_group
+      .book-show-actions
+        - if Settings.disable_groups
+          - @book_groups = []
+          - @book_courses_with_no_group = []
+        = react_component 'AddBookToCart', book: @book, bookGroups: @book_groups, bookCourses: @book_courses, bookCoursesWithNoGroup: @book_courses_with_no_group
       .social-comments
         .fb-comments data-colorscheme="light" data-href="#{ENV['APP_URL']}/#{book_path(@book)}" data-numposts="5"
 
 javascript:
   $(document).ready(function() {
     // $('.materialboxed').materialbox();
+    $('#checkbox-package-buy').click();
   });
