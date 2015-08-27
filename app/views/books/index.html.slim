@@ -85,11 +85,19 @@
                         span.courses= book.course_titles_in(current_user.organization_code).map { |c| "<span class=\"label\">#{c}</span>" }.join(' 、 ').html_safe
                 .col.s12.m4
                   .product-list-price
-                    h5.discount-price 團購價 ： #{book.price}
-                    p.origin-price
-                      del 定價 ： #{book.original_price}
+                    - if book.buyable
+                      h5.discount-price 團購價 ： #{book.price}
+                      p.origin-price
+                        del 定價 ： #{book.original_price}
+                    - else
+                      h5.discount-price 尚未開放購買
+                      p.origin-price
+                        del 定價 ： #{book.original_price}
                     a href=book_path(book)
-                      button.btn-highlight 購買本書
+                      - if book.buyable
+                        button.btn-highlight 購買本書
+                      - else
+                        button.btn-highlight 詳細資訊
             .clear-fix
     = paginate @books, theme: 'twitter-bootstrap-3'
 
