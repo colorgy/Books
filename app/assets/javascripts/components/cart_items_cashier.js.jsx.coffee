@@ -50,6 +50,9 @@ CartItemsCashier = React.createClass
   handleBillTypeChange: (v) ->
     @setState billType: v
 
+  handleBillTypePpay: (v) ->
+    @setState billPpay: true
+
   handlePackagePickupDatetimeChange: (e) ->
     @setState packagePickupDatetime: e.target.value
 
@@ -249,6 +252,14 @@ CartItemsCashier = React.createClass
         <input name="bill[type]" onClick={self.handleBillTypeChange.bind(null, selection[1])} type="radio" id={'payment-convience-' + selection[1]} value={selection[1]} />
         <label htmlFor={'payment-convience-' + selection[1]}>{selection[0]}</label>
       </p>`
+    if @state.billPpay
+      billTypeSelections.unshift(`<p>你希望爸媽用什麼方式幫你付款？（確認購買後，可以按下「儲存訂單」後寄給爸媽為你繳費）</p>`)
+    else
+      billTypeSelections.push(
+        `<p key="bill-selection-p">
+          <input onClick={self.handleBillTypePpay.bind(null, 'p')} type="radio" id="payment-convience-p" />
+          <label htmlFor="payment-convience-p">爸媽付</label>
+        </p>`)
 
     if @props.billTypeFeeEquations?[@state.billType]
       n = totalPrice

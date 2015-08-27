@@ -66,6 +66,7 @@
         .col.m6.s12
           .payment-countdown
         div style="clear:both;"
+        a.download 儲存訂單
       .order-info
         .under-line-title 訂單明細
         .order-confirm-table
@@ -89,3 +90,15 @@
             p #{package.pickup_datetime.strftime('%Y 年 %-m 月 %-d 日 (%a)')}
             label 收件人手機
             p #{package.recipient_mobile}
+a.c-download#c-download
+javascript:
+  $('a.download').click(function () {
+    html2canvas($('.order-complete'), {
+      onrendered: function(canvas) {
+        var link = document.getElementById('c-download');
+        link.setAttribute('download', 'open.png');
+        link.setAttribute('href', canvas.toDataURL("image/png").replace("image/png", "image/octet-stream"));
+        link.click();
+      }
+    });
+  });
