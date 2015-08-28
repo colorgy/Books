@@ -9,7 +9,7 @@
                 i.material-icons.list-icon send
                 | 班代 / 助教開團
           - if current_user && current_user.total_credits > 0
-            li
+            li.hide
               a(href=credits_path)
                 | 您有折扣金 NT$ #{current_user.total_credits}
                 span#credits-countdown
