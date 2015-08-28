@@ -21,7 +21,7 @@ class Course < ActiveRecord::Base
     page = 1
     begin
       # TODO: use an access token to call this request
-      response = RestClient.get "#{ENV['CORE_URL']}/api/v1/organizations/#{org}/courses.json?per_page=10000&page=#{page}&fields=year,term,code,name,lecturer,general_code,department_code&filter[year]=#{year}&filter[term]=#{term}"
+      response = RestClient.get "#{ENV['CORE_URL']}/api/v1/organizations/#{org}/courses.json?per_page=10000&page=#{page}&fields=year,term,code,name,lecturer,general_code,department_code,required&filter[year]=#{year}&filter[term]=#{term}"
     rescue RestClient::Exception
     else
       Rails.logger.info "Course.sync:  - Getting courses form #{org}"
@@ -36,8 +36,9 @@ class Course < ActiveRecord::Base
         courses_inserts += courses.map do |c|
           c['name'] && c['name'].gsub!("'", "''")
           c['lecturer'] && c['lecturer'].gsub!("'", "''")
+          c['required'] = c['required'].nil? ? "NULL" : c['required']
 
-          "('#{org}-#{c['code']}', '#{org}', #{c['year']}, #{c['term']}, '#{c['code']}', '#{c['name']}', '#{c['lecturer']}', '#{c['general_code']}', '#{c['department_code']}', '#{c['required']}')"
+          "('#{org}-#{c['code']}', '#{org}', #{c['year']}, #{c['term']}, '#{c['code']}', '#{c['name']}', '#{c['lecturer']}', '#{c['general_code']}', '#{c['department_code']}', #{c['required']})"
         end
 
         if next_match = response.headers[:link] && response.headers[:link].match(/<(?<url>[^<>]+)>; rel="next"/)
