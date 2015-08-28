@@ -53,14 +53,28 @@
   .row.row-inner-s
     .col.m12.s12
       - if @course_with_no_book.present?
-        - @course_with_no_book.each do |course|
-          .card.text-center.bg-dark
-            p
-              | 唉呀，#{course.lecturer_name}老師 的 #{course.name} 課還不確定用書喔！
-              | 您可以：
-            = link_to '告訴我們', new_user_course_book_path(course_ucode: course.ucode), class: 'btn'
-            br
-            small &nbsp;(並獲得 NT$ 50 折扣金)&nbsp;
+        .course-with-no-books-container.modal id="modal1" style="width: 95%; height: 80%;"
+          .course-with-no-books-inner.modal-content
+            blockquote
+              | 你搜尋到的以下的課程還不確定用書唷！ 如果你知道他們用什麼書的話，請回報給我們！回報每一本賺取 50 元的購物金！或是你也可以按 '關閉' 來繼續瀏覽你搜尋的書籍。
+            table.responsive-table
+              thead
+                th 課程名稱
+                th 老師名稱
+                th 回報用書
+              tbody
+                - @course_with_no_book.each do |course|
+                  tr
+                    td
+                      = course.name
+                    td
+                      = course.lecturer_name
+                    td
+                      = link_to '回報用書', new_user_course_book_path(course_ucode: course.ucode), class: 'btn'
+          .modal-footer style="position: absolute; bottom: 0;"
+            a.modal-action.modal-close.btn-flat href="#!" = '關閉'
+        javascript:
+          $('#modal1').openModal();
       - @books.each do |book|
         .product-list
           .product-list-inner
