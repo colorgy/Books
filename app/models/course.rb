@@ -37,7 +37,7 @@ class Course < ActiveRecord::Base
           c['name'] && c['name'].gsub!("'", "''")
           c['lecturer'] && c['lecturer'].gsub!("'", "''")
 
-          "('#{org}-#{c['code']}', '#{org}', #{c['year']}, #{c['term']}, '#{c['code']}', '#{c['name']}', '#{c['lecturer']}', '#{c['general_code']}', '#{c['department_code']}')"
+          "('#{org}-#{c['code']}', '#{org}', #{c['year']}, #{c['term']}, '#{c['code']}', '#{c['name']}', '#{c['lecturer']}', '#{c['general_code']}', '#{c['department_code']}', '#{c['required']}')"
         end
 
         if next_match = response.headers[:link] && response.headers[:link].match(/<(?<url>[^<>]+)>; rel="next"/)
@@ -50,7 +50,7 @@ class Course < ActiveRecord::Base
       if courses_inserts.length > 0
         Course.where(organization_code: org, year: year, term: term).delete_all
         sql = <<-eof
-          INSERT INTO courses (ucode, organization_code, year, term, code, name, lecturer_name, general_code, department_code)
+          INSERT INTO courses (ucode, organization_code, year, term, code, name, lecturer_name, general_code, department_code, required)
           VALUES #{courses_inserts.join(', ')}
         eof
         ActiveRecord::Base.connection.execute(sql)
