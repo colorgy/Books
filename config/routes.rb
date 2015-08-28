@@ -88,6 +88,7 @@ Rails.application.routes.draw do
   resources :bills
   resources :credits
 
+  get 'user_course_books/edit' => 'user_course_books#edit'
   resources :user_course_books
 
   resources :courses

@@ -1,6 +1,9 @@
 class UserCourseBooksController < ApplicationController
   before_action :authenticate_user!
 
+  def index
+  end
+
   def new
     @course = Course.find_by(ucode: params[:course_ucode])
     @book_data = BookData.find_by(isbn: params[:book_isbn])
@@ -11,7 +14,11 @@ class UserCourseBooksController < ApplicationController
 
   def create
     @course_book = CourseBook.new(course_book_params)
-    raise 'already have book' if @course_book.course.course_book.present?
+    if @course_book.course.course_books.present?
+      course = @course_book.course
+      @course_book = course.course_books.last
+      @course_book.assign_attributes(course_book_params)
+    end
 
     @course_book.updater_type = 'user'
     @course_book.updater_code = current_user.id
@@ -30,6 +37,14 @@ class UserCourseBooksController < ApplicationController
     else
       redirect_to root_path
     end
+  end
+
+  def edit
+    @course = Course.find_by(ucode: params[:course_ucode])
+    @book_data = BookData.find_by(isbn: params[:book_isbn])
+    @course_book = CourseBook.new
+    @course_book.course = @course.course_book.first @course.course_book.build if @course
+    @course_book.book_data = @book_data if @book_data
   end
 
   private

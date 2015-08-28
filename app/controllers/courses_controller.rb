@@ -21,8 +21,10 @@ class CoursesController < ApplicationController
   private
 
   def courses_collection
-    if params[:no_book]
+    if params[:no_book] == 'true'
       Course.current.where(organization_code: current_org_code).no_book
+    elsif params[:no_book] == 'false'
+      Course.current.where(organization_code: current_org_code).has_book
     else
       Course.current.where(organization_code: current_org_code)
     end
