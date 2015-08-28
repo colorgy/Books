@@ -7,17 +7,75 @@
       </div>
     </div>
   </div>
-  <div class="row row-inner-m text-center">
+  <div class="row row-inner-m text-center" style="padding: 0 0 8px 0;">
     <p class="h3">你可以為我們做什麼呢？</p>
-    <div class="col m6 s12">
+    <div class="col m4 s12">
       <p class="h4">
-        <a href="<%= new_user_course_book_path %>">我想要<span style="font-size: 32px;">回報新的</span>課程用書資訊</a>
+        <a class="btn" href="<%= new_user_course_book_path %>"><i class="material-icons" style="margin-right: 8px;">add</i>回報新的課程用書資訊</a>
       </p>
     </div>
-    <div class="col m6 s12">
+    <div class="col m4 s12">
       <p class="h4">
-        <a href="<%= user_course_books_edit_path %>">我想要<span style="font-size: 32px;">修正</span>一門課的用書資訊</a>
+        <a class="btn modal-trigger" data-target="modal1"><i class="material-icons" style="margin-right: 8px;">email</i>寄信給教授問教材範本</a>
+      </p>
+    </div>
+    <div class="col m4 s12">
+      <p class="h4">
+        <a class="btn" href="<%= user_course_books_edit_path %>"><i class="material-icons" style="margin-right: 8px;">edit</i>修正一門課的用書資訊</a>
+      </p>
+    </div>
+  </div>
+  <div class="row row-inner-m text-center">
+    <div class="declaration-text" style="background-color: #fff;padding: 12px;border: 1px solid #DDD;box-shadow: 8px 8px 0 #CCCCCC;">
+      <h5 class="text-left">【幫助同學、造福自己：Colorgy Books 資料補完計劃】</h5>
+      <p class="text-left" style="padding: 32px 12px;">
+        敬 打開此頁面者：<br><br>
+        改善校園購書環境、保護原文書知識，一直是 Colorgy Books 的目標，<br>
+        現在，你也有機會為學校盡一份心力！<br><br>
+
+        各位同學大家好，我們是 Colorgy Books 團隊。<br>
+        為了改善台灣的原文教科書環境，<br>
+        我們從去年九月開始，自行架設了Colorgy Books 校園購書平台，<br>
+        開始經營一個專屬各位同學的購書網站；<br>
+        而今年很幸運的，我們找到了許多願意贊助的廠商，<br>
+        提供每位同學購書上的優惠折扣：<br>
+        不僅讓大家在購書上不致吃虧，更減輕了許多有經濟壓力同學的負擔。<br>
+
+        為了提供最完善的服務、建立最便利大家的校園平台，<br>
+        我們誠摯邀請每一位同學加入「Colorgy Books 資料補完計劃」：<br>
+        只要向這學期你有上到課的教授、確認老師在這學期的用書資訊，<br>
+        透過資料登錄網站／電子信箱回報給 Colorgy Books 團隊，<br>
+
+        我們將會提供「$50 購書折扣金」（買書時可直接折抵，不用放到下學期），<br>
+        折扣金是以每個人的回報資料件數計算，<br>
+        只要確認「回報資料越多、折扣就越多」！<br>
+
+        每一筆回報資料，都能幫助到和你同班、需要買書的所有同學。<br>
+        誠摯的邀請你，和我們一起 Color Your College！<br>
+        謝謝你。
       </p>
     </div>
   </div>
 </div>
+<div id="modal1" class="modal">
+  <div class="modal-content">
+    <h4>寄信給教授問教材範本</h4>
+    <p>
+      Dear XXX 老師您好：<br>
+      我是這學期選修您的XXX課的 XX系 OOO。<br>
+      想跟X老師詢問這堂課老師使用的教材是什麼呢？<br>我想要提前準備好教材已準備好新學期的課程。希望老師能夠提供，謝謝您。<br><br>
+
+      XX 系 OOO 敬上
+    </p>
+  </div>
+  <div class="modal-footer">
+    <a class=" modal-action modal-close btn-flat">關閉</a>
+  </div>
+</div>
+<script type="text/javascript">
+  $(document).ready(function(){
+    // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+    $('.modal-trigger').leanModal();
+  });
+
+</script>
