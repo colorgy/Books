@@ -13,6 +13,11 @@
     <%= stylesheet_link_tag 'inbox', media: 'all', 'data-turbolinks-track' => true %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
     <%= csrf_meta_tags %>
+    <meta property="og:image" content="<%= image_tag('slides/ad2.jpg') %>"/>
+    <meta property="og:url" content="<%= "https://#{request.host}#{request.fullpath}" %>" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Colorgy Books 買書滿額免運還可直達宿舍或家裡！" />
+    <meta property="og:description" content="同學們不用再為了教科書奔波！一站買齊所有教科書，滿額免運還可以直接送到宿舍或家中，Colorgy 體恤同學提供各種購書金，只要完成小任務即可獲取！減輕買書的負擔！" />
 
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet">
