@@ -658,3 +658,57 @@ i{
 .form-control[readonly]{
 	background-color: transparent;
 }
+
+.guide-item{
+    background-color: #fff;
+    padding: 24px 16px;
+    border: 1px solid #DDD;
+    position: relative;
+    box-shadow: 8px 8px 0 #CCCCCC;
+    -webkit-box-shadow: 8px 8px 0 #CCCCCC;
+
+    label{
+    	font-size: 18px;
+    	margin-top: 16px;
+    }
+
+	> .guide-item-title{
+		margin-top: -54px;
+	    margin-bottom: 40px;
+	    background-color: #5E6671;
+	    padding: 8px 12px;
+	    display: block;
+	    max-width: 400px;
+	    color: #fff;
+	    width: auto;
+	    border-radius: 2px;
+	    z-index: 1;
+	    box-shadow: 1px 1px 0 #CCCCCC;
+	}
+
+	> .guide-item-pic{
+		border: 1px solid #DDD;
+	}
+
+	> .guide-item-text{
+		margin: 16px 0 32px 0;
+	}
+}
+
+.index-c-countdown{
+	padding: 8px 0 !important;
+	background: linear-gradient(30deg, #00d0ad 0%, #af3ee8 100%);
+    background: -webkit-linear-gradient(30deg, #00d0ad 0%, #af3ee8 100%);
+    background: -moz-linear-gradient(30deg, #00d0ad 0%, #af3ee8 100%);
+    background: -o-linear-gradient(30deg, #00d0ad 0%, #af3ee8 100%);
+    background: -ms-linear-gradient(30deg, #00d0ad 0%, #af3ee8 100%);
+
+}
+
+#index-c-countdown{
+	font-size: 16px !important;
+
+	span{
+		font-size: 20px !important;
+	}
+}

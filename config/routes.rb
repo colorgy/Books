@@ -56,6 +56,7 @@ Rails.application.routes.draw do
 
   root 'pages#index', as: :new_user_session
 
+  get '/shopping-guide' => 'pages#shopping_guide'
   get '/faq' => 'pages#faq'
   get '/flow' => 'pages#flow'
   get '/flow/buy' => 'pages#shopping_flow_buy'

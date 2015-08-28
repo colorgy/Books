@@ -1,27 +1,31 @@
 .container-fluid style=("padding: 0;")
   .row
     - if current_user && current_user.total_credits > 0
-      .col.m12.s12
-        .slider
-          ul.slides
-            li
-              img src=image_path('slides/1.jpg')
-            li
-              img src=image_path('slides/2.jpg')
-            li
-              img src=image_path('slides/3.jpg')
-      .col.m3.s12.hide-on-med-and-down.bg-theme.index-c-countdown.valign-wrapper(style="position: absolute; z-index: 990; height: 420px;")
+      .col.m12.s12.hide-on-med-and-down.bg-theme.index-c-countdown.valign-wrapper(style="z-index: 990;")
         .valign.margin-center
           | 折扣金倒數
           #index-c-countdown
       javascript:
         $('#index-c-countdown').countdown('#{current_user.first_user_credit_expires_at.strftime('%Y/%m/%d')}').on('update.countdown', function(event) {
           var $this = $(this).html(event.strftime(''
-            + '<span>%-D</span> 天%!d '
+            + '<span>%-D</span> 天'
             + '<span>%H</span> 小時 '
             + '<span>%M</span> 分鐘 '
             + '<span>%S</span> 秒'));
         });
+      .col.m12.s12
+        .slider
+          ul.slides
+            li
+              img src=image_path('slides/4.jpg')
+            li
+              img src=image_path('slides/5.jpg')
+            li
+              img src=image_path('slides/1.jpg')
+            li
+              img src=image_path('slides/2.jpg')
+            li
+              img src=image_path('slides/3.jpg')
     - else
       .col.m12.s12
         .slider

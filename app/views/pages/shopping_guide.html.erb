@@ -1,0 +1,211 @@
+<div class="container-fluid">
+	<div class="row">
+		<div class="content-strip primary">
+			<div class="content-strip-inner">
+				<h4 class="strip-title">使用流程</h4>
+				<p class="strip-description"></p>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col s12 m10">
+			<div class="row row-inner-m user-guide scrollspy" id="main">
+				<div class="col s12 s12">
+					<div class="guide-item">
+						<h4 class="guide-item-title">介面說明</h4>
+						<div class="guide-item-pic">
+							<%= image_tag('guide/guide1.jpg') %>
+						</div>
+						<div class="guide-item-text">
+							<label>1. 上選單</label>
+							<p>
+								你持有的購物金及使用倒數時間、我的訂單、購物車、個人下拉選單。
+							</p>
+							<label>2. 主選單</label>
+							<p>
+								查詢書籍、登記 / 修改書單、使用教學
+							</p>
+							<label>3. 搜尋框</label>
+							<p>在這輸入想查詢的老師名、課名、書名、作者名按下 enter 可以查詢書籍。</p>
+							<label>4. 書本列表</label>
+							<p>這裏會顯示一些書籍的資訊：書名、作者、isbn、價格，灰色的小標籤代表有使用本書的課程。</p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row row-inner-m user-guide scrollspy" id="shopping">
+				<div class="col m12 s12">
+					<div class="guide-item">
+						<h4 class="guide-item-title">購物流程</h4>
+						<h5 class="guide-item-sub-title">1. 搜尋書本</h5>
+						<div class="guide-item-pic">
+							<%= image_tag('guide/guide2.jpg') %>
+						</div>
+						<div class="guide-item-text">
+							<blockquote>
+								使用老師名、課名、書名、作者名去搜尋課本 ( 因為資料龐大搜尋時請耐心等候 )
+							</blockquote>
+						</div>
+						<h5 class="guide-item-sub-title">2. 放入購物書包</h5>
+						<div class="guide-item-pic">
+							<%= image_tag('guide/guide3.jpg') %>
+						</div>
+						<div class="guide-item-text">
+							<blockquote>
+								進入書本單頁，確定書籍無誤之後，點擊下拉選單告訴我們你是上哪堂課程 ( 若是找不到自己的課程怎麼辦？ )，選擇數量後，接著按下底下的加入購物書包。
+							</blockquote>
+							<label>1. 書本資訊、社群按鈕</label>
+							<p>書名、作者、isbn、使用本書的課程、價格，點擊FB分享或是FB傳送鈕可以透過FB分享或是傳送此頁面給別人哦！快分享用書給你的同學吧！</p>
+							<label>2. 課程選擇選單</label>
+							<p>點擊這裡可以尋找已經有登記此書的課程，選擇你的課程吧！若是找不到課程可以去主選單的登記 / 修改課本那邊做登記或是修改唷！</p>
+							<label>3. 數量選擇 & 加入購物車按鈕</label>
+							<p>選擇數量並加入購物車吧！</p>
+						</div>
+						<h5 class="guide-item-sub-title">3. 前往結帳</h5>
+						<div class="guide-item-pic">
+							<%= image_tag('guide/guide4.jpg') %>
+						</div>
+						<div class="guide-item-text">
+							<blockquote>
+								進入右上角的購物書包，確認無誤後按下一步，選擇付款方式和發票種類。
+							</blockquote>
+							<label>1. 你購物車中的商品</label>
+							<p>要確認無誤哦！</p>
+							<label>2. 傳說中的加價購商品</label>
+							<p>Colorgy 幫同學篩選一些可能會常用到的上學必備好物，並談到外面市價更便宜的價格回饋同學，會一併跟書本一起寄送到宿舍或是指定地點唷！</p>
+							<label>3. 總計</label>
+							<p>仔細檢查吧！</p>
+						</div>
+						<h5 class="guide-item-sub-title">4. 完成訂購</h5>
+						<div class="guide-item-pic">
+							<%= image_tag('guide/guide5.jpg') %>
+						</div>
+						<div class="guide-item-text">
+							<blockquote>
+								確認資料無誤後，按下完成訂購，送出訂單後，可以至<a href="<%= orders_path %>">訂單查詢</a>隨時追蹤書籍況，別忘了在繳款期限內繳費唷～
+							</blockquote>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row row-inner-m user-guide scrollspy" id="shipping">
+				<div class="guide-item">
+					<h4 class="guide-item-title">配送 / 運費說明</h4>
+					<div class="guide-item-text">
+						<label>運費</label>
+						<p>
+							三件（含加價購商品）免運費，未滿為單件包裹80元
+						</p>
+						<label>配送時間</label>
+						<p>
+							1. 送書期間為凡在 9/1 - 9/13 號前 下訂，會在 9/12 - 9/16 第一週送達學校。<br>
+							2. 凡 9 /14 後訂購，皆為 3 - 4 天工作天（不含假日）。
+						</p>
+					</div>
+				</div>
+			</div>
+			<!--
+			<div class="row row-inner user-guide scrollspy hide" id="QA">
+				<div style="padding: 0 24px;">
+					<h5 class="under-line-title" style="margin-bottom: 24px;">常見問題</h5>
+				</div>
+				<div class="qa-field" style="padding: 0 32px; max-width: 800px;">
+					<div class="collapse-field-with-title">
+						<div class="title">
+							問題主題打在這邊
+							<div class="trigger"></div>
+						</div>
+						<div class="content">
+							123456789
+						</div>
+					</div>
+					<div class="collapse-field-with-title">
+						<div class="title">
+							問題主題打在這邊
+							<div class="trigger"></div>
+						</div>
+						<div class="content">
+							123456789
+						</div>
+					</div>
+					<div class="collapse-field-with-title">
+						<div class="title">
+							問題主題打在這邊
+							<div class="trigger"></div>
+						</div>
+						<div class="content">
+							123456789
+						</div>
+					</div>
+					<div class="collapse-field-with-title">
+						<div class="title">
+							問題主題打在這邊
+							<div class="trigger"></div>
+						</div>
+						<div class="content">
+							123456789
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row row-inner user-guide scrollspy hide" id="supermarket-payment">
+				<div style="padding: 0 24px;">
+					<h5 class="under-line-title" style="margin-bottom: 24px;">超商付款流程</h5>
+				</div>
+				<div class="col m3 s6">
+					<div class="supermarket-payment-info-item">
+						<a href="#">
+
+							<button class="large-btn">查看流程</button>
+						</a>
+					</div>
+				</div>
+				<div class="col m3 s6">
+					<div class="supermarket-payment-info-item">
+						<a href="#">
+
+							<button class="large-btn">查看流程</button>
+						</a>
+					</div>
+				</div>
+				<div class="col m3 s6">
+					<div class="supermarket-payment-info-item">
+						<a href="#">
+
+							<button class="large-btn">查看流程</button>
+						</a>
+					</div>
+				</div>
+				<div class="col m3 s6">
+					<div class="supermarket-payment-info-item">
+						<a href="#">
+
+							<button class="large-btn">查看流程</button>
+						</a>
+					</div>
+				</div>
+			</div>
+			-->
+		</div>
+		<div class="col s12 m2 hide-on-small-only pin-menu-container" style="padding-left: 8px;">
+			<ul class="section table-of-contents pin-menu" id="pin-menu">
+				<li><a href="#main">主揪介紹</a></li>
+				<li><a href="#shopping">購物流程</a></li>
+				<li><a href="#shipping">配送 / 運費說明</a></li>
+			</ul>
+		</div>
+	</div>
+</div>
+<script>
+  $(document).ready(function(){
+    $('.scrollspy').scrollSpy();
+  });
+  $(window).scroll(function(){
+  	if($(window).scrollTop() > $('.pin-menu-container').offset().top - 100){
+  		$('#pin-menu').addClass('fixed-menu');
+  	}
+  	else{
+  		$('#pin-menu').removeClass('fixed-menu');
+  	}
+  })
+</script>
