@@ -43,7 +43,7 @@ class UserCourseBooksController < ApplicationController
     @course = Course.find_by(ucode: params[:course_ucode])
     @book_data = BookData.find_by(isbn: params[:book_isbn])
     @course_book = CourseBook.new
-    @course_book.course = @course.course_book.first @course.course_book.build if @course
+    @course_book.course = @course.course_book.first if @course
     @course_book.book_data = @book_data if @book_data
   end
 
