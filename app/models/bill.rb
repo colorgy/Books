@@ -133,7 +133,7 @@ class Bill < ActiveRecord::Base
   def pay_if_paid!
     case type
     when 'payment_code'
-      pay! if NewebPayService.reget_payment_code(uuid, amount)
+      pay! if NewebPayService.reget_payment_code(uuid, amount) == true
 
     when 'virtual_account'
       pay! if SinoPacService.virtual_account_paid?(uuid)
