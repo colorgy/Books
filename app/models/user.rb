@@ -8,6 +8,7 @@ class User < ActiveRecord::Base
 
   has_many :identities, class_name: :UserIdentity
   has_many :feedbacks
+  after_create :add_initial_credits
 
   # has_many :groups, through: :orders
 
@@ -17,5 +18,9 @@ class User < ActiveRecord::Base
     ary[2] = (ary[2] & 0x0fff) | 0x4000
     ary[3] = (ary[3] & 0x3fff) | 0x8000
     self.uuid = "%08x-%04x-%04x-%04x-%04x%08x" % ary
+  end
+
+  def add_initial_credits
+    user_credits.create(name: '贊助商折扣金', credits: 50, expires_at: '2015/9/5 23:59:59')
   end
 end
