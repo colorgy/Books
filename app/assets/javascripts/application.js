@@ -18,3 +18,4 @@
 //= require_tree ./vendor
 //= require materialize-all
 //= require components
+//= require owl.carousel

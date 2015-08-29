@@ -328,6 +328,8 @@ GEM
       oauth2 (~> 1.0)
       omniauth (~> 1.2)
     orm_adapter (0.5.0)
+    owlcarousel-rails (1.1.3.3)
+      jquery-rails
     paper_trail (4.0.0.rc1)
       activerecord (>= 3.0, < 6.0)
       activesupport (>= 3.0, < 6.0)
@@ -600,6 +602,7 @@ DEPENDENCIES
   normalize-rails (>= 3.0.1)
   nprogress-rails (~> 0.1.6.5)
   omniauth-colorgy-oauth2
+  owlcarousel-rails
   paper_trail (~> 4.0.0.beta)
   paperclip (~> 4.2)
   paranoia (~> 2.1.0)

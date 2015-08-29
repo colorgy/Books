@@ -103,6 +103,7 @@ gem 'active_model_serializers', '~> 0.9.0'
 
 gem 'sidekiq'
 gem 'clockwork'
+gem 'owlcarousel-rails'
 
 # Development tools
 group :development do
