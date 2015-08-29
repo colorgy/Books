@@ -99,8 +99,13 @@ CartItemsCashier = React.createClass
     totalPrice = 0
 
     if !@state.cartItems || !@state.cartItems.length
-      return `<div>
-        購物書包內還沒有東西！
+      return `<div className="notice-message-block">
+        <div className="notice-message-block-icon"><i className="material-icons">shopping_cart</i></div>
+        <h5 className="notice-message-block-title">購物書包內還沒有東西！</h5>
+        <p className="notice-message-block-message">你可以回去書本瀏覽繼續購物 ^^</p>
+        <div className="notice-message-block-actions">
+          <a className="btn" href="/books">繼續購物</a>
+        </div>
       </div>`
 
     cartItems = @state.cartItems.map (item, i) =>
@@ -242,6 +247,7 @@ CartItemsCashier = React.createClass
             <div className="checkout-options-field-body add-buy row">
               <p></p>
               {packageAdditionalItems}
+              <div style="clear:both;"></div>
             </div>
           </div>
         </div>`

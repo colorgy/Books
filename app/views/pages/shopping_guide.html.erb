@@ -2,19 +2,19 @@
 	<div class="row">
 		<div class="content-strip primary">
 			<div class="content-strip-inner">
-				<h4 class="strip-title">使用流程</h4>
+				<h4 class="strip-title">使用教學</h4>
 				<p class="strip-description"></p>
 			</div>
 		</div>
 	</div>
 	<div class="row">
 		<div class="col s12 m10">
-			<div class="row row-inner user-guide scrollspy" id="main">
+			<div class="row row-inner-m user-guide scrollspy" id="main">
 				<div class="col s12 s12">
 					<div class="guide-item">
-						<h4 class="guide-item-title">介面說明</h4>
+						<h5 class="guide-item-title">介面說明</h5>
 						<div class="guide-item-pic">
-							<%= image_tag('guide/guide1.jpg') %>
+							<%= image_tag('guide/guide1.jpg', :class=> "materialboxed") %>
 						</div>
 						<div class="guide-item-text">
 							<label>1. 上選單</label>
@@ -36,10 +36,10 @@
 			<div class="row row-inner-m user-guide scrollspy" id="shopping">
 				<div class="col m12 s12">
 					<div class="guide-item">
-						<h4 class="guide-item-title">購物流程</h4>
+						<h5 class="guide-item-title">購物流程</h5>
 						<h5 class="guide-item-sub-title">一. 搜尋書本</h5>
 						<div class="guide-item-pic">
-							<%= image_tag('guide/guide2.jpg') %>
+							<%= image_tag('guide/guide2.jpg', :class=> "materialboxed") %>
 						</div>
 						<div class="guide-item-text">
 							<blockquote>
@@ -48,7 +48,7 @@
 						</div>
 						<h5 class="guide-item-sub-title">二. 放入購物書包</h5>
 						<div class="guide-item-pic">
-							<%= image_tag('guide/guide3.jpg') %>
+							<%= image_tag('guide/guide3.jpg', :class=> "materialboxed") %>
 						</div>
 						<div class="guide-item-text">
 							<blockquote>
@@ -63,7 +63,7 @@
 						</div>
 						<h5 class="guide-item-sub-title">三. 前往結帳</h5>
 						<div class="guide-item-pic">
-							<%= image_tag('guide/guide4.jpg') %>
+							<%= image_tag('guide/guide4.jpg', :class=> "materialboxed") %>
 						</div>
 						<div class="guide-item-text">
 							<blockquote>
@@ -78,7 +78,7 @@
 						</div>
 						<h5 class="guide-item-sub-title">四. 完成訂購</h5>
 						<div class="guide-item-pic">
-							<%= image_tag('guide/guide5.jpg') %>
+							<%= image_tag('guide/guide5.jpg', :class=> "materialboxed") %>
 						</div>
 						<div class="guide-item-text">
 							<blockquote>
@@ -90,7 +90,7 @@
 			</div>
 			<div class="row row-inner-m user-guide scrollspy" id="shipping">
 				<div class="guide-item">
-					<h4 class="guide-item-title">配送 / 運費說明</h4>
+					<h5 class="guide-item-title">配送 / 運費說明</h5>
 					<div class="guide-item-text">
 						<label>運費</label>
 						<p>
@@ -199,6 +199,7 @@
 <script>
   $(document).ready(function(){
     $('.scrollspy').scrollSpy();
+    $('.materialboxed').materialbox();
   });
   $(window).scroll(function(){
   	if($(window).scrollTop() > $('.pin-menu-container').offset().top - 100){

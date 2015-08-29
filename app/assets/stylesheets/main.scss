@@ -688,12 +688,25 @@ i{
 
 	> .guide-item-pic{
 		border: 1px solid #DDD;
-		max-width: 600px;
+		max-width: 400px;
 	}
 
 	> .guide-item-text{
 		margin: 16px 0 32px 0;
+
+		> p{
+			font-size: 14px;
+			color: $dark-gray;
+		}
 	}
+
+	blockquote{
+		color: $dark-gray;
+		font-size: 16px;
+	}
+}
+.materialboxed.active{
+	max-width: 10000px;
 }
 
 .index-c-countdown{

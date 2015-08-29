@@ -1,0 +1,21 @@
+.notice-message-block {
+    max-width: 400px;
+    margin: 0 auto;
+    text-align: center;
+    background-color: #fff;
+    padding: 40px 12px;
+    box-shadow: 8px 8px 0 #CCCCCC;
+    border: 1px solid #ddd;
+
+    > .notice-message-block-icon > i{
+    	font-size: 40px !important;
+    }
+
+    > .notice-message-block-message{
+    	text-align: center;
+    }
+
+    > .notice-message-block-actions{
+    	margin-top: 32px
+    }
+}
