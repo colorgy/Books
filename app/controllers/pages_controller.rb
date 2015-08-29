@@ -1,4 +1,6 @@
 class PagesController < ApplicationController
+  before_filter :sso_off!, only: :sorry_but_forbidden
+
   def index
 
   end
@@ -36,7 +38,7 @@ class PagesController < ApplicationController
   end
 
   def sorry_but_forbidden
-    redirect_to root_path if current_user
+    redirect_to root_path if current_user && current_user.organization_code
   end
 end
 
