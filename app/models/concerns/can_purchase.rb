@@ -149,6 +149,7 @@ module CanPurchase
           package.price += order.price
           package.orders_count += 1
           orders << order
+          package.orders << order
         end
 
         book_isbns << Book.find(item.item_code).isbn
