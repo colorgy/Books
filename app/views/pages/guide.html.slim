@@ -1,0 +1,107 @@
+.container-fluid
+  .row
+    .content-strip.primary
+      .content-strip-inner
+        h4.strip-title 服務指南
+        p.strip-description
+  .row
+    .col.s12.m10
+      #package.row.row-inner.user-guide.scrollspy
+        .col.s12.m4
+          .icon.odd
+          .icon-title
+            | 包裹專送服務
+          .icon-description
+            | 最方便的購書體驗
+        .col.s12.m8
+          .info
+            h5 包裹專送服務有什麼好處？
+            p 一次訂齊教科書，並由我們用獨立包裹送到你手上！快跟著以下流程，來體驗我們的買書服務吧：
+          .steps
+            .step
+              .col.m8.s12
+                span.under-line-title 1. 搜尋書籍
+                .step-description
+                  | 在首頁／書庫瀏覽，利用搜尋功能，以書名、課程、老師姓名等關鍵字找出上課要用的書。
+                  = image_tag('guide/j3pd9o.png')
+              div style=("clear: both;")
+            .step
+              .col.m8.s12
+                span.under-line-title 2. 放入購物書包
+                .step-description
+                  | 選擇你是為哪門課買書，確認數量後將書放入購物書包！
+                  = image_tag('guide/kg925.png')
+                  blockquote.small 你可以回報系統還不知道的課程用書資訊給我們，協助讓資訊更正確，還能獲得折扣金喔！
+              div style=("clear: both;")
+            .step
+              .col.m8.s12
+                span.under-line-title 3. 結帳
+                .step-description
+                  | 確認訂單、選擇付款方式、填寫寄送地址、結帳！
+                  = image_tag('guide/k94gw.png')
+                  blockquote.small 我們也提供一些方便的加價購項目，勾選後它們就會隨著包裹一起寄給你囉！
+              div style=("clear: both;")
+            .step
+              .col.m8.s12
+                span.under-line-title 4. 完成付款，並等著書送到手上
+                .step-description
+                  | 你可以在「我的訂單」頁面查看到所有訂單狀況、明細，也可以把帳單下載下來，傳給爸媽幫忙繳費。
+                  blockquote.small 有時候，付款完成後約略等待十分鐘後，系統中的訂單狀態才會更新。
+              div style=("clear: both;")
+      hr/
+      #course-book.row.row-inner.user-guide.scrollspy(style="margin-top: -120px; padding-top: 120px;")
+        .col.m4.s12
+          .icon.odd
+          .icon-title
+            | 登記書單
+          .icon-description
+            | 協助確認用書資料
+        .col.s12.m8
+          .info
+            h5 幫大家確定上課要用哪本書吧！
+            p 藉由我們的幫助，一起尋書單，為大家詢問老師上課的用書資訊，還可以獲得折扣金喔！
+          .steps
+            .step
+              .col.m8.s12
+                span.under-line-title 1. 詢
+                .step-description
+                  | 有時候在搜尋書籍時，你會發現「課程用書未確認」的提示，這時就是你一展長才的好機會！馬上向老師<span class="flow-text">詢</span>問他用的是哪本書吧！
+                  = image_tag('guide/gj392.png')
+                  blockquote.small 在我們的「回報課程用書」網頁有一些寄信給老師詢問上課用書的範本。
+              div style=("clear: both;")
+            .step
+              .col.m8.s12
+                span.under-line-title 2. 輸
+                .step-description
+                  | 打開「回報課程用書」網頁，選擇課程，並<span class="flow-text">輸</span>入用書資料！
+                  = image_tag('guide/f83kf.png')
+                  blockquote.small 在「回報新資訊」區搜尋到的課都是還沒有用書資料的課，而在「修正舊資料」區搜尋到的課會是已經有資料的課。也可以依此來尋找有哪些課還沒有書哦。
+              div style=("clear: both;")
+            .step
+              .col.m8.s12
+                span.under-line-title 3. 眈
+                .step-description
+                  | 來看看你造就的後人乘涼成果吧！有了一次尋書單的經驗後，也可以在網站上用你犀利的目光找出還有哪些課是可以幫忙的唷。
+                  = image_tag('guide/ir029.png')
+                  blockquote.small 系統也會把折扣金給你了，可以用它來買書囉。
+              div style=("clear: both;")
+
+    .col.s12.m2.hide-on-small-only.pin-menu-container style=("padding-left: 8px;")
+      ul#pin-menu.section.table-of-contents.pin-menu
+        li
+          a href="#package" 包裹專送服務
+        li
+          a href="#course-book" 登記書單服務
+
+javascript:
+  $(document).ready(function(){
+    $('.scrollspy').scrollSpy();
+  });
+  $(window).scroll(function(){
+    if($(window).scrollTop() > $('.pin-menu-container').offset().top - 100){
+      $('#pin-menu').addClass('fixed-menu');
+    }
+    else{
+      $('#pin-menu').removeClass('fixed-menu');
+    }
+  })

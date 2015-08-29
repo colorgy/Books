@@ -58,6 +58,8 @@ Rails.application.routes.draw do
 
   get '/shopping-guide' => 'pages#shopping_guide'
   get '/faq' => 'pages#faq'
+  get '/guide' => 'pages#guide'
+  get '/payments' => 'pages#payments'
   get '/flow' => 'pages#flow'
   get '/flow/buy' => 'pages#shopping_flow_buy'
   get '/flow/deliver' => 'pages#shopping_flow_deliver'
