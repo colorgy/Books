@@ -27,6 +27,14 @@ class PagesController < ApplicationController
 
   end
 
+  def guide
+
+  end
+
+  def payments
+
+  end
+
   def sorry_but_forbidden
     redirect_to root_path if current_user
   end

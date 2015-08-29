@@ -1,0 +1,62 @@
+.container-fluid
+  .row
+    .content-strip.primary
+      .content-strip-inner
+        h4.strip-title 付款方式
+        p.strip-description
+  .row
+    .col.s12.m10
+      #payment-code.row.row-inner.user-guide.scrollspy
+        .col.s12.m4
+          .icon.odd
+          .icon-title
+            | 超商付款
+          .icon-description
+            | 怎麼付都可以的付款方式
+        .col.s12.m8
+          row.row-inner
+            div style=("padding: 0 24px;")
+              h5.under-line-title style=("margin-bottom: 24px;")  超商付款流程
+            .col.m3.s6
+              .supermarket-payment-info-item
+                a href=paymethod_711_path
+                  = image_tag("payments/711-logo.png")
+                  button.large-btn 查看流程
+            .col.m3.s6
+              .supermarket-payment-info-item
+                a href=paymethod_famiport_path
+                  = image_tag("payments/family-logo.png")
+                  button.large-btn 查看流程
+            .col.m3.s6
+              .supermarket-payment-info-item
+                a href=paymethod_life_path
+                  = image_tag("payments/hi-life-logo.png")
+                  button.large-btn 查看流程
+            .col.m3.s6
+              .supermarket-payment-info-item
+                a href=paymethod_ok_path
+                  = image_tag("payments/ok-logo.png")
+                  button.large-btn 查看流程
+
+    .col.s12.m10
+      #credit-card.row.row-inner.user-guide.scrollspy
+        .col.s12.m4
+          .icon.odd
+          .icon-title
+            | 信用卡付款
+          .icon-description
+            | 最便利的付費辦法
+        .col.s12.m8
+          h5.under-line-title style=("margin-bottom: 24px;") 信用卡付款流程
+          | 信用卡收費服務由永豐銀行提供，在結帳時會導向到永豐銀行，直接完成付款！
+    .col.s12.m10
+      #virtual-account.row.row-inner.user-guide.scrollspy
+        .col.s12.m4
+          .icon.odd
+          .icon-title
+            | ATM 虛擬帳號轉帳
+          .icon-description
+            | 轉帳輕鬆無負擔
+        .col.s12.m8
+          h5.under-line-title style=("margin-bottom: 24px;") ATM 虛擬帳號轉帳
+          | 在帳單頁面，會顯示繳費資訊，至 ATM 將正確金額轉入指定帳號即可。
