@@ -709,6 +709,36 @@ i{
 	max-width: 10000px;
 }
 
+#books-search-field{
+	> .search-bar{
+		max-width: 600px;
+	}
+	form > span{
+		position: relative;
+	    display: inline-block;
+	    width: calc(100% - 150px);
+	    vertical-align: middle;
+
+	    @media screen and (max-width: 600px) {
+	    	width: 100%;
+	    	display: block;
+	    }
+	}
+
+}
+
+#books-search-field-submit {
+    display: inline-block;
+    width: 120px;
+    padding: 8px 32px !important;
+    margin: 0 12px;
+
+    @media screen and (max-width: 600px) {
+		display: block;
+		margin: 8px auto 0 auto;
+    }
+}
+
 .index-c-countdown{
 	padding: 8px 0 !important;
 	background: linear-gradient(30deg, #00d0ad 0%, #af3ee8 100%);
@@ -717,6 +747,21 @@ i{
     background: -o-linear-gradient(30deg, #00d0ad 0%, #af3ee8 100%);
     background: -ms-linear-gradient(30deg, #00d0ad 0%, #af3ee8 100%);
 
+}
+
+.course-with-no-books-trigger-field{
+    padding: 12px 24px;
+    text-align: center;
+    margin: 8px 8px 16px 8px;
+    background-color: #5E6671;
+    border-radius: 2px;
+    box-shadow: 6px 6px 0 #CCCCCC;
+    border: 1px solid #DDD;
+
+
+    > .course-with-no-books-trigger-field-text{
+    	color: #fff;
+    }
 }
 
 #index-c-countdown{

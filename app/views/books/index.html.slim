@@ -27,13 +27,16 @@
               img src=image_path('slides/3.jpg')
     - else
       .col.m12.s12
-        .slider
-          ul.slides
-            li
+        .owl-carousel.owl-theme id="owl-slider"
+            .item
+              img src=image_path('slides/4.jpg')
+            .item
+              img src=image_path('slides/5.jpg')
+            .item
               img src=image_path('slides/1.jpg')
-            li
+            .item
               img src=image_path('slides/2.jpg')
-            li
+            .item
               img src=image_path('slides/3.jpg')
 
     .clear-both
@@ -43,11 +46,11 @@
         p.strip-description 輸入老師名、課名、書名、作者去搜尋書籍吧！
 
     .col.m12.s12
-      .search-field
+      .search-field id="books-search-field"
         .search-bar.search-bar--center
           form method="get"
             input class="books-search" name="q" placeholder="搜尋書名、課名、老師名" type="text" value=params[:q]
-            input type="submit" value="Submit"
+            input type="submit" value="搜尋" class="btn" id="books-search-field-submit"
         .clear style="clear:both;"
   .row.row-inner-s
     .col.m12.s12
@@ -71,9 +74,15 @@
                     td
                       = link_to '回報用書', new_user_course_book_path(course_ucode: course.ucode), class: 'btn'
           .modal-footer style="position: absolute; bottom: 0;"
-            a.modal-action.modal-close.btn-flat href="#!" = '關閉'
+            a.modal-action.modal-close.btn-flat = '關閉'
+        .course-with-no-books-trigger-field
+          p.course-with-no-books-trigger-field-text= "有些你搜尋到的課程還沒核對書籍，幫助我們核對課程用書賺取購書金吧！"
+          .course-with-no-books-trigger-field-action
+            a class="btn modal-trigger" data-target="modal1" 查看課程
         javascript:
+          $('.modal-trigger').leanModal();
           $('#modal1').openModal();
+
       - @books.each do |book|
         .product-list
           .product-list-inner
