@@ -17,5 +17,9 @@
 
   p 很抱歉，本服務尚未開放您使用！
   p 您的主要身份必須為擁有已經過 email 驗證的學生或老師。若還有疑問，歡迎直接聯繫我們！
-  = link_to '驗證身份', 'https://colorgy.io/my-account/emails/new'
-  = link_to '回到首頁', ENV['CORE_URL']
+  p
+    | 你可以
+    = link_to '驗證身份', 'https://colorgy.io/my-account/emails/new'
+    | 後再回來。
+  p
+    = link_to '回到首頁', ENV['CORE_URL']
