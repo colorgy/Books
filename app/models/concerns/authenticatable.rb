@@ -19,6 +19,9 @@ module Authenticatable
       user_data['refreshed_at'] = Time.now
       user_data['core_access_token'] = auth.credentials.token
 
+      # permit possible access
+      user_data['organization_code'] = oauth_params[:possible_organization_code]
+
       user.update!(user_data)
 
       # sync the user's identities from core
