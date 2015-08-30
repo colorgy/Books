@@ -3,13 +3,22 @@
     .top
       .top-bar
         ul
+          li
+            a.tooltipped href='https://table.colorgy.io' target="_blank" data-delay="0" data-position="bottom" data-tooltip="排課找同學行動課表，問課、選課的好幫手！"
+              | TABLE
+          li
+            a.tooltipped href='https://bus.colorgy.io' target="_blank" data-delay="0" data-position="bottom" data-tooltip="直達學校專車，頂級的配備，一車都是你的好同學！"
+              | BUS
+          li
+            a.tooltipped href='https://colorgytasks.io' target="_blank" data-delay="0" data-position="bottom" data-tooltip="當個好幫手，隨時接任務、隨地發任務，賺外快好輕鬆。"
+              | TASKS
           - unless Settings.disable_groups
             li
               a href=new_group_path
                 i.material-icons.list-icon send
                 | 班代 / 助教開團
           - if current_user && current_user.total_credits > 0
-            li.hide
+            li
               a(href=credits_path)
                 | 您有折扣金 NT$ #{current_user.total_credits}
                 span#credits-countdown
