@@ -6,9 +6,9 @@ class BooksController < ApplicationController
     if params[:q].present? && params[:q].is_a?(String)
       @books = books_collection.simple_search(params[:q], current_org_code).page(params[:page])
       @course_with_no_book = Course.current.in_org(current_user.organization_code).no_book.simple_search(params[:q]).limit(5)
-      @books = books_collection.order("RANDOM()").page(params[:page]) if @books.blank?
+      @books = books_collection.order(:display_order).page(params[:page]) if @books.blank?
     else
-      @books = books_collection.order("RANDOM()").page(params[:page])
+      @books = books_collection.order(:display_order).page(params[:page])
     end
   end
 
