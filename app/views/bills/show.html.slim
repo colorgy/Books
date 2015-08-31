@@ -37,8 +37,8 @@
                   - if @bill.paid?
                     p 已由虛擬帳號付款！
                   - else
-                    .payment-notice
-                      i.material-icons warning
+                    .payment-notice(style="margin-top: 14px;")
+                      i.material-icons(style="margin-top: 14px;") warning
                       p 請務必匯入正確的金額！若金額或帳號不正確皆會遭到退款。
           - when 'test_clickpay'
             .col.m6.s12
@@ -66,7 +66,8 @@
         .col.m6.s12
           .payment-countdown
         div style="clear:both;"
-        a.download 儲存訂單
+        => link_to '付款方式說明', paymethods_path, target: '_blank', class: 'btn'
+        a.btn.download 下載訂單，傳送給爸媽
       .order-info
         .under-line-title 訂單明細
         .order-confirm-table
