@@ -46,6 +46,6 @@ class BookData < ActiveRecord::Base
   end
 
   def course_titles_in(org_code)
-    courses.in_org(org_code).map { |course| "#{course.lecturer_name} - #{course.name}" }
+    courses.current.in_org(org_code).map { |course| "#{course.lecturer_name} - #{course.name}" }
   end
 end
