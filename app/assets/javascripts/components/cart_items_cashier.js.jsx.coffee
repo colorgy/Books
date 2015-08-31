@@ -247,7 +247,7 @@ CartItemsCashier = React.createClass
             <div className="checkout-options-field-body add-buy row">
               <p></p>
               {packageAdditionalItems}
-              <div style="clear:both;"></div>
+              <div style={{ clear: 'both' }}></div>
             </div>
           </div>
         </div>`
