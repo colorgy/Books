@@ -36,6 +36,8 @@
                   br
                   span.courses= @book.course_titles_in(current_user.organization_code).map { |c| "<span class=\"label\">#{c}</span>" }.join(' 、 ').html_safe
                   =<> link_to '》回報更多使用這本書的課程《', new_user_course_book_path(book_isbn: @book.isbn)
+                - if @book.behalf
+                  | 代送：代送書籍表示此書 Colorgy 網站僅提供同學做統計使用。最終會系上學會或是班代將此書訂購完成，送到購買者手裡。
               .book-price.gradient-bg
                 - if @book.buyable
                   span.book-disc-price 團購價：NT$ #{@book.price}

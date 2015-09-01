@@ -37,7 +37,8 @@ CartItemsCashier = React.createClass
       return false unless @state.packageRecipientName &&
                           @state.packagePickupAddress &&
                           @state.packagePickupDatetime &&
-                          @state.packageRecipientMobile
+                          @state.packageRecipientMobile &&
+                          @state.packageRecipientMobile.length >= 10
     if @state.packagePickupAddressType == 'dorm'
       return false unless @state.packagePickupAddressDormType &&
                           @state.packagePickupAddressDormNum &&
@@ -160,6 +161,8 @@ CartItemsCashier = React.createClass
             <div className="col m4">
               <select className="browser-default" onChange={this.handlePackagePickupAddressDormNumChange} value={this.state.packagePickupAddressDormNum}>
                 <option value="" disabled selected>宿舍編號</option>
+                <option value="光復一宿">光復一宿</option>
+                <option value="勝利一宿">勝利一宿</option>
                 <option value="一宿">一宿</option>
                 <option value="二宿">二宿</option>
                 <option value="三宿">三宿</option>
@@ -445,7 +448,7 @@ CartItemsCashier = React.createClass
   componentDidMount: ->
     now = (new Date())
     nextWeek = new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000)
-    nextWeek = (new Date('2015/09/07')) if nextWeek < (new Date('2015/09/07'))
+    nextWeek = (new Date('2015/09/12')) if nextWeek < (new Date('2015/09/12'))
     $('.datepicker').pickadate
       format: 'yyyy-mm-dd'
       selectMonths: true
