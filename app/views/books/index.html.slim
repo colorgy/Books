@@ -1,6 +1,6 @@
 .container-fluid style=("padding: 0;")
   .row
-    - if current_user && current_user.total_credits > 0
+    - if current_user && current_user.first_user_credit_expires_at.present? && current_user.first_user_credit_expires_at > Time.now
       .col.m12.s12.hide-on-med-and-down.bg-theme.index-c-countdown.valign-wrapper(style="z-index: 990;")
         .valign.margin-center
           | 折扣金倒數
