@@ -72,7 +72,8 @@ Rails.application.routes.draw do
   get '/paymethod/ok' => 'pages#paymethod_ok'
 
   get '/sponsors' => 'sponsors#index'
-  get '/sponsors/taiwan-mobile' => 'sponsors#taiwan-mobile'
+  get '/sponsors/taiwan-mobile' => 'sponsors#taiwan_mobile'
+  get '/sponsors/colorgy-books' => 'sponsors#colorgy_books'
 
   resource :my_account, controller: 'users/my_account' do
     get 'invoice_subsume' => 'users/my_account#invoice_subsume'

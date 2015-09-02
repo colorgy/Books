@@ -3,6 +3,10 @@
     .top
       .top-bar
         ul
+          - if current_user
+            li
+              a onclick="init_share_table()"
+                | 分享 Colorgy Books
           li
             a.tooltipped href='https://table.colorgy.io' target="_blank" data-delay="0" data-position="bottom" data-tooltip="排課找同學行動課表，問課、選課的好幫手！"
               | TABLE
@@ -48,8 +52,12 @@
       a.button-collapse data-activates="mobile-nav" href="/"
         i.material-icons dehaze
       ul.right.hide-on-med-and-down.main-nav
+        li.hide
+          a.tooltipped.highlight data-delay="0" data-position="bottom" data-tooltip="覺得書本很貴嗎？ Colorgy 提供各式各樣領取購物金的方式！快來解任務吧！" href=sponsors_path style="color: #14C0B4;"
+            i.material-icons.list-icon attach_money
+            | 領購物金
         li
-          a.tooltipped data-delay="0" data-position="bottom" data-tooltip="書籍總覽！可以利用課程、老師、isbn等關鍵字搜尋書籍！" href=books_path
+          a.tooltipped.highlight data-delay="0" data-position="bottom" data-tooltip="書籍總覽！可以利用課程、老師、isbn等關鍵字搜尋書籍！" href=books_path style="color: #14C0B4;"
             i.material-icons.list-icon view_list
             | 我要找書
         li

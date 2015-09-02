@@ -791,6 +791,13 @@ i{
 		background-repeat: no-repeat;
 	}
 
+	&.colorgy-books{
+		background-image: image-url('sponsors/bg1.jpg');
+		background-size: cover;
+		background-position: center;
+		background-repeat: no-repeat;
+	}
+
 	.banner-mask{
 	    background: -moz-linear-gradient(top, rgb(58,28,255) 0%, rgb(255,58,48) 100%);
 	    background: -webkit-gradient(left top, left bottom, color-stop(0%, rgb(58,28,255)), color-stop(100%, rgb(255,58,48)));

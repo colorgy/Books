@@ -1,0 +1,45 @@
+.container-fluid
+	.row
+		.col.m12.s12
+			.banner.colorgy-books
+				.banner-mask
+				.banner-content--center
+					h2.banner-title
+						.icon
+							= image_tag ('colorgy-pure-logo.png')
+						| Colorgy Books
+					p.banner-description
+						| 購書金兌換區 - 完成任務即可獲得購書金，讓你買書零負擔！
+	.row.row-inner style="padding-top: 24px;"
+		.col.m4.s12
+			.sponsors-declaration
+				h5.title 任務說明
+				p.description
+					| Colorgy Books 一直是 Colorgy 團隊的重點開發項目之一，為了讓同學們能夠享有更好的買書體驗，除了個人獨享包裹直達宿舍或指定地點外，我們希望同學們在價格上的體驗也更佳！
+					br
+					br
+					| 以下是 Colorgy Books 我們提供的購物金小任務！非常簡單！快點來解任務吧！
+		.col.m8.s12
+			.row
+				.col.m4.s6
+					.sponsor-item
+						.sponsor-item-title
+							| 分享 Colorgy Books
+						p.sponsor-item-description
+							| Colorgy Books 提供了獨享包裹服務！直達宿舍和家中！也提供了更多元化、現代化的付款方式，為了讓同學們能夠享有更好的買書體驗，首創了贊助商購物金制度，希望你們也幫忙推廣這個平台！邀請你的其他同學、班代來使用 Colorgy Books！我們感謝你會提供 50 元的購物金！(分享隱私權設定要是公開 or 朋友的哦！)
+						.sponsor-item-actions
+							a.btn id="share-colorgy-books-btn" onclick="init_share_table()"
+								| 分享 Books
+				.col.m4.s6
+					.sponsor-item
+						.sponsor-item-title
+							| 核對 / 更正書籍
+						p.sponsor-item-description
+							| 我們的平台需要讓書商知道說每本書是由哪位教授使用者的，但是我們還沒有力量得知所有教授的用書，所以我們需要同學們的幫助，如果你知道你的教授是用哪本書，請至我們的核對 / 更正書籍區去確認用書，只要在下拉式選單選擇你的教授的課程 & 他使用的書籍即可，每本核對 / 更正書籍可以讓你獲得 50 元的購書金！
+						.sponsor-item-actions
+							a.btn href='/user_course_books'
+								| 核對 / 更正書籍
+
+
+
+
