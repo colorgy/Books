@@ -104,6 +104,15 @@
             li
               a href=user_course_books_path
                 | 核對 / 更正書籍
+            li
+              a href='https://table.colorgy.io' target="_blank"
+                | TABLE
+            li
+              a href='https://bus.colorgy.io' target="_blank"
+                | BUS
+            li
+              a href='https://colorgytasks.io' target="_blank"
+                | TASKS
         - else
           li
             = link_to '登入', user_omniauth_authorize_path(:colorgy)

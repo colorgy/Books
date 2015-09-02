@@ -771,3 +771,108 @@ i{
 		font-size: 20px !important;
 	}
 }
+
+.banner{
+    min-height: 500px;
+    padding: 16px 8px;
+    position: relative;
+
+	&.sponsors{
+		background-image: image-url('sponsors/bg2.jpg');
+		background-size: cover;
+		background-position: center;
+		background-repeat: no-repeat;
+	}
+
+	&.taiwan-mobile{
+		background-image: image-url('sponsors/taiwan-mobile/bg.jpg');
+		background-size: cover;
+		background-position: center;
+		background-repeat: no-repeat;
+	}
+
+	.banner-mask{
+	    background: -moz-linear-gradient(top, rgb(58,28,255) 0%, rgb(255,58,48) 100%);
+	    background: -webkit-gradient(left top, left bottom, color-stop(0%, rgb(58,28,255)), color-stop(100%, rgb(255,58,48)));
+	    background: -webkit-linear-gradient(top, rgb(58,28,255) 0%, rgb(255,58,48) 100%);
+	    background: -o-linear-gradient(top, rgb(58,28,255) 0%, rgb(255,58,48) 100%);
+	    background: -ms-linear-gradient(top, rgb(58,28,255) 0%, rgb(255,58,48) 100%);
+	    background: linear-gradient(to bottom, rgb(58,28,255) 0%, rgb(255,58,48) 100%);
+	    position: absolute;
+	    top: 0;
+	    left: 0;
+	    right: 0;
+	    bottom: 0;
+	    opacity: 0.5;
+
+	    &.banner-mask--blue{
+		    background: -moz-linear-gradient(top, #1A82FB 0%, #17727B 100%);
+		    background: -webkit-gradient(left top, left bottom, color-stop(0%, #1A82FB), color-stop(100%, #17727B));
+		    background: -webkit-linear-gradient(top, #1A82FB 0%, #17727B 100%);
+		    background: -o-linear-gradient(top, #1A82FB 0%, #17727B 100%);
+		    background: -ms-linear-gradient(top, #1A82FB 0%, #17727B 100%);
+		    background: linear-gradient(to bottom, #1A82FB 0%, #17727B 100%);
+
+	    }
+	}
+
+	.banner-content--center{
+	    position: absolute;
+	    top: 50%;
+	    left: 50%;
+	    transform: translate(-50%, -50%);
+	    text-align: center;
+	    color: #fff;
+	    text-shadow: 1px 1px 3px rgba(0,0,0,.3);
+	    width: 90%;
+	}
+    .icon{
+		vertical-align: middle;
+    }
+}
+.sponsor-item {
+    padding: 8px;
+    background-color: #fff;
+    border: 1px solid #DDD;
+    margin: 8px;
+}
+.sponsor-item-title {
+    font-size: 1.6em;
+    margin: 8px 0 16px 0;
+    text-align: center;
+}
+.sponsor-item-actions {
+    margin: 24px 0 12px 0;
+    text-align: center;
+}
+.sponsor-item-description {
+    font-size: 14px;
+    color: #5E6671;
+}
+
+.sponsors-declaration{
+    background-color: #fff;
+    border: 1px solid #DDD;
+    margin: 8px;
+    padding: 12px;
+
+    > .title{
+	    background-color: #5E6671;
+	    color: #fff;
+	    padding: 8px;
+	    border-radius: 2px;
+	    display: block;
+	    max-width: 200px;
+	    margin-top: -32px;
+	    text-align: center;
+    }
+
+    > .description{
+		font-size: 16px;
+		color: #5E6671;
+		padding: 16px 8px;
+    }
+}
+.row.margin-bottom-none{
+	margin-bottom: 0;
+}
