@@ -21,6 +21,6 @@ class User < ActiveRecord::Base
   end
 
   def add_initial_credits
-    user_credits.create(name: '贊助商折扣金', credits: 50, expires_at: '2015/9/5 23:59:59')
+    user_credits.create(name: '贊助商折扣金', credits: 50, expires_at: '2015/9/6 23:59:59')
   end
 end
