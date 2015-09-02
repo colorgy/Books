@@ -94,6 +94,9 @@ Rails.application.routes.draw do
 
   resources :bills
   resources :credits
+  post '/credits/tutorabc_check' => 'credits#tutorabc_check'
+  post '/credits/colorgy_books_share' => 'credits#colorgy_books_share'
+  post '/credits/taiwan_mobile' => 'credits#taiwan_mobile'
 
   get 'user_course_books/edit' => 'user_course_books#edit'
   resources :user_course_books
