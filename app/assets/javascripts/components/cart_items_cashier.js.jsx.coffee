@@ -328,7 +328,7 @@ CartItemsCashier = React.createClass
             <div className="go-checkout">
               <a className="btn-second btn--large" key="a" href="/books">上一步</a>
               &nbsp;
-              <a className="btn-second btn-highlight btn--large" onClick={this.nextStep}>下一步</a>
+              <a className="btn-second btn-highlight btn--large" id="next-step-btn" onClick={this.nextStep}>下一步</a>
             </div>
           </div>
         </div>

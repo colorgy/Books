@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150830065819) do
+ActiveRecord::Schema.define(version: 20150902020731) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -355,9 +355,9 @@ ActiveRecord::Schema.define(version: 20150830065819) do
   add_index "user_identities", ["sid"], name: "index_user_identities_on_sid", unique: true, using: :btree
 
   create_table "users", force: :cascade do |t|
-    t.string   "email",                            default: "", null: false
+    t.string   "email",                            default: "",    null: false
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",                    default: 0,  null: false
+    t.integer  "sign_in_count",                    default: 0,     null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
@@ -379,10 +379,13 @@ ActiveRecord::Schema.define(version: 20150830065819) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "cart_items_count",                 default: 0
-    t.integer  "credits",                          default: 0,  null: false
-    t.string   "uuid",                                          null: false
+    t.integer  "credits",                          default: 0,     null: false
+    t.string   "uuid",                                             null: false
     t.string   "invoice_subsume_token"
     t.datetime "invoice_subsume_token_created_at"
+    t.boolean  "tutorabc_check_credits",           default: false
+    t.boolean  "share_colorgy_books_credits",      default: false
+    t.boolean  "taiwan_mobile_credits",            default: false
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

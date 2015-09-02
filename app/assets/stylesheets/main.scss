@@ -876,3 +876,37 @@ i{
 .row.margin-bottom-none{
 	margin-bottom: 0;
 }
+
+.message-bar{
+    margin: 16px auto;
+    background-color: #fff;
+    padding: 12px 12px;
+    border: 1px solid #DDD;
+    border-radius: 2px;
+    max-width: 600px;
+
+    > .message-bar-action{
+	    display: inline;
+	    vertical-align: middle;
+
+	    > p{
+	    	display: inline-block;
+		    margin-bottom: 0;
+
+		    > label{
+	    	    margin-bottom: 0;
+
+
+		    }
+	    }
+    }
+
+    > .message-bar-content{
+	    display: inline;
+	    vertical-align: middle;
+
+	    > p{
+	    	display: inline;
+	    }
+    }
+}
