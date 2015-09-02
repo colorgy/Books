@@ -828,6 +828,10 @@ i{
 	    top: 50%;
 	    left: 50%;
 	    transform: translate(-50%, -50%);
+	    -webkit-transform: translate(-50%, -50%);
+	    -o-transform: translate(-50%, -50%);
+	    -ms-transform: translate(-50%, -50%);
+	    -moz-transform: translate(-50%, -50%);
 	    text-align: center;
 	    color: #fff;
 	    text-shadow: 1px 1px 3px rgba(0,0,0,.3);
@@ -916,4 +920,20 @@ i{
 	    	display: inline;
 	    }
     }
+}
+
+#new_taiwan_mobile_img{
+	background: #fff;
+	padding: 24px 12px;
+	display: block;
+	margin: 0 auto;
+	max-width: 300px;
+	text-align: center;
+	border-radius: 2px;
+	border: 1px solid #DDD;
+	box-shadow: 4px 4px 0 #CCCCCC;
+
+	> input[type="submit"]{
+		margin-top: 24px;
+	}
 }

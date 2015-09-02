@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150902020731) do
+ActiveRecord::Schema.define(version: 20150902171105) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -310,6 +310,19 @@ ActiveRecord::Schema.define(version: 20150902020731) do
 
   add_index "suppliers", ["code"], name: "index_suppliers_on_code", unique: true, using: :btree
 
+  create_table "taiwan_mobile_imgs", force: :cascade do |t|
+    t.string   "image_url"
+    t.integer  "user_id"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+    t.string   "image_url_file_name"
+    t.string   "image_url_content_type"
+    t.integer  "image_url_file_size"
+    t.datetime "image_url_updated_at"
+  end
+
+  add_index "taiwan_mobile_imgs", ["user_id"], name: "index_taiwan_mobile_imgs_on_user_id", using: :btree
+
   create_table "user_cart_items", force: :cascade do |t|
     t.integer  "user_id"
     t.datetime "created_at"
@@ -402,4 +415,5 @@ ActiveRecord::Schema.define(version: 20150902020731) do
 
   add_index "versions", ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id", using: :btree
 
+  add_foreign_key "taiwan_mobile_imgs", "users"
 end

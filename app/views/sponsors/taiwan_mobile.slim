@@ -48,7 +48,22 @@
 						| 3. 我們希望你傳送一段感謝的話給爸媽
 						br
 						br
-					a.btn.btn--large 回傳下載截圖
+					- if current_user.taiwan_mobile_credits
+						.message-bar
+							.message-bar-content
+								p style="color: black;"
+								 | 你已經完成過此任務並獲得購物金囉！
+					- else
+						= form_for @taiwan_mobile_img, url: taiwan_mobile_imgs_path do |form|
+							- if @taiwan_mobile_img.errors.any?
+								ul
+								  - @taiwan_mobile_img.errors.full_messages.each do |msg|
+								    li
+								    	= msg
+
+							= form.file_field :image_url
+							= form.submit '上傳', :class => 'btn btn--large'
+
 
 
 

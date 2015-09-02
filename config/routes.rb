@@ -74,6 +74,7 @@ Rails.application.routes.draw do
   get '/sponsors' => 'sponsors#index'
   get '/sponsors/taiwan-mobile' => 'sponsors#taiwan_mobile'
   get '/sponsors/colorgy-books' => 'sponsors#colorgy_books'
+  resources :taiwan_mobile_imgs
 
   resource :my_account, controller: 'users/my_account' do
     get 'invoice_subsume' => 'users/my_account#invoice_subsume'
