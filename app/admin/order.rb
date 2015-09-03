@@ -14,7 +14,7 @@ ActiveAdmin.register Order do
   filter :state
   filter :bill_uuid
   filter :course_ucode
-  filter :package_id
+  filter :package
   filter :deleted_at
   filter :created_at
   filter :updated_at
