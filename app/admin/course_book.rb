@@ -14,4 +14,21 @@ ActiveAdmin.register CourseBook do
   filter :locked
   filter :updater_type
 
+  form do |f|
+    f.inputs '關聯資料' do
+
+      f.input :course_ucode
+      f.input :book_isbn
+      f.input :book_known
+      f.input :updated_by
+      f.input :confirmed
+      f.input :book_required
+      f.input :updater_code
+      f.input :locked
+      f.input :updater_type
+
+      f.actions
+    end
+  end
+
 end
