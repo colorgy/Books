@@ -3,7 +3,7 @@ class TaiwanMobileImgsController < ApplicationController
 
 	def create
 		if current_user.taiwan_mobile_credits
-			flash[:alert] = '你已經上傳過了唷！'
+			flash[:error] = '你已經上傳過了唷！'
 			return
 		end
 		@taiwan_mobile_img = current_user.taiwan_mobile_imgs.new(taiwan_mobile_imgs_params)
@@ -12,10 +12,10 @@ class TaiwanMobileImgsController < ApplicationController
 			current_user.user_credits.build(name: '下載時空訊息 APP', credits: 50)
 			current_user.taiwan_mobile_credits = true
 			current_user.save!
-			flash[:alert] = '成功獲得 台灣大哥大 提供之 50 元購書金！'
+			flash[:success] = '成功獲得 台灣大哥大 提供之 50 元購書金！'
 			redirect_to :back
 		else
-			flash[:alert] = '上傳失敗，請再試一次'
+			flash[:error] = '上傳失敗，請再試一次'
 			render 'sponsors/taiwan_mobile'
 		end
 	end

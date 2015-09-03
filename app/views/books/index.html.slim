@@ -58,8 +58,8 @@
         .clear style="clear:both;"
   .row
     .col.m2.s12.hide-on-small-only.pin-menu-container
-      .pin-menu.sponsor-item.section.pin-menu.books-index-sponsors
-        = image_tag('sponsors/tutorabc/left_banner.jpg')
+      .sponsor-item.section.pin-menu.books-index-sponsors
+        = image_tag('calculator2.jpg')
         .sponsor-item-actions
           a.btn href='/cart_items'
             | 前往加價購
@@ -136,8 +136,9 @@
                         button.btn-highlight 詳細資訊
             .clear-fix
       = paginate @books, theme: 'twitter-bootstrap-3'
-    .col.m2.s12.hide-on-small-only.pin-menu-container
-      .pin-menu.sponsor-item.section.pin-menu.books-index-sponsors
+    .col.m2.s12
+      .sponsor-item
+        = image_tag('sponsors/tutorabc/left_banner.jpg')
         = image_tag('sponsors/tutorabc/500x900.jpg')
 
 javascript:
