@@ -798,6 +798,13 @@ i{
 		background-repeat: no-repeat;
 	}
 
+	&.tutor-abc{
+		background-image: image-url('sponsors/tutorabc/1680x450.jpg');
+		background-size: cover;
+		background-position: center;
+		background-repeat: no-repeat;
+	}
+
 	.banner-mask{
 	    background: -moz-linear-gradient(top, rgb(58,28,255) 0%, rgb(255,58,48) 100%);
 	    background: -webkit-gradient(left top, left bottom, color-stop(0%, rgb(58,28,255)), color-stop(100%, rgb(255,58,48)));
@@ -936,4 +943,8 @@ i{
 	> input[type="submit"]{
 		margin-top: 24px;
 	}
+}
+
+.books-index-ad.fixed-menu{
+	width: calc(16.666667% - 16px);
 }

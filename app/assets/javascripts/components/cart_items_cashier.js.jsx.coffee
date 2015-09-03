@@ -103,7 +103,7 @@ CartItemsCashier = React.createClass
       return `<div className="notice-message-block">
         <div className="notice-message-block-icon"><i className="material-icons">shopping_cart</i></div>
         <h5 className="notice-message-block-title">購物書包內還沒有東西！</h5>
-        <p className="notice-message-block-message">你可以回去書本瀏覽繼續購物 ^^</p>
+        <p className="notice-message-block-message">你可以回去書本瀏覽繼續購物 ^^ (#加價購也需要購物車中有書才能加價購唷！)</p>
         <div className="notice-message-block-actions">
           <a className="btn" href="/books">繼續購物</a>
         </div>

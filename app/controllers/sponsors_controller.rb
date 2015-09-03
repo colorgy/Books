@@ -11,4 +11,8 @@ class SponsorsController < ApplicationController
 	def taiwan_mobile
 		@taiwan_mobile_img = current_user.taiwan_mobile_imgs.new
 	end
+
+	def tutor_abc
+
+	end
 end

@@ -56,8 +56,14 @@
             input class="books-search" name="q" placeholder="搜尋書名、課名、老師名" type="text" value=params[:q]
             input type="submit" value="搜尋" class="btn" id="books-search-field-submit"
         .clear style="clear:both;"
-  .row.row-inner-s
-    .col.m12.s12
+  .row
+    .col.m2.s12.hide-on-small-only.pin-menu-container
+      .pin-menu.sponsor-item.section.pin-menu.books-index-ad
+        = image_tag('sponsors/tutorabc/left_banner.jpg')
+        .sponsor-item-actions
+          a.btn href='/cart_items'
+            | 前往加價購
+    .col.m8.s12
       - if @course_with_no_book.present?
         .course-with-no-books-container.modal id="modal1" style="width: 95%; height: 80%;"
           .course-with-no-books-inner.modal-content
@@ -129,7 +135,10 @@
                       - else
                         button.btn-highlight 詳細資訊
             .clear-fix
-    = paginate @books, theme: 'twitter-bootstrap-3'
+      = paginate @books, theme: 'twitter-bootstrap-3'
+    .col.m2.s12.hide-on-small-only.pin-menu-container
+      .pin-menu.sponsor-item.section.pin-menu.books-index-ad
+        = image_tag('sponsors/tutorabc/500x900.jpg')
 
 javascript:
   var booksSearchSuggestions = new Bloodhound({
@@ -168,4 +177,11 @@ javascript:
     });
 
   });
-
+  $(window).scroll(function(){
+    if($(window).scrollTop() > $('.pin-menu-container').offset().top - 100){
+      $('.pin-menu').addClass('fixed-menu');
+    }
+    else{
+      $('.pin-menu').removeClass('fixed-menu');
+    }
+  })
