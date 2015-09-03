@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  devise_for :admins, ActiveAdmin::Devise.config
+  ActiveAdmin.routes(self)
   devise_for :supplier_staffs, path: :supplier, :controllers => {
     :passwords => "supplier/passwords",
     :sessions => "supplier/sessions",
