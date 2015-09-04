@@ -4,17 +4,11 @@ class BooksController < ApplicationController
   def index
 
     if params[:q].present? && params[:q].is_a?(String)
-      @books_for_paginate = Book.simple_search(params[:q], current_org_code).page(params[:page])
-      @book_isbns = @books_for_paginate.map(&:isbn)
-      @books = books_collection.where(isbn: @book_isbns)
+      @books = books_collection.simple_search(params[:q], current_org_code).page(params[:page])
       @course_with_no_book = Course.current.in_org(current_user.organization_code).no_book.simple_search(params[:q]).limit(5)
-      if @books.blank?
-        @books = books_collection.order(:display_order).page(params[:page])
-        @books_for_paginate = @books
-      end
+      @books = books_collection.order(:display_order).page(params[:page]) if @books.blank?
     else
       @books = books_collection.order(:display_order).page(params[:page])
-      @books_for_paginate = @books
     end
   end
 
