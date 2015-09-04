@@ -20,22 +20,19 @@ class Book < ActiveRecord::Base
 
   def self.for_org(org_code = 'public')
     org_code = 'public' if org_code.blank?
-    where(<<-SQL, org_code, org_code
-      books.id IN (
-        SELECT DISTINCT ON (books.isbn) books.id FROM books
-        WHERE books.organization_code = ?
-           OR books.organization_code = ''
-           OR books.organization_code = 'public'
-           OR books.organization_code IS NULL
-        ORDER BY books.isbn, CASE books.organization_code
-          WHEN ? THEN 1
-          WHEN '' THEN 2
-          WHEN NULL THEN 3
+    from_sql = <<-SQL
+      (SELECT books.*,
+        ROW_NUMBER() OVER (PARTITION BY isbn ORDER BY (CASE
+          WHEN books.deleted_at IS NOT NULL THEN 100
+          WHEN books.organization_code = ? THEN 1
+          WHEN books.organization_code = '' THEN 2
+          WHEN books.organization_code IS NULL THEN 3
           ELSE 4
-        END
-      )
+        END)) AS row_id
+      FROM books) AS books
     SQL
-    )
+
+    from(sanitize_sql_array([from_sql, org_code])).where(row_id: 1, organization_code: [nil, '', 'public', org_code])
   end
 
   def delivery_processing_time
