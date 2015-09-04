@@ -28,6 +28,7 @@ ActiveAdmin.register Order do
   index do
     selectable_column
 
+    column(:id)
     column(:user)
     column(:book)
     column(:price)
