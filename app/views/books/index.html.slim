@@ -15,24 +15,24 @@
         });
       .col.m12.s12
         .owl-carousel.owl-theme id="owl-slider"
-            a.item
+            a.item href=user_course_books_path
               img src=image_path('slides/4.jpg')
-            a.item
+            .item
               img src=image_path('slides/6.jpg')
             a.item.link href="https://www.tutorabc.com/aspx/mvc/" target="_blank"
               img src=image_path('sponsors/tutorabc/1680x450.jpg')
-            a.item
+            .item
               img src=image_path('slides/1.jpg')
     - else
       .col.m12.s12
         .owl-carousel.owl-theme id="owl-slider"
-            a.item
+            a.item href=user_course_books_path
               img src=image_path('slides/4.jpg')
-            a.item
+            .item
               img src=image_path('slides/6.jpg')
             a.item.link href="https://www.tutorabc.com/aspx/mvc/" target="_blank"
               img src=image_path('sponsors/tutorabc/1680x450.jpg')
-            a.item
+            .item
               img src=image_path('slides/1.jpg')
 
     .clear-both
@@ -110,7 +110,7 @@
                       span.isbn= book.isbn
                     - if book.course_titles_in(current_user.organization_code).present?
                       p.details
-                        | 使用本書的課程：
+                        span 使用本書的課程：
                         span.courses= book.course_titles_in(current_user.organization_code).map { |c| "<span class=\"label\">#{c}</span>" }.join(' 、 ').html_safe
                 .col.s12.m4
                   .product-list-price

@@ -981,5 +981,11 @@ i{
 	    	}
 	    }
 	}
+}
+.pagination li.active{
+	background-color: transparent;
+}
 
+.pagination li.active a{
+	background-color: #33C7AB;
 }
