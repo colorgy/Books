@@ -6,10 +6,8 @@
 				.banner-content--center
 					.icon style="vertical-align: super;"
 						= image_tag ('sponsors/taiwan-mobile/logo.png')
-					h2.banner-title
-						| - 時空訊息APP -
-					p.banner-description
-						| 抱著感恩的心，傳送跨越時空的感動。
+					p.banner-description style="font-size: 24px;"
+						| - 抱著感恩的心，傳送跨越時空的感動。 -
 	.row.margin-bottom-none
 		.col.m12.s12
 			.banner
@@ -17,7 +15,9 @@
 					h2.banner-title
 						| - 爸媽的辛勞 -
 					p.banner-description
-						| 你知道嗎？當爸媽真的很不容易，爸媽平均在我們身上所花的教育費，光是體制內的教育費用就要５百多萬元，更別說才藝班或補習班等體制外的教育費了。
+						| 時間是一條細流的長河，承載無數家人與遊子的思念情懷。
+						br
+						| 讓時空訊息，傳送你心中說不出口的愛。
 	.row.margin-bottom-none
 		.col.m12.s12
 			.banner.taiwan-mobile style="padding: 40px 0 80px 0;"
@@ -41,11 +41,11 @@
 						| - 購書金任務內容 -
 					p.banner-description
 						| 1. 下載時空訊息 APP
-						a href=""
 						br
-						| 2. 回傳下載後的畫面截圖即可獲得購書金
+						| 2. 運用你想要的方式，製作給家人訊息，可以選擇影片、 照片、錄音型式來傳達你的心意
 						br
-						| 3. 我們希望你傳送一段感謝的話給爸媽
+						| 3. 回傳訊息清單畫面截圖，即可獲得購書金，請看
+						a.modal-trigger data-target="modal1" 回傳範例
 						br
 						br
 					- if current_user.taiwan_mobile_credits
@@ -64,6 +64,19 @@
 							= form.file_field :image_url
 							= form.submit '上傳', :class => 'btn btn--large'
 
+.modal.modal-fixed-footer id="modal1"
+	.modal-content
+		h4 回傳範例
+		p
+			| 當你傳送了你的訊息給爸媽之後，在訊息清單將會出現剛剛你傳送的訊息！請將這個畫面截圖並且傳送給我們，就可以獲得 50 元的 Colorgy 購書金！
+		.icon
+			= image_tag ('sponsors/taiwan-mobile/image005.jpg')
+	.modal-footer
+		a.modal-action.modal-close.waves-effect.waves-green.btn-flat 關閉
 
 
-
+javascript:
+	$(document).ready(function(){
+		// the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+		$('.modal-trigger').leanModal();
+	});

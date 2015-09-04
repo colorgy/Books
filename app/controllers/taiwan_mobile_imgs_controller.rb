@@ -9,10 +9,9 @@ class TaiwanMobileImgsController < ApplicationController
 		@taiwan_mobile_img = current_user.taiwan_mobile_imgs.new(taiwan_mobile_imgs_params)
 
 		if @taiwan_mobile_img.save
-			current_user.user_credits.build(name: '下載時空訊息 APP', credits: 50)
 			current_user.taiwan_mobile_credits = true
 			current_user.save!
-			flash[:success] = '成功獲得 台灣大哥大 提供之 50 元購書金！'
+			flash[:success] = '成功上傳，我們驗證正確時，您將會獲得 50 元購書金！(大約 1 - 2 小時)'
 			redirect_to :back
 		else
 			flash[:error] = '上傳失敗，請再試一次'
