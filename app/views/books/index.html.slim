@@ -20,13 +20,9 @@
             .item
               img src=image_path('slides/6.jpg')
             .item
-              img src=image_path('slides/5.jpg')
+              img src=image_path('sponsors/tutorabc/1680x450.jpg')
             .item
               img src=image_path('slides/1.jpg')
-            .item
-              img src=image_path('slides/2.jpg')
-            .item
-              img src=image_path('slides/3.jpg')
     - else
       .col.m12.s12
         .owl-carousel.owl-theme id="owl-slider"
@@ -35,13 +31,9 @@
             .item
               img src=image_path('slides/6.jpg')
             .item
-              img src=image_path('slides/5.jpg')
+              img src=image_path('sponsors/tutorabc/1680x450.jpg')
             .item
               img src=image_path('slides/1.jpg')
-            .item
-              img src=image_path('slides/2.jpg')
-            .item
-              img src=image_path('slides/3.jpg')
 
     .clear-both
     .content-strip.primary
@@ -59,10 +51,11 @@
   .row
     .col.m2.s12.hide-on-small-only.pin-menu-container
       .sponsor-item.section.pin-menu.books-index-sponsors
-        = image_tag('calculator2.jpg')
-        .sponsor-item-actions
-          a.btn href='/cart_items'
-            | 前往加價購
+        a href='/cart_items'
+          label 前往加價購
+          = image_tag('calculator2.jpg')
+          = image_tag('sponsors/tutorabc/left_banner.jpg')
+
     .col.m8.s12
       - if @course_with_no_book.present?
         .course-with-no-books-container.modal id="modal1" style="width: 95%; height: 80%;"
@@ -138,7 +131,8 @@
       = paginate @books_for_paginate, theme: 'twitter-bootstrap-3'
     .col.m2.s12
       .sponsor-item
-        = image_tag('sponsors/tutorabc/left_banner.jpg')
+        = image_tag('calculator2.jpg', :class=> 'hide-on-med-and-up')
+        = image_tag('sponsors/tutorabc/left_banner.jpg', :class=> 'hide-on-med-and-up')
         = image_tag('sponsors/tutorabc/500x900.jpg')
 
 javascript:
@@ -178,11 +172,3 @@ javascript:
     });
 
   });
-  $(window).scroll(function(){
-    if($(window).scrollTop() > $('.pin-menu-container').offset().top - 100){
-      $('.pin-menu').addClass('fixed-menu');
-    }
-    else{
-      $('.pin-menu').removeClass('fixed-menu');
-    }
-  })

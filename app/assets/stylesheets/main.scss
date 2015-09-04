@@ -948,3 +948,11 @@ i{
 .books-index-sponsors.fixed-menu{
 	width: calc(16.666667% - 16px);
 }
+
+.pagination li.prev, .pagination li.next{
+	width: auto;
+}
+
+[type="checkbox"]+label{
+	height: auto;
+}
