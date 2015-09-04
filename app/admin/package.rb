@@ -41,6 +41,8 @@ ActiveAdmin.register Package do
         tag = :warning
       when "pending"
         tag = :warning
+      when "new"
+        tag = :warning
       end
       tag.nil? ? status_tag(package.state) : status_tag(package.state, tag)
     end

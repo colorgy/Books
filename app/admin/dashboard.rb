@@ -44,7 +44,7 @@ ActiveAdmin.register_page "Dashboard" do
           table do
             thead do
               tr do
-                %w(id user amount state created_at).each(&method(:th))
+                %w(id user price state created_at).each(&method(:th))
               end
             end
 
