@@ -189,15 +189,16 @@ nav.colorgy-nav{
   -ms-box-shadow: 2px 1px 5px rgba(0,0,0,.2);
 
   .top{
-    overflow: hidden;
     padding: 0 !important;
     .top-bar{
       height: 35px;
       background-color: #5E6671;
       ul{
         float: right;
+        margin: 0 16px;
         li{
           border-left: 1px solid $gray;
+
           &.active{
             a{
               color: yellow !important;
@@ -208,7 +209,7 @@ nav.colorgy-nav{
       a{
         padding: 0px 20px !important;
         line-height: 35px;
-        color: #D8D8D8;
+
         &:hover{
           color: #FFF;
         }
@@ -221,6 +222,7 @@ nav.colorgy-nav{
     margin-top: -1px;
     padding-left: 20px;
     border-bottom: 1px solid #F0F0F0;
+
     @include transition-all(0.18s);
     @media screen and (min-width: 992px ) {
       @include translateY(0px);

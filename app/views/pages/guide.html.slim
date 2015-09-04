@@ -85,13 +85,103 @@
                   = image_tag('guide/ir029.png')
                   blockquote.small 系統也會把折扣金給你了，可以用它來買書囉。
               div style=("clear: both;")
+      .row.row-inner-m.user-guide.scrollspy id="main"
+        .col.s12.s12
+          .guide-item
+            h5.guide-item-title 介面說明
+            .guide-item-pic
+              = image_tag('guide/guide1.jpg', :class=> "materialboxed")
 
-    .col.s12.m2.hide-on-small-only.pin-menu-container style=("padding-left: 8px;")
-      ul#pin-menu.section.table-of-contents.pin-menu
+            .guide-item-text
+              label 1. 上選單
+              p
+                | 你持有的購物金及使用倒數時間、我的訂單、購物車、個人下拉選單。
+
+              label 2. 主選單
+              p
+                | 查詢書籍、登記 / 修改書單、使用教學
+
+              label 3. 搜尋框
+              p 在這輸入想查詢的老師名、課名、書名、作者名按下 enter 可以查詢書籍。
+              label 4. 書本列表
+              p 這裏會顯示一些書籍的資訊：書名、作者、isbn、價格，灰色的小標籤代表有使用本書的課程。
+      .row.row-inner-m.user-guide.scrollspy id="shopping"
+        .col.m12.s12
+          .guide-item
+            h5.guide-item-title 購物流程
+            h5.guide-item-sub-title 一. 搜尋書本
+            .guide-item-pic
+              = image_tag('guide/guide2.jpg', :class=> "materialboxed")
+
+            .guide-item-text
+              blockquote
+                |  使用老師名、課名、書名、作者名去搜尋課本 ( 因為資料龐大搜尋時請耐心等候 )
+
+
+            h5.guide-item-sub-title 二. 放入購物書包
+            .guide-item-pic
+              = image_tag('guide/guide3.jpg', :class=> "materialboxed")
+
+            .guide-item-text
+              blockquote
+                | 進入書本單頁，確定書籍無誤之後，點擊下拉選單告訴我們你是上哪堂課程 ( 若是找不到自己的課程怎麼辦？ )，選擇數量後，接著按下底下的加入購物書包。
+
+              label 1. 書本資訊、社群按鈕
+              p 書名、作者、isbn、使用本書的課程、價格，點擊FB分享或是FB傳送鈕可以透過FB分享或是傳送此頁面給別人哦！快分享用書給你的同學吧！
+              label 2. 課程選擇選單
+              p 點擊這裡可以尋找已經有登記此書的課程，選擇你的課程吧！若是找不到課程可以去主選單的登記 / 修改課本那邊做登記或是修改唷！
+              label 3. 數量選擇 & 加入購物車按鈕
+              p 選擇數量並加入購物車吧！
+
+            h5.guide-item-sub-title 三. 前往結帳
+            .guide-item-pic
+              = image_tag('guide/guide4.jpg', :class=> "materialboxed")
+
+            .guide-item-text
+              blockquote
+                | 進入右上角的購物書包，確認無誤後按下一步，選擇付款方式和發票種類。
+
+              label 1. 你購物車中的商品
+              p 要確認無誤哦！
+              label 2. 傳說中的加價購商品
+              p Colorgy 幫同學篩選一些可能會常用到的上學必備好物，並談到外面市價更便宜的價格回饋同學，會一併跟書本一起寄送到宿舍或是指定地點唷！
+              label 3. 總計
+              p 仔細檢查吧！
+
+            h5.guide-item-sub-title 四. 完成訂購
+            .guide-item-pic
+              = image_tag('guide/guide5.jpg', :class=> "materialboxed")
+
+            .guide-item-text
+              blockquote
+                | 確認資料無誤後，按下完成訂購，送出訂單後，可以至訂單查詢隨時追蹤書籍況，別忘了在繳款期限內繳費唷～
+
+      .row.row-inner-m.user-guide.scrollspy id="shipping"
+        .guide-item
+          h5.guide-item-title 配送 / 運費說明
+          .guide-item-text
+            label 運費
+            p
+              | 三件（含加價購商品）免運費，未滿為單件包裹80元
+
+            label 配送時間
+            p
+              | 1. 送書期間為凡在 9/1 - 9/13 號前 下訂，會在 9/12 - 9/16 第一週送達學校。
+              br
+              | 2. 凡 9 /14 後訂購，皆為 3 - 4 天工作天（不含假日）。
+
+    .col.s12.m2.hide-on-small-only.pin-menu-container style="padding-left: 8px;"
+      ul.section.table-of-contents.pin-menu id="pin-menu"
         li
           a href="#package" 包裹專送服務
         li
           a href="#course-book" 登記書單服務
+        li
+          a href="#main" 介面說明
+        li
+          a href="#shopping" 購物流程
+        li
+          a href="#shipping" 配送 / 運費說明
 
 javascript:
   $(document).ready(function(){

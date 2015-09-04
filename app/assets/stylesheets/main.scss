@@ -956,3 +956,29 @@ i{
 .add-buy [type="checkbox"]+label{
 	height: auto;
 }
+.nav-bar-drop-down{
+	position: relative;
+
+	.drop-down-list{
+	    float: none;
+	    z-index: 10000;
+	    width: 100%;
+	    background-color: #fff;
+	    border: 1px solid #DDD;
+	    box-shadow: 2px 2px 5px rgba(0,0,0,.4);
+	    padding: 8px 0;
+	    margin: 0 !important;
+
+	    > li {
+	    	> a{
+	    		color: #222;
+	    	}
+
+	    	&:hover a{
+	    		background-color: #5E6671;
+	    		color: #fff;
+	    	}
+	    }
+	}
+
+}

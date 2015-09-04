@@ -1,6 +1,6 @@
 .product-list{
 	padding: 16px 8px;
-	border-bottom: 3px solid #eee;
+	border-bottom: 2px dashed #DDD;
 }
 .product-list-pic{
 	max-width: 100px;
@@ -27,6 +27,15 @@
 		margin: 8px 0;
 		color: $darker-gray;
 		font-size: 1em;
+		overflow: hidden;
+
+		> .courses{
+			display: inline-block;
+
+			> .label{
+				display: inline;
+			}
+		}
 	}
 }
 .product-list-price{

@@ -10,6 +10,11 @@ footer{
 				li{
 					display: inline-block;
 					margin: 8px 12px;
+
+					@media screen and (max-width: 600px) {
+						display: block;
+					}
+
 					a{
 						color: #fff;
 						padding: 8px 12px;
