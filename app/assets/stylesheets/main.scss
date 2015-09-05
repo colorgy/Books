@@ -798,6 +798,13 @@ i{
 		background-repeat: no-repeat;
 	}
 
+	&.taiwan-mobile-banner{
+		background-image: image-url('slides/7.jpg');
+		background-size: cover;
+		background-position: center;
+		background-repeat: no-repeat;
+	}
+
 	&.tutor-abc{
 		background-image: image-url('sponsors/tutorabc/1680x450.jpg');
 		background-size: cover;
@@ -846,6 +853,10 @@ i{
 	}
     .icon{
 		vertical-align: middle;
+    }
+
+    .banner-description{
+    	font-size: 20px;
     }
 }
 .sponsor-item {
@@ -988,4 +999,8 @@ i{
 
 .pagination li.active a{
 	background-color: #33C7AB;
+}
+
+.owl-item a {
+	display: block;
 }

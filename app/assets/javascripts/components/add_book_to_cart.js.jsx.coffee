@@ -90,17 +90,17 @@ AddBookToCart = React.createClass
         handleCourseChange = @handleCourseChange
         courseUCode = @state.courseUCode
         options = `<div>
-            <AddToCartCourseSelect defaultCourses={bookCourses} onChange={handleCourseChange} value={courseUCode} />
             <p>請先選擇課程再加入購物書包。找不到課嗎？<a href={'/user_course_books/new?book_isbn=' + book.isbn}>回報更多使用這本書的課程</a>。</p>
+            <AddToCartCourseSelect defaultCourses={bookCourses} onChange={handleCourseChange} value={courseUCode} />
           </div>`
 
       `<p>
         <input id="checkbox-package-buy"
                type="radio"
                onChange={onChange}
-               className="with-gap"
+               className="with-gap hide"
                checked={checked} />
-        <label htmlFor="checkbox-package-buy">
+        <label htmlFor="checkbox-package-buy" className="hide">
           直接購買 {note}
         </label>
         {options}

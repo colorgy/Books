@@ -6,6 +6,18 @@
         p.strip-description
   .row
     .col.s12.m10
+      #overview.row.row-inner.user-guide.scrollspy
+        .col.s12.m4
+          .icon.odd
+          .icon-title
+            | 使用流程總覽
+          .icon-description
+            | 所有流程簡介
+        .col.s12.m8
+          .steps
+            .step
+              .step-description
+                = image_tag('guide/guide0.jpg', :class=> "materialboxed")
       #package.row.row-inner.user-guide.scrollspy
         .col.s12.m4
           .icon.odd
@@ -172,6 +184,8 @@
 
     .col.s12.m2.hide-on-small-only.pin-menu-container style="padding-left: 8px;"
       ul.section.table-of-contents.pin-menu id="pin-menu"
+        li
+          a href="#overview" 使用流程總覽
         li
           a href="#package" 包裹專送服務
         li
