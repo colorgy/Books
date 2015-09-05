@@ -15,6 +15,15 @@ class TasksController < ApplicationController
     render(json: { success: 200, paid_count: paid_count }, status: 200)
   end
 
+  def course_books_csv
+    fn = Rails.root.join('tmp', "course_books_#{Time.now.to_i}.csv")
+    CSV.open(fn, 'w') do |csv|
+      csv << %w(course_ucode book_isbn book_known updated_by confirmed book_required updater_code created_at updated_at)
+      CourseBook.all.each {|cb| csv << [cb.course_ucode, cb.book_isbn, cb.book_known, cb.updated_by, cb.confirmed, cb.book_required, cb.updater_code, cb.created_at, cb.updated_at]  }
+    end
+    send_file fn
+  end
+
   private
 
   def check_api_key
