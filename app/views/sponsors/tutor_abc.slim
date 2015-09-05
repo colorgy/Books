@@ -1,7 +1,7 @@
 .container-fluid
 	.row
 		.col.m12.s12
-			.banner.tutor-abc
+			.banner.tutor-abc style="min-height: 400px;"
 				.banner-mask.hide
 				.banner-content--center
 					h2.banner-title.hide
@@ -10,39 +10,49 @@
 						| Colorgy Books
 					p.banner-description.hide
 						| 購書金兌換區 - 完成任務即可獲得購書金，讓你買書零負擔！
-	.row.row-inner style="padding-top: 24px;"
+	.row.row-inner.margin-bottom-none style="padding-top: 24px;"
 		.col.m4.s12
-			.sponsors-declaration
-				h5.title 任務說明
-				p.description
+			.service-intro-pic
+				div
+					= image_tag ('sponsors/tutorabc/yaoming.png')
+				div style="max-width: 200px; margin: 24px auto;"
+					= image_tag ('sponsors/tutorabc/about_img_2.png')
+		.col.m8.s12
+			.service-intro-text
+				h3 關於 Tutor ABC
+				p
 					| TutorABC是全球首間全年365天、24小時線上英語教學機構。由美國矽谷核心科技團隊研發，實現獨步全球的雲端運算整合服務。
 					br
+					br
 					| 獨家專利的DCGS多元課程體系、隨到隨學的靈活排課、專業認證的全球師資，為您提供優質且高效的真人線上互動語言學習平臺。
-					br
-					br
-					| 以下是 Tutor ABC 提供的優惠及購物金小任務！快點來吧！
-		.col.m8.s12
-			.row
-				.col.m4.s6
-					.sponsor-item
-						.sponsor-item-title
-							i.material-icons style="font-size: 30px !important; margin-right: 8px;" done
-							| 勾選同意
-						p.sponsor-item-description
-							| 勾選同意，讓 TutorABC 花 "5分鐘" 用電話跟你介紹 TutorABC的好處，願意讓我們推廣一下自己的服務，只要勾選這個意願通知， TutorABC 立即提供你 50 元購書金！
-						.sponsor-item-actions
-							- if current_user.tutorabc_check_credits
-								a.btn.disabled
-									| 你已經拿過囉 ^^
-							- else
-								a.btn id="tutor-abc-accept-btn"
-									| 我願意
-				.col.m4.s6
-					.sponsor-item
-						= image_tag('sponsors/tutorabc/500x900.jpg')
-				.col.m4.s6
-					.sponsor-item
-						= image_tag('sponsors/tutorabc/left_banner.jpg')
+				h3 Tutor ABC 的四大特色
+				h5 專業認證的全球師資
+				p TutorABC尋遍全球，為您提供具有法律、商學、企管等各種專業背景的外籍顧問師資，也通過TESOL、TEFL等教育資格認證，一流且多元的師資，帶給您豐富的全球化語言學習環境。
+				h5 多元主題的分級課程
+				p TutorABC根據您個人語言能力，安排專屬課程，更提供豐富的主題，滿足不同需求、興趣愛好、以及個人習慣。來自全球且具有專業背景的資深外師，為您提供最生動實用的主題課程。
+				h5 隨到隨學的靈活排課
+				p TutorABC讓您免去舟車勞頓，節省更多時間。365天、24小時全年無休的專業課程，隨到隨學的靈活排課，高質量行動APP，讓您能充分利用碎片時間，想學就學，時刻置身全英文環境。
+				h5 雲端授課更私密
+				p TutorABC獨立研發的線上學習系統，實現學習者與專業外籍顧問的互動。專為教學設計的單向視訊模式，保證了個人隱私，享受純英語學習環境，讓學習者無懼尷尬，大膽開口說英語。
+	.row.margin-bottom-none style="padding-top: 24px;"
+		.col.m12.s12
+			.banner.tutor-abc-bottom
+				.banner-mask.banner-mask--blue2
+				.banner-content--center
+					h2.banner-title
+						.icon style="max-width: 400px;"
+							= image_tag ('sponsors/tutorabc/logo.png')
+					p.banner-description
+						| 勾選同意，讓 TutorABC 花 "5分鐘" 用電話跟你介紹 TutorABC的好處，讓我們推廣一下自己的服務
+						br
+						|只要勾選這個意願通知， TutorABC 立即提供你 50 元購書金！
+					div style="text-align:center; position: relative; margin-top: 32px;"
+						- if current_user.tutorabc_check_credits
+							a.btn.btn--large.disabled style="opacity: 1;"
+								| 你已經拿過囉 ^^
+						- else
+							a.btn.btn--large id="tutor-abc-accept-btn"
+								| 我願意
 
 javascript:
 	$('#tutor-abc-accept-btn').click(function(){

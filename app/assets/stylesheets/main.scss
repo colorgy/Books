@@ -812,6 +812,13 @@ i{
 		background-repeat: no-repeat;
 	}
 
+	&.tutor-abc-bottom{
+		background-image: image-url('sponsors/tutorabc/maxresdefault.jpg');
+		background-size: cover;
+		background-position: center;
+		background-repeat: no-repeat;
+	}
+
 	.banner-mask{
 	    background: -moz-linear-gradient(top, rgb(58,28,255) 0%, rgb(255,58,48) 100%);
 	    background: -webkit-gradient(left top, left bottom, color-stop(0%, rgb(58,28,255)), color-stop(100%, rgb(255,58,48)));
@@ -827,6 +834,16 @@ i{
 	    opacity: 0.5;
 
 	    &.banner-mask--blue{
+		    background: -moz-linear-gradient(top, #1A82FB 0%, #17727B 100%);
+		    background: -webkit-gradient(left top, left bottom, color-stop(0%, #1A82FB), color-stop(100%, #17727B));
+		    background: -webkit-linear-gradient(top, #1A82FB 0%, #17727B 100%);
+		    background: -o-linear-gradient(top, #1A82FB 0%, #17727B 100%);
+		    background: -ms-linear-gradient(top, #1A82FB 0%, #17727B 100%);
+		    background: linear-gradient(to bottom, #1A82FB 0%, #17727B 100%);
+
+	    }
+
+	    &.banner-mask--blue2{
 		    background: -moz-linear-gradient(top, #1A82FB 0%, #17727B 100%);
 		    background: -webkit-gradient(left top, left bottom, color-stop(0%, #1A82FB), color-stop(100%, #17727B));
 		    background: -webkit-linear-gradient(top, #1A82FB 0%, #17727B 100%);
@@ -1078,4 +1095,27 @@ i{
   -ms-animation: rotating .8s linear infinite;
   -o-animation: rotating .8s linear infinite;
   animation: rotating .8s linear infinite;
+}
+
+.service-intro-text{
+
+	max-width: 500px;
+	margin: 24px auto;
+
+	> h3{
+		color: $dark-gray;
+	    font-style: italic;
+	}
+
+	> h5{
+	    color: #5F97BE;
+	    margin: 12px 0;
+	    padding: 0 12px;
+	}
+
+	> p{
+		color: $dark-gray;
+	    margin: 12px 0 40px 0;
+	    padding: 0 12px;
+	}
 }
