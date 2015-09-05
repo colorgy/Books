@@ -42,7 +42,6 @@ class Book < ActiveRecord::Base
         (books.id ||
          book_datas.name ||
          book_datas.author ||
-         book_datas.publisher ||
          courses.name ||
          courses.lecturer_name ||
          courses.ucode ||
