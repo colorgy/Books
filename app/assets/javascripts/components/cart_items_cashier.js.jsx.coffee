@@ -163,6 +163,19 @@ CartItemsCashier = React.createClass
                 <option value="" disabled selected>宿舍編號</option>
                 <option value="光復一宿">光復一宿</option>
                 <option value="勝利一宿">勝利一宿</option>
+                <option value="誠齋">誠齋</option>
+                <option value="實齋">實齋</option>
+                <option value="禮齋">禮齋</option>
+                <option value="信齋">信齋</option>
+                <option value="碩齋">碩齋</option>
+                <option value="新齋">新齋</option>
+                <option value="鴻齋">鴻齋</option>
+                <option value="華齋">華齋</option>
+                <option value="禮齋">禮齋</option>
+                <option value="文齋">文齋</option>
+                <option value="靜齋">靜齋</option>
+                <option value="雅齋">雅齋</option>
+                <option value="慧齋">慧齋</option>
                 <option value="一宿">一宿</option>
                 <option value="二宿">二宿</option>
                 <option value="三宿">三宿</option>
@@ -178,6 +191,7 @@ CartItemsCashier = React.createClass
                 <option value="十三宿">十三宿</option>
                 <option value="十四宿">十四宿</option>
                 <option value="十五宿">十五宿</option>
+                <option value="其他">其他</option>
               </select>
             </div>
             <div className="col m4">
