@@ -39,18 +39,18 @@ class Book < ActiveRecord::Base
         LEFT OUTER JOIN "courses" ON "courses"."ucode" = "course_books"."course_ucode" AND "courses"."organization_code" IN (?)
       SQL
       ])).where(<<-SQL, sql_queries, sql_queries
-        (books.id ||
-         book_datas.name ||
-         book_datas.author ||
-         courses.name ||
-         courses.lecturer_name ||
-         courses.ucode ||
+        CONCAT(books.id,
+         book_datas.name,
+         book_datas.author,
+         courses.name,
+         courses.lecturer_name,
+         courses.ucode,
          books.isbn) ILIKE ALL (array[?])
         OR
-        (books.id ||
-         book_datas.name ||
-         book_datas.author ||
-         book_datas.publisher ||
+        CONCAT(books.id,
+         book_datas.name,
+         book_datas.author,
+         book_datas.publisher,
          books.isbn) ILIKE ALL (array[?])
       SQL
       ).order(sql_sorting)
