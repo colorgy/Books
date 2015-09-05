@@ -70,12 +70,12 @@
             if (response && !response.error_code) {
               <% if !current_user.blank? %>
                 <% if current_user.share_colorgy_books_credits %>
+                  flash.success('謝謝你的再次分享');
+                <% else %>
                   $.post('/credits/colorgy_books_share', function(response) {
                     console.log(response);
                     flash.success('成功獲得 Colorgy Books 提供之 50 元購書金！');
                   });
-                <% else %>
-                  flash.success('謝謝你的再次分享');
                 <% end %>
               <% else %>
                 flash.success('謝謝你的分享');
