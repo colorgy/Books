@@ -47,6 +47,14 @@
     <div id="wrapper" class="wrapper">
       <%= yield %>
     </div>
+    <div class="colorgy-preloader" id="colorgy-preloader">
+      <div class="colorgy-preloader-icon" style="text-align: center;">
+        <div class="infinite-rotating">
+          <%= image_tag 'colorgy-icon.png' %>
+        </div>
+        <p class="colorgy-preloader-text" style="color: #fff;">系統處理中</p>
+      </div>
+    </div>
     <%= render "partials/footer" %>
     <script type="text/javascript">
       function init_share_table() {

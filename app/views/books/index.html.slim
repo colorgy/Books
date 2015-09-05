@@ -48,7 +48,7 @@
     .col.m12.s12
       .search-field id="books-search-field"
         .search-bar.search-bar--center
-          form method="get"
+          form method="get" id="books-search-form"
             input class="books-search" name="q" placeholder="搜尋書名、課名、老師名" type="text" value=params[:q]
             input type="submit" value="搜尋" class="btn" id="books-search-field-submit"
         .clear style="clear:both;"
@@ -175,3 +175,7 @@ javascript:
 
     });
   });
+
+  $('#books-search-form').submit(function(){
+    $('#colorgy-preloader').addClass('active');
+  })
