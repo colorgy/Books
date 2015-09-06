@@ -8,9 +8,13 @@ ActiveAdmin.register Book do
     end
   end
 
-  filter :supplier_code
-  filter :price
   filter :isbn
+  filter :data_name,  as: :string
+  filter :data_author,  as: :string
+  filter :data_known_supplier,  as: :string
+  filter :data_publisher, as: :string
+  filter :price
+  filter :supplier_code
   filter :created_at
   filter :updated_at
   filter :organization_code
@@ -23,6 +27,8 @@ ActiveAdmin.register Book do
 
     column(:id)
     column('Book Name') { |book| a book.data.name, href: admin_book_data_url(book.data) }
+    column('Author') { |book| book.data.author }
+    column('Publisher') { |book| book.data.publisher }
     column(:price)
     column(:isbn)
     column(:organization_code)
