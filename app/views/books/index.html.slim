@@ -64,8 +64,11 @@
       - if @course_with_no_book.present?
         .course-with-no-books-container.modal.modal-fixed-footer id="modal1" style="width: 95%; height: 80%;"
           .course-with-no-books-inner.modal-content
+            h4 '你搜尋到相關課程還有書籍'
             blockquote
-              | 你搜尋到的以下的課程還不確定用書唷！ 如果你知道他們用什麼書的話，請回報給我們！回報每一本賺取 50 元的購物金！或是你也可以按 '關閉' 來繼續瀏覽你搜尋的書籍。
+              | 你搜尋到的以下的課程還不確定用書唷！如果你知道這些課程用什麼書的話，請回報給我們！
+              br
+              | 回報每一本賺取 50 元的購物金！或是你也可以按 '關閉' 來繼續瀏覽你搜尋的書籍。
             table.responsive-table
               thead
                 th 課程名稱
@@ -81,15 +84,18 @@
                     td
                       = link_to '回報用書', new_user_course_book_path(course_ucode: course.ucode), class: 'btn'
           .modal-footer style="position: absolute; bottom: 0;"
+            a.modal-action.btn-flat href="https://www.facebook.com/pages/Colorgy/1529686803975150" target="_blank" style="backrogund-color: red;" = '直接私訊 Colorgy 回報'
             a.modal-action.modal-close.btn-flat = '關閉'
-        .course-with-no-books-trigger-field
-          p.course-with-no-books-trigger-field-text= "有些你搜尋到的課程還沒核對書籍，幫助我們核對課程用書賺取購書金吧！"
-          .course-with-no-books-trigger-field-action
-            a class="btn modal-trigger" data-target="modal1" 查看課程
+      - if @course_with_no_book.present?
+        blockquote style="text-align: center;background-color: #fff;margin: 4px 24px 8px 24px;border-right: 1px solid #EEE;border-top: 1px solid #EEE;border-bottom: 1px solid #EEE;"
+          | 有些你搜尋到的課程還沒核對書籍，幫助我們核對課程用書賺取購書金吧！
+          a class="btn btn--small modal-trigger" style="background-color: #5E6671;margin: 0 16px;" data-target="modal1" 查看課程
         javascript:
           $('.modal-trigger').leanModal();
-          $('#modal1').openModal();
 
+      blockquote style="text-align: center;background-color: #fff;margin: 4px 24px 8px 24px;border-right: 1px solid #EEE;border-top: 1px solid #EEE;border-bottom: 1px solid #EEE;"
+        | 搜尋不到想要找的書的嗎？私訊粉專回報給我們吧！
+        a class="btn btn--small" style="background-color: #5E6671;margin: 0 16px;" href="https://www.facebook.com/pages/Colorgy/1529686803975150" target="_blank" 私訊回報
       - @books.each do |book|
         .product-list
           .product-list-inner
