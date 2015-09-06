@@ -22,6 +22,14 @@ ActiveAdmin.register CourseBook do
   filter :created_at
   filter :updated_at
 
+  action_item only:[:index] do
+    link_to "Course Book下載", course_books_csv_path
+  end
+
+  action_item only:[:index] do
+    link_to "教授上書未對應", lecturer_books_csv_path
+  end
+
   index do
     selectable_column
 
