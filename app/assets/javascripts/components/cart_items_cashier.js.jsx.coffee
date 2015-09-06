@@ -35,7 +35,6 @@ CartItemsCashier = React.createClass
   canSubmit: ->
     if @packageBookCount > 0
       return false unless @state.packageRecipientName &&
-                          @state.packagePickupAddress &&
                           @state.packagePickupDatetime &&
                           @state.packageRecipientMobile &&
                           @state.packageRecipientMobile.length >= 10
@@ -43,6 +42,9 @@ CartItemsCashier = React.createClass
       return false unless @state.packagePickupAddressDormType &&
                           @state.packagePickupAddressDormNum &&
                           @state.packagePickupAddressDormRoomNum
+    if @state.packagePickupAddressType == 'address'
+      return false unless @state.packagePickupAddress
+
     if @state.billType
       return true
     else
@@ -139,7 +141,7 @@ CartItemsCashier = React.createClass
     packageAdditionalItemsForm = ''
 
     if packageBookCount > 0
-      totalPrice += @props.packageShippingFee if packageBookCount <= @props.packageRShippingFeeMinI
+      totalPrice += @props.packageShippingFee if packageBookCount <= @props.packageRShippingFeeMinI && @state.packagePickupAddressType != 'caves'
       packageAdditionalItems = @props.packageAdditionalItems.map (item, i) =>
         totalPrice += item.price if @state['packageAdditionalItems' + item.id]
         self = this
@@ -198,6 +200,15 @@ CartItemsCashier = React.createClass
               <input className="string form-control" placeholder="房間號碼" onChange={this.handlePackagePickupAddressDormRoomNumChange} value={this.state.packagePickupAddressDormRoomNum} />
             </div>
           </div>`
+      else if @state.packagePickupAddressType == 'caves'
+        packagePickupAddressInput =
+          `<div className="row">
+            <div style={{ paddingTop: '12px' }}>僅限敦煌書局合作學校（中央、中興、元智、輔大）使用。</div>
+            <input className="string form-control"
+              type="hidden"
+              value="caves"
+              name="package[pickup_address]" />
+          </div>`
       else
         packagePickupAddressInput =
           `<input className="string form-control"
@@ -222,10 +233,14 @@ CartItemsCashier = React.createClass
               </div>
               <div className="form-group">
                 <label className="string control-label" htmlFor="group_recipient_name">收件地址</label>
+                <div>
+                  <blockquote className="small">可以選擇寄送到宿舍、指定地址或（中央、中興、元智、輔大）敦煌書局取貨（免運費）。</blockquote>
+                </div>
                 <div className="row">
                   <div className="col m3">
                     <select className="browser-default" valueLink={this.linkState('packagePickupAddressType')}>
                       <option value="dorm">學校宿舍：</option>
+                      <option value="caves">敦煌取書</option>
                       <option value="address">地址：</option>
                     </select>
                   </div>

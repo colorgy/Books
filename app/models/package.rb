@@ -55,7 +55,7 @@ class Package < ActiveRecord::Base
 
   # Calaulate and update the total amount (addes the shipping fee)
   def calculate_amount
-    if orders.size <= RELIEVE_SHIPPING_FEE_IF_ITEMS_MORE_THEN
+    if orders.size <= RELIEVE_SHIPPING_FEE_IF_ITEMS_MORE_THEN && pickup_address != 'caves'
       self.shipping_fee = SHIPPING_FEE
     end
 
