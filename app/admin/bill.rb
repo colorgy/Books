@@ -10,6 +10,7 @@ ActiveAdmin.register Bill do
   filter :id
   filter :uuid
   filter :user_id
+  filter :user_name, as: :string
   filter :type
   filter :price
   filter :amount

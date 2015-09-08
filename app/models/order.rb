@@ -4,7 +4,7 @@ class Order < ActiveRecord::Base
   has_paper_trail
 
   scope :paid, ->  { where(state: :paid) }
-  scope :has_paid, ->  { where(state: [:paid, :delivering, :leader_received, :delivered, :received]) }
+  scope :has_paid, ->  { where(state: [:ready, :paid, :delivering, :leader_received, :delivered, :received]) }
   scope :unpaid, ->  { where(state: [:new, :payment_pending, :expired, :cancelled]) }
 
   belongs_to :user

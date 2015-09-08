@@ -8,13 +8,16 @@ ActiveAdmin.register Order do
   scope :unpaid
 
   filter :user_id
+  filter :user_name, as: :string
+  filter :book_isbn, as: :string
+  filter :book_data_name, as: :string
   filter :bill_id
   filter :group_code
   filter :price
   filter :state
   filter :bill_uuid
   filter :course_ucode
-  filter :package
+  filter :package_id
   filter :deleted_at
   filter :created_at
   filter :updated_at
@@ -36,7 +39,7 @@ ActiveAdmin.register Order do
     column(:state) do |order|
       tag = nil
       case order.state
-      when "paid"
+      when "ready"
         tag = :ok
       when "new"
         tag = :warning
