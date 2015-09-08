@@ -110,6 +110,8 @@ gem 'sidekiq'
 gem 'clockwork'
 gem 'owlcarousel-rails'
 
+gem 'spreadsheet'
+
 # Development tools
 group :development do
   gem 'rails-erd'

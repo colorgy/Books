@@ -122,6 +122,7 @@ Rails.application.routes.draw do
   get '/tasks/payment_code_check' => 'tasks#payment_code_check'
   get '/tasks/course_books_csv' => 'tasks#course_books_csv', as: :course_books_csv
   get '/tasks/lecturer_books_csv' => 'tasks#lecturer_books_csv', as: :lecturer_books_csv
+  get '/tasks/invoice_export' => 'tasks#invoice_export', as: :invoice_export
 
   get '/sorry_but_forbidden' => 'pages#sorry_but_forbidden'
 

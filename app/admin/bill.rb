@@ -36,6 +36,10 @@ ActiveAdmin.register Bill do
     end
   end
 
+  action_item only: [:index] do
+    link_to "匯出發票", invoice_export_path
+  end
+
   index do
     selectable_column
 
