@@ -17,7 +17,7 @@
 							td =taiwan_mobile_img.user.email
 							td =taiwan_mobile_img.created_at
 							td
-								button.btn.img-open image-url=taiwan_mobile_img.image_url.url
+								button.btn.img-open image-url=taiwan_mobile_img.image_url.url(:original)
 									| 查看圖片
 							td
 								- if taiwan_mobile_img.user.taiwan_mobile_credits
@@ -35,6 +35,7 @@ javascript:
 
 	$('.img-open').click(function(){
 		var image_url = $(this).attr('image-url');
+		image_url = encodeURI(image_url);
 		$('#modal-content').html('<img src="' + image_url + '">');
 		$('#modal1').openModal();
 	});
