@@ -75,6 +75,7 @@ Rails.application.routes.draw do
 
   get '/sponsors' => 'sponsors#index'
   get '/sponsors/taiwan-mobile' => 'sponsors#taiwan_mobile'
+  get '/sponsors/taiwan-mobile/admin' => 'sponsors#taiwan_mobile_admin'
   get '/sponsors/colorgy-books' => 'sponsors#colorgy_books'
   get '/sponsors/tutorABC' => 'sponsors#tutor_abc'
   resources :taiwan_mobile_imgs

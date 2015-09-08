@@ -35,6 +35,19 @@ class CreditsController < ApplicationController
   end
 
   def taiwan_mobile
+    user_id = params[:user_id]
+    @user = User.all.find(user_id)
+    return if @user.taiwan_mobile_credits
+    @user.user_credits.build(name: '時空訊息感謝爸媽任務', credits: 50)
+    @user.taiwan_mobile_credits = true
+    @user.save!
+    respond_to do |format|
+      format.json { render json:
+        {
+          status: "成功獲得 時空訊息 提供之 50 元購書金！"
+        }
+      }
+    end
 
   end
 end

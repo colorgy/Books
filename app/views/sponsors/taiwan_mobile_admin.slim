@@ -1,0 +1,52 @@
+.container style="margin-top: 40px;"
+	.row
+		.col.s12
+			h4 台灣大哥大圖片審核
+			table.responsive-table
+				thead
+					tr
+						th 使用者名稱
+						th email
+						th 上傳日期
+						th 查看圖片
+						th 確認通過
+				tbody
+					- @taiwan_mobile_imgs.each do |taiwan_mobile_img|
+						tr
+							td =taiwan_mobile_img.user.name
+							td =taiwan_mobile_img.user.email
+							td =taiwan_mobile_img.created_at
+							td
+								button.btn.img-open image-url=taiwan_mobile_img.image_url.url
+									| 查看圖片
+							td
+								- if taiwan_mobile_img.user.taiwan_mobile_credits
+									button.btn.disabled
+										| 已經通過
+								- else
+									button.btn.agree-pass-btn user-id=taiwan_mobile_img.user.id
+										| 確認通過
+#modal1.modal.modal-fixed-footer
+  #modal-content.modal-content
+  .modal-footer
+    a.modal-action.modal-close.btn-flat 關閉
+
+javascript:
+
+	$('.img-open').click(function(){
+		var image_url = $(this).attr('image-url');
+		$('#modal-content').html('<img src="' + image_url + '">');
+		$('#modal1').openModal();
+	});
+
+	$('.agree-pass-btn').click(function(){
+		var user_id = $(this).attr('user-id');
+		var post_url = '/credits/taiwan_mobile?user_id=' + user_id;
+
+		$.post(post_url, function(response){
+			console.log(response);
+			flash.success('成功讓此使用者通過審核');
+			$(this).attr('user-id', '').addClass('disabled');
+		}.bind(this))
+	})
+
