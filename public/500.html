@@ -1,66 +1,719 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>We're sorry, but something went wrong (500)</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <style>
-  body {
-    background-color: #EFEFEF;
-    color: #2E2F30;
-    text-align: center;
-    font-family: arial, sans-serif;
-    margin: 0;
-  }
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7">
+    <title>Colorgy Books</title>
+    <style>
+.en-markup-crop-options {
+    top: 18px !important;
+    left: 50% !important;
+    margin-left: -100px !important;
+    width: 200px !important;
+    border: 2px rgba(255,255,255,.38) solid !important;
+    border-radius: 4px !important;
+}
 
-  div.dialog {
-    width: 95%;
-    max-width: 33em;
-    margin: 4em auto 0;
-  }
+.en-markup-crop-options div div:first-of-type {
+    margin-left: 0px !important;
+}
 
-  div.dialog > div {
-    border: 1px solid #CCC;
-    border-right-color: #999;
-    border-left-color: #999;
-    border-bottom-color: #BBB;
-    border-top: #B00100 solid 4px;
-    border-top-left-radius: 9px;
-    border-top-right-radius: 9px;
-    background-color: white;
-    padding: 7px 12% 0;
-    box-shadow: 0 3px 8px rgba(50, 50, 50, 0.17);
-  }
+/*Text Design*/
+.standard_text {
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+  font-size: 9pt;
+  color: #333333;
+  line-height: 180%;
+}
 
-  h1 {
-    font-size: 100%;
-    color: #730E15;
-    line-height: 1.5em;
-  }
+.header_text {
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+  font-size: 9pt;
+  color: #FFFFFF;
+}
 
-  div.dialog > p {
-    margin: 0 0 1em;
-    padding: 1em;
-    background-color: #F7F7F7;
-    border: 1px solid #CCC;
-    border-right-color: #999;
-    border-left-color: #999;
-    border-bottom-color: #999;
-    border-bottom-left-radius: 4px;
-    border-bottom-right-radius: 4px;
-    border-top-color: #DADADA;
-    color: #666;
-    box-shadow: 0 3px 8px rgba(50, 50, 50, 0.17);
-  }
-  </style>
-</head>
+.header_note {
+  font-size: 8pt;
+}
 
-<body>
-  <!-- This file lives in public/500.html -->
-  <div class="dialog">
-    <div>
-      <h1>We're sorry, but something went wrong.</h1>
-    </div>
-    <p>If you are the application owner check the logs for more information.</p>
-  </div>
-</body>
-</html>
+.steps strong {
+  font-weight: bold;
+  color: #FF3300;
+}
+
+.section_title {
+  font-size: 12pt;
+  font-weight: bold;
+  color: #FF9900;
+  padding:5px;
+  border-bottom-width: 1pt;
+  border-bottom-style: solid;
+  border-bottom-color: #FF9900;
+}
+.section_title2 {
+  font-size: 11pt;
+  font-weight: bold;
+  color: #FF9900;
+  padding:5px;
+  border-bottom-width: 1pt;
+  border-bottom-style: solid;
+  border-bottom-color: #FF9900;
+}
+
+.section_subtitle {
+  font-weight: bold;
+  color: #000000;
+}
+
+.payment_title {
+  font-size: 12pt;
+  font-weight: bold;
+  color: #FF0000;
+}
+
+.content_key {
+  font-size: 11pt;
+  font-weight: bold;
+  color: #FF0000;
+}
+
+.content_warning {
+  font-size: 9pt;
+  font-weight: normal;
+  color: #FF0000;
+}
+
+.content_key_12pt {
+  font-size: 12pt;
+  font-weight: bold;
+  color: #000000;
+}
+
+.content_note {
+  font-size: 8pt;
+  font-weight:normal;
+}
+
+.button_main {
+  font-size: 10pt;
+  line-height: 150%;
+  color: #fff;
+  height: 28px;
+  width: 120px;
+  background:#fa6801;
+  border:3px solid #e76103;
+  border-top:2px solid #fe8b18;
+  border-left:2px solid #fe8b18;
+  cursor:pointer;
+  cursor: hand;
+}
+.button_main:active {
+  background:#fa4101;
+  border:3px solid #be3c02;
+  border-top:2px solid #f65126;
+  border-left:2px solid #f65126;
+}
+
+.button_support {
+  font-size: 10pt;
+  line-height: 150%;
+  color: #000;
+  height: 28px;
+  width: 120px;
+  background:#ccc;
+  border: 2px solid #999;
+  border-top:2px solid #efefef;
+  border-left:2px solid #efefef;
+  cursor:pointer;
+  cursor: hand;
+}
+
+.button_alarm {
+  font-size: 10pt;
+  line-height: 150%;
+  color: #fff;
+  height: 28px;
+  width: 120px;
+  background:#D54A09;
+  border:3px solid #A45804;
+  border-top:2px solid #D54A09;
+  border-left:2px solid #D54A09;
+  cursor:pointer;
+  cursor: hand;
+}
+
+.button_Calendar_tw {
+  display:inline-block;
+  outline:none;
+  width:18px;
+  height:21px;
+  overflow:hidden;
+  border:0px;
+  background: url(../images/tw/HeadBg.1.1.gif) no-repeat -734px -4px #f08300;
+  vertical-align:bottom;
+  cursor:pointer;
+  cursor: hand;
+}
+
+.button_Calendar_tw::-moz-focus-inner{border : 0px;}
+
+.button_Calendar_en {
+  display:inline-block;
+  outline:none;
+  width:18px;
+  height:21px;
+  overflow:hidden;
+  border:0px;
+  background: url(../images/en/HeadBg.1.1.gif) no-repeat -734px -4px #f08300;
+  vertical-align:bottom;
+  cursor:pointer;
+  cursor: hand;
+}
+
+.button_Calendar_en::-moz-focus-inner{border : 0px;}
+
+.note_title {
+  font-size: 10pt;
+  color: #000000;
+  font-weight: bold;
+  border-bottom-width: 1pt;
+  border-bottom-style: dotted;
+  border-bottom-color: #666666;
+}
+
+.input_auto {
+  background-color:#FFFFFF;
+  border: 0px solid;
+  color: #000000;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.default {
+    cursor: default;
+}
+
+/*Redefined Tags*/
+body {
+  margin: 0 auto;
+  text-align:center;
+  line-height:1.6;
+}
+
+select, input {
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+  font-size: 9pt;
+  color: #333333;
+}
+
+table.table_details {
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+  font-size: 9pt;
+  color: #333333;
+  text-align:center;
+  margin: 0;
+  border-collapse: collapse;
+  border: 1px solid #cccccc;
+}
+
+table.table_details td {
+  padding: 7px;
+  border: 1px solid #cccccc;
+}
+
+table.table_simple {
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+  font-size: 9pt;
+  color: #333333;
+  text-align:center;
+  margin: 0;
+  border-collapse: collapse;
+  border: 1px solid #cccccc;
+}
+
+table.table_simple td {
+  padding: 7px;
+}
+
+
+table.table_alarm {
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+  font-size: 9pt;
+  color: #333333;
+  text-align:center;
+  margin: 0;
+  border-collapse: collapse;
+  border: 1px solid #FF0000;
+}
+
+table.table_alarm td {
+  padding: 7px;
+}
+
+/*Div Layers*/
+#wrap {
+  margin: 0 auto;
+  font-family: "Verdana, Arial, Helvetica, sans-serif";
+  color:#333333;
+}
+
+#header {
+  height:72px;
+  font-size: 9pt;
+  color:#fff;
+  margin-right:5px;
+  width: 765px;
+  margin: 5px auto 0;
+}
+
+#header a {color:#FFFFFF;text-decoration:none; font-size:9pt;}
+#header a:hover { text-decoration:underline }
+
+.header_tw {
+  background:url(../images/tw/HeadBg.1.1.gif) no-repeat 0 -47px;
+}
+.header_en {
+  background:url(../images/en/HeadBg.1.1.gif) no-repeat 0 -47px;
+}
+.header_jp {
+  background:url(../images/jp/HeadBg.1.1.gif) no-repeat 0 -47px;
+}
+
+.IRSLogo { float:right; height:30px; width:220px; display:inline-block;}
+.LinkArea { padding-left:205px; clear:both; padding-top:6px; text-align:left;}
+.LinkArea table { width:549px; color:#fff; font-size:12px;}
+.LinkAddLine {
+  padding-left:5px;
+  padding-right:8px;
+  border-right:1px solid #e6b08d;
+  margin-right:6px;
+}
+.MainFunc { text-align:left;}
+.LangClass { width:145px; text-align:center;}
+
+#header .LangCon {
+  float:right;
+  margin-top:8px;
+  margin-right:15px;
+}
+#header .LangCon a {
+  color:#666;
+  font-weight:bold
+  }
+.LangLine {
+  padding-left:1px;
+    padding-right:8px;
+    border-right:1px solid #666;
+    margin-right:6px;
+  }
+#header a.LangAc { color:#e52  }
+
+#steps {
+  height:23px;
+  line-height:23px;
+  text-align:center;
+  vertical-align:middle;
+  padding: 5px;
+  margin-top: 3px;
+  font-size: 9pt;
+  color: #cccccc;
+  border:1px solid #ccc;
+  background:#f5f5f5;
+}
+
+.StepTitle { color:#FF6600; padding-right:15px;}
+.Step01 { padding-right:10px;}
+.Step01:after { content:'　＞'}
+.Step02 { padding-right:10px;}
+.Step02:after { content:'　＞'}
+.Step03 { padding-right:10px;}
+.Step03:after { content:'　＞'}
+
+#error {
+  margin: 5px auto 0;
+  padding: 5px ;
+  font-size: 15px;
+  color: #f00;
+  font-weight: bold;
+  width: 755px;
+}
+
+#content {
+  padding: 5px;
+  font-size: 9pt;
+  color: #333333;
+  text-align:left;
+  width: 765px;
+  margin: 5px auto 0;
+  min-height:200px;
+}
+
+#action {
+  font-size: 9pt;
+  color: #333333;
+  width: 765px;
+  margin: 5px auto 0;
+  clear:both;
+}
+
+#note {
+  padding:1px 30px 10px;
+  *padding-top:15px;
+  background-color: #eeeeee;
+  font-size: 9pt;
+  color: #666666;
+  text-align:left;
+  width: 705px;
+  *width: 765px;
+  margin: 15px auto 0;
+  *margin-bottom:20px;
+  clear:both;
+}
+.note {font-size:8pt; color:#666; line-height:1.4}
+.note em { padding:0 2px; font-style:normal; color:#663333;}
+.note li { padding:2px 0;}
+
+#footer {
+  padding: 5px;
+  text-align:left;
+  font-size: 8pt;
+  color: #666666;
+  line-height:80%;
+  width: 765px;
+  margin: 5px auto 0;
+}
+
+#footer a {color:#09C;text-decoration:none; padding:0 2px;}
+#footer a:hover {text-decoration:underline}
+
+.footer_tw { background: url(../images/tw/HeadBg.1.1.gif) no-repeat 620px 15px;}
+.footer_en  { background: url(../images/en/HeadBg.1.1.gif) no-repeat 620px 15px}
+.footer_jp  { background: url(../images/jp/HeadBg.1.1.gif) no-repeat 620px 15px}
+
+table.table_details .in80 { padding-left:0px; text-indent:80px;}
+table.table_details .in60 { padding-left:0px; text-indent:60px;}
+.PR10 { padding-right:12px;}
+.PR20 { padding-right:22px;}
+.PR30 { padding-right:30px;}
+.PR40 { padding-right:42px;}
+.PL10 { padding-left:12px;}
+.PL20 { padding-left:22px;}
+.PL30 { padding-left:30px;}
+.PL40 { padding-left:42px;}
+
+*{ outline:none;}  /* 新增 */
+
+/*Links*/
+.content a:link {color:#0099CC;text-decoration:none}
+.content a:visited {color:#0099CC;text-decoration:none}
+.content a:hover {color:#0099CC;text-decoration:underline}
+
+/* The main calendar widget.  DIV containing a table. */
+
+div.calendar { position: relative; }
+
+.calendar, .calendar table {
+  border: 1px solid #556;
+  font-size: 11px;
+  color: #000;
+  cursor: default;
+  background: #F7F7F7;
+  font-family: tahoma,verdana,sans-serif;
+}
+
+/* Header part -- contains navigation buttons and day names. */
+
+.calendar .button { /* "<<", "<", ">", ">>" buttons have this class */
+  text-align: center;    /* They are the navigation buttons */
+  padding: 2px;          /* Make the buttons seem like they're pressing */
+  border-bottom: 1px solid #000;
+}
+
+.calendar .nav {
+  background: #fff 100% 100%;
+}
+
+.calendar thead .title { /* This holds the current "month, year" */
+  font-weight: bold;      /* Pressing it will take you to the current date */
+  text-align: center;
+  background: #fff;
+  color: #000;
+  padding: 2px;
+  border-bottom: 1px solid #000;
+
+}
+
+.calendar thead .headrow { /* Row <TR> containing navigation buttons */
+  background: #fff;
+  color: #000;
+  border-top: 1px solid #000;
+}
+
+.calendar thead .daynames { /* Row <TR> containing the day names */
+  background: #D3D3D3;
+}
+
+.calendar thead .name { /* Cells <TD> containing the day names */
+  border-top: 1px solid #797979;
+  border-bottom: 1px solid #797979;
+  padding: 2px;
+  text-align: center;
+  color: #000;
+}
+
+.calendar thead .weekend { /* How a weekend day name shows in header */
+  color: #CC4444;
+}
+
+.calendar thead .hilite { /* How do the buttons in header appear when hover */
+  background-color: #aaf;
+  color: #000;
+  border: 1px solid #04f;
+  padding: 1px;
+}
+
+.calendar thead .active { /* Active (pressed) buttons in header */
+  background-color: #77c;
+  padding: 2px 0px 0px 2px;
+}
+
+/* The body part -- contains all the days in month. */
+
+.calendar tbody .day { /* Cells <TD> containing month days dates */
+  width: 2em;
+  color: #000000;
+  text-align: right;
+  padding: 2px 4px 2px 2px;
+}
+.calendar tbody .day.othermonth {
+  font-size: 80%;
+  color: #bbb;
+}
+.calendar tbody .day.othermonth.oweekend {
+  color: #fbb;
+}
+
+.calendar table .wn {
+  padding: 2px 3px 2px 2px;
+  border-right: 1px solid #797979;
+  background: #D3D3D3;
+}
+
+.calendar tbody .rowhilite td {
+  background: #def;
+}
+
+.calendar tbody .rowhilite td.wn {
+  background: #eef;
+}
+
+.calendar tbody td.hilite { /* Hovered cells <TD> */
+  background: #def;
+  padding: 1px 3px 1px 1px;
+  border: 1px solid #bbb;
+}
+
+.calendar tbody td.active { /* Active (pressed) cells <TD> */
+  background: #cde;
+  padding: 2px 2px 0px 2px;
+}
+
+.calendar tbody td.selected { /* Cell showing today date */
+  font-weight: bold;
+  border: 1px solid #000;
+  padding: 1px 3px 1px 1px;
+
+}
+
+.calendar tbody td.weekend { /* Cells showing weekend days */
+  color: #CC4444;
+}
+
+.calendar tbody td.today { /* Cell showing selected date */
+  font-weight: bold;
+}
+
+.calendar tbody .disabled { color: #999; }
+
+.calendar tbody .emptycell { /* Empty cells (the best is to hide them) */
+  visibility: hidden;
+}
+
+.calendar tbody .emptyrow { /* Empty row (some months need less than 6 rows) */
+  display: none;
+}
+
+/* The footer part -- status bar and "Close" button */
+
+.calendar tfoot .footrow { /* The <TR> in footer (only one right now) */
+  text-align: center;
+  background: #556;
+  color: #fff;
+}
+
+.calendar tfoot .ttip { /* Tooltip (status bar) cell <TD> */
+  background: #fff;
+  color: #445;
+  border-top: 1px solid #556;
+  padding: 1px;
+}
+
+.calendar tfoot .hilite { /* Hover style for buttons in footer */
+  background: #aaf;
+  border: 1px solid #04f;
+  color: #000;
+  padding: 1px;
+}
+
+.calendar tfoot .active { /* Active (pressed) style for buttons in footer */
+  background: #77c;
+  padding: 2px 0px 0px 2px;
+}
+
+/* Combo boxes (menus that display months/years for direct selection) */
+
+.calendar .combo {
+  position: absolute;
+  display: none;
+  top: 0px;
+  left: 0px;
+  width: 4em;
+  cursor: default;
+  border: 1px solid #655;
+  background: #def;
+  color: #000;
+  font-size: 90%;
+  z-index: 100;
+}
+
+.calendar .combo .label,
+.calendar .combo .label-IEfix {
+  text-align: center;
+  padding: 1px;
+}
+
+.calendar .combo .label-IEfix {
+  width: 4em;
+}
+
+.calendar .combo .hilite {
+  background: #acf;
+}
+
+.calendar .combo .active {
+  border-top: 1px solid #46a;
+  border-bottom: 1px solid #46a;
+  background: #eef;
+  font-weight: bold;
+}
+
+.calendar td.time {
+  border-top: 1px solid #000;
+  padding: 1px 0px;
+  text-align: center;
+  background-color: #f4f0e8;
+}
+
+.calendar td.time .hour,
+.calendar td.time .minute,
+.calendar td.time .ampm {
+  padding: 0px 3px 0px 4px;
+  border: 1px solid #889;
+  font-weight: bold;
+  background-color: #fff;
+}
+
+.calendar td.time .ampm {
+  text-align: center;
+}
+
+.calendar td.time .colon {
+  padding: 0px 2px 0px 3px;
+  font-weight: bold;
+}
+
+.calendar td.time span.hilite {
+  border-color: #000;
+  background-color: #667;
+  color: #fff;
+}
+
+.calendar td.time span.active {
+  border-color: #f00;
+  background-color: #000;
+  color: #0f0;
+}
+table.table_simple td.waytd { height:130px; padding:15px 0px; text-align:center;}
+
+.tagCon { text-align:left; width:765px; margin:20px auto 0;}
+.tagCon .CT { background:url(../images/tw/tag_tw.gif) 0 -50px;height:37px;}
+.tagCon .NL { background:url(../images/tw/tag_tw.gif) 0 0px;height:37px;}
+.tagNormal { width:155px; float:left; text-indent:-9999px; height:25px;}
+.CT .tagNormal { width:135px;}
+.tagCredit { float:left; width:200px; text-indent:-9999px; height:25px;}
+.NL .tagCredit { width:175px;}
+.welC {padding:10px 10px 0 ; font-size:10pt; line-height:1.8; clear:both; margin-top:5px;}
+.welC em {border-bottom:1px solid #333; font-style:normal;padding-bottom:1px; *padding-bottom:0px;  }
+.welC .emc { color:#f33;padding:5px 0 2px; *padding-bottom:0px;}
+.welC .emc em {adding:5px 0 2px; border-bottom:1px solid #f33; *padding-bottom:0px;}
+.CheckCon {padding:15px 10px 10px ; font-size:10pt;}
+.CheckCon a { margin:0 2px }
+.tabCon { font-family: Microsoft JhengHei; text-align:left; width:765px; margin:20px auto 0;}
+.tabCon { background:url(../images/common/line.gif) repeat; padding-left:10px; display:bolck; height:47px;}
+.tabCon a.TabAb { float:left; width:156px; background:url(../images/common/tabBg.jpg) no-repeat;height:47px; display:inline-bolck; margin-right:1px; font-weight:bold; font-size:16px; text-decoration:none; text-align:center; line-height:38px; color:#666;}
+.tabCon a:hover, .tabCon a.TabAc {background:url(../images/common/tabBg.jpg) no-repeat 0 -61px; color:#fff; float:left; width:156px; height:47px; display:inline-bolck; margin-right:1px; font-weight:bold; font-size:16px; text-decoration:none; text-align:center; line-height:38px; }
+.tabCarCon {background:url(../images/common/rentBg.jpg) no-repeat; width:762px;  padding:26px 3px 0 3px; display:block; height:89px; margin:0 auto;}
+.tabCarCon a img { border:0; height:80px}
+.tabCarCon img { height:80px}
+.tabCarCon a img:hover { top:1px; left:1px; position:relative;}
+
+.welC ul  { padding-left:15px; margin-left:0; margin-top:0;}
+.welC li { padding-bottom:5px;}
+.creditlink { text-align:right; vertical-align:top; padding:10px 5px 20px 0;}
+.creditlink a img { margin-bottom:10px;}
+.creditlink a  { position:relative;}
+.creditlink a:hover { left:1px; top:1px;}
+
+.line {size:0; border:0; height:4px; background:#efefef; color:#efefef; margin:0}
+
+
+.prt {height:300px; padding-top:25px;}
+
+.tagConEN { text-align:left; width:765px; margin:20px auto 0; clear:both;height:37px;}
+.tagConEN .NL { background:url(../images/en/tag_en.gif) 0 0px;height:37px; }
+.tagConEN .CT { background:url(../images/en/tag_en.gif) 0 -50px;height:37px; }
+
+.Banks { background:url(../images/tw/HeadBg.1.1.gif) no-repeat 0 -205px; padding-top:25px; margin-top:25px;}
+.toBank { margin-bottom:90px; display:block; margin-top:20px;}
+.toBank a { background:url(../images/tw/HeadBg.1.1.gif) -550px -121px no-repeat; height:33px; display:inline-block; line-height:30px; *line-height:34px;padding:0 35px 0 20px; color:#0099cc; font-size:10pt; text-decoration:none;}
+.toBank a:hover { background:url(../images/tw/HeadBg.1.1.gif) -550px -164px no-repeat;color:#333;}
+
+/* jump info */
+.JCon { padding:10px;}
+.THead { background:#990000; color:#ffffff; padding:3px 10px 5px;}
+.JTable { border-collapse:collapse;  border-top:1px solid #d5d5d5; border-left:1px solid #d5d5d5; font-size:10.5pt;}
+.JTable td { padding:7px; border-bottom:1px solid #d5d5d5; border-right:1px solid #d5d5d5;}
+.thg { background:#f9f9f9; font-weight:bold;}
+.TCon { padding:10px}
+.action { padding:20px 10px 10px;}
+</style></head>
+  <body leftmargin="0" topmargin="0" rightmargin="0" bottommargin="0" bgcolor="#FFFFFF" data-pinterest-extension-installed="cr1.38.4" cz-shortcut-listen="true">
+
+<div id="wrap" class="wrap">
+
+<div id="content" class="content">
+
+
+  <p class="standard_text">抱歉 ，無法繼續提供您服務，可能發生原因及解決方法如下：</p>
+  <ol>
+    <li class="standard_text"> 您可能於系統指定時限內沒有做出選擇，導致表單資料遺失，請點選此處<a href="/">回到系統首頁</a>重新開始。</li>
+    <li class="standard_text"> 您可能選取了瀏覽器上的「回上一頁」按鈕，導致表單資料遺失，請點選此處<a href="/">回到系統首頁</a>重新填寫。</li>
+  </ol>
+  <p class="standard_text">如您持續遇到此問題，<a target="_blank" href="https://www.facebook.com/pages/Colorgy/1529686803975150">請向我們聯繫</a>！</p>
+</div>
+
+<div id="footer" class="footer">
+  <p> Colorgy Books</p>
+</div>
+</div>
+
+</body><div></div></html>
