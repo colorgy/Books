@@ -35,7 +35,6 @@ javascript:
 
 	$('.img-open').click(function(){
 		var image_url = $(this).attr('image-url');
-		image_url = encodeURI(image_url);
 		$('#modal-content').html('<img src="' + image_url + '">');
 		$('#modal1').openModal();
 	});
