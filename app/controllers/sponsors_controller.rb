@@ -1,5 +1,4 @@
 class SponsorsController < ApplicationController
-	before_action :authenticate_user!
 	def index
 
 	end
@@ -9,19 +8,27 @@ class SponsorsController < ApplicationController
 	end
 
 	def taiwan_mobile
-		@taiwan_mobile_img = current_user.taiwan_mobile_imgs.new
+		if !current_user.blank?
+			@taiwan_mobile_img = current_user.taiwan_mobile_imgs.new
+		end
 	end
 
 	def taiwan_mobile_admin
-		if current_user.id != 4 && current_user.id != 5
-			flash[:error] = '你沒有權限進入此頁面'
+		if current_user.blank?
 			redirect_to sponsors_path
 		else
-			@taiwan_mobile_imgs = TaiwanMobileImg.all
+			if current_user.id != 4 && current_user.id != 5
+				flash[:error] = '你沒有權限進入此頁面'
+				redirect_to sponsors_path
+			else
+				@taiwan_mobile_imgs = TaiwanMobileImg.all
+			end
 		end
 	end
 
 	def tutor_abc
-
+		if current_user.blank?
+			redirect_to sponsors_path
+		end
 	end
 end
