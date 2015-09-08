@@ -153,14 +153,14 @@ CartItemsCashier = React.createClass
         packagePickupAddressInput =
           `<div className="row dorm-address">
             <input type="hidden" name="package[pickup_address]" value={this.state.packagePickupAddress} />
-            <div className="col m4">
+            <div className="col m4 s12">
               <select className="browser-default" onChange={this.handlePackagePickupAddressDormTypeChange} value={this.state.packagePickupAddressDormType}>
                 <option value="" disabled selected>宿舍別</option>
                 <option value="男">男</option>
                 <option value="女">女</option>
               </select>
             </div>
-            <div className="col m4">
+            <div className="col m4 s12">
               <select className="browser-default" onChange={this.handlePackagePickupAddressDormNumChange} value={this.state.packagePickupAddressDormNum}>
                 <option value="" disabled selected>宿舍編號</option>
                 <option value="光復一宿">光復一宿</option>
@@ -196,7 +196,7 @@ CartItemsCashier = React.createClass
                 <option value="其他">其他</option>
               </select>
             </div>
-            <div className="col m4">
+            <div className="col m4 s12">
               <input className="string form-control" placeholder="房間號碼" onChange={this.handlePackagePickupAddressDormRoomNumChange} value={this.state.packagePickupAddressDormRoomNum} />
             </div>
           </div>`
@@ -216,7 +216,7 @@ CartItemsCashier = React.createClass
             valueLink={this.linkState('packagePickupAddress')}
             name="package[pickup_address]" />`
       packageDeliverForm =
-        `<div className="checkout-options-field">
+        `<div className="checkout-options-field package-delivery-form">
           <div className="checkout-options-field-inner">
             <div className="checkout-options-field-title">
               <div className="total-title">
@@ -237,14 +237,14 @@ CartItemsCashier = React.createClass
                   <blockquote className="small">可以選擇寄送到宿舍、指定地址或（中央、中興、元智、輔大）敦煌書局取貨（免運費）。</blockquote>
                 </div>
                 <div className="row">
-                  <div className="col m3">
+                  <div className="col m3 s12">
                     <select className="browser-default" valueLink={this.linkState('packagePickupAddressType')}>
                       <option value="dorm">學校宿舍：</option>
                       <option value="caves">敦煌取書</option>
                       <option value="address">地址：</option>
                     </select>
                   </div>
-                  <div className="col m9">
+                  <div className="col m9 s12">
                     {packagePickupAddressInput}
                   </div>
                 </div>
@@ -347,17 +347,14 @@ CartItemsCashier = React.createClass
                 <div className="checkout-options-field-body text-center">
                   <p>共買了 {bookCount} 本書</p>
                   <p>總共 NT {totalPrice}</p>
+                  <small>#小提醒：買滿三件商品（含加價購）免運費，另外購物金 和 金流手續費將在 "確認訂單" 頁面顯示。</small>
+                  <div className="go-checkout go-checkout--vertical">
+                    <a className="btn-second btn-highlight btn--large" id="next-step-btn" onClick={this.nextStep}>下一步</a>
+                    &nbsp;
+                    <a className="btn-second btn--large" key="a" href="/books">上一步</a>
+                  </div>
                 </div>
               </div>
-            </div>
-          </div>
-        </div>
-        <div className="row">
-          <div className="col m12 s12">
-            <div className="go-checkout">
-              <a className="btn-second btn--large" key="a" href="/books">上一步</a>
-              &nbsp;
-              <a className="btn-second btn-highlight btn--large" id="next-step-btn" onClick={this.nextStep}>下一步</a>
             </div>
           </div>
         </div>
@@ -366,9 +363,9 @@ CartItemsCashier = React.createClass
     else
 
       `<div>
-        <div className="row row-inner">
+        <div className="row row-inner margin-bottom-none">
           <div className="cart-items-field">
-            <p>請選擇付款方式，接著請按「下一步」！</p>
+            <p>選擇付款方式及填寫配送資料，再按「下一步」！</p>
             <table className="responsive-table hoverable" style={{ display: 'none' }}>
               <thead>
                 <tr>
@@ -391,6 +388,9 @@ CartItemsCashier = React.createClass
           </div>
         </div>
         <div className="row row-inner">
+          <div className="col m12 s12">
+            {packageDeliverForm}
+          </div>
           <div className="col m8 s12">
             <div className="checkout-options-field">
               <div className="checkout-options-field-inner">
@@ -452,24 +452,18 @@ CartItemsCashier = React.createClass
                 <div className="checkout-options-field-body text-center">
                   <p>共買了 {bookCount} 本書</p>
                   <p>總共 NT {totalPrice}</p>
+                  <small>#小提醒：買滿三件商品（含加價購）免運費，另外購物金 和 金流手續費將在 "確認訂單" 頁面顯示。</small>
+                  <div className="go-checkout go-checkout--vertical">
+                    <button type="submit" onClick={this.handleSubmit} className={classNames({ 'btn-second': true, 'btn-highlight': true, 'btn--large': true, 'disabled': !this.canSubmit() })}>前往確認訂單</button>
+                    &nbsp;
+                    <a className="btn-second btn--large" key="b" href="#" onClick={this.prevStep}>上一步</a>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
           <div className="col m12 s12" style={{ display: 'none' }}>
             {packageAdditionalItems}
-          </div>
-          <div className="col m12 s12">
-            {packageDeliverForm}
-          </div>
-        </div>
-        <div className="row">
-          <div className="col m12 s12">
-            <div className="go-checkout">
-              <a className="btn-second btn--large" key="b" href="#" onClick={this.prevStep}>上一步</a>
-              &nbsp;
-              <button type="submit" onClick={this.handleSubmit} className={classNames({ 'btn': true, 'btn-highlight': true, 'btn--large': true, 'disabled': !this.canSubmit() })}>下一步，確認訂單</button>
-            </div>
           </div>
         </div>
       </div>`

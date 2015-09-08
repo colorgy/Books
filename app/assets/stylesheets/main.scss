@@ -1133,3 +1133,23 @@ a:hover, a:focus {
 iframe{
 	width: 100%;
 }
+
+.checkout-options-field.package-delivery-form{
+	max-width: 100%;
+}
+
+.dorm-address{
+	select, input{
+		margin: 0 4px;
+
+		@media screen and (max-width: 600px) {
+			margin: 8px 0;
+		}
+	}
+
+	.s12{
+		@media screen and (min-width: 600px) {
+			padding: 0 8px;
+		}
+	}
+}

@@ -73,6 +73,11 @@
 					color: $darker-gray;
 				}
 			}
+			small{
+				max-width: 300px;
+			    display: block;
+			    margin: 0 auto 24px auto;
+			}
 		}
 	}
 }
@@ -80,8 +85,15 @@
 	text-align: center;
 	button{
 		margin-top: 24px;
-		padding-right: 100px;
-		padding-left: 100px;
+		width: 100%;
+	}
+
+	&.go-checkout--vertical{
+		.btn{
+			max-width: 290px;
+			display: block;
+			margin: 0 auto;
+		}
 	}
 }
 
