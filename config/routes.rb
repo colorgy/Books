@@ -72,6 +72,7 @@ Rails.application.routes.draw do
   get '/paymethod/famiport' => 'pages#paymethod_famiport'
   get '/paymethod/life' => 'pages#paymethod_life'
   get '/paymethod/ok' => 'pages#paymethod_ok'
+  get '/introduction' => 'pages#introduction'
 
   get '/sponsors' => 'sponsors#index'
   get '/sponsors/taiwan-mobile' => 'sponsors#taiwan_mobile'

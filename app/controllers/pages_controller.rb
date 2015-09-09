@@ -37,6 +37,10 @@ class PagesController < ApplicationController
 
   end
 
+  def introduction
+
+  end
+
   def sorry_but_forbidden
     redirect_to root_path if current_user && current_user.organization_code
   end
