@@ -73,7 +73,7 @@ class TasksController < ApplicationController
         bill.invoice_cert, # 自然人
         bill.invoice_love_code, # 愛心碼
         ENV['GATEWAY_ACCOUNT_TYPE'], # 會員類別
-        bill.user.id, # 會員號碼
+        bill.user.sid, # 會員號碼
         "", # 貨號
         "", # 國際條碼
         bill.user.name, # 發票備註欄位

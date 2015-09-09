@@ -73,4 +73,65 @@ ActiveAdmin.register Bill do
     actions
   end
 
+  show do
+    panel "Orders" do
+      table do
+        thead do
+          tr do
+            %w(no book_name quantity book_price book_isbn state course_name lecturer course_ucode created_at updated_at).each(&method(:th))
+          end
+        end
+
+        orders = bill.orders
+        orders.pluck(:book_id).group_by(&:itself).each_with_index do |(book_id, id_arr), index|
+          quantity = id_arr.size
+          order = orders.find_by(book_id: book_id)
+          book = Book.find(book_id)
+          course = order.course
+
+          tr do
+            td { index+1 }
+            td { a book.name, href: admin_book_path(book) }
+            td { quantity }
+            td { order.price }
+            td { a book.isbn, href: admin_book_data_path(book.data) }
+            td { order.state }
+            td { a course.name, href: admin_course_path(course) }
+            td { a course.lecturer_name, href: admin_course_path(course) }
+            td { a order.course_ucode, href: admin_course_path(course) }
+            td { order.created_at }
+            td { order.updated_at }
+          end
+        end
+      end
+    end
+
+  end
+
+  sidebar "Bill Info", only: :show do
+    attributes_table_for bill do
+      row(:uuid)
+      row(:user_id)
+      row(:user_fbid) { |bill| a bill.user.fbid, href: "https://www.facebook.com/#{bill.user.fbid}" }
+      row(:type)
+      row(:price)
+      row(:amount)
+      row(:invoice_id)
+      row(:invoice_type)
+      row(:invoice_data)
+      row(:data)
+      row(:state)
+      row(:deleted_at)
+      row(:created_at)
+      row(:updated_at)
+      row(:payment_code)
+      row(:paid_at)
+      row(:used_credits)
+      row(:deadline)
+      row(:processing_fee)
+      row(:virtual_account)
+      row(:used_credit_ids)
+    end
+  end
+
 end
