@@ -38,6 +38,8 @@
                 td
                 - if item.course
                   td= "#{item.course.lecturer_name} / #{item.course.name}"
+                - elsif item.course_ucode
+                  td= item.course_ucode
                 - else
                   td 未知
                 td= "NT$ #{item.item_price}"

@@ -21,6 +21,8 @@ table.responsive-table
         td= order.book.author
         - if order.course
           td= "#{order.course.lecturer_name} / #{order.course.name}"
+        - elsif order.course_ucode
+          td= order.course_ucode
         - else
           td 未知
         td= "NT$ #{order.price}"

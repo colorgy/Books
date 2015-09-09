@@ -34,13 +34,16 @@ AddBookToCart = React.createClass
           groupCode: code
 
   canSubmit: ->
-    if (@state.purchaseMethod == 'package')
+    if @state.processing
+      false
+    else if (@state.purchaseMethod == 'package')
       @state.courseUCode && @state.purchaseMethod && @state.quantity && (@state.quantity > 0)
     else
       @state.purchaseMethod && @state.quantity && (@state.quantity > 0)
 
   submit: ->
     return unless @canSubmit()
+    @setState processing: true
     itemType = @state.purchaseMethod
     quantity = @state.quantity
     courseUCode = @state.courseUCode
@@ -59,11 +62,13 @@ AddBookToCart = React.createClass
         'cart_item[quantity]': quantity
         'cart_item[course_ucode]': courseUCode
     .done (data, textStatus, xhr) =>
+      @setState processing: false
       flash.success('已加入購物書包！選完需要的書籍，按下右上角的「前往結帳」就可以下訂囉。')
-      @reset()
+      # @reset()
     .fail (data, textStatus, xhr) =>
+      @setState processing: false
       flash.alert('糟糕，發生錯誤了！')
-      # TODO: reload the page if 4xx error
+      window.location.reload() if (xhr == 'Unauthorized')
 
   handleCourseChange: (courseUCode) ->
     @setState courseUCode: courseUCode
@@ -200,6 +205,11 @@ AddToCartCourseSelect = React.createClass
               </span>
             </div>
           </div>`
+      options.push
+        value: 'other'
+        label: `<div className="complex-selection">
+            其他
+          </div>`
       callback null, options: options
     # else
     #   $.ajax
@@ -242,17 +252,45 @@ AddToCartCourseSelect = React.createClass
       @refs.select.autoloadAsyncOptions()
     , 50)
 
+  handleSelectChange: (d) ->
+    @setState select: d
+    if d != 'other'
+      @props.onChange(d)
+
+  handleCLNChange: (e) ->
+    @setState cln: e.target.value, =>
+      @props.onChange("#{@state.cln} #{@state.cn}")
+
+  handleCNChange: (e) ->
+    @setState cn: e.target.value, =>
+      @props.onChange("#{@state.cln} #{@state.cn}")
+
   render: ->
     value = @props.value?.toString()
+    otherCourseInput = ''
+    window.s = @refs.select
+    if (@state.select == 'other')
+      otherCourseInput = `<div className="row" style={{ marginTop: 12 }}>
+          <div className="col m12">
+            <p>請直接填寫課程資訊：</p>
+          </div>
+          <div className="col m6">
+            <input placeholder="老師姓名" className="form-control" onChange={this.handleCLNChange} />
+          </div>
+          <div className="col m6">
+            <input placeholder="課程名稱" className="form-control" onChange={this.handleCNChange} />
+          </div>
+        </div>`
 
     `<div>
-      <Select className="with-complex-selection" ref="select"
+      <Select ref="select" className="with-complex-selection" ref="select"
         asyncOptions={this.getData}
         value={value}
         placeholder="您是為哪門課買書呢？"
         filterOption={this.filterOption}
-        onChange={this.props.onChange}
+        onChange={this.handleSelectChange}
       />
+      {otherCourseInput}
     </div>`
 
 
