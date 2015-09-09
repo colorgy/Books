@@ -26,7 +26,7 @@ class Order < ActiveRecord::Base
            to: :group, prefix: true, allow_nil: true
 
   validates :user, presence: true
-  validates :book, presence: true
+  # validates :book, presence: true
 
   after_initialize :init_price
   before_save :init_price

@@ -10,6 +10,7 @@ table.responsive-table
       th 帳單
   tbody
     - @orders.each do |order|
+      - next if order.book_id == 0
       tr
         - if order.group
           td= order.group.leader.name

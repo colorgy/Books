@@ -59,6 +59,8 @@ class Package < ActiveRecord::Base
       self.shipping_fee = SHIPPING_FEE
     end
 
+    self.price ||= 0
+
     self.amount = price + shipping_fee
 
     additional_items.each_pair do |k, v|

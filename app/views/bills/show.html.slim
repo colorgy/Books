@@ -73,7 +73,7 @@
         .order-confirm-table
           = render "partials/orders_table"
 
-        - if @bill.packages
+        - if @bill.packages.present?
           - package = @bill.packages.first
           - if package.additional_items.present?
             - @package_additional_items = package.package_additional_items

@@ -146,3 +146,14 @@ blockquote.small {
 	padding: 0;
 	padding-left: 10px;
 }
+
+.package-field {
+
+	.Select-input input {
+		opacity: 0 !important;
+	}
+
+	.is-searchable.is-open > .Select-control {
+		cursor: pointer;
+	}
+}

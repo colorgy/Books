@@ -18,8 +18,8 @@ class OrdersController < ApplicationController
           redirect_to @data[:bill] and return
         end
       end
-    elsif @cart_items.blank?
-      redirect_to root_path and return
+    # elsif @cart_items.blank?
+    #   redirect_to root_path and return
     else
       # let the user confirm their order
       @data = current_user.checkout(bill_params, package_attrs: package_params)

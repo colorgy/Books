@@ -96,12 +96,19 @@ CartItemsCashier = React.createClass
     return true if @canSubmit()
     return false
 
+  canNext: ->
+    return true if (@state.cartItems.length > 0)
+    calcP = 0
+    @props.packageAdditionalItems.map (item, i) =>
+      calcP += item.price if @state['packageAdditionalItems' + item.id]
+    (calcP > 0)
+
   render: ->
     bookCount = 0
     packageBookCount = 0
     totalPrice = 0
 
-    if !@state.cartItems || !@state.cartItems.length
+    if false && (!@state.cartItems || !@state.cartItems.length)
       return `<div className="notice-message-block">
         <div className="notice-message-block-icon"><i className="material-icons">shopping_cart</i></div>
         <h5 className="notice-message-block-title">購物書包內還沒有東西！</h5>
@@ -140,7 +147,7 @@ CartItemsCashier = React.createClass
     packageDeliverForm = ''
     packageAdditionalItemsForm = ''
 
-    if packageBookCount > 0
+    if packageBookCount > 0 || true
       totalPrice += @props.packageShippingFee if packageBookCount <= @props.packageRShippingFeeMinI && @state.packagePickupAddressType != 'caves'
       packageAdditionalItems = @props.packageAdditionalItems.map (item, i) =>
         totalPrice += item.price if @state['packageAdditionalItems' + item.id]
@@ -306,30 +313,40 @@ CartItemsCashier = React.createClass
     totalPrice = parseInt(totalPrice)
 
     if @state.step == 1
+      cartItemsForm = `<div className="notice-message-block">
+        <div className="notice-message-block-icon"><i className="material-icons">shopping_cart</i></div>
+        <h5 className="notice-message-block-title">購物書包內還沒有東西！</h5>
+        <p className="notice-message-block-message">不過你也可以單買這裏的加價購項目，直接選取想買的品項後繼續結帳。</p>
+        <div className="notice-message-block-actions">
+          <a className="btn" href="/books">回去選書</a>
+        </div>
+      </div>`
+      if cartItems.length
+        cartItemsForm = `<table className="responsive-table">
+            <thead>
+              <tr>
+                <th></th>
+                <th></th>
+                <th>書名</th>
+                <th>作者</th>
+                <th>版次</th>
+                <th>老師 / 課名</th>
+                <th>價格</th>
+                <th>數量</th>
+                <th>小計</th>
+                <th>取消</th>
+              </tr>
+            </thead>
+            <tbody>
+              {cartItems}
+            </tbody>
+          </table>`
 
       `<div>
         <div className="row row-inner">
           <div className="cart-items-field">
             <p>請確認您的購物內容，接著請按「下一步」！</p>
-            <table className="responsive-table">
-              <thead>
-                <tr>
-                  <th></th>
-                  <th></th>
-                  <th>書名</th>
-                  <th>作者</th>
-                  <th>版次</th>
-                  <th>老師 / 課名</th>
-                  <th>價格</th>
-                  <th>數量</th>
-                  <th>小計</th>
-                  <th>取消</th>
-                </tr>
-              </thead>
-              <tbody>
-                {cartItems}
-              </tbody>
-            </table>
+            {cartItemsForm}
           </div>
         </div>
         <div className="row row-inner">
@@ -347,11 +364,11 @@ CartItemsCashier = React.createClass
                 <div className="checkout-options-field-body text-center">
                   <p>共買了 {bookCount} 本書</p>
                   <p>總共 NT {totalPrice}</p>
-                  <small>#小提醒：買滿三件商品（含加價購）免運費，另外購物金 和 金流手續費將在 "確認訂單" 頁面顯示。</small>
+                  <blockquote className="small">買滿三本書（不含加價購）免運費，另外購物金和 金流手續費將在「確認訂單」頁面顯示。</blockquote>
                   <div className="go-checkout go-checkout--vertical">
-                    <a className="btn-second btn-highlight btn--large" id="next-step-btn" onClick={this.nextStep}>下一步</a>
+                    <a className={classNames({ 'btn-second': true, 'btn-highlight': true, 'btn--large': true, 'disabled': !this.canNext() })} id="next-step-btn" onClick={this.nextStep} >下一步，繼續結帳</a>
                     &nbsp;
-                    <a className="btn-second btn--large" key="a" href="/books">上一步</a>
+                    <a className="btn-second btn--large" key="a" href="/books">回去選書</a>
                   </div>
                 </div>
               </div>
@@ -452,7 +469,7 @@ CartItemsCashier = React.createClass
                 <div className="checkout-options-field-body text-center">
                   <p>共買了 {bookCount} 本書</p>
                   <p>總共 NT {totalPrice}</p>
-                  <small>#小提醒：買滿三件商品（含加價購）免運費，另外購物金 和 金流手續費將在 "確認訂單" 頁面顯示。</small>
+                  <blockquote className="small">買滿三本書（不含加價購）免運費，另外購物金和 金流手續費將在「確認訂單」頁面顯示。</blockquote>
                   <div className="go-checkout go-checkout--vertical">
                     <button type="submit" onClick={this.handleSubmit} className={classNames({ 'btn-second': true, 'btn-highlight': true, 'btn--large': true, 'disabled': !this.canSubmit() })}>前往確認訂單</button>
                     &nbsp;

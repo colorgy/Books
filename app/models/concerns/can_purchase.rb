@@ -108,7 +108,7 @@ module CanPurchase
   def checkout(bill_attrs = {}, package_attrs: {})
     check_cart!
     return { orders: [], bill: nil } unless Settings.open_for_orders
-    return { orders: [], bill: nil } if cart_items.blank?
+    # return { orders: [], bill: nil } if cart_items.blank?
 
     # start to build the orders and the bill
     orders = []
@@ -154,6 +154,21 @@ module CanPurchase
 
         book_isbns << Book.find(item.item_code).isbn
       end
+    end
+
+    if cart_items.blank?
+      package ||= self.packages.build(package_attrs)
+      order = self.orders.build(
+        bill: bill,
+        book_id: 0,
+        course_ucode: nil,
+        price: 0,
+        package: package)
+      package.price ||= 0
+      package.price += order.price
+      package.orders_count += 1
+      orders << order
+      package.orders << order
     end
 
     if package.present?
