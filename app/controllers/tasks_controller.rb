@@ -1,6 +1,6 @@
 class TasksController < ApplicationController
   before_action :check_api_key, only: [:payment_code_check]
-  before_action :authenticate_admin!, only: [:course_books_csv, :lecturer_books_csv]
+  before_action :authenticate_admin!, only: [:course_books_csv, :lecturer_books_csv, :invoice_export]
 
   def payment_code_check
     unpaid_bills = Bill.where(type: 'payment_code', state: 'payment_pending')
