@@ -37,7 +37,10 @@ AddBookToCart = React.createClass
     if @state.processing
       false
     else if (@state.purchaseMethod == 'package')
-      @state.courseUCode && @state.purchaseMethod && @state.quantity && (@state.quantity > 0)
+      if @props.book.course_required
+        @state.courseUCode && @state.purchaseMethod && @state.quantity && (@state.quantity > 0)
+      else
+        @state.purchaseMethod && @state.quantity && (@state.quantity > 0)
     else
       @state.purchaseMethod && @state.quantity && (@state.quantity > 0)
 
@@ -90,7 +93,7 @@ AddBookToCart = React.createClass
       note = ''
       if book.behalf
         note = ' (將由協辦單位處理交付)'
-      if checked
+      if checked && @props.book.course_required
         bookCourses = @props.bookCourses
         handleCourseChange = @handleCourseChange
         courseUCode = @state.courseUCode
