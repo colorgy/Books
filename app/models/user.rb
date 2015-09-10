@@ -9,6 +9,7 @@ class User < ActiveRecord::Base
   has_many :identities, class_name: :UserIdentity
   has_many :feedbacks
   has_many :taiwan_mobile_imgs
+  has_many :tutor_abc_forms
   after_create :add_initial_credits
 
   # has_many :groups, through: :orders

@@ -80,6 +80,7 @@ Rails.application.routes.draw do
   get '/sponsors/colorgy-books' => 'sponsors#colorgy_books'
   get '/sponsors/tutorABC' => 'sponsors#tutor_abc'
   resources :taiwan_mobile_imgs
+  resources :tutor_abc_forms
 
   resource :my_account, controller: 'users/my_account' do
     get 'invoice_subsume' => 'users/my_account#invoice_subsume'

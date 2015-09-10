@@ -38,11 +38,11 @@
 		.col.m12.s12
 			.banner.tutor-abc-bottom
 				.banner-mask.banner-mask--blue2
-				.banner-content--center
+				.banner-content style="text-align: center; margin-top: 60px;"
 					h2.banner-title
 						.icon style="max-width: 400px;"
 							= image_tag ('sponsors/tutorabc/logo.png')
-					p.banner-description
+					p.banner-description style="color: #FFF; position: relative; text-shadow: 1px 1px 3px rgba(0,0,0,.5);"
 						| 勾選同意，讓 TutorABC 花 "5分鐘" 用電話跟你介紹 TutorABC的好處，讓我們推廣一下自己的服務
 						br
 						|只要勾選這個意願通知， TutorABC 立即提供你 50 元購書金！
@@ -51,8 +51,29 @@
 							a.btn.btn--large.disabled style="opacity: 1;"
 								| 你已經拿過囉 ^^
 						- else
-							a.btn.btn--large id="tutor-abc-accept-btn"
-								| 我願意
+							.tutor-abc-form
+								= form_for :tutor_abc_form, url: tutor_abc_forms_path,:html => { :id=> 'tutor-abc-form'} do |f|
+									h5 請填寫聯絡表單
+									= f.label :mobile_phone_number, '聯絡手機 (請務必填寫正確)'
+									= f.text_field :mobile_phone_number
+									br
+									br
+									= f.label :if_heard_tutor_abc, '是否聽過 tutorABC'
+									.switch
+										label
+											| 否
+											= f.check_box :if_heard_tutor_abc
+											span.lever
+											| 是
+									br
+									.agreement.tutor-abc
+										p
+										input type="checkbox" id="agreement"
+										label for="agreement" 我同意 TutorABC 與我聯繫
+									br
+									br
+									button.btn.form-submit id="form-submit" type="submit" 提交
+
 
 javascript:
 	$('#tutor-abc-accept-btn').click(function(){
@@ -62,4 +83,18 @@ javascript:
 			$('#tutor-abc-accept-btn').attr('id', '').addClass('disabled').html('你已經領過囉！');
 
 		});
+	})
+
+	$('#tutor-abc-form').submit(function(){
+		var phone_number = $('#tutor_abc_form_mobile_phone_number').val();
+		var agreement = $('#agreement').prop('checked');
+
+		if(phone_number.length != 10){
+			flash.error('請填寫正確的手機號碼');
+			return false;
+		}
+		if(!agreement){
+			flash.error('請勾選我同意 TutorABC 與我聯繫');
+			return false;
+		}
 	})

@@ -29,6 +29,8 @@ class SponsorsController < ApplicationController
 	def tutor_abc
 		if current_user.blank?
 			redirect_to sponsors_path
+		else
+			@tutor_abc_form = current_user.tutor_abc_forms.new
 		end
 	end
 end

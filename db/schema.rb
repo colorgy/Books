@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150902171105) do
+ActiveRecord::Schema.define(version: 20150910225030) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -357,6 +357,14 @@ ActiveRecord::Schema.define(version: 20150902171105) do
   end
 
   add_index "taiwan_mobile_imgs", ["user_id"], name: "index_taiwan_mobile_imgs_on_user_id", using: :btree
+
+  create_table "tutor_abc_forms", force: :cascade do |t|
+    t.string   "mobile_phone_number"
+    t.boolean  "if_heard_tutor_abc",  default: true
+    t.integer  "user_id"
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+  end
 
   create_table "user_cart_items", force: :cascade do |t|
     t.integer  "user_id"

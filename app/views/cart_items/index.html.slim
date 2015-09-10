@@ -10,25 +10,3 @@
   = form_tag(orders_path, method: 'POST', onsubmit: 'return window.cartItemsCashier.canSubmit();') do
 
     = react_component 'CartItemsCashier', cartItems: @cart_items_data, billTypeSelections: Bill.type_selections, billTypeFeeEquations: Bill::TYPE_FEE_EQUATIONS, packageShippingFee: Package::SHIPPING_FEE, packageRShippingFeeMinI: Package::RELIEVE_SHIPPING_FEE_IF_ITEMS_MORE_THEN, packageAdditionalItems: PackageAdditionalItem.all, orgName: Organization.find(current_user.organization_code).name
-	- if !current_user.tutorabc_check_credits
-		.row-inner
-			.message-bar id="tutorabc-message-bar"
-				.message-bar-action
-					p
-						input.filled-in type="checkbox" id="tutorabc-check-box" checked="checked"
-						label for="tutorabc-check-box"
-				.message-bar-content
-					p
-						| 我願意參加 TutorABC 獎助學生教育計畫，獲得 50 元購物金
-						a href="#" (詳情)
-
-javascript:
-	$(document).on('click', '#next-step-btn', function(){
-		if($('#tutorabc-check-box').prop('checked')){
-		  $.post('/credits/tutorabc_check', function(response) {
-		  	console.log(response);
-		    flash.success('成功獲得 tutorABC 提供之 50 元購書金！');
-		    $('#tutorabc-message-bar').remove();
-		  });
-		}
-	})
