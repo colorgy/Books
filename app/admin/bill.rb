@@ -75,12 +75,17 @@ ActiveAdmin.register Bill do
 
   show do
     panel "Orders" do
+
+      total_price = 0
+      calculate_strings = []
+
       table do
         thead do
           tr do
-            %w(no book_name quantity book_price book_isbn state course_name lecturer course_ucode created_at updated_at).each(&method(:th))
+            %w(no book_name quantity book_price book_isbn state course_name lecturer package_id course_ucode created_at updated_at).each(&method(:th))
           end
         end
+
 
         orders = bill.orders
         orders.pluck(:book_id).group_by(&:itself).each_with_index do |(book_id, id_arr), index|
@@ -89,6 +94,9 @@ ActiveAdmin.register Bill do
           book = Book.find(book_id)
           course = order.course
 
+          total_price += quantity * order.price
+          calculate_strings << "#{order.price} * #{quantity}"
+
           tr do
             td { index+1 }
             td { a book.name, href: admin_book_path(book) }
@@ -96,13 +104,72 @@ ActiveAdmin.register Bill do
             td { order.price }
             td { a book.isbn, href: admin_book_data_path(book.data) }
             td { order.state }
-            td { a course.name, href: admin_course_path(course) }
-            td { a course.lecturer_name, href: admin_course_path(course) }
-            td { a order.course_ucode, href: admin_course_path(course) }
+            td {
+              if course.present?
+                a course.name, href: admin_course_path(course)
+              else
+                order.course_ucode
+              end
+            }
+            td {
+              if course.present?
+                a course.lecturer_name, href: admin_course_path(course)
+              else
+                order.course_ucode
+              end
+            }
+            td { a order.package_id, href: admin_package_path(order.package_id) }
+            td {
+              if course.present?
+                a order.course_ucode, href: admin_course_path(course)
+              else
+                order.course_ucode
+              end
+            }
             td { order.created_at }
             td { order.updated_at }
           end
         end
+
+      end
+      span do
+        "小計： #{calculate_strings.join(' + ')} = #{total_price}"
+      end
+    end
+
+    panel "Addtional Items" do
+      total_price = 0
+      calculate_strings = []
+
+      table do
+        thead do
+          tr do
+            %w(no name price).each(&method(:th))
+          end
+        end
+
+
+        item_price_h = Hash[PackageAdditionalItem.all.map{|item| [item.id.to_s, item.price]}]
+        item_name_h = Hash[PackageAdditionalItem.all.map{|item| [item.id.to_s, item.name]}]
+
+        bill.orders.map(&:package).uniq.each do |package|
+          package.additional_items.reject{|k,v| v != 'on'}.keys.each_with_index do |addtional_item_id, item_index|
+
+            item_price = item_price_h[addtional_item_id]
+            total_price += item_price
+            calculate_strings << item_price
+
+            tr do
+              td item_index+1
+              td item_name_h[addtional_item_id]
+              td item_price_h[addtional_item_id]
+            end
+          end
+        end
+      end
+
+      span do
+        "小計： #{calculate_strings.join(' + ')} = #{total_price}"
       end
     end
 
