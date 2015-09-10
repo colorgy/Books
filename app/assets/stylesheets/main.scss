@@ -1304,3 +1304,30 @@ blockquote{
   max-width: 500px;
 }
 
+/* Isotope */
+/* clear fix */
+.isotope:after {
+  content: '';
+  display: block;
+  clear: both;
+}
+/* ---- .element-item ---- */
+.grid-sizer{
+  width: 18%;
+}
+.isotope-item{
+	margin: 1%;
+}
+
+.card.user-item {
+  display: inline-block;
+  float: left;
+}
+
+@media screen and (min-width: 1425px ){  .isotope-item { width: 48%; } }
+@media (max-width: 1425px ) and (min-width: 800px ){ .isotope-item { width: 48%; } }
+@media (max-width: 800px ) and (min-width: 320px ){ .isotope-item { width: 48%; } }
+@media screen and (max-width: 508px){  .isotope-item { width: 98%; } }
+
+
+
