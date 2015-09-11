@@ -17,6 +17,7 @@ ActiveAdmin.register Order do
   filter :state
   filter :bill_uuid
   filter :course_ucode
+  filter :course_name, as: :string
   filter :package_id
   filter :deleted_at
   filter :created_at
@@ -24,18 +25,23 @@ ActiveAdmin.register Order do
 
   controller do
     def scoped_collection
-      super.includes :user, :book, :bill
+      super.includes :user, :book, :bill, :package
     end
   end
 
+
+
   index do
+    item_price_h = Hash[PackageAdditionalItem.all.map{|item| [item.id.to_s, item.price]}]
+    item_name_h = Hash[PackageAdditionalItem.all.map{|item| [item.id.to_s, item.name]}]
+
     selectable_column
 
     column(:id)
     column(:user)
     column(:book)
     column(:price)
-    column(:group_code)
+    # column(:group_code)
     column(:state) do |order|
       tag = nil
       case order.state
@@ -50,7 +56,17 @@ ActiveAdmin.register Order do
     end
     column(:bill)
     column(:course_ucode)
-    column(:package_id)
+    column("course_name") do |order|
+      if order.course.present?
+        a order.course_name, href: admin_course_path(order.course)
+      else
+        order.course_ucode
+      end
+    end
+    column(:package)
+    column("additional_items") do |order|
+      order.package && order.package.additional_items.reject{|k,v| v != 'on'}.keys.map{|id| item_name_h[id]}
+    end
     column(:created_at)
     column(:updated_at)
 
