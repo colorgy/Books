@@ -74,7 +74,7 @@
 			blockquote style="font-size: 18px;"
 				| 讓巨匠幫助你成長，留下聯繫資料，巨匠將致電贈送你12000元的電腦課程體驗，敬請期待！讓巨匠幫助你鍛鍊技能！並且即刻獲得購書金 60 元！
 
-			- if current_user.gjun_credits
+			- if !current_user.gjun_credits
 				= form_for :gjun_form, url: gjun_forms_path,:html => { :id=> 'gjun-form'} do |f|
 					h5 請填寫聯絡表單
 					= f.label :mobile_phone_number, '聯絡手機 (請務必填寫正確)'
