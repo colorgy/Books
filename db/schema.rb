@@ -172,6 +172,14 @@ ActiveRecord::Schema.define(version: 20150910225030) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "gjun_forms", force: :cascade do |t|
+    t.string   "mobile_phone_number"
+    t.boolean  "if_heard_gjun",       default: true
+    t.integer  "user_id"
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+  end
+
   create_table "groups", force: :cascade do |t|
     t.string   "code",                                     null: false
     t.integer  "leader_id",                                null: false

@@ -791,6 +791,13 @@ i{
 		background-repeat: no-repeat;
 	}
 
+	&.gjun{
+		background-image: image-url('sponsors/gjun/bg.jpg');
+		background-size: cover;
+		background-position: center;
+		background-repeat: no-repeat;
+	}
+
 	&.colorgy-books{
 		background-image: image-url('sponsors/bg1.jpg');
 		background-size: cover;
