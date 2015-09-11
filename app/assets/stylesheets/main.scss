@@ -1311,6 +1311,26 @@ blockquote{
   max-width: 500px;
 }
 
+.message-blockquote{
+	text-align: center;
+	background-color: #fff;
+	margin: 4px 24px 8px 24px;
+	border-right: 1px solid #EEE;
+	border-top: 1px solid #EEE;
+	border-bottom: 1px solid #EEE;
+}
+
+.form-block{
+  background-color: #fff;
+  padding: 16px 16px 48px 16px;
+  max-width: 600px;
+  margin: 24px auto 80px auto;
+  text-align: left;
+  border-radius: 2px;
+  box-shadow: 1px 1px 10px rgba(0,0,0,.4);
+}
+
+
 /* Isotope */
 /* clear fix */
 .isotope:after {

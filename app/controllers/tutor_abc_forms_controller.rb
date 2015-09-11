@@ -2,7 +2,7 @@ class TutorAbcFormsController < ApplicationController
 	before_action :authenticate_user!
 
 	def new
-		@tutor_abc_form = current_user.tutor_abc_form.new
+		@tutor_abc_form = current_user.tutor_abc_forms.new
 	end
 
   def create

@@ -109,14 +109,10 @@ CartItemsCashier = React.createClass
     totalPrice = 0
 
     if false && (!@state.cartItems || !@state.cartItems.length)
-      return `<div className="notice-message-block">
-        <div className="notice-message-block-icon"><i className="material-icons">shopping_cart</i></div>
-        <h5 className="notice-message-block-title">購物書包內還沒有東西！</h5>
-        <p className="notice-message-block-message">你可以回去書本瀏覽繼續購物 ^^ (#加價購也需要購物車中有書才能加價購唷！)</p>
-        <div className="notice-message-block-actions">
-          <a className="btn" href="/books">繼續購物</a>
-        </div>
-      </div>`
+      return `<blockquote className="message-blockquote">
+          不過你也可以單買這裏的加價購項目，直接選取想買的品項後繼續結帳。
+          <a className="btn btn--small" href="/books">返回購書</a>
+        </blockquote>`
 
     cartItems = @state.cartItems.map (item, i) =>
       courseInfo = ''
@@ -313,14 +309,11 @@ CartItemsCashier = React.createClass
     totalPrice = parseInt(totalPrice)
 
     if @state.step == 1
-      cartItemsForm = `<div className="notice-message-block">
-        <div className="notice-message-block-icon"><i className="material-icons">shopping_cart</i></div>
-        <h5 className="notice-message-block-title">購物書包內還沒有東西！</h5>
-        <p className="notice-message-block-message">不過你也可以單買這裏的加價購項目，直接選取想買的品項後繼續結帳。</p>
-        <div className="notice-message-block-actions">
-          <a className="btn" href="/books">回去選書</a>
-        </div>
-      </div>`
+      cartItemsForm = `<blockquote className="message-blockquote">
+          <h5 className="notice-message-block-title">購物書包內還沒有東西！</h5>
+          不過你也可以單買這裏的加價購項目，直接選取想買的品項後繼續結帳。
+          <a className="btn btn--small" href="/books">返回購書</a>
+        </blockquote>`
       if cartItems.length
         cartItemsForm = `<table className="responsive-table">
             <thead>

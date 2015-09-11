@@ -43,15 +43,17 @@
 						.icon style="max-width: 400px;"
 							= image_tag ('sponsors/tutorabc/logo.png')
 					p.banner-description style="color: #FFF; position: relative; text-shadow: 1px 1px 3px rgba(0,0,0,.5);"
-						| 勾選同意，讓 TutorABC 花 "5分鐘" 用電話跟你介紹 TutorABC的好處，讓我們推廣一下自己的服務
+						| 勾選同意，就能立即獲得 TutorABC 提供的50元購書金！
 						br
-						|只要勾選這個意願通知， TutorABC 立即提供你 50 元購書金！
+						|	TutorABC 將致電贈送你個人程度分析與線上英語體驗課，敬請期待！
+						br
+						|（價值3,000元，可自由選擇體驗時間）
 					div style="text-align:center; position: relative; margin-top: 32px;"
 						- if current_user.tutorabc_check_credits
 							a.btn.btn--large.disabled style="opacity: 1;"
 								| 你已經拿過囉 ^^
 						- else
-							.tutor-abc-form
+							.tutor-abc-form.form-block
 								= form_for :tutor_abc_form, url: tutor_abc_forms_path,:html => { :id=> 'tutor-abc-form'} do |f|
 									h5 請填寫聯絡表單
 									= f.label :mobile_phone_number, '聯絡手機 (請務必填寫正確)'

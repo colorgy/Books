@@ -21,8 +21,29 @@
 					| 因此我們找了這些 sponsors 來幫助同學減少買書的負擔，每個 sponsor 都有不同的指定任務，完成任務就會獲得贊助商提供的購物金！買書不再傷荷包！
 		.col.m8.s12
 			.row
-				.col.m4.s12
-					.sponsor-item
+				.isotope
+					.grid-sizer
+					.sponsor-item.isotope-item
+						.sponsor-item-image
+							= image_tag('sponsors/colorgy/logo.jpg')
+						.sponsor-item-title.hide
+							| Colorgy
+						p.sponsor-item-description
+							| Colorgy 是由一群來自台灣校園的大學生創立，使用用網路資源共享的方式，讓校園生活更加方便。致力於創造可以改變並提升校園的生活品質的服務，讓大學生們可以跨校使用並串連起更大的社群，打造出一座雲端的虛擬大學城。
+						.sponsor-item-actions
+							a.btn href=sponsors_colorgy_books_path
+								| 拿購書金
+					.sponsor-item.isotope-item
+						.sponsor-item-image
+							= image_tag('sponsors/gjun/logo.png')
+						.sponsor-item-title.hide
+							| 巨匠電腦
+						p.sponsor-item-description
+							| 巨匠電腦以「專業、服務、實在」經營理念致力電腦教學達26年，全省65家直營分校，不斷引進最新軟體教學、建構數位學習、推動電腦認證制度，26年來已培育近90萬名各領域技術專才，朝全面提昇我國資訊教育水準而努力！
+						.sponsor-item-actions
+							a.btn href=sponsors_gjun_path
+								| 拿購書金
+					.sponsor-item.isotope-item
 						.sponsor-item-image
 							= image_tag('sponsors/tutorabc/logo.jpg')
 						.sponsor-item-title.hide
@@ -32,8 +53,7 @@
 						.sponsor-item-actions
 							a.btn href="/sponsors/tutorABC"
 								| 拿購書金
-				.col.m4.s12
-					.sponsor-item
+					.sponsor-item.isotope-item
 						.sponsor-item-image
 							= image_tag('sponsors/taiwan-mobile/logo.png')
 						.sponsor-item-title.hide
@@ -43,16 +63,15 @@
 						.sponsor-item-actions
 							a.btn href="/sponsors/taiwan-mobile"
 								| 拿購書金
-				.col.m4.s12
-					.sponsor-item
-						.sponsor-item-image
-							= image_tag('sponsors/colorgy/logo.jpg')
-						.sponsor-item-title.hide
-							| Colorgy
-						p.sponsor-item-description
-							| Colorgy 是由一群來自台灣校園的大學生創立，目的是為了利用網路資源共享的方式，讓校園生活更加方便。致力於創造可以改變並提升校園的生活品質的服務，讓大學生們可以跨校使用並串連起更大的社群，打造出一座雲端的虛擬大學城。
-						.sponsor-item-actions
-							a.btn href=sponsors_colorgy_books_path
-								| 拿購書金
 
+javascript:
 
+  $( function() {
+    // init Isotope
+    var $container = $('.isotope').imagesLoaded(function(){
+      $container.isotope({
+        itemSelector: '.isotope-item',
+        columnWidth: '.grid-sizer',
+      });
+    });
+  })

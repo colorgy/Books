@@ -56,7 +56,7 @@ Rails.application.routes.draw do
     root 'books#index'
   end
 
-  root 'pages#index', as: :new_user_session
+  root 'pages#introduction', as: :new_user_session
 
   get '/shopping-guide' => 'pages#shopping_guide'
   get '/faq' => 'pages#faq'

@@ -33,4 +33,12 @@ class SponsorsController < ApplicationController
 			@tutor_abc_form = current_user.tutor_abc_forms.new
 		end
 	end
+
+	def gjun
+		if current_user.blank?
+			redirect_to sponsors_path
+		else
+			@gjun_form = current_user.gjun_forms.new
+		end
+	end
 end
