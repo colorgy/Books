@@ -42,7 +42,7 @@
 				.intro-item style="margin: 24px 0;"
 					.icon
 						= image_tag ('icons/smartphone.png')
-					h5 II. 手機 APP 設計
+					h5 IV. 手機 APP 設計
 					ul
 						li Android APP 應用開發
 						li iOS APP 應用開發
@@ -51,7 +51,7 @@
 				.intro-item style="margin: 24px 0;"
 					.icon
 						= image_tag ('icons/dev.png')
-					h5 III. 程式設計 / 資料庫系統
+					h5 V. 程式設計 / 資料庫系統
 					ul
 						li CSS & JavaScript 程式設計
 						li Java 程式設計
@@ -60,7 +60,7 @@
 				.intro-item style="margin: 24px 0;"
 					.icon
 						= image_tag ('icons/browser.png')
-					h5 I. 網路管理
+					h5 VI. 網路管理
 					ul
 						li Csico 國際認證
 						li 微軟國際認證
@@ -73,24 +73,28 @@
 			h4 style="text-align: center;" 讓巨匠幫助你成長 並獲得購書金
 			blockquote style="font-size: 18px;"
 				| 讓巨匠幫助你成長，留下聯繫資料，巨匠將致電贈送你12000元的電腦課程體驗，敬請期待！讓巨匠幫助你鍛鍊技能！並且即刻獲得購書金 60 元！
-			= form_for :gjun_form, url: gjun_forms_path,:html => { :id=> 'gjun-form'} do |f|
-				h5 請填寫聯絡表單
-				= f.label :mobile_phone_number, '聯絡手機 (請務必填寫正確)'
-				= f.text_field :mobile_phone_number
-				br
-				br
-				= f.label :if_heard_gjun, '是否聽過巨匠電腦'
-				.switch
-					label
-						| 否
-						= f.check_box :if_heard_gjun
-						span.lever
-						| 是
-				br
-				.agreement.gjun
-					p
-					input type="checkbox" id="agreement"
-					label for="agreement" 我同意 巨匠電腦 與我聯繫
-				br
-				br
-				button.btn.form-submit id="form-submit" type="submit" 提交
+
+			- if current_user.gjun_credits
+				= form_for :gjun_form, url: gjun_forms_path,:html => { :id=> 'gjun-form'} do |f|
+					h5 請填寫聯絡表單
+					= f.label :mobile_phone_number, '聯絡手機 (請務必填寫正確)'
+					= f.text_field :mobile_phone_number
+					br
+					br
+					= f.label :if_heard_gjun, '是否聽過巨匠電腦'
+					.switch
+						label
+							| 否
+							= f.check_box :if_heard_gjun
+							span.lever
+							| 是
+					br
+					.agreement.gjun
+						p
+						input type="checkbox" id="agreement"
+						label for="agreement" 我同意 巨匠電腦 與我聯繫
+					br
+					br
+					button.btn.form-submit id="form-submit" type="submit" 提交
+			- else
+				a.btn.disabled 你已經拿過囉！感謝你！
