@@ -10,7 +10,7 @@ class GjunFormsController < ApplicationController
     @gjun_form = current_user.gjun_forms.new(gjun_forms_params)
 
     if @gjun_form.save
-			current_user.user_credits.build(name: '巨匠電腦獎助學生計畫', credits: 50)
+			current_user.user_credits.build(name: '巨匠電腦獎助學生計畫', credits: 60)
 			current_user.gjun_credits = true
 			current_user.save!
 			flash[:success] = '成功獲得 巨匠電腦 提供之 60 元購書金！'
