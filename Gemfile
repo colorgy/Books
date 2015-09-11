@@ -169,3 +169,5 @@ gem 'rails_stdout_logging', :require => false
 
 gem 'kaminari'
 gem 'bootstrap-kaminari-views'
+
+gem 'aws-sdk', '~> 1.6'
