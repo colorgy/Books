@@ -9,4 +9,4 @@
 .container-fluid.cart-items
   = form_tag(orders_path, method: 'POST', onsubmit: 'return window.cartItemsCashier.canSubmit();') do
 
-    = react_component 'CartItemsCashier', cartItems: @cart_items_data, billTypeSelections: Bill.type_selections, billTypeFeeEquations: Bill::TYPE_FEE_EQUATIONS, packageShippingFee: Package::SHIPPING_FEE, packageRShippingFeeMinI: Package::RELIEVE_SHIPPING_FEE_IF_ITEMS_MORE_THEN, packageAdditionalItems: PackageAdditionalItem.all, orgName: Organization.find(current_user.organization_code).name
+    = react_component 'CartItemsCashier', cartItems: @cart_items_data, billTypeSelections: Bill.type_selections, billTypeFeeEquations: Bill::TYPE_FEE_EQUATIONS, packageShippingFee: Package::SHIPPING_FEE, packageRShippingFeeMinI: Package::RELIEVE_SHIPPING_FEE_IF_ITEMS_MORE_THEN, packageAdditionalItems: PackageAdditionalItem.all, orgName: current_user.organization_code && Organization.find(current_user.organization_code).name
