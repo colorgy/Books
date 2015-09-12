@@ -85,9 +85,14 @@
 					a.btn href=books_path 前往
 			.col.m3.s6
 				.intro-item
-					.icon
-						= image_tag ('icons/truck.png')
-					h6 IV. 包裹直達
+					- if current_user
+						.icon
+							= image_tag ('icons/creditcard.png')
+						h6 IV. 下訂付款
+					- else
+						.icon
+							= image_tag ('icons/truck.png')
+						h6 IV. 包裹直達
 					a.btn href=orders_path 前往
 	.banner-bar.flat-design-background id="leader-plan"
 		.banner-mask

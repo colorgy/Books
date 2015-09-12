@@ -21,7 +21,7 @@
             li.tooltipped  data-delay="0" data-position="bottom" data-tooltip="檢視你現在有多少購物金！"
               a(href=credits_path)
                 | 您有折扣金 NT$ #{current_user.total_credits}
-                span#credits-countdown
+                span.credits-countdown
           - if current_user
             li
               a onclick="init_share_table()"
@@ -129,13 +129,25 @@
       | (#{current_user.cart_items_count})
 
 - if current_user && current_user.first_user_credit_expires_at.present? && current_user.first_user_credit_expires_at > Time.now
+  .credits-clock-countdown.hide-on-small-only
+    .icon
+      = image_tag ('icons/clock.png')
+    p
+      | 購物金 NT$#{current_user.total_credits}
+      br
+      span.credits-countdown
   javascript:
-    $('#credits-countdown')
+    $('span.credits-countdown')
     .countdown("#{current_user.first_user_credit_expires_at.strftime('%Y/%m/%d')}", function(event) {
       $(this).text(
         event.strftime(' (%D 天 %H:%M:%S 後將過期)')
       );
     });
+    $('.credits-clock-countdown').click(function(){
+      $(this).animate({
+        right: "-=400",
+      }, 1200);
+    })
 
 javascript:
   $(".button-collapse").sideNav();

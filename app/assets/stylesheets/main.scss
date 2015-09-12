@@ -1482,3 +1482,53 @@ blockquote{
 .is-open > .Select-control > .Select-arrow{
 	border-width: 0 8px 12px;
 }
+.side-bar blockquote{
+	font-size: 16px;
+
+	> span{
+		color: #D26759;
+		font-weight: 700;
+	}
+}
+
+.credits-clock-countdown{
+  position: fixed;
+  right: 0;
+  padding: 8px 16px;
+  top: 35%;
+  background-color: #FFF;
+  border: 1px solid #EEE;
+  border-radius: 2px;
+  z-index: 998;
+	cursor: pointer;
+
+	&:hover{
+		opacity: 0.6;
+	}
+
+	> .credits-clock-countdown-close-btn{
+		position: absolute;
+		top: 4px;
+		left: 4px;
+		cursor: pointer;
+	}
+
+  > .icon{
+		width: 28px;
+		vertical-align: middle;
+		margin-right: 12px;
+  }
+
+  > p{
+		font-size: 14px;
+		display: inline-block;
+		vertical-align: middle;
+		margin: 0;
+		color: #5E6671;
+		letter-spacing: 0.5px;
+
+		> span{
+			color: #D26759;
+		}
+  }
+}

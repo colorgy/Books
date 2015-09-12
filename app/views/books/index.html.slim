@@ -1,3 +1,6 @@
+style
+  | .credits-clock-countdown{ display: none;}
+
 .container-fluid style=("padding: 0;")
   .row.margin-bottom-none
     - if current_user && current_user.first_user_credit_expires_at.present? && current_user.first_user_credit_expires_at > Time.now
@@ -42,10 +45,11 @@
           br
           - if current_user.total_credits > 0
             | 您目前有折扣金 NT$ #{current_user.total_credits}
+            span.credits-countdown
+            | ，趕緊使用或拿取更多折扣金吧！
           - else
             | 您的折扣金目前為 0
-          br
-          | 拿取更多折扣金吧！
+            | 拿取更多折扣金吧！
           br
           a class="btn btn--small" style="background-color: #5E6671;margin: 8px 0;" href=credits_path target="_blank" 拿折扣金
 
@@ -144,7 +148,14 @@
     .modal-footer style="position: absolute; bottom: 0;"
       a.modal-action.btn-flat href="https://www.facebook.com/pages/Colorgy/1529686803975150" target="_blank" style="backrogund-color: red;" = '直接私訊 Colorgy 回報'
       a.modal-action.modal-close.btn-flat = '關閉'
-
+- if current_user && current_user.first_user_credit_expires_at.present? && current_user.first_user_credit_expires_at > Time.now
+  javascript:
+    $('span.credits-countdown')
+    .countdown("#{current_user.first_user_credit_expires_at.strftime('%Y/%m/%d')}", function(event) {
+      $(this).text(
+        event.strftime(' (%D 天 %H:%M:%S 後將過期)')
+      );
+    });
 javascript:
   var booksSearchSuggestions = new Bloodhound({
     datumTokenizer: Bloodhound.tokenizers.whitespace,
