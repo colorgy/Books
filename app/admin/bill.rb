@@ -34,10 +34,96 @@ ActiveAdmin.register Bill do
     def scoped_collection
       super.includes :user
     end
+
+    def download_orders orders
+      lines = [];
+
+      book_ids = orders.pluck(:book_id);
+      books = Book.where(id: book_ids.uniq);
+      book_count_h = book_ids.group_by(&:itself);
+
+      lines << %w(書名 本數 isbn supplier);
+
+      books.each do |book|
+        book_counts = book_count_h[book.id].size
+
+        lines << [
+          book.name,
+          book_counts,
+          book.isbn,
+          book.supplier_code
+        ]
+      end;
+
+      lines << [];
+      lines << [];
+      lines << [];
+
+      item_price_h = Hash[PackageAdditionalItem.all.map{|item| [item.id.to_s, item.price]}]
+      item_name_h = Hash[PackageAdditionalItem.all.map{|item| [item.id.to_s, item.name]}]
+
+      lines << %w(order_id user_id user price state isbn 書名 supplier_code pickup course_name course_ucode);
+      orders.order(:user_id).each do |order|
+        lines << [
+          order.id,
+          order.user_id,
+          order.user && order.user.name,
+          order.price,
+          order.state,
+          order.book_isbn,
+          order.book && order.book.name,
+          order.book.supplier_code,
+          order.package.pickup_datetime,
+          order.course && order.course.name,
+          order.course_ucode
+        ]
+
+        order.package.additional_items.reject{|k,v| v != 'on'}.keys.each do |addtional_item_id|
+          lines << [
+            order.id,
+            order.user_id,
+            order.user && order.user.name,
+            item_price_h[addtional_item_id],
+            order.state,
+            nil,
+            item_name_h[addtional_item_id],
+            nil,
+            order.package.pickup_datetime,
+            order.course && order.course.name,
+            order.course_ucode
+          ]
+        end
+
+      end;
+
+      fn = Rails.root.join('tmp', "orders_#{Time.now.strftime('%F %T')}.csv")
+      CSV.open(fn, 'w') do |csv|
+        lines.each{|l| csv << l}
+      end;
+
+      send_file fn
+    end
+  end
+
+
+  collection_action :download_packing_list_without_ouya, :method => :get do
+    download_orders(Order.joins(:book).where('orders.created_at > ? AND books.supplier_code != ?', Date.new(2015, 8, 1), 'ouya').where(state: :ready))
+  end
+
+  collection_action :download_ouya_packing_list, :method => :get do
+    download_orders(Order.joins(:book).where('orders.created_at > ? AND books.supplier_code = ?', Date.new(2015, 8, 1), 'ouya').where(state: :ready))
   end
 
   action_item only: [:index] do
     link_to "匯出發票", invoice_export_path
+  end
+
+  action_item only: :index do
+    link_to('出貨表單（沒歐亞）', params.merge(action: :download_packing_list_without_ouya) )
+  end
+
+  action_item only: :index do
+    link_to('出貨表單（歐亞）', params.merge(action: :download_ouya_packing_list) )
   end
 
   index do
