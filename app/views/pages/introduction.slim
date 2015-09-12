@@ -1,24 +1,66 @@
 .container-fluid
-	.row.margin-bottom-none
-		.col.m12.s12
-			.banner.sponsors.introduction
-				.banner-mask
-				.banner-content
-					h2.banner-title
-						.icon
-							= image_tag ('colorgy-pure-logo.png')
-						| Colorgy Books
-					a.btn.btn--large href=user_omniauth_authorize_path(:colorgy)
-						| 立即登入/註冊
-					br
-					br
-					br
-					h4
-						| 「最新！班代體驗計畫」
-					p.banner-description
-						| 協尋合作班代！同學&班代一起拿購書金300元！
+	- if current_user
+		.row.margin-bottom-none.index-header
+			.col.m9.s12.index-slider
+				.owl-carousel.owl-theme id="owl-slider"
+				    .item
+				      img src=image_path('slides/6.jpg')
+				    a.item.link href="https://www.tutorabc.com/aspx/mvc/" target="_blank"
+				      img src=image_path('sponsors/tutorabc/1680x450.jpg')
+				    a.item.link href="https://books.colorgy.io/sponsors/taiwan-mobile"
+				      img src=image_path('slides/7.jpg')
+				    a.item href=user_course_books_path
+				      img src=image_path('slides/4.jpg')
+				    .item
+				      img src=image_path('slides/1.jpg')
+				javascript:
+					$(document).ready(function() {
+						$("#owl-slider").owlCarousel({
+							slideSpeed : 500,
+							paginationSpeed : 400,
+							singleItem: true,
+							autoPlay: true,
+							navigation: false,
+							pagination: false,
+						});
+					});
+			.col.m3.s12.index-news
+				.news-container
+					.news
+						h5.news-title
+							.icon style="max-width: 30px; vertical-align: middle;"
+								= image_tag ('icons/document.png')
+							span style="vertical-align: middle;" 最新消息
+						.news-content
+							ul.news-list
+								li
+									a href=books_path 現在買書就抽 iPhone 6s！好禮獎不完！
+								li
+									a href=sponsors_path 解任務拿購物金，目前總共4種任務快點前往 "領購物金"！
+								li
+									a href="#leader-plan" 班代合作或同學介紹班代給我們即可賺取 300 元，快聯繫我們！
+	- else
+		.row.margin-bottom-none
+			.col.m12.s12
+				.banner.sponsors.introduction
+					.banner-mask
+					.banner-content
+						h2.banner-title
+							.icon
+								= image_tag ('colorgy-pure-logo.png')
+							| Colorgy Books
+						a.btn.btn--large href=user_omniauth_authorize_path(:colorgy)
+							| 立即登入/註冊
 						br
-						| [ 詳情請繼續往下看 ]
+						br
+						br
+						h4
+							| 「最新！班代體驗計畫」
+						p.banner-description
+							| 協尋合作班代！同學&班代一起拿購書金300元！
+							br
+							| [ 詳情請繼續往下看 ]
+		div style="clear:both;"
 	.banner-bar
 		.row.row-inner
 			.col.s12
@@ -28,22 +70,26 @@
 					.icon
 						= image_tag ('icons/bookshelf.png')
 					h6 I. 班代登記書單
+					a.btn href=user_course_books_path 前往
 			.col.m3.s6
 				.intro-item
 					.icon
 						= image_tag ('icons/money.png')
 					h6 II. 同學拿購書金
+					a.btn href=sponsors_path 前往
 			.col.m3.s6
 				.intro-item
 					.icon
 						= image_tag ('icons/cart.png')
 					h6 III. 同學買書
+					a.btn href=books_path 前往
 			.col.m3.s6
 				.intro-item
 					.icon
 						= image_tag ('icons/truck.png')
 					h6 IV. 包裹直達
-	.banner-bar.flat-design-background
+					a.btn href=orders_path 前往
+	.banner-bar.flat-design-background id="leader-plan"
 		.banner-mask
 		.row.row-inner style="position: relative;"
 			.col.s12
@@ -86,5 +132,4 @@
 						a.btn.typeform-share.link href="https://lucas51.typeform.com/to/oC6FOl" data-mode="2" target="_blank" 填寫表單
 						javascript:
 							(function(){var qs,js,q,s,d=document,gi=d.getElementById,ce=d.createElement,gt=d.getElementsByTagName,id='typef_orm',b='https://s3-eu-west-1.amazonaws.com/share.typeform.com/';if(!gi.call(d,id)){js=ce.call(d,'script');js.id=id;js.src=b+'share.js';q=gt.call(d,'script')[0];q.parentNode.insertBefore(js,q)}})()
-
 					= image_tag('students.jpg')

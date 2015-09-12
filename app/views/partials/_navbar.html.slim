@@ -18,7 +18,7 @@
                 i.material-icons.list-icon send
                 | 班代 / 助教開團
           - if current_user && current_user.total_credits > 0
-            li
+            li.tooltipped  data-delay="0" data-position="bottom" data-tooltip="檢視你現在有多少購物金！"
               a(href=credits_path)
                 | 您有折扣金 NT$ #{current_user.total_credits}
                 span#credits-countdown
@@ -51,20 +51,23 @@
         i.material-icons dehaze
       ul.right.hide-on-med-and-down.main-nav
         li
+          a href=root_path
+            | 〉首頁
+        li
+          a.tooltipped.highlight data-delay="0" data-position="bottom" data-tooltip="協助我們確認各課程使用的書籍，賺取購書金！" href=user_course_books_path
+            | 〉核對課程用書
+        li
           a.tooltipped.highlight data-delay="0" data-position="bottom" data-tooltip="覺得書本很貴嗎？ Colorgy 提供各式各樣領取購物金的方式！快來解任務吧！" href=sponsors_path
             | 〉領購物金
         li
           a.tooltipped.highlight data-delay="0" data-position="bottom" data-tooltip="書籍總覽！可以利用課程、老師、isbn等關鍵字搜尋書籍！" href=books_path
-            | 〉我要找書
-        li
-          a.tooltipped.highlight data-delay="0" data-position="bottom" data-tooltip="協助我們確認各課程使用的書籍，賺取購書金！" href=user_course_books_path
-            | 〉核對 / 更正書籍
-        li
-          a.tooltipped data-delay="0" data-position="bottom" data-tooltip="服務小說明，快速讓大家了解功能" href=guide_path
-            | 〉服務指南
+            | 〉購書總覽
         li
           a.tooltipped data-delay="0" data-position="bottom" data-tooltip="查看你的所有訂單！" href=orders_path
             | 〉我的訂單
+        li
+          a.tooltipped data-delay="0" data-position="bottom" data-tooltip="服務小說明，快速讓大家了解功能" href=guide_path
+            | 〉服務指南
         - unless Settings.disable_groups
           li
             a.tooltipped data-delay="0" data-position="bottom" data-tooltip="所有團購總覽！同學們可以從這邊找到已開的團！" href="/ColorgyV2-frontend/follow-group.html"

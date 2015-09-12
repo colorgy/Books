@@ -56,9 +56,30 @@
           | 本書暫不開放購買
       .social-comments
         .fb-comments data-colorscheme="light" data-href="#{ENV['APP_URL']}/#{book_path(@book)}" data-numposts="5"
+.pin-menu-container.hide-on-small-only
+  .fixed-menu.pin-menu
+    blockquote style="text-align: center;background-color: #fff;margin: 12px 0;border-right: 1px solid #EEE;border-top: 1px solid #EEE;border-bottom: 1px solid #EEE;"
+      .icon style="width: 32px; margin-bottom: 8px;"
+        = image_tag ('icons/money.png')
+      br
+      - if current_user.total_credits > 0
+        | 您目前有折扣金 NT$ #{current_user.total_credits}
+      - else
+        | 您的折扣金目前為 0
+      br
+      | 拿取更多折扣金吧！
+      br
+      a class="btn btn--small" style="background-color: #5E6671;margin: 8px 0;" href=credits_path target="_blank" 拿折扣金
 
 javascript:
   $(document).ready(function() {
     // $('.materialboxed').materialbox();
     $('#checkbox-package-buy').click();
   });
+
+  $(document).on('click', '#add-to-cart',function(){
+    if($(this).hasClass('disabled')){
+      flash.error('你必須先選擇課程才能加入購物車，如果沒有你想要的課程，請去核對課程用書區核對，或是直接至粉專回報給我們。')
+    }
+  })
+

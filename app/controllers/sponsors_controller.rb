@@ -4,11 +4,17 @@ class SponsorsController < ApplicationController
 	end
 
 	def colorgy_books
-
+		if current_user.blank?
+			flash[:error] = '請先登入'
+			redirect_to sponsors_path
+		end
 	end
 
 	def taiwan_mobile
-		if !current_user.blank?
+		if current_user.blank?
+			flash[:error] = '請先登入'
+			redirect_to sponsors_path
+		else
 			@taiwan_mobile_img = current_user.taiwan_mobile_imgs.new
 		end
 	end
@@ -28,6 +34,7 @@ class SponsorsController < ApplicationController
 
 	def tutor_abc
 		if current_user.blank?
+			flash[:error] = '請先登入'
 			redirect_to sponsors_path
 		else
 			@tutor_abc_form = current_user.tutor_abc_forms.new
@@ -36,6 +43,7 @@ class SponsorsController < ApplicationController
 
 	def gjun
 		if current_user.blank?
+			flash[:error] = '請先登入'
 			redirect_to sponsors_path
 		else
 			@gjun_form = current_user.gjun_forms.new

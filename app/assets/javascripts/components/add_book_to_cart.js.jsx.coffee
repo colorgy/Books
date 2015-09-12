@@ -99,8 +99,8 @@ AddBookToCart = React.createClass
         courseUCode = @state.courseUCode
         options = `<div>
             <p>請先選擇課程再加入購物書包。</p>
-            <AddToCartCourseSelect defaultCourses={bookCourses} onChange={handleCourseChange} value={courseUCode} />
             <small>找不到課嗎？<a href={'/user_course_books/new?book_isbn=' + book.isbn}>回報更多使用這本書的課程</a>。</small>
+            <AddToCartCourseSelect defaultCourses={bookCourses} onChange={handleCourseChange} value={courseUCode} />
           </div>`
 
       `<p>

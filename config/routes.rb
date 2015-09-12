@@ -53,7 +53,7 @@ Rails.application.routes.draw do
   end
 
   authenticated :user do
-    root 'books#index'
+    root 'pages#introduction'
   end
 
   root 'pages#introduction', as: :new_user_session
