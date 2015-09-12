@@ -114,6 +114,10 @@ ActiveAdmin.register Bill do
     download_orders(Order.joins(:book).where('orders.created_at > ? AND books.supplier_code = ?', Date.new(2015, 8, 1), 'ouya').where(state: :ready))
   end
 
+  collection_action :download_packing_list, :method => :get do
+    download_orders(Order.joins(:book).where('orders.created_at > ?', Date.new(2015, 8, 1)).where(state: :ready))
+  end
+
   action_item only: [:index] do
     link_to "匯出發票", invoice_export_path
   end
@@ -126,11 +130,15 @@ ActiveAdmin.register Bill do
     link_to('出貨表單（歐亞）', params.merge(action: :download_ouya_packing_list) )
   end
 
+  action_item only: :index do
+    link_to('出貨表單（全部）', params.merge(action: :download_packing_list) )
+  end
+
   index do
     selectable_column
 
     column(:id)
-    column(:uuid)
+    # column(:uuid)
     column(:user)
     column(:price)
     column(:amount)
@@ -147,9 +155,11 @@ ActiveAdmin.register Bill do
     end
 
     column(:type)
-    column(:invoice_type)
-    column(:payment_code)
-    column(:virtual_account)
+    # column(:invoice_type)
+    column("Payment Info") { |bill| bill.payment_code || bill.virtual_account }
+    # column(:payment_code)
+    # column(:virtual_account)
+    column(:used_credits)
     column(:processing_fee)
     column(:deadline)
     column(:paid_at)
