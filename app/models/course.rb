@@ -13,6 +13,7 @@ class Course < ActiveRecord::Base
   has_many :course_book, primary_key: :ucode, foreign_key: :course_ucode
   has_many :book_data, through: :course_book
   has_many :groups
+  has_many :package_orders, primary_key: :ucode, foreign_key: :package_course_ucode, class_name: 'Order'
 
   accepts_nested_attributes_for :course_book, allow_destroy: true, limit: 10
 
