@@ -62,9 +62,10 @@ ActiveAdmin.register Bill do
       item_price_h = Hash[PackageAdditionalItem.all.map{|item| [item.id.to_s, item.price]}]
       item_name_h = Hash[PackageAdditionalItem.all.map{|item| [item.id.to_s, item.name]}]
 
-      lines << %w(order_id user_id org user price state isbn 書名 supplier_code pickup course_name course_ucode ordered package_course_ucode);
+      lines << %w(bill_id order_id user_id org user price state isbn 書名 supplier_code pickup course_name course_ucode ordered package_course_ucode);
       orders.order(:user_id).each do |order|
         lines << [
+          order.bill.id,
           order.id,
           order.user_id,
           order.user.organization_code && order.course && order.course.organization_code,
@@ -80,9 +81,13 @@ ActiveAdmin.register Bill do
           "",
           "",
         ]
+      end
 
-        order.package.additional_items.reject{|k,v| v != 'on'}.keys.each do |addtional_item_id|
+      orders.map(&:package).uniq.each do |package|
+        order = orders.first;
+        package.additional_items.reject{|k,v| v != 'on'}.keys.each do |addtional_item_id|
           lines << [
+            order.bill.id,
             order.id,
             order.user_id,
             order.user.organization_code && order.course && order.course.organization_code,
@@ -92,14 +97,13 @@ ActiveAdmin.register Bill do
             nil,
             item_name_h[addtional_item_id],
             nil,
-            order.package.pickup_datetime,
+            package.pickup_datetime,
             order.course && order.course.name,
             order.course_ucode,
             "",
             "",
           ]
         end
-
       end;
 
       fn = Rails.root.join('tmp', "orders_#{Time.now.strftime('%F %T')}.csv")
