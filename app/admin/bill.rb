@@ -121,7 +121,7 @@ ActiveAdmin.register Bill do
   end
 
   collection_action :download_ouya_packing_list, :method => :get do
-    download_orders(Order.order('orders.course_ucode').by_supplier_code.where('orders.created_at > ? AND books.supplier_code = ?', Date.new(2015, 8, 1), 'ouya').where(state: :ready))
+    download_orders(Order.by_supplier_code.order('orders.course_ucode').where('orders.created_at > ? AND books.supplier_code = ? AND (orders.state = ? OR orders.state = ?)', Date.new(2015, 8, 1), 'ouya', 'new', 'ready'))
   end
 
   collection_action :download_packing_list, :method => :get do
