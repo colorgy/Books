@@ -1,43 +1,31 @@
-- if @orders.count == 0
-  .notice-message-block
-    .notice-message-block-icon
-      i.material-icons.list-icon shopping_cart
-    .notice-message-block-message
-      br
-      | 您目前還沒有任何訂單喲！
-      br
-      | 可以返回購書總覽繼續購物喲！
-    .notice-message-block-actions
-      a.btn href=books_path 返回購物
-- else
-  table.responsive-table
-    thead
+table.responsive-table
+  thead
+    tr
+      th 團購／專送
+      th 書名
+      th 作者
+      th 老師／課名
+      th 價格
+      th 訂單狀態
+      th 帳單
+  tbody
+    - @orders.each do |order|
+      - next if order.book_id == 0
       tr
-        th 團購／專送
-        th 書名
-        th 作者
-        th 老師／課名
-        th 價格
-        th 訂單狀態
-        th 帳單
-    tbody
-      - @orders.each do |order|
-        - next if order.book_id == 0
-        tr
-          - if order.group
-            td= order.group.leader.name
-          - elsif order.package
-            td 專送
-          - else
-            td 未知
-          td= order.book.name
-          td= order.book.author
-          - if order.course
-            td= "#{order.course.lecturer_name} / #{order.course.name}"
-          - elsif order.course_ucode
-            td= order.course_ucode
-          - else
-            td 未知
-          td= "NT$ #{order.price}"
-          td= order.human_state
-          td= link_to '查看', order.bill
+        - if order.group
+          td= order.group.leader.name
+        - elsif order.package
+          td 專送
+        - else
+          td 未知
+        td= order.book.name
+        td= order.book.author
+        - if order.course
+          td= "#{order.course.lecturer_name} / #{order.course.name}"
+        - elsif order.course_ucode
+          td= order.course_ucode
+        - else
+          td 未知
+        td= "NT$ #{order.price}"
+        td= order.human_state
+        td= link_to '查看', order.bill

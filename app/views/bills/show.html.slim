@@ -69,8 +69,8 @@
         => link_to '付款方式說明', paymethods_path, target: '_blank', class: 'btn'
         a.btn.download 下載訂單，傳送給爸媽
       .order-info
-        .under-line-title 訂單明細
-        .order-confirm-table
+        .under-line-title 書本訂單明細
+        .order-confirm-table style="padding-top: 0;"
           = render "partials/orders_table"
 
         - if @bill.packages.present?
@@ -80,17 +80,15 @@
             .under-line-title style="margin-top: 24px;" 額外購買項目
             = render "partials/package_additional_items_table"
 
-            blockquote style="margin-top: 24px;" 額外購買項目敘述：#{package.additional_items_description}
-
-          .bill-user-info
-            label 收件人姓名
-            p #{package.recipient_name}
-            label 收件地址
-            p #{package.pickup_address}
-            label 希望送達時間
-            p #{package.pickup_datetime.strftime('%Y 年 %-m 月 %-d 日 (%a)')}
-            label 收件人手機
-            p #{package.recipient_mobile}
+        .bill-user-info
+          label 收件人姓名
+          p #{package.recipient_name}
+          label 收件地址
+          p #{package.pickup_address}
+          label 希望送達時間
+          p #{package.pickup_datetime.strftime('%Y 年 %-m 月 %-d 日 (%a)')}
+          label 收件人手機
+          p #{package.recipient_mobile}
 a.c-download#c-download
 javascript:
   $('a.download').click(function () {
