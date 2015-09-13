@@ -6,6 +6,7 @@ class Order < ActiveRecord::Base
   scope :paid, ->  { where(state: :paid) }
   scope :has_paid, ->  { where(state: [:ready, :paid, :delivering, :leader_received, :delivered, :received]) }
   scope :unpaid, ->  { where(state: [:new, :payment_pending, :expired, :cancelled]) }
+  scope :by_supplier_code, -> { joins(:book).order('books.supplier_code') }
 
   belongs_to :user
   belongs_to :course, primary_key: :ucode, foreign_key: :course_ucode

@@ -107,15 +107,15 @@ ActiveAdmin.register Bill do
 
 
   collection_action :download_packing_list_without_ouya, :method => :get do
-    download_orders(Order.joins(:book).where('orders.created_at > ? AND books.supplier_code != ?', Date.new(2015, 8, 1), 'ouya').where(state: :ready))
+    download_orders(Order.order('orders.course_ucode').by_supplier_code.where('orders.created_at > ? AND books.supplier_code != ?', Date.new(2015, 8, 1), 'ouya').where(state: :ready))
   end
 
   collection_action :download_ouya_packing_list, :method => :get do
-    download_orders(Order.joins(:book).where('orders.created_at > ? AND books.supplier_code = ?', Date.new(2015, 8, 1), 'ouya').where(state: :ready))
+    download_orders(Order.order('orders.course_ucode').by_supplier_code.where('orders.created_at > ? AND books.supplier_code = ?', Date.new(2015, 8, 1), 'ouya').where(state: :ready))
   end
 
   collection_action :download_packing_list, :method => :get do
-    download_orders(Order.joins(:book).where('orders.created_at > ?', Date.new(2015, 8, 1)).where(state: :ready))
+    download_orders(Order.order('orders.course_ucode').by_supplier_code.where('orders.created_at > ?', Date.new(2015, 8, 1)).where(state: :ready))
   end
 
   action_item only: [:index] do
