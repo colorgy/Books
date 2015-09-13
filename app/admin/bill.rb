@@ -62,7 +62,7 @@ ActiveAdmin.register Bill do
       item_price_h = Hash[PackageAdditionalItem.all.map{|item| [item.id.to_s, item.price]}]
       item_name_h = Hash[PackageAdditionalItem.all.map{|item| [item.id.to_s, item.name]}]
 
-      lines << %w(bill_id order_id user_id org user price state isbn 書名 supplier_code pickup course_name course_ucode ordered package_course_ucode);
+      lines << %w(bill_id order_id user_id org user price state isbn 書名 supplier_code pickup course_name lecturer course_ucode ordered package_course_ucode);
       orders.order(:user_id).each do |order|
         lines << [
           order.bill.id,
@@ -77,6 +77,7 @@ ActiveAdmin.register Bill do
           order.book.supplier_code,
           order.package.pickup_datetime,
           order.course && order.course.name,
+          order.course && order.course.lecturer_name,
           order.course_ucode,
           "",
           "",
@@ -99,6 +100,7 @@ ActiveAdmin.register Bill do
             nil,
             package.pickup_datetime,
             order.course && order.course.name,
+            order.course && order.course.lecturer_name,
             order.course_ucode,
             "",
             "",
