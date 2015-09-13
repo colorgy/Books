@@ -289,7 +289,7 @@ AddToCartCourseSelect = React.createClass
       <Select ref="select" className="with-complex-selection" ref="select"
         asyncOptions={this.getData}
         value={value}
-        placeholder="您是為哪門課買書呢？"
+        placeholder="課程選擇：您是為哪門課買書呢？"
         filterOption={this.filterOption}
         onChange={this.handleSelectChange}
       />
