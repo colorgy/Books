@@ -104,11 +104,12 @@ style
       = paginate @books, theme: 'twitter-bootstrap-3'
     .col.m2.s12
       .sponsor-item.books-index-sponsors
-        = image_tag('calculator2.jpg')
-        = image_tag('sponsors/tutorabc/left_banner.jpg')
-        = image_tag('calculator2.jpg', :class=> 'hide-on-med-and-up')
-        = image_tag('sponsors/tutorabc/left_banner.jpg', :class=> 'hide-on-med-and-up')
-        = image_tag('sponsors/tutorabc/500x900.jpg')
+        a href='/cart_items'
+          = image_tag('calculator2.jpg')
+          = image_tag('sponsors/tutorabc/left_banner.jpg')
+          = image_tag('calculator2.jpg', :class=> 'hide-on-med-and-up')
+          = image_tag('sponsors/tutorabc/left_banner.jpg', :class=> 'hide-on-med-and-up')
+          = image_tag('sponsors/tutorabc/500x900.jpg')
 .toast-block-container
   - if @course_with_no_book.present?
     .toast-block
