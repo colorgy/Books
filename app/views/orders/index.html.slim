@@ -2,7 +2,7 @@
   .row
     .content-strip.primary
       .content-strip-inner
-        h4.strip-title 訂單
+        h4.strip-title 帳單
   .row.row-inner style="padding-top: 16px;"
-    = render "partials/orders_table"
-    = paginate @orders, theme: 'twitter-bootstrap-3'
+    = render "partials/bills_table"
+    = paginate @bills, theme: 'twitter-bootstrap-3'

@@ -1,0 +1,16 @@
+table.responsive-table
+  thead
+    tr
+      th 帳單編號
+      th 建立時間
+      th 金額
+      th 帳單狀態
+      th 帳單
+  tbody
+    - @bills.each_with_index do |bill, index|
+      tr
+        td= "帳單編號: #{index+1}"
+        td= bill.created_at.strftime('%Y 年 %-m 月 %-d 日 (%a) %H:%M')
+        td= "NT$ #{bill.amount}"
+        td= t(bill.state, scope: :bill_states)
+        td= link_to '查看', bill
