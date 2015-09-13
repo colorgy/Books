@@ -123,10 +123,10 @@ class Bill < ActiveRecord::Base
 
     case type
     when 'payment_code'
-      self.payment_code = NewebPayService.get_payment_code(uuid, amount, payname: user.name, duedate: deadline)
+      self.payment_code = NewebPayService.get_payment_code(uuid, amount, payname: user.name, duedate: deadline - 2.seconds)
 
     when 'virtual_account'
-      self.virtual_account = SinoPacService.get_virtual_account(uuid, amount, payname: user.name, duedate: deadline)
+      self.virtual_account = SinoPacService.get_virtual_account(uuid, amount, payname: user.name, duedate: deadline - 2.seconds)
     end
   end
 

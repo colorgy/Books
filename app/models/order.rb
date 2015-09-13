@@ -6,6 +6,7 @@ class Order < ActiveRecord::Base
   scope :paid, ->  { where(state: :paid) }
   scope :has_paid, ->  { where(state: [:ready, :paid, :delivering, :leader_received, :delivered, :received]) }
   scope :unpaid, ->  { where(state: [:new, :payment_pending, :expired, :cancelled]) }
+  scope :by_supplier_code, -> { joins(:book).order('books.supplier_code') }
 
   belongs_to :user
   belongs_to :course, primary_key: :ucode, foreign_key: :course_ucode
@@ -13,6 +14,7 @@ class Order < ActiveRecord::Base
   belongs_to :bill, -> { with_deleted }, primary_key: :uuid, foreign_key: :bill_uuid
   belongs_to :group, primary_key: :code, foreign_key: :group_code
   belongs_to :package
+  belongs_to :package_course, primary_key: :ucode, foreign_key: :package_course_ucode, class_name: 'Course'
 
   delegate :name, :author, :isbn, :edition, :image_url,
            :publisher, :original_price, :price,
@@ -20,6 +22,9 @@ class Order < ActiveRecord::Base
   delegate :organization_code, :department_code, :lecturer_name,
            :year, :term, :name, :code, :url, :required, :book_isbn,
            to: :course, prefix: true, allow_nil: true
+  delegate :organization_code, :department_code, :lecturer_name,
+           :year, :term, :name, :code, :url, :required, :book_isbn,
+           to: :package_course, prefix: true, allow_nil: true
   delegate :sid, :uid, :name, :fbid, :username, :avatar_url, :cover_photo_url,
            to: :user, prefix: true, allow_nil: true
   delegate :leader, :leader_name, :leader_avatar_url,

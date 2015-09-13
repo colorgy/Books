@@ -62,11 +62,12 @@ ActiveAdmin.register Bill do
       item_price_h = Hash[PackageAdditionalItem.all.map{|item| [item.id.to_s, item.price]}]
       item_name_h = Hash[PackageAdditionalItem.all.map{|item| [item.id.to_s, item.name]}]
 
-      lines << %w(order_id user_id user price state isbn 書名 supplier_code pickup course_name course_ucode);
+      lines << %w(order_id user_id org user price state isbn 書名 supplier_code pickup course_name course_ucode ordered package_course_ucode);
       orders.order(:user_id).each do |order|
         lines << [
           order.id,
           order.user_id,
+          order.user.organization_code && order.course && order.course.organization_code,
           order.user && order.user.name,
           order.price,
           order.state,
@@ -75,13 +76,16 @@ ActiveAdmin.register Bill do
           order.book.supplier_code,
           order.package.pickup_datetime,
           order.course && order.course.name,
-          order.course_ucode
+          order.course_ucode,
+          "",
+          "",
         ]
 
         order.package.additional_items.reject{|k,v| v != 'on'}.keys.each do |addtional_item_id|
           lines << [
             order.id,
             order.user_id,
+            order.user.organization_code && order.course && order.course.organization_code,
             order.user && order.user.name,
             item_price_h[addtional_item_id],
             order.state,
@@ -90,7 +94,9 @@ ActiveAdmin.register Bill do
             nil,
             order.package.pickup_datetime,
             order.course && order.course.name,
-            order.course_ucode
+            order.course_ucode,
+            "",
+            "",
           ]
         end
 
@@ -107,15 +113,15 @@ ActiveAdmin.register Bill do
 
 
   collection_action :download_packing_list_without_ouya, :method => :get do
-    download_orders(Order.joins(:book).where('orders.created_at > ? AND books.supplier_code != ?', Date.new(2015, 8, 1), 'ouya').where(state: :ready))
+    download_orders(Order.order('orders.course_ucode').by_supplier_code.where('orders.created_at > ? AND books.supplier_code != ?', Date.new(2015, 8, 1), 'ouya').where(state: :ready))
   end
 
   collection_action :download_ouya_packing_list, :method => :get do
-    download_orders(Order.joins(:book).where('orders.created_at > ? AND books.supplier_code = ?', Date.new(2015, 8, 1), 'ouya').where(state: :ready))
+    download_orders(Order.order('orders.course_ucode').by_supplier_code.where('orders.created_at > ? AND books.supplier_code = ?', Date.new(2015, 8, 1), 'ouya').where(state: :ready))
   end
 
   collection_action :download_packing_list, :method => :get do
-    download_orders(Order.joins(:book).where('orders.created_at > ?', Date.new(2015, 8, 1)).where(state: :ready))
+    download_orders(Order.order('orders.course_ucode').by_supplier_code.where('orders.created_at > ?', Date.new(2015, 8, 1)).where(state: :ready))
   end
 
   action_item only: [:index] do
