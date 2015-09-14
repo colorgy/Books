@@ -6,6 +6,32 @@ class OrdersController < ApplicationController
   end
 
   def create
+    earned_credits_text = []
+    if !current_user.tutorabc_check_credits && params[:tabcc] == 'on'
+      @tutor_abc_form = current_user.tutor_abc_forms.new(mobile_phone_number: params[:package][:recipient_mobile])
+      if @tutor_abc_form.save
+        current_user.user_credits.build(name: 'TutorABC 獎助學生計畫', credits: 50)
+        current_user.tutorabc_check_credits = true
+        current_user.save!
+        earned_credits_text << 'TutorABC 提供之 50 元購書金'
+      end
+    end
+
+    if !current_user.gjun_credits && params[:tgc] == 'on'
+      @gjun_form = current_user.gjun_forms.new(mobile_phone_number: params[:package][:recipient_mobile])
+
+      if @gjun_form.save
+        current_user.user_credits.build(name: '巨匠電腦獎助學生計畫', credits: 60)
+        current_user.gjun_credits = true
+        current_user.save!
+        earned_credits_text << '巨匠電腦 提供之 60 元購書金'
+      end
+    end
+
+    if earned_credits_text.present?
+      flash[:success] = "成功獲得 #{earned_credits_text.join(' 與 ')}！"
+    end
+
     @cart_items = current_user.cart_items.includes_default
 
     if params[:confirmed]

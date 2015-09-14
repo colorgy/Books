@@ -10,7 +10,7 @@ class TutorAbcFormsController < ApplicationController
     @tutor_abc_form = current_user.tutor_abc_forms.new(tutor_abc_forms_params)
 
     if @tutor_abc_form.save
-			current_user.user_credits.build(name: 'TutorABC獎助學生計畫', credits: 50)
+			current_user.user_credits.build(name: 'TutorABC 獎助學生計畫', credits: 50)
 			current_user.tutorabc_check_credits = true
 			current_user.save!
 			flash[:success] = '成功獲得 tutorABC 提供之 50 元購書金！'

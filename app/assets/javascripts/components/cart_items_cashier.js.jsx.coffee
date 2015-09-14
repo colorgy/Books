@@ -12,6 +12,8 @@ CartItemsCashier = React.createClass
     loading: false
     step: 1
     packagePickupAddressType: 'dorm'
+    currentUserTutorabcCheckCredits: @props.currentUserTutorabcCheckCredits
+    currentUserGjunCredits: @props.currentUserGjunCredits
 
   componentDidMount: ->
     window.cartItemsCashier = @
@@ -216,7 +218,7 @@ CartItemsCashier = React.createClass
                 <option value="十三宿">十三宿</option>
                 <option value="十四宿">十四宿</option>
                 <option value="十五宿">十五宿</option>
-                <option value="其他">其他</option>
+                <option value="其他">其他 (找不到宿舍編號嗎？你也可以直接選擇地址並輸入哦！)</option>
               </select>
             </div>
             <div className="col m4 s12">
@@ -238,6 +240,18 @@ CartItemsCashier = React.createClass
             type="text"
             valueLink={this.linkState('packagePickupAddress')}
             name="package[pickup_address]" />`
+      currentUserGjunCreditsCheck = ''
+      currentUserTutorabcCheckCreditsCheck = ''
+      unless @state.currentUserGjunCredits
+        currentUserGjunCreditsCheck = `<p>
+          <input type="checkbox" id="currentUserGjunCreditsCheck" name="tgc" defaultChecked="checked" />
+          <label htmlFor="currentUserGjunCreditsCheck">我願意將聯絡電話提供給巨匠電腦，讓巨匠致電贈送我 12000 元的電腦課程體驗，並立即獲得 NT$ 60 的購書折扣</label>
+        </p>`
+      unless @state.currentUserTutorabcCheckCredits
+        currentUserTutorabcCheckCreditsCheck = `<p>
+          <input type="checkbox" name="tabcc" id="currentUserTutorabcCheckCreditsCheck" defaultChecked="checked" />
+          <label htmlFor="currentUserTutorabcCheckCreditsCheck">我願意將聯絡電話提供給 TutorABC，讓 TutorABC 致電贈送我價值 NT$ 3000 元的課程試聽體驗，並立即獲得 NT$ 50 的購書折扣</label>
+        </p>`
       packageDeliverForm =
         `<div className="checkout-options-field package-delivery-form">
           <div className="checkout-options-field-inner">
@@ -286,6 +300,10 @@ CartItemsCashier = React.createClass
                   type="text"
                   valueLink={this.linkState('packageRecipientMobile')}
                   name="package[recipient_mobile]" />
+              </div>
+              <div className="form-group">
+                {currentUserTutorabcCheckCreditsCheck}
+                {currentUserGjunCreditsCheck}
               </div>
             </div>
           </div>
