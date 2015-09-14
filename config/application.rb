@@ -50,10 +50,9 @@ module Books
       end
     end
 
-    if ENV['ELASTICACHE_ENDPOINT'].present?
+    if ENV['MEMCACHE_SERVERS'].present?
       app_name = (ENV['APP_NAME'] || Rails.application.class.parent_name).underscore.gsub(' ', '_')
-      elasticache = Dalli::ElastiCache.new(ENV['ELASTICACHE_ENDPOINT'])
-      config.cache_store = :dalli_store, elasticache.servers, { expires_in: 1.day, namespace: app_name, compress: true }
+      config.cache_store = :dalli_store, nil, { namespace: app_name, expires_in: 1.day, compress: true }
     end
   end
 end

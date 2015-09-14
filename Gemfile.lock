@@ -212,8 +212,6 @@ GEM
     crack (0.4.2)
       safe_yaml (~> 1.0.0)
     dalli (2.7.4)
-    dalli-elasticache (0.1.2)
-      dalli (>= 1.0.0)
     database_cleaner (1.4.1)
     debug_inspector (0.0.2)
     devise (3.4.1)
@@ -599,7 +597,6 @@ DEPENDENCIES
   colorgy_style!
   coveralls
   dalli
-  dalli-elasticache
   database_cleaner
   devise (~> 3.4.0)
   dotenv-rails
