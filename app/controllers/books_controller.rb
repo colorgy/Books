@@ -2,13 +2,17 @@ class BooksController < ApplicationController
   before_action :authenticate_user!
 
   def index
+    @cached_page = Rails.cache.fetch("#{current_org_code}/books_page/#{params[:q]}/#{params[:page]}", expires_in: 10.minutes) do
 
-    if params[:q].present? && params[:q].is_a?(String)
-      @books = books_collection.simple_search(params[:q], current_org_code).page(params[:page])
-      @course_with_no_book = Course.current.in_org(current_user.organization_code).no_book.simple_search(params[:q]).limit(5)
-      @books = books_collection.order(:display_order).page(params[:page]) if @books.blank?
-    else
-      @books = books_collection.order(:display_order).page(params[:page])
+      if params[:q].present? && params[:q].is_a?(String)
+        @books = books_collection.simple_search(params[:q], current_org_code).page(params[:page])
+        @course_with_no_book = Course.current.in_org(current_user.organization_code).no_book.simple_search(params[:q]).limit(5)
+        @books = books_collection.order(:display_order).page(params[:page]) if @books.blank?
+      else
+        @books = books_collection.order(:display_order).page(params[:page])
+      end
+
+      render_to_string(layout: false)
     end
   end
 

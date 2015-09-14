@@ -1,219 +1,224 @@
-style
-  | .credits-clock-countdown{ display: none;}
+- if @cached_page
+  = @cached_page.html_safe
 
-.container-fluid style=("padding: 0;")
-  .row.margin-bottom-none
-    - if current_user && current_user.first_user_credit_expires_at.present? && current_user.first_user_credit_expires_at > Time.now
-      .col.m12.s12.hide.hide-on-med-and-down.bg-theme.index-c-countdown.valign-wrapper(style="z-index: 990;")
-        .valign.margin-center
-          | 折扣金倒數
-          #index-c-countdown
-      javascript:
-        $('#index-c-countdown').countdown('#{current_user.first_user_credit_expires_at.strftime('%Y/%m/%d')}').on('update.countdown', function(event) {
-          var $this = $(this).html(event.strftime(''
-            + '<span>%-D</span> 天'
-            + '<span>%H</span> 小時 '
-            + '<span>%M</span> 分鐘 '
-            + '<span>%S</span> 秒'));
-        });
-    .clear-both
-    .content-strip.primary
-      .content-strip-inner
-        h4.strip-title 購書總覽
-        p.strip-description 輸入老師名、課名、書名、作者去搜尋書籍吧！
+- else
 
-    .col.m12.s12
-      .search-field id="books-search-field"
-        .search-bar.search-bar--center
-          form method="get" id="books-search-form"
-            input class="books-search" name="q" placeholder="搜尋書名、課名、老師名" type="text" value=params[:q]
-            input type="submit" value="搜尋" class="btn" id="books-search-field-submit"
-        .clear style="clear:both;"
-  .row
-    .col.m2.s12.pin-menu-container.hide-on-small-only
-      .side-bar.pin-menu
-        blockquote style="text-align: center;background-color: #fff;margin: 12px 0;border-right: 1px solid #EEE;border-top: 1px solid #EEE;border-bottom: 1px solid #EEE;"
-          .icon style="width: 32px; margin-bottom: 8px;"
-            = image_tag ('icons/megaphone.png')
-          br
-          | 搜尋不到想要找的書的嗎？私訊粉專回報給我們吧！
-          br
-          a class="btn btn--small" style="background-color: #5E6671;margin: 8px 0;" href="https://www.facebook.com/pages/Colorgy/1529686803975150" target="_blank" 回報
-        blockquote style="text-align: center;background-color: #fff;margin: 12px 0;border-right: 1px solid #EEE;border-top: 1px solid #EEE;border-bottom: 1px solid #EEE;"
-          .icon style="width: 32px; margin-bottom: 8px;"
-            = image_tag ('icons/money.png')
-          br
-          - if current_user.total_credits > 0
-            | 您目前有折扣金 NT$ #{current_user.total_credits}
-            span.credits-countdown
-            | ，趕緊使用或拿取更多折扣金吧！
-          - else
-            | 您的折扣金目前為 0
-            | 拿取更多折扣金吧！
-          br
-          a class="btn btn--small" style="background-color: #5E6671;margin: 8px 0;" href=credits_path target="_blank" 拿折扣金
+  style
+    | .credits-clock-countdown{ display: none;}
 
-      .sponsor-item.section.pin-menu.books-index-sponsors.hide
-        a href='/cart_items'
-          = image_tag('calculator2.jpg')
-          = image_tag('sponsors/tutorabc/left_banner.jpg')
+  .container-fluid style=("padding: 0;")
+    .row.margin-bottom-none
+      - if current_user && current_user.first_user_credit_expires_at.present? && current_user.first_user_credit_expires_at > Time.now
+        .col.m12.s12.hide.hide-on-med-and-down.bg-theme.index-c-countdown.valign-wrapper(style="z-index: 990;")
+          .valign.margin-center
+            | 折扣金倒數
+            #index-c-countdown
+        javascript:
+          $('#index-c-countdown').countdown('#{current_user.first_user_credit_expires_at.strftime('%Y/%m/%d')}').on('update.countdown', function(event) {
+            var $this = $(this).html(event.strftime(''
+              + '<span>%-D</span> 天'
+              + '<span>%H</span> 小時 '
+              + '<span>%M</span> 分鐘 '
+              + '<span>%S</span> 秒'));
+          });
+      .clear-both
+      .content-strip.primary
+        .content-strip-inner
+          h4.strip-title 購書總覽
+          p.strip-description 輸入老師名、課名、書名、作者去搜尋書籍吧！
 
-    .col.m8.s12
-      - @books.each do |book|
-        .product-list
-          .product-list-inner
-            .col.s3.m2
-              .product-list-pic
-                a href=book_path(book)
-                  = react_component 'ImgPrevError', src: book.image_url, name: book.name, className: 'responsive-img'
-            .col.s9.m10
-              .row
-                .col.s12.m8
-                  .product-list-info
-                    h5.name
-                      a href=book_path(book)
-                        = book.name
-                        - if book.behalf
-                          span.label< 代送
-                    p.details.text-overflow-ellipse
-                      | 作者：
-                      span.author= book.author
-                    p.details.text-overflow-ellipse
-                      | ISBN：
-                      span.isbn= book.isbn
-                    - if book.course_titles_in(current_user.organization_code).present?
-                      p.details
-                        span 使用本書的課程：
-                        span.courses= book.course_titles_in(current_user.organization_code).map { |c| "<span class=\"label\">#{c}</span>" }.join(' 、 ').html_safe
-                .col.s12.m4
-                  .product-list-price
-                    - if book.buyable
-                      h5.discount-price 團購價 ： #{book.price}
-                      p.origin-price
-                        del 定價 ： #{book.original_price}
-                    - else
-                      h5.discount-price 尚未開放購買
-                      p.origin-price
-                        del 定價 ： #{book.original_price}
-                    a href=book_path(book)
+      .col.m12.s12
+        .search-field id="books-search-field"
+          .search-bar.search-bar--center
+            form method="get" id="books-search-form"
+              input class="books-search" name="q" placeholder="搜尋書名、課名、老師名" type="text" value=params[:q]
+              input type="submit" value="搜尋" class="btn" id="books-search-field-submit"
+          .clear style="clear:both;"
+    .row
+      .col.m2.s12.pin-menu-container.hide-on-small-only
+        .side-bar.pin-menu
+          blockquote style="text-align: center;background-color: #fff;margin: 12px 0;border-right: 1px solid #EEE;border-top: 1px solid #EEE;border-bottom: 1px solid #EEE;"
+            .icon style="width: 32px; margin-bottom: 8px;"
+              = image_tag ('icons/megaphone.png')
+            br
+            | 搜尋不到想要找的書的嗎？私訊粉專回報給我們吧！
+            br
+            a class="btn btn--small" style="background-color: #5E6671;margin: 8px 0;" href="https://www.facebook.com/pages/Colorgy/1529686803975150" target="_blank" 回報
+          blockquote style="text-align: center;background-color: #fff;margin: 12px 0;border-right: 1px solid #EEE;border-top: 1px solid #EEE;border-bottom: 1px solid #EEE;"
+            .icon style="width: 32px; margin-bottom: 8px;"
+              = image_tag ('icons/money.png')
+            br
+            - if current_user.total_credits > 0
+              | 您目前有折扣金 NT$ #{current_user.total_credits}
+              span.credits-countdown
+              | ，趕緊使用或拿取更多折扣金吧！
+            - else
+              | 您的折扣金目前為 0
+              | 拿取更多折扣金吧！
+            br
+            a class="btn btn--small" style="background-color: #5E6671;margin: 8px 0;" href=credits_path target="_blank" 拿折扣金
+
+        .sponsor-item.section.pin-menu.books-index-sponsors.hide
+          a href='/cart_items'
+            = image_tag('calculator2.jpg')
+            = image_tag('sponsors/tutorabc/left_banner.jpg')
+
+      .col.m8.s12
+        - @books.each do |book|
+          .product-list
+            .product-list-inner
+              .col.s3.m2
+                .product-list-pic
+                  a href=book_path(book)
+                    = react_component 'ImgPrevError', src: book.image_url, name: book.name, className: 'responsive-img'
+              .col.s9.m10
+                .row
+                  .col.s12.m8
+                    .product-list-info
+                      h5.name
+                        a href=book_path(book)
+                          = book.name
+                          - if book.behalf
+                            span.label< 代送
+                      p.details.text-overflow-ellipse
+                        | 作者：
+                        span.author= book.author
+                      p.details.text-overflow-ellipse
+                        | ISBN：
+                        span.isbn= book.isbn
+                      - if book.course_titles_in(current_user.organization_code).present?
+                        p.details
+                          span 使用本書的課程：
+                          span.courses= book.course_titles_in(current_user.organization_code).map { |c| "<span class=\"label\">#{c}</span>" }.join(' 、 ').html_safe
+                  .col.s12.m4
+                    .product-list-price
                       - if book.buyable
-                        button.btn-highlight 購買本書
+                        h5.discount-price 團購價 ： #{book.price}
+                        p.origin-price
+                          del 定價 ： #{book.original_price}
                       - else
-                        button.btn-highlight 詳細資訊
-            .clear-fix
-      = paginate @books, theme: 'twitter-bootstrap-3'
-    .col.m2.s12
-      .sponsor-item.books-index-sponsors
-        a href='/cart_items'
-          = image_tag('calculator2.jpg')
-          = image_tag('sponsors/tutorabc/left_banner.jpg')
-          = image_tag('calculator2.jpg', :class=> 'hide-on-med-and-up')
-          = image_tag('sponsors/tutorabc/left_banner.jpg', :class=> 'hide-on-med-and-up')
-          = image_tag('sponsors/tutorabc/500x900.jpg')
-.toast-block-container
+                        h5.discount-price 尚未開放購買
+                        p.origin-price
+                          del 定價 ： #{book.original_price}
+                      a href=book_path(book)
+                        - if book.buyable
+                          button.btn-highlight 購買本書
+                        - else
+                          button.btn-highlight 詳細資訊
+              .clear-fix
+        = paginate @books, theme: 'twitter-bootstrap-3'
+      .col.m2.s12
+        .sponsor-item.books-index-sponsors
+          a href='/cart_items'
+            = image_tag('calculator2.jpg')
+            = image_tag('sponsors/tutorabc/left_banner.jpg')
+            = image_tag('calculator2.jpg', :class=> 'hide-on-med-and-up')
+            = image_tag('sponsors/tutorabc/left_banner.jpg', :class=> 'hide-on-med-and-up')
+            = image_tag('sponsors/tutorabc/500x900.jpg')
+  .toast-block-container
+    - if @course_with_no_book.present?
+      .toast-block
+        .toast-block-close-btn
+          i.material-icons close
+        .toast-block-icon
+          i.material-icons info_outline
+        .toast-block-title
+          | 注意
+        .toast-block-message
+          | 有些你搜尋到的課程還沒核對書籍，幫助我們核對課程用書賺取購書金吧！
+        .toast-block-action
+          a class="btn btn--small modal-trigger" data-target="modal1" 查看課程
+
   - if @course_with_no_book.present?
-    .toast-block
-      .toast-block-close-btn
-        i.material-icons close
-      .toast-block-icon
-        i.material-icons info_outline
-      .toast-block-title
-        | 注意
-      .toast-block-message
-        | 有些你搜尋到的課程還沒核對書籍，幫助我們核對課程用書賺取購書金吧！
-      .toast-block-action
-        a class="btn btn--small modal-trigger" data-target="modal1" 查看課程
-
-- if @course_with_no_book.present?
-  .course-with-no-books-container.modal.modal-fixed-footer id="modal1" style="width: 95%; height: 80%;"
-    .course-with-no-books-inner.modal-content
-      h4 '你搜尋到相關課程還有書籍'
-      blockquote
-        | 你搜尋到的以下的課程還不確定用書唷！如果你知道這些課程用什麼書的話，請回報給我們！
-        br
-        | 回報每一本賺取 50 元的購物金！或是你也可以按 '關閉' 來繼續瀏覽你搜尋的書籍。
-      table.responsive-table
-        thead
-          th 課程名稱
-          th 老師名稱
-          th 回報用書
-        tbody
-          - @course_with_no_book.each do |course|
-            tr
-              td
-                = course.name
-              td
-                = course.lecturer_name
-              td
-                = link_to '回報用書', new_user_course_book_path(course_ucode: course.ucode), class: 'btn'
-    .modal-footer style="position: absolute; bottom: 0;"
-      a.modal-action.btn-flat href="https://www.facebook.com/pages/Colorgy/1529686803975150" target="_blank" style="backrogund-color: red;" = '直接私訊 Colorgy 回報'
-      a.modal-action.modal-close.btn-flat = '關閉'
-- if current_user && current_user.first_user_credit_expires_at.present? && current_user.first_user_credit_expires_at > Time.now
+    .course-with-no-books-container.modal.modal-fixed-footer id="modal1" style="width: 95%; height: 80%;"
+      .course-with-no-books-inner.modal-content
+        h4 '你搜尋到相關課程還有書籍'
+        blockquote
+          | 你搜尋到的以下的課程還不確定用書唷！如果你知道這些課程用什麼書的話，請回報給我們！
+          br
+          | 回報每一本賺取 50 元的購物金！或是你也可以按 '關閉' 來繼續瀏覽你搜尋的書籍。
+        table.responsive-table
+          thead
+            th 課程名稱
+            th 老師名稱
+            th 回報用書
+          tbody
+            - @course_with_no_book.each do |course|
+              tr
+                td
+                  = course.name
+                td
+                  = course.lecturer_name
+                td
+                  = link_to '回報用書', new_user_course_book_path(course_ucode: course.ucode), class: 'btn'
+      .modal-footer style="position: absolute; bottom: 0;"
+        a.modal-action.btn-flat href="https://www.facebook.com/pages/Colorgy/1529686803975150" target="_blank" style="backrogund-color: red;" = '直接私訊 Colorgy 回報'
+        a.modal-action.modal-close.btn-flat = '關閉'
+  - if current_user && current_user.first_user_credit_expires_at.present? && current_user.first_user_credit_expires_at > Time.now
+    javascript:
+      $('span.credits-countdown')
+      .countdown("#{current_user.first_user_credit_expires_at.strftime('%Y/%m/%d')}", function(event) {
+        $(this).text(
+          event.strftime(' (%D 天 %H:%M:%S 後將過期)')
+        );
+      });
   javascript:
-    $('span.credits-countdown')
-    .countdown("#{current_user.first_user_credit_expires_at.strftime('%Y/%m/%d')}", function(event) {
-      $(this).text(
-        event.strftime(' (%D 天 %H:%M:%S 後將過期)')
-      );
+    var booksSearchSuggestions = new Bloodhound({
+      datumTokenizer: Bloodhound.tokenizers.whitespace,
+      queryTokenizer: Bloodhound.tokenizers.whitespace,
+      remote: {
+        url: '/books_search_suggestions.json?q=%QUERY',
+        wildcard: '%QUERY'
+      }
     });
-javascript:
-  var booksSearchSuggestions = new Bloodhound({
-    datumTokenizer: Bloodhound.tokenizers.whitespace,
-    queryTokenizer: Bloodhound.tokenizers.whitespace,
-    remote: {
-      url: '/books_search_suggestions.json?q=%QUERY',
-      wildcard: '%QUERY'
-    }
-  });
 
-  $('.books-search').typeahead(null, {
-    name: 'books-search',
-    source: booksSearchSuggestions,
-    limit: 25
-  });
-
-  $(document).ready(function() {
-
-    $("#owl-slider").owlCarousel({
-
-        slideSpeed : 500,
-        paginationSpeed : 400,
-        singleItem: true,
-        autoPlay: true,
-        navigation: false,
-        pagination: false
-
-        // "singleItem:true" is a shortcut for:
-        // items : 1,
-        // itemsDesktop : false,
-        // itemsDesktopSmall : false,
-        // itemsTablet: false,
-        // itemsMobile : false
-
+    $('.books-search').typeahead(null, {
+      name: 'books-search',
+      source: booksSearchSuggestions,
+      limit: 25
     });
-    $('.modal-trigger').leanModal();
-  });
 
-  $('#books-search-form').submit(function(){
-    $('#colorgy-preloader').addClass('active');
-  })
+    $(document).ready(function() {
 
-  $('.toast-block-close-btn').click(function(){
-    $(this).parent('.toast-block').slideToggle(500);
-  })
+      $("#owl-slider").owlCarousel({
 
-  $(window).scroll(function(){
-    if($(window).outerWidth() > 600){
-      if($(window).scrollTop() > $('.pin-menu-container').offset().top - 100){
-        $('.pin-menu').addClass('fixed-menu');
+          slideSpeed : 500,
+          paginationSpeed : 400,
+          singleItem: true,
+          autoPlay: true,
+          navigation: false,
+          pagination: false
+
+          // "singleItem:true" is a shortcut for:
+          // items : 1,
+          // itemsDesktop : false,
+          // itemsDesktopSmall : false,
+          // itemsTablet: false,
+          // itemsMobile : false
+
+      });
+      $('.modal-trigger').leanModal();
+    });
+
+    $('#books-search-form').submit(function(){
+      $('#colorgy-preloader').addClass('active');
+    })
+
+    $('.toast-block-close-btn').click(function(){
+      $(this).parent('.toast-block').slideToggle(500);
+    })
+
+    $(window).scroll(function(){
+      if($(window).outerWidth() > 600){
+        if($(window).scrollTop() > $('.pin-menu-container').offset().top - 100){
+          $('.pin-menu').addClass('fixed-menu');
+        }
+        else{
+          $('.pin-menu').removeClass('fixed-menu');
+        }
       }
       else{
         $('.pin-menu').removeClass('fixed-menu');
       }
-    }
-    else{
-      $('.pin-menu').removeClass('fixed-menu');
-    }
-  })
+    })
 
