@@ -172,5 +172,5 @@ gem 'bootstrap-kaminari-views'
 
 gem 'aws-sdk', '~> 1.6'
 
-gem 'dalli'
+gem 'dalli', '~> 2.6.4'
 gem 'dalli-delete-matched'
