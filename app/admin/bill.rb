@@ -81,7 +81,7 @@ ActiveAdmin.register Bill do
           order.course && order.course.name,
           order.course && order.course.lecturer_name,
           order.course_ucode,
-          (order.package && order.package.pickup_address == 'caves') ? '敦煌' : nil,
+          (order.package && order.package.pickup_address == 'caves') ? '敦煌' : order.package && order.package.pickup_address,
           "",
           "",
         ]
