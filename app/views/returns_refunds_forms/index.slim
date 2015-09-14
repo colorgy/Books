@@ -1,0 +1,42 @@
+.container-fluid
+  .row
+    .content-strip.primary
+      .content-strip-inner
+        h4.strip-title 退換書本專區
+  .row.row-inner
+		- if @returns_refunds_forms.count > 0
+			div style="text-align: right; margin: 12px 0 24px 0;"
+				a.btn style="margin-right: 16px; background-color: grey;" href='https://www.facebook.com/Colorgy-1529686803975150/timeline/' targer="_blank" 私訊粉專詢問
+				a.btn href=new_returns_refunds_form_path 申請退換書
+			table.responsive-table
+				thead
+					tr
+						th 回報表單編號
+						th 建立時間
+						th 處理狀態
+						th 查看
+				tbody
+					- @returns_refunds_forms.each_with_index do |form, index|
+						tr
+							td= link_to "回報表單#{index + 1}" , form
+							td= form.created_at.strftime('%Y 年 %-m 月 %-d 日 (%a) %H:%M')
+							- if form.status == 1
+								td 待處理
+							- if form.status == 2
+								td 處理中
+							- if form.status == 3
+								td 處理完成
+							td= link_to '查看', form
+		- else
+		  .notice-message-block
+		    .notice-message-block-icon
+					.icon style="max-width: 50px;"
+						= image_tag ('icons/crossroads.png')
+		    .notice-message-block-message
+		      br
+		      | 您目前還沒有任何申請喲！
+		      br
+		      | 可以點擊以下按鈕進行退換書申請喲！
+		    .notice-message-block-actions
+		      a.btn href=new_returns_refunds_form_path 申請退換書
+

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150913015634) do
+ActiveRecord::Schema.define(version: 20150914002732) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -304,6 +304,24 @@ ActiveRecord::Schema.define(version: 20150913015634) do
 
   add_index "pickup_selections_times", ["batch"], name: "index_pickup_selections_times_on_batch", using: :btree
   add_index "pickup_selections_times", ["organization_code"], name: "index_pickup_selections_times_on_organization_code", using: :btree
+
+  create_table "returns_refunds_forms", force: :cascade do |t|
+    t.boolean  "if_delivered",           default: true
+    t.string   "bill_uuid"
+    t.string   "account_bank_code"
+    t.string   "account_number"
+    t.text     "reason"
+    t.integer  "status",                 default: 1
+    t.integer  "user_id"
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
+    t.string   "condition"
+    t.string   "image_url_file_name"
+    t.string   "image_url_content_type"
+    t.integer  "image_url_file_size"
+    t.datetime "image_url_updated_at"
+    t.string   "phone_number"
+  end
 
   create_table "settings", force: :cascade do |t|
     t.string   "var",                   null: false

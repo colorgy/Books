@@ -83,6 +83,7 @@ Rails.application.routes.draw do
   resources :taiwan_mobile_imgs
   resources :tutor_abc_forms
   resources :gjun_forms
+  resources :returns_refunds_forms
 
   resource :my_account, controller: 'users/my_account' do
     get 'invoice_subsume' => 'users/my_account#invoice_subsume'

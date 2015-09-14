@@ -1,0 +1,50 @@
+.container-fluid
+  .row
+    .content-strip.primary
+      .content-strip-inner
+        h4.strip-title 退換書本表單
+  .row.row-inner-s style="padding: 0 8px;"
+  	div style="text-align: left;"
+  		a.btn href=returns_refunds_forms_path 返回
+  	.returns-refunds-forms-item
+			.row
+				.col.m12.s12
+					h5
+						| 表單明細
+					p
+						-if @returns_refunds_form.status == 1
+							span.status-label.pending 待處理
+						-if @returns_refunds_form.status == 2
+							span.status-label.processing 處理中
+						-if @returns_refunds_form.status == 3
+							span.status-label.complete 處理完成
+				.col.m6.s12
+					label 姓名
+					p = @returns_refunds_form.user.name
+					label 學校代碼
+					p = @returns_refunds_form.user.organization_code
+					label 聯絡手機
+					p = @returns_refunds_form.phone_number
+					label 退款銀行代碼
+					p = @returns_refunds_form.account_bank_code
+					label 退款帳戶
+					p = @returns_refunds_form.account_number
+				.col.m6.s12
+					label 申請退書 or 換書？
+					p = @returns_refunds_form.condition
+					label 書本是否已經送達?
+					p = @returns_refunds_form.if_delivered
+					label 訂單編號
+					p = @returns_refunds_form.bill_uuid
+					label 退換書原因
+					p = @returns_refunds_form.reason
+				.col.m12.s12
+					label 書本圖片
+					br
+					.icon
+					= image_tag @returns_refunds_form.image_url.url
+					br
+
+
+
+

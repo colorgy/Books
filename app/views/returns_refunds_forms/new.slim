@@ -1,0 +1,202 @@
+style
+  | .s12{ padding: 0 12px !important;}
+  | .row.active{ display: block !important;}
+.container-fluid
+  .row
+    .content-strip.primary
+      .content-strip-inner
+        h4.strip-title 退換書本表單
+  .row.row-inner-s
+    = form_for @returns_refunds_form, :html => {:id => 'returns_refunds_form', :class => 'row default-form', multipart: true} do |f|
+      .row
+        .col.m12.s12
+          label 申請手續：請問您要換書還是退書呢？
+          select.browser-default name="returns_refunds_form[condition]" id="returns_refunds_form_condition"
+            option value="" disabled="" selected="" 請選擇
+            option value="換書" 換書
+            option value="退書" 退書
+      .row
+        .col.m12.s12
+          label 書本是否已經送達?
+          select.browser-default name="returns_refunds_form[if_delivered]" id="returns_refunds_form_if_delivered"
+            option value="" disabled="" selected="" 請選擇
+            option value="true" 是
+            option value="false" 否
+      #row-bill-uuid.row.hide
+        .col.m12.s12
+          = f.label :bill_uuid,'訂單編號(可至我的訂單查詢)'
+          = f.text_field :bill_uuid, :class => 'form-control'
+
+      #row-phone-number.row.hide
+        .col.m12.s12
+          = f.label :phone_number,'聯絡手機'
+          = f.text_field :phone_number
+      #row-reason.row.hide
+        .col.m12.s12
+          = f.label :reason, '退換書原因'
+          = f.text_area :reason, rows: "8"
+      #row-image-url.row.hide
+        .col.m12.s12
+          = f.label :image_url, '上傳書籍圖片'
+          .file-field.input-field
+            .btn
+              span 選擇檔案
+              = f.file_field :image_url
+            .file-path-wrapper
+              input.file-path.validate type="text"
+      #row-account.row.hide
+        .col.m4.s12
+          = f.label :account_bank_code, '退款銀行代碼'
+          = f.text_field :account_bank_code
+        .col.m8.s12
+          = f.label :account_number, '退款帳戶'
+          = f.text_field :account_number
+      .row
+        .col.s12 style="text-align: center;"
+          a.btn.btn-default style="margin-right: 16px; background-color: grey;" href='#' 取消
+          button.btn type="submit" 送出
+
+javascript:
+  function display_form_row(){
+    var returns_refunds_form_condition = $('#returns_refunds_form_condition option:selected').val();
+    var returns_refunds_form_if_delivered = $('#returns_refunds_form_if_delivered option:selected').val();
+    if( returns_refunds_form_condition == 'undefined' || returns_refunds_form_condition == '' || returns_refunds_form_if_delivered == 'undefined' || returns_refunds_form_if_delivered == ''){
+      return false;
+    }else{
+      if(returns_refunds_form_condition == '換書'){
+        $('#row-bill-uuid').addClass('active');
+        $('#row-reason').addClass('active');
+        $('#row-image-url').addClass('active');
+        $('#row-account').addClass('active');
+        $('#row-phone-number').addClass('active');
+      }else{
+        if(returns_refunds_form_condition == '退書'){
+          if(returns_refunds_form_if_delivered == 'true'){
+            $('#row-bill-uuid').addClass('active');
+            $('#row-reason').addClass('active');
+            $('#row-image-url').addClass('active');
+            $('#row-account').addClass('active');
+            $('#row-phone-number').addClass('active');
+          }else{
+            if(returns_refunds_form_if_delivered == 'false'){
+              $('#row-bill-uuid').addClass('active');
+              $('#row-reason').addClass('active');
+              $('#row-image-url').removeClass('active');
+              $('#row-account').removeClass('active');
+              $('#row-phone-number').removeClass('active');
+            }
+          }
+        }
+
+      }
+    }
+  }
+  $('#returns_refunds_form_condition').change(function(){
+    display_form_row();
+  })
+  $('#returns_refunds_form_if_delivered').change(function(){
+    display_form_row();
+  })
+
+  $('#returns_refunds_form').submit(function(){
+    var returns_refunds_form_condition = $('#returns_refunds_form_condition option:selected').val();
+    var returns_refunds_form_if_delivered = $('#returns_refunds_form_if_delivered option:selected').val();
+    var returns_refunds_form_bill_uuid = $('#returns_refunds_form_bill_uuid').val();
+    var returns_refunds_form_reason = $('#returns_refunds_form_reason').val();
+    var returns_refunds_form_image_url = $('#returns_refunds_form_image_url').val();
+    var returns_refunds_form_account_bank_code = $('#returns_refunds_form_account_bank_code').val();
+    var returns_refunds_form_account_number = $('#returns_refunds_form_account_number').val();
+    var returns_refunds_form_phone_number = $('#returns_refunds_form_phone_number').val();
+
+
+    if( returns_refunds_form_condition == 'undefined' || returns_refunds_form_condition == '' || returns_refunds_form_if_delivered == 'undefined' || returns_refunds_form_if_delivered == ''){
+      flash.error('請選擇申請手續以及書本是否送達');
+      return false;
+    }else{
+      if(returns_refunds_form_condition == '換書'){
+          if(returns_refunds_form_bill_uuid ==''){
+            flash.error('請填寫訂單編號');
+            return false;
+          }
+
+          if(returns_refunds_form_reason ==''){
+            flash.error('請填寫退書理由');
+            return false;
+          }
+
+          if(returns_refunds_form_image_url ==''){
+            flash.error('請拍一張書本照片上傳');
+            return false;
+          }
+
+          if(returns_refunds_form_account_bank_code ==''){
+            flash.error('請填寫退款帳號銀行代碼');
+            return false;
+          }
+
+          if(returns_refunds_form_account_number ==''){
+            flash.error('請填寫退款帳號');
+            return false;
+          }
+
+          if(returns_refunds_form_phone_number ==''){
+            flash.error('請填寫聯絡手機');
+            return false;
+          }
+
+      }else{
+
+        if(returns_refunds_form_condition == '退書'){
+
+          if(returns_refunds_form_if_delivered == 'true'){
+            if(returns_refunds_form_bill_uuid ==''){
+              flash.error('請填寫訂單編號');
+              return false;
+            }
+
+            if(returns_refunds_form_reason ==''){
+              flash.error('請填寫退書理由');
+              return false;
+            }
+
+            if(returns_refunds_form_image_url ==''){
+              flash.error('請拍一張書本照片上傳');
+              return false;
+            }
+
+            if(returns_refunds_form_account_bank_code ==''){
+              flash.error('請填寫退款帳號銀行代碼');
+              return false;
+            }
+
+            if(returns_refunds_form_account_number ==''){
+              flash.error('請填寫退款帳號');
+              return false;
+            }
+
+            if(returns_refunds_form_phone_number ==''){
+              flash.error('請填寫聯絡手機');
+              return false;
+            }
+
+          }else{
+            if(returns_refunds_form_if_delivered == 'false'){
+              if(returns_refunds_form_bill_uuid ==''){
+                flash.error('請填寫訂單編號');
+                return false;
+              }
+              if(returns_refunds_form_reason ==''){
+                flash.error('請填寫退書理由');
+                return false;
+              }
+              $('#returns_refunds_form_image_url').val('');
+              $('#returns_refunds_form_account_bank_code').val('');
+              $('#returns_refunds_form_account_number').val('');
+              $('#returns_refunds_form_phone_number').val('');
+            }
+          }
+        }
+
+      }
+    }
+  })
