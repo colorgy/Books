@@ -172,4 +172,5 @@ gem 'bootstrap-kaminari-views'
 
 gem 'aws-sdk', '~> 1.6'
 
+gem 'dalli'
 gem 'dalli-elasticache'
