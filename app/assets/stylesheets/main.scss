@@ -1569,8 +1569,13 @@ blockquote{
 
 .fixed-help-btn {
   position: fixed;
-  right: 24px;
-  bottom: 8px;
+  right: 8px;
+  bottom: 4px;
+
+  @media screen and (min-width: 600px) {
+  	right: 16px;
+  	bottom: 16px;
+  }
 }
 .fixed-help-btn i {
   font-size: 40px !important;
