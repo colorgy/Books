@@ -244,3 +244,13 @@ ActiveAdmin.setup do |config|
   #
   # config.filters = true
 end
+
+module ActiveAdmin
+  module Views
+    class IndexAsDetailedTable < ActiveAdmin::Views::IndexAsTable
+      def self.index_name
+        "detailed_table"
+      end
+    end
+  end
+end
