@@ -62,21 +62,24 @@ ActiveAdmin.register Bill do
       item_price_h = Hash[PackageAdditionalItem.all.map{|item| [item.id.to_s, item.price]}]
       item_name_h = Hash[PackageAdditionalItem.all.map{|item| [item.id.to_s, item.name]}]
 
-      lines << %w(bill_id order_id user_id org user price state isbn 書名 supplier_code pickup course_name course_ucode ordered package_course_ucode);
+
+
+      lines << %w(bill_id order_id user_id org user price state isbn 書名 supplier_code pickup course_name lecturer course_ucode ordered package_course_ucode);
       orders.order(:user_id).each do |order|
         lines << [
           order.bill.id,
           order.id,
           order.user_id,
           order.user.organization_code && order.course && order.course.organization_code,
-          order.user && order.user.name,
+          "#{order.user && order.user.name}" / "#{order.package && order.package.recipient_name}",
           order.price,
           order.state,
           order.book_isbn,
           order.book && order.book.name,
           order.book.supplier_code,
-          order.package.pickup_datetime,
+          order.package.pickup_datetime.strftime('%Y-%-m-%-d'),
           order.course && order.course.name,
+          order.course && order.course.lecturer_name,
           order.course_ucode,
           "",
           "",
@@ -91,14 +94,15 @@ ActiveAdmin.register Bill do
             order.id,
             order.user_id,
             order.user.organization_code && order.course && order.course.organization_code,
-            order.user && order.user.name,
+            "#{order.user && order.user.name}" / "#{order.package && order.package.recipient_name}",
             item_price_h[addtional_item_id],
             order.state,
             nil,
             item_name_h[addtional_item_id],
             nil,
-            package.pickup_datetime,
+            package.pickup_datetime.strftime('%Y-%-m-%-d'),
             order.course && order.course.name,
+            order.course && order.course.lecturer_name,
             order.course_ucode,
             "",
             "",

@@ -18,19 +18,42 @@ ActiveAdmin.register BookData do
     selectable_column
     column(:id)
     column(:isbn)
+    column(:known_supplier)
+    column(:original_price)
     column(:name)
     column(:edition)
-    column(:external_image_url)
     column(:author)
-    column(:url)
     column(:publisher)
-    column(:original_url)
-    column(:original_price)
-    column(:known_supplier)
-    column(:internal_code)
     column(:created_at)
     column(:updated_at)
 
     actions
   end
+
+  index as: :detailed_table do |book_data|
+    selectable_column
+    column(:id)
+
+    column(:isbn)
+    column(:name)
+    column(:edition)
+    column(:author)
+    column(:external_image_url)
+    column(:url)
+    column(:publisher)
+    column(:original_url)
+    column(:original_price)
+    column(:known_supplier)
+    column(:created_at)
+    column(:updated_at)
+    column(:temporary_book_name)
+    column(:image_file_name)
+    column(:image_content_type)
+    column(:image_file_size)
+    column(:image_updated_at)
+    column(:internal_code)
+
+    actions
+  end
+
 end
