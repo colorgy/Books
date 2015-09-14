@@ -13,7 +13,7 @@ class BooksController < ApplicationController
   end
 
   def show
-    @book = books_collection.includes(:data).find(params[:id])
+    @book = Book.includes(:data).find(params[:id])
     @book_groups = @book.groups.grouping.in_org(current_org_code)
     @book_group_course_ucodes = @book_groups.map(&:course_ucode)
     @book_groups = ActiveModel::ArraySerializer.new(@book_groups, each_serializer: GroupSerializer).as_json
