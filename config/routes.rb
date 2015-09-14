@@ -79,10 +79,10 @@ Rails.application.routes.draw do
   get '/sponsors/taiwan-mobile/admin' => 'sponsors#taiwan_mobile_admin'
   get '/sponsors/colorgy-books' => 'sponsors#colorgy_books'
   get '/sponsors/tutorABC' => 'sponsors#tutor_abc'
-  get '/sponsors/gjun' => 'sponsors#gjun'
+  # get '/sponsors/gjun' => 'sponsors#gjun'
   resources :taiwan_mobile_imgs
   resources :tutor_abc_forms
-  resources :gjun_forms
+  # resources :gjun_forms
   resources :returns_refunds_forms
 
   resource :my_account, controller: 'users/my_account' do
