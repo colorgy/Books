@@ -152,7 +152,7 @@ CartItemsCashier = React.createClass
         self = this
         `<div key={'p-a-item' + item.id} className="col m3 s6">
           <input name={'package[additional_items][' + item.id + ']'} type="checkbox" id={'p-a-item' + item.id} checkedLink={self.linkState('packageAdditionalItems' + item.id)} />
-          <label htmlFor={'p-a-item' + item.id}><img src={item.external_image_url} />我想多用 NT$ {item.price} 來購買 {item.name} (<a href={item.url} target="_blank">簡介</a>)</label>
+          <label htmlFor={'p-a-item' + item.id}><img src={item.external_image_url} />我想多用 NT$ <span style={{ fontSize: '120%' }}>{item.price}</span> 來購買 <span style={{ fontSize: '120%' }}>{item.name}</span> (<a href={item.url} target="_blank">簡介</a>)</label>
         </div>`
       if @state.packagePickupAddressType == 'dorm'
         packagePickupAddressInput =
