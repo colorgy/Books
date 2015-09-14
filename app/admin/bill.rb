@@ -64,7 +64,7 @@ ActiveAdmin.register Bill do
 
 
 
-      lines << %w(bill_id order_id user_id org user price state isbn 書名 supplier_code pickup course_name lecturer course_ucode ordered package_course_ucode);
+      lines << %w(bill_id order_id user_id org user price state isbn 書名 supplier_code pickup course_name lecturer course_ucode pickup_address ordered package_course_ucode);
       orders.order(:user_id).each do |order|
         lines << [
           order.bill.id,
@@ -81,6 +81,7 @@ ActiveAdmin.register Bill do
           order.course && order.course.name,
           order.course && order.course.lecturer_name,
           order.course_ucode,
+          (order.package && order.package.pickup_address == 'caves') ? '敦煌' : nil,
           "",
           "",
         ]
@@ -104,6 +105,7 @@ ActiveAdmin.register Bill do
             order.course && order.course.name,
             order.course && order.course.lecturer_name,
             order.course_ucode,
+            (order.package && order.package.pickup_address == 'caves') ? '敦煌' : nil,
             "",
             "",
           ]
