@@ -1566,3 +1566,28 @@ blockquote{
   	border: 2px $primary-color solid;
   }
 }
+
+.fixed-help-btn {
+  position: fixed;
+  right: 24px;
+  bottom: 8px;
+}
+.fixed-help-btn i {
+  font-size: 40px !important;
+  color: $primary-color;
+}
+
+.fixed-label{
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	background-color: $primary-color;
+	color: #FFF;
+	border-radius: 0 2px 0 0;
+	padding: 2px 6px;
+	font-size: 14px;
+
+	> *{
+		vertical-align: middle;
+	}
+}
