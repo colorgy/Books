@@ -60,6 +60,11 @@
               =image_tag('icons/star.png')
             | 首頁
         li
+          a.tooltipped.highlight data-delay="0" data-position="bottom" data-tooltip="書籍總覽！可以利用課程、老師、isbn等關鍵字搜尋書籍！" href=books_path
+            .icon style="width: 24px; vertical-align: middle; margin-right: 4px;"
+              =image_tag('icons/bookshelf.png')
+            | 我要買書
+        li
           a.tooltipped.highlight data-delay="0" data-position="bottom" data-tooltip="協助我們確認各課程使用的書籍，賺取購書金！" href=user_course_books_path
             .icon style="width: 24px; vertical-align: middle; margin-right: 4px;"
               =image_tag('icons/compose.png')
@@ -69,11 +74,6 @@
             .icon style="width: 24px; vertical-align: middle; margin-right: 4px;"
               =image_tag('icons/money.png')
             | 領購物金
-        li
-          a.tooltipped.highlight data-delay="0" data-position="bottom" data-tooltip="書籍總覽！可以利用課程、老師、isbn等關鍵字搜尋書籍！" href=books_path
-            .icon style="width: 24px; vertical-align: middle; margin-right: 4px;"
-              =image_tag('icons/bookshelf.png')
-            | 購書總覽
         li
           a.tooltipped data-delay="0" data-position="bottom" data-tooltip="服務小說明，快速讓大家了解功能" href=guide_path
             .icon style="width: 24px; vertical-align: middle; margin-right: 4px;"
