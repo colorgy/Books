@@ -163,20 +163,20 @@
         );
       });
   javascript:
-    var booksSearchSuggestions = new Bloodhound({
-      datumTokenizer: Bloodhound.tokenizers.whitespace,
-      queryTokenizer: Bloodhound.tokenizers.whitespace,
-      remote: {
-        url: '/books_search_suggestions.json?q=%QUERY',
-        wildcard: '%QUERY'
-      }
-    });
+    // var booksSearchSuggestions = new Bloodhound({
+    //   datumTokenizer: Bloodhound.tokenizers.whitespace,
+    //   queryTokenizer: Bloodhound.tokenizers.whitespace,
+    //   remote: {
+    //     url: '/books_search_suggestions.json?q=%QUERY',
+    //     wildcard: '%QUERY'
+    //   }
+    // });
 
-    $('.books-search').typeahead(null, {
-      name: 'books-search',
-      source: booksSearchSuggestions,
-      limit: 25
-    });
+    // $('.books-search').typeahead(null, {
+    //   name: 'books-search',
+    //   source: booksSearchSuggestions,
+    //   limit: 25
+    // });
 
     $(document).ready(function() {
 
