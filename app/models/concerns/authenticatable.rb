@@ -21,6 +21,7 @@ module Authenticatable
 
       # permit possible access
       user_data['organization_code'] = oauth_params[:possible_organization_code]
+      user_data['department_code'] = oauth_params[:possible_department_code] if oauth_params[:possible_department_code].present?
 
       user.update!(user_data)
 
