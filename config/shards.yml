@@ -25,14 +25,14 @@ configs = if ENV['DATABASE_URL'] && ENV['DATABASE_URL'] != ''
 
   slave_keys.map do |env_key|
     config = {}
+
     begin
-      uri = URI.parse(ENV["#{env_key}"])
+      uri = URI.parse(ENV[env_key])
     rescue URI::InvalidURIError
       raise "Invalid DATABASE_URL: #{ENV[env_key]}"
     end
 
-    raise "No RACK_ENV or RAILS_ENV found" unless ENV["RAILS_ENV"] || ENV["RACK_ENV"]
-    config['color'] = env_key.match(/SLAVE_DATABASE_(.*)_URL/)[1].downcase
+    config['code'] = env_key.match(/SLAVE_DATABASE_(.*)_URL/)[1].downcase
     config['adapter'] = uri.scheme
     config['adapter'] = "postgresql" if config['adapter'] == "postgres"
 
@@ -50,13 +50,6 @@ configs = if ENV['DATABASE_URL'] && ENV['DATABASE_URL'] != ''
 else
   []
 end
-
-whitelist = ENV['SLAVE_ENABLED_FOLLOWERS'].downcase.split(', ') rescue nil
-blacklist = ENV['SLAVE_DISABLED_FOLLOWERS'].downcase.split(', ') rescue nil
-
-configs.delete_if do |c|
-  ( whitelist && !c['color'].in?(whitelist) ) || ( blacklist && c['color'].in?(blacklist) )
-end
 %>
 
 octopus:
@@ -67,7 +60,7 @@ octopus:
     <%= "- #{ENV["RAILS_ENV"] || ENV["RACK_ENV"] || Rails.env}" %>
   <%= ENV["RAILS_ENV"] || ENV["RACK_ENV"] || Rails.env %>:
     <% configs.each_with_index do |c, i| %>
-    <%= c.has_key?('color') ? "#{c['color']}_follower" : "follower_#{i + 1}" %>:
+    <%= c.has_key?('code') ? "slave_#{c['code']}" : "slave_#{i + 1}" %>:
       <%= attribute "adapter",  c['adapter'] %>
       <%= attribute "database", c['database'] %>
       <%= attribute "username", c['username'] %>
@@ -77,7 +70,6 @@ octopus:
       <% (c['params'] || {}).each do |key, value| %>
       <%= key %>: <%= value.first %>
       <% end %>
-
     <% end %>
   <% else %>
     - none
