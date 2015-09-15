@@ -66,20 +66,19 @@ octopus:
   <% if configs.present? %>
     <%= "- #{ENV["RAILS_ENV"] || ENV["RACK_ENV"] || Rails.env}" %>
   <%= ENV["RAILS_ENV"] || ENV["RACK_ENV"] || Rails.env %>:
-    followers:
-      <% configs.each_with_index do |c, i| %>
-      <%= c.has_key?('color') ? "#{c['color']}_follower" : "follower_#{i + 1}" %>:
-        <%= attribute "adapter",  c['adapter'] %>
-        <%= attribute "database", c['database'] %>
-        <%= attribute "username", c['username'] %>
-        <%= attribute "password", c['password'], true %>
-        <%= attribute "host",     c['host'] %>
-        <%= attribute "port",     c['port'] %>
-        <% (c['params'] || {}).each do |key, value| %>
-        <%= key %>: <%= value.first %>
-        <% end %>
-
+    <% configs.each_with_index do |c, i| %>
+    <%= c.has_key?('color') ? "#{c['color']}_follower" : "follower_#{i + 1}" %>:
+      <%= attribute "adapter",  c['adapter'] %>
+      <%= attribute "database", c['database'] %>
+      <%= attribute "username", c['username'] %>
+      <%= attribute "password", c['password'], true %>
+      <%= attribute "host",     c['host'] %>
+      <%= attribute "port",     c['port'] %>
+      <% (c['params'] || {}).each do |key, value| %>
+      <%= key %>: <%= value.first %>
       <% end %>
+
+    <% end %>
   <% else %>
     - none
   <% end %>
