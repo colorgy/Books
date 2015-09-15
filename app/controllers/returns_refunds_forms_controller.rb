@@ -6,7 +6,11 @@ class ReturnsRefundsFormsController < ApplicationController
 	end
 
   def show
-    @returns_refunds_form = current_user.returns_refunds_forms.find(params[:id])
+		if current_user.id != 4 && current_user.id != 5
+	    @returns_refunds_form = current_user.returns_refunds_forms.find(params[:id])
+		else
+			@returns_refunds_form = ReturnsRefundsForm.find(params[:id])
+		end
   end
 
 	def new
