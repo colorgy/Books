@@ -1596,3 +1596,15 @@ blockquote{
 		vertical-align: middle;
 	}
 }
+
+
+#books-search-form{
+	> .books-search{
+		width: calc(100% - 150px);
+		display: inline-block;
+
+		@media screen and (max-width: 600px) {
+			width: 100%;
+		}
+	}
+}
