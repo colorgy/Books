@@ -1,0 +1,31 @@
+.container-fluid
+  .row
+    .content-strip.primary
+      .content-strip-inner
+        h4.strip-title 退換書本專區 - Admin
+  .row.row-inner
+		table.responsive-table
+			thead
+				tr
+					th 回報表單編號
+					th 建立時間
+					th 學校
+					th 系所代碼
+					th 姓名
+					th 處理狀態
+					th 查看
+			tbody
+				- @returns_refunds_forms.each_with_index do |form, index|
+						tr
+							td= link_to "回報表單#{index + 1}" , form
+							td= form.created_at.strftime('%Y 年 %-m 月 %-d 日 (%a) %H:%M')
+							td= form.user.organization_code
+							td= form.user.department_code
+							td= form.user.name
+							- if form.status == 1
+								td 待處理
+							- if form.status == 2
+								td 處理中
+							- if form.status == 3
+								td 處理完成
+							td= link_to '查看', form

@@ -25,6 +25,10 @@ class ReturnsRefundsFormsController < ApplicationController
     end
 	end
 
+	def admin
+		@returns_refunds_forms = ReturnsRefundsForm.all
+	end
+
 	private
 
 	def returns_refunds_forms_params
