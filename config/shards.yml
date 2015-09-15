@@ -1,0 +1,86 @@
+<%
+require 'cgi'
+require 'uri'
+
+def attribute(name, value, force_string = false)
+  if value
+    value_string =
+      if force_string
+        '"' + value + '"'
+      else
+        value
+      end
+    "#{name}: #{value_string}"
+  else
+    ""
+  end
+end
+
+configs = if ENV['DATABASE_URL'] && ENV['DATABASE_URL'] != ''
+
+  # with config vars for follower DBs
+  master_url = ENV['DATABASE_URL']
+  slave_keys = ENV.keys.select { |k| k =~ /SLAVE_DATABASE_.*_URL/ }
+  slave_keys.delete_if { |k| ENV[k] == master_url }
+
+  slave_keys.map do |env_key|
+    config = {}
+    begin
+      uri = URI.parse(ENV["#{env_key}"])
+    rescue URI::InvalidURIError
+      raise "Invalid DATABASE_URL: #{ENV[env_key]}"
+    end
+
+    raise "No RACK_ENV or RAILS_ENV found" unless ENV["RAILS_ENV"] || ENV["RACK_ENV"]
+    config['color'] = env_key.match(/SLAVE_DATABASE_(.*)_URL/)[1].downcase
+    config['adapter'] = uri.scheme
+    config['adapter'] = "postgresql" if config['adapter'] == "postgres"
+
+    config['database'] = (uri.path || "").split("/")[1]
+
+    config['username'] = uri.user
+    config['password'] = uri.password
+
+    config['host'] = uri.host
+    config['port'] = uri.port
+
+    config['params'] = CGI.parse(uri.query || "")
+    config
+  end
+else
+  # use dev and test DB as feaux 'follower'
+  Array.new(2) { YAML::load_file(File.open("config/database.yml"))[Rails.env] }
+end
+
+whitelist = ENV['SLAVE_ENABLED_FOLLOWERS'].downcase.split(', ') rescue nil
+blacklist = ENV['SLAVE_DISABLED_FOLLOWERS'].downcase.split(', ') rescue nil
+
+configs.delete_if do |c|
+  ( whitelist && !c['color'].in?(whitelist) ) || ( blacklist && c['color'].in?(blacklist) )
+end
+%>
+
+octopus:
+  replicated: true
+  fully_replicated: false
+  environments:
+  <% if configs.present? %>
+    <%= "- #{ENV["RAILS_ENV"] || ENV["RACK_ENV"] || Rails.env}" %>
+  <%= ENV["RAILS_ENV"] || ENV["RACK_ENV"] || Rails.env %>:
+    followers:
+      <% configs.each_with_index do |c, i| %>
+      <%= c.has_key?('color') ? "#{c['color']}_follower" : "follower_#{i + 1}" %>:
+        <%= attribute "adapter",  c['adapter'] %>
+        <%= attribute "database", c['database'] %>
+        <%= attribute "username", c['username'] %>
+        <%= attribute "password", c['password'], true %>
+        <%= attribute "host",     c['host'] %>
+        <%= attribute "port",     c['port'] %>
+        <% (c['params'] || {}).each do |key, value| %>
+        <%= key %>: <%= value.first %>
+        <% end %>
+
+      <% end %>
+  <% else %>
+    - none
+  <% end %>
