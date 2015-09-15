@@ -45,7 +45,7 @@ style
                   | 最終 Colorgy 會請班代或系會可以依據此統計名單及收款，統一另行向書商訂購本書，另外再通知個別到貨時間！請確認貴系學會或是班代有與我們合作，如果系會或是系上班代是沒有合作的，可能無法服務。
               .book-price.gradient-bg
                 - if @book.buyable
-                  span.book-disc-price 團購價：NT$ #{@book.price}
+                  span.book-disc-price 優惠價：NT$ #{@book.price}
                   span.book-orginal-price
                     del 定價：NT$ #{@book.original_price}
                 - else
