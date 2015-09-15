@@ -64,7 +64,7 @@ ActiveAdmin.register Bill do
 
       organizations = Organization.all
 
-      lines << %w(bill_id order_id user_id org user_name receive_name price state isbn 書名 supplier_code pickup course_name lecturer course_ucode pickup_address ordered package_course_ucode);
+      lines << %w(bill_id order_id user_id org user_name receive_name original_price price state isbn 書名 supplier_code pickup course_name lecturer course_ucode pickup_address ordered package_course_ucode);
       orders.order(:user_id).each do |order|
         org_code = order.user.organization_code && order.course && order.course.organization_code;
         lines << [
@@ -74,6 +74,7 @@ ActiveAdmin.register Bill do
           org_code && organizations.find{|d| d.code == org_code}.short_name,
           order.user && order.user.name,
           order.package && order.package.recipient_name,
+          order.book && order.book.data && order.book.data.original_price,
           order.price,
           order.state,
           order.book_isbn,
@@ -100,6 +101,7 @@ ActiveAdmin.register Bill do
             org_code && organizations.find{|d| d.code == org_code}.short_name,
             order.user && order.user.name,
             order.package && order.package.recipient_name,
+            item_price_h[addtional_item_id],
             item_price_h[addtional_item_id],
             order.state,
             nil,
