@@ -32,6 +32,6 @@ class ReturnsRefundsFormsController < ApplicationController
 	private
 
 	def returns_refunds_forms_params
-		params.require(:returns_refunds_form).permit(:if_delivered, :bill_uuid, :account_bank_code, :account_number, :reason, :image_url, :status, :user_id, :condition)
+		params.require(:returns_refunds_form).permit(:if_delivered, :bill_uuid, :account_bank_code, :account_number, :reason, :image_url, :status, :user_id, :condition, :phone_number)
 	end
 end
