@@ -62,15 +62,16 @@ ActiveAdmin.register Bill do
       item_price_h = Hash[PackageAdditionalItem.all.map{|item| [item.id.to_s, item.price]}]
       item_name_h = Hash[PackageAdditionalItem.all.map{|item| [item.id.to_s, item.name]}]
 
-
+      organizations = Organization.all
 
       lines << %w(bill_id order_id user_id org user_name receive_name price state isbn 書名 supplier_code pickup course_name lecturer course_ucode pickup_address ordered package_course_ucode);
       orders.order(:user_id).each do |order|
+        org_code = order.user.organization_code && order.course && order.course.organization_code;
         lines << [
           order.bill.id,
           order.id,
           order.user_id,
-          order.user.organization_code && order.course && order.course.organization_code,
+          org_code && organizations.find{|d| d.code == org_code}.short_name,
           order.user && order.user.name,
           order.package && order.package.recipient_name,
           order.price,
@@ -90,12 +91,13 @@ ActiveAdmin.register Bill do
 
       orders.map(&:package).uniq.each do |package|
         order = orders.first;
+        org_code = order.user.organization_code && order.course && order.course.organization_code;
         package.additional_items.reject{|k,v| v != 'on'}.keys.each do |addtional_item_id|
           lines << [
             order.bill.id,
             order.id,
             order.user_id,
-            order.user.organization_code && order.course && order.course.organization_code,
+            org_code && organizations.find{|d| d.code == org_code}.short_name,
             order.user && order.user.name,
             order.package && order.package.recipient_name,
             item_price_h[addtional_item_id],
