@@ -174,3 +174,5 @@ gem 'aws-sdk', '~> 1.6'
 
 gem 'dalli', '~> 2.6.4'
 gem 'dalli-delete-matched'
+
+gem 'ar-octopus'

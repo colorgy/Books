@@ -108,6 +108,9 @@ GEM
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
     addressable (2.3.8)
+    ar-octopus (0.8.5)
+      activerecord (>= 3.2.0)
+      activesupport (>= 3.2.0)
     arbre (1.0.3)
       activesupport (>= 3.0.0)
     arel (6.0.0)
@@ -580,6 +583,7 @@ DEPENDENCIES
   activerecord-import (~> 0.7.0)
   activeresource (~> 4.0.0)
   api_helper!
+  ar-octopus
   awesome_print
   aws-sdk (~> 1.6)
   babosa
