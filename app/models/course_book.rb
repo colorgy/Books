@@ -1,5 +1,6 @@
 class CourseBook < ActiveRecord::Base
   has_paper_trail
+  replicated_model
 
   belongs_to :course, primary_key: :ucode, foreign_key: :course_ucode
   belongs_to :book_data, primary_key: :isbn, foreign_key: :book_isbn

@@ -1,4 +1,6 @@
 class Course < ActiveRecord::Base
+  replicated_model
+
   scope :simple_search, ->(q) { q.downcase!; where('lower(name) LIKE ? OR lower(lecturer_name) LIKE ? OR lower(ucode) LIKE ?', "%#{q}%", "%#{q}%", "%#{q}%") }
 
   scope :simple_search, SIMPLE_SEARCH_LAMBDA

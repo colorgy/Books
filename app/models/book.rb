@@ -1,6 +1,7 @@
 class Book < ActiveRecord::Base
   acts_as_paranoid
   has_paper_trail
+  replicated_model
 
   scope :first_with, ->(id) { order(sanitize_sql_array(['CASE WHEN "books"."id" = ? THEN 0 END', id])) }
   scope :includes_full_data, -> { includes(data: [:courses], supplier: []) }

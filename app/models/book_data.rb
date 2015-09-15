@@ -1,4 +1,6 @@
 class BookData < ActiveRecord::Base
+  replicated_model
+
   scope :simple_search, ->(q) { q.downcase!; where('lower(isbn) LIKE ? OR lower(name) LIKE ? OR lower(author) LIKE ? OR lower(publisher) LIKE ?', "%#{q}%", "%#{q}%", "%#{q}%", "%#{q}%") }
 
   has_one :book, foreign_key: :isbn, primary_key: :isbn
