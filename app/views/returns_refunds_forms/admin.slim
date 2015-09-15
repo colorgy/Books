@@ -8,6 +8,8 @@
 			thead
 				tr
 					th 回報表單編號
+					th 退書 / 換書
+					th 是否送達
 					th 建立時間
 					th 學校
 					th 系所代碼
@@ -18,6 +20,8 @@
 				- @returns_refunds_forms.each_with_index do |form, index|
 						tr
 							td= link_to "回報表單#{index + 1}" , form
+							td= form.condition
+							td= form.if_delivered
 							td= form.created_at.strftime('%Y 年 %-m 月 %-d 日 (%a) %H:%M')
 							td= form.user.organization_code
 							td= form.user.department_code
