@@ -40,7 +40,9 @@ style
                   span.courses= @book.course_titles_in(current_user.organization_code).map { |c| "<span class=\"label\">#{c}</span>" }.join(' 、 ').html_safe
                   =<> link_to '》回報更多使用這本書的課程《', new_user_course_book_path(book_isbn: @book.isbn)
                 - if @book.behalf
-                  | 代送：代送書籍表示此書 Colorgy 網站僅提供同學做統計使用。最終會系上學會或是班代將此書訂購完成，會再通知購買者到貨時間，送到購買者手裡。
+                  | ＊代統計 (系會或是系上班代無合作請勿購買)：代統計書籍表示此書 Colorgy 網站無法直接販賣此書，僅提供班代、系會做統計、收款使用。
+                  br
+                  | 最終 Colorgy 會請班代或系會可以依據此統計名單及收款，統一另行向書商訂購本書，另外再通知個別到貨時間！請確認貴系學會或是班代有與我們合作，如果系會或是系上班代是沒有合作的，可能無法出書。
               .book-price.gradient-bg
                 - if @book.buyable
                   span.book-disc-price 團購價：NT$ #{@book.price}
