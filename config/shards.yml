@@ -48,8 +48,7 @@ configs = if ENV['DATABASE_URL'] && ENV['DATABASE_URL'] != ''
     config
   end
 else
-  # use dev and test DB as feaux 'follower'
-  Array.new(2) { YAML::load_file(File.open("config/database.yml"))[Rails.env] }
+  []
 end
 
 whitelist = ENV['SLAVE_ENABLED_FOLLOWERS'].downcase.split(', ') rescue nil
