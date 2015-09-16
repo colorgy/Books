@@ -59,4 +59,26 @@ ActiveAdmin.register Package do
     actions
   end
 
+  form do |f|
+    f.inputs '包裹資料' do
+      f.input :user_id
+      f.input :recipient_name
+      f.input :pickup_address
+      f.input :recipient_mobile
+      f.input :pickup_datetime
+      f.input :orders_count
+      f.input :state
+      f.input :price
+      f.input :amount
+      f.input :shipping_fee
+      f.input :shipped_at
+      f.input :received_at
+      f.input :created_at
+      f.input :updated_at
+      # f.input :additional_items
+
+      f.actions
+    end
+  end
+
 end

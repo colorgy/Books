@@ -267,39 +267,48 @@ ActiveAdmin.register Bill do
       end
     end
 
-    panel "Addtional Items" do
-      total_price = 0
-      calculate_strings = []
+    panel(link_to("Package", admin_package_path(bill.orders.first.package))) do
+      attributes_table_for bill.orders.first.package do
+        row(:recipient_name)
+        row(:pickup_address)
+        row(:recipient_mobile)
+        row(:pickup_datetime)
+      end
 
-      table do
-        thead do
-          tr do
-            %w(no name price).each(&method(:th))
-          end
-        end
+      panel "Addtional Items" do
+        total_price = 0
+        calculate_strings = []
 
-
-        item_price_h = Hash[PackageAdditionalItem.all.map{|item| [item.id.to_s, item.price]}]
-        item_name_h = Hash[PackageAdditionalItem.all.map{|item| [item.id.to_s, item.name]}]
-
-        bill.orders.map(&:package).uniq.each do |package|
-          package.additional_items.reject{|k,v| v != 'on'}.keys.each_with_index do |addtional_item_id, item_index|
-
-            item_price = item_price_h[addtional_item_id]
-            total_price += item_price
-            calculate_strings << item_price
-
+        table do
+          thead do
             tr do
-              td item_index+1
-              td item_name_h[addtional_item_id]
-              td item_price_h[addtional_item_id]
+              %w(no name price).each(&method(:th))
+            end
+          end
+
+
+          item_price_h = Hash[PackageAdditionalItem.all.map{|item| [item.id.to_s, item.price]}]
+          item_name_h = Hash[PackageAdditionalItem.all.map{|item| [item.id.to_s, item.name]}]
+
+          bill.orders.map(&:package).uniq.each do |package|
+            package.additional_items.reject{|k,v| v != 'on'}.keys.each_with_index do |addtional_item_id, item_index|
+
+              item_price = item_price_h[addtional_item_id]
+              total_price += item_price
+              calculate_strings << item_price
+
+              tr do
+                td item_index+1
+                td item_name_h[addtional_item_id]
+                td item_price_h[addtional_item_id]
+              end
             end
           end
         end
-      end
 
-      span do
-        "小計： #{calculate_strings.join(' + ')} = #{total_price}"
+        span do
+          "小計： #{calculate_strings.join(' + ')} = #{total_price}"
+        end
       end
     end
 
