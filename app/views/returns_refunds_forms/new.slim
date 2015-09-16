@@ -82,8 +82,8 @@ javascript:
               $('#row-bill-uuid').addClass('active');
               $('#row-reason').addClass('active');
               $('#row-image-url').removeClass('active');
-              $('#row-account').removeClass('active');
-              $('#row-phone-number').removeClass('active');
+              $('#row-account').addClass('active');
+              $('#row-phone-number').addClass('active');
             }
           }
         }
@@ -189,10 +189,21 @@ javascript:
                 flash.error('請填寫退書理由');
                 return false;
               }
-              $('#returns_refunds_form_image_url').val('');
-              $('#returns_refunds_form_account_bank_code').val('');
-              $('#returns_refunds_form_account_number').val('');
-              $('#returns_refunds_form_phone_number').val('');
+
+              if(returns_refunds_form_account_bank_code ==''){
+                flash.error('請填寫退款帳號銀行代碼');
+                return false;
+              }
+
+              if(returns_refunds_form_account_number ==''){
+                flash.error('請填寫退款帳號');
+                return false;
+              }
+
+              if(returns_refunds_form_phone_number ==''){
+                flash.error('請填寫聯絡手機');
+                return false;
+              }
             }
           }
         }
