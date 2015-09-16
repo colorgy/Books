@@ -64,7 +64,7 @@ ActiveAdmin.register Bill do
 
       organizations = Organization.all;
 
-      lines << %w(bill_id order_id sid user_id org user_name receive_name mobile original_price price state isbn 書名 supplier_code pickup course_name lecturer course_ucode pickup_address ordered package_course_ucode);
+      lines << %w(bill_id order_id sid user_id org user_name receive_name mobile original_price price state isbn 書名 supplier_code pickup course_name lecturer course_ucode pickup_address fee amount price ordered package_course_ucode);
       orders.order(:user_id).each do |order|
         org_code = order.user.organization_code || order.course && order.course.organization_code;
         lines << [
@@ -87,13 +87,16 @@ ActiveAdmin.register Bill do
           order.course && order.course.lecturer_name,
           order.course_ucode,
           (order.package && order.package.pickup_address == 'caves') ? '敦煌' : order.package && order.package.pickup_address,
+          order.bill.processing_fee,
+          order.bill.amount,
+          order.bill.price,
           "",
           "",
         ]
       end;
 
       orders.map(&:package).uniq.each do |package|
-        order = orders.first;
+        order = package.orders.first;
         org_code = order.user.organization_code || order.course && order.course.organization_code;
         package.additional_items.reject{|k,v| v != 'on'}.keys.each do |addtional_item_id|
           lines << [
@@ -112,10 +115,13 @@ ActiveAdmin.register Bill do
             item_name_h[addtional_item_id],
             nil,
             package.pickup_datetime.strftime('%Y-%-m-%-d'),
-            order.course && order.course.name,
-            order.course && order.course.lecturer_name,
-            order.course_ucode,
-            (order.package && order.package.pickup_address == 'caves') ? '敦煌' : nil,
+            # order.course && order.course.name,
+            # order.course && order.course.lecturer_name,
+            # order.course_ucode,
+            (order.package && order.package.pickup_address == 'caves') ? '敦煌' : order.package && order.package.pickup_address,
+            order.bill.processing_fee,
+            order.bill.amount,
+            order.bill.price,
             "",
             "",
           ]
