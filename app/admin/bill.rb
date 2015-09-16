@@ -64,7 +64,7 @@ ActiveAdmin.register Bill do
 
       organizations = Organization.all;
 
-      lines << %w(bill_id order_id sid user_id org user_name receive_name mobile original_price price state isbn 書名 supplier_code pickup course_name lecturer course_ucode pickup_address fee amount price ordered package_course_ucode);
+      lines << %w(bill_id order_id sid user_id org user_name receive_name mobile original_price price state isbn 書名 supplier_code pickup course_name lecturer course_ucode pickup_address fee amount price created_at ordered package_course_ucode);
       orders.order(:user_id).each do |order|
         org_code = order.user.organization_code || order.course && order.course.organization_code;
         lines << [
@@ -90,6 +90,7 @@ ActiveAdmin.register Bill do
           order.bill.processing_fee,
           order.bill.amount,
           order.bill.price,
+          order.bill.created_at.strftime('%Y-%-m-%-d'),
           "",
           "",
         ]
@@ -122,6 +123,7 @@ ActiveAdmin.register Bill do
             order.bill.processing_fee,
             order.bill.amount,
             order.bill.price,
+            order.bill.created_at.strftime('%Y-%-m-%-d'),
             "",
             "",
           ]
