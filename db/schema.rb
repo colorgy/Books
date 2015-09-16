@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150916024212) do
+ActiveRecord::Schema.define(version: 20150916090508) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -120,6 +120,7 @@ ActiveRecord::Schema.define(version: 20150916024212) do
     t.integer  "display_order",     default: 100,   null: false
     t.boolean  "course_required",   default: true,  null: false
     t.boolean  "out_of_stock",      default: false
+    t.string   "post_serial_no"
   end
 
   add_index "books", ["deleted_at"], name: "index_books_on_deleted_at", using: :btree
