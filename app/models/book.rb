@@ -35,7 +35,11 @@ class Book < ActiveRecord::Base
 
     # from(sanitize_sql_array([from_sql, org_code])).where(row_id: 1, organization_code: [nil, '', 'public', org_code])
 
-    where(organization_code: [nil, '', 'public', org_code])
+    exclusive_ids = Rails.cache.fetch("#{org_code}/exclusive_ids", expires_in: 30.minutes) do
+      select(:id, :organization_code).where(organization_code: org_code).map(&:id)
+    end
+
+    where(organization_code: [nil, '', 'public', org_code]).where.not(organization_code: exclusive_ids)
   end
 
   def delivery_processing_time
