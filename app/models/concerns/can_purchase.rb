@@ -193,7 +193,7 @@ module CanPurchase
     bill.used_credit_ids = []
     if user_credits.present?
       user_credits.order(:expires_at).each do |user_credit|
-        next if bill.amount - user_credit.credits < 100
+        next if bill.amount - bill.used_credits - user_credit.credits < 50
         next if user_credit.book_isbn.present? && !book_isbns.include?(user_credit.book_isbn)
         bill.used_credit_ids << user_credit.id
         bill.used_credits += user_credit.credits
