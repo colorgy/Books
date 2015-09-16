@@ -271,7 +271,7 @@ CartItemsCashier = React.createClass
               <div className="form-group">
                 <label className="string control-label" htmlFor="group_recipient_name">收件地址</label>
                 <div>
-                  <blockquote className="small">可以選擇寄送到宿舍、指定地址或（中央、中興、元智、輔大）敦煌書局取貨（免運費）。</blockquote>
+                  <blockquote className="small">可以選擇寄送到宿舍、指定地址或（中央、中興、元智、輔大）敦煌書局取貨（免運費，最快隔天取書）。</blockquote>
                 </div>
                 <div className="row">
                   <div className="col m3 s12">

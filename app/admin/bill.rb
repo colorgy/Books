@@ -62,11 +62,11 @@ ActiveAdmin.register Bill do
       item_price_h = Hash[PackageAdditionalItem.all.map{|item| [item.id.to_s, item.price]}]
       item_name_h = Hash[PackageAdditionalItem.all.map{|item| [item.id.to_s, item.name]}]
 
-      organizations = Organization.all
+      organizations = Organization.all;
 
-      lines << %w(bill_id order_id sid user_id org user_name receive_name original_price price state isbn 書名 supplier_code pickup course_name lecturer course_ucode pickup_address ordered package_course_ucode);
+      lines << %w(bill_id order_id sid user_id org user_name receive_name mobile original_price price state isbn 書名 supplier_code pickup course_name lecturer course_ucode pickup_address fee amount price ordered package_course_ucode);
       orders.order(:user_id).each do |order|
-        org_code = order.user.organization_code && order.course && order.course.organization_code;
+        org_code = order.user.organization_code || order.course && order.course.organization_code;
         lines << [
           order.bill.id,
           order.id,
@@ -75,6 +75,7 @@ ActiveAdmin.register Bill do
           org_code && organizations.find{|d| d.code == org_code}.short_name,
           order.user && order.user.name,
           order.package && order.package.recipient_name,
+          order.package && order.package.recipient_mobile,
           order.book && order.book.data && order.book.data.original_price,
           order.price,
           order.state,
@@ -86,14 +87,17 @@ ActiveAdmin.register Bill do
           order.course && order.course.lecturer_name,
           order.course_ucode,
           (order.package && order.package.pickup_address == 'caves') ? '敦煌' : order.package && order.package.pickup_address,
+          order.bill.processing_fee,
+          order.bill.amount,
+          order.bill.price,
           "",
           "",
         ]
-      end
+      end;
 
       orders.map(&:package).uniq.each do |package|
-        order = orders.first;
-        org_code = order.user.organization_code && order.course && order.course.organization_code;
+        order = package.orders.first;
+        org_code = order.user.organization_code || order.course && order.course.organization_code;
         package.additional_items.reject{|k,v| v != 'on'}.keys.each do |addtional_item_id|
           lines << [
             order.bill.id,
@@ -103,6 +107,7 @@ ActiveAdmin.register Bill do
             org_code && organizations.find{|d| d.code == org_code}.short_name,
             order.user && order.user.name,
             order.package && order.package.recipient_name,
+            order.package && order.package.recipient_mobile,
             item_price_h[addtional_item_id],
             item_price_h[addtional_item_id],
             order.state,
@@ -110,10 +115,13 @@ ActiveAdmin.register Bill do
             item_name_h[addtional_item_id],
             nil,
             package.pickup_datetime.strftime('%Y-%-m-%-d'),
-            order.course && order.course.name,
-            order.course && order.course.lecturer_name,
-            order.course_ucode,
-            (order.package && order.package.pickup_address == 'caves') ? '敦煌' : nil,
+            # order.course && order.course.name,
+            # order.course && order.course.lecturer_name,
+            # order.course_ucode,
+            (order.package && order.package.pickup_address == 'caves') ? '敦煌' : order.package && order.package.pickup_address,
+            order.bill.processing_fee,
+            order.bill.amount,
+            order.bill.price,
             "",
             "",
           ]
