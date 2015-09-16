@@ -16,7 +16,7 @@ ActiveAdmin.register BookData do
 
   index do
     selectable_column
-    column(:id)
+    id_column
     column(:isbn)
     column(:known_supplier)
     column(:original_price)
@@ -32,7 +32,7 @@ ActiveAdmin.register BookData do
 
   index as: :detailed_table do |book_data|
     selectable_column
-    column(:id)
+    id_column
 
     column(:isbn)
     column(:name)

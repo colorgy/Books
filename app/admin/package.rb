@@ -22,7 +22,7 @@ ActiveAdmin.register Package do
   index do
     selectable_column
 
-    column(:id)
+    id_column
     column(:user)
     column(:recipient_name)
     column(:pickup_address)

@@ -33,7 +33,7 @@ ActiveAdmin.register CourseBook do
   index do
     selectable_column
 
-    column(:id)
+    id_column
     column('Course Ucode') {|cb| cb.course.present? ? a(cb.course_ucode, href: admin_course_path(cb.course)) : cb.course_ucode }
     column('Course Name', sortable: true)  {|cb| cb.course.present? ? a(cb.course.name, href: admin_course_path(cb.course)) : cb.course_ucode }
     column('Book Isbn') {|cb| cb.book_data.present? ? a(cb.book_isbn, href: admin_book_data_path(cb.book_data)) : cb.book_isbn }

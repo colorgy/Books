@@ -28,7 +28,7 @@ ActiveAdmin.register Book do
   index do
     selectable_column
 
-    column(:id)
+    id_column
     column(:post_serial_no)
     column('Book Name') { |book| a book.data.name, href: admin_book_data_url(book.data) }
     column('Author') { |book| book.data.author }

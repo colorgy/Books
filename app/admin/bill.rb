@@ -171,7 +171,7 @@ ActiveAdmin.register Bill do
   index do
     selectable_column
 
-    column(:id)
+    id_column
     # column(:uuid)
     column(:user)
     column(:price)

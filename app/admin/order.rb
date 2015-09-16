@@ -38,7 +38,7 @@ ActiveAdmin.register Order do
 
     selectable_column
 
-    column(:id)
+    id_column
     column(:bill)
     column(:user)
     column(:book)
