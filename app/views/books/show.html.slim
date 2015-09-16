@@ -48,6 +48,8 @@ style
                   span.book-disc-price 優惠價：NT$ #{@book.price}
                   span.book-orginal-price
                     del 定價：NT$ #{@book.original_price}
+                - elsif @book.out_of_stock
+                  | 本書已售完
                 - else
                   | 本書暫不開放購買
     .col.m12.s12
@@ -57,6 +59,8 @@ style
             - @book_groups = []
             - @book_courses_with_no_group = []
           = react_component 'AddBookToCart', book: @book, bookGroups: @book_groups, bookCourses: @book_courses, bookCoursesWithNoGroup: @book_courses_with_no_group
+        - elsif @book.out_of_stock
+          | 本書庫存已售完，請洽校園書店詢問購買
         - else
           | 本書暫不開放購買
       .social-comments
@@ -87,4 +91,3 @@ javascript:
       flash.error('你必須先選擇課程才能加入購物車，如果沒有你想要的課程，請去核對課程用書區核對，或是直接至粉專回報給我們。')
     }
   })
-

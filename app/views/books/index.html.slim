@@ -96,6 +96,10 @@
                         h5.discount-price 優惠價 ： #{book.price}
                         p.origin-price
                           del 定價 ： #{book.original_price}
+                      - elsif book.out_of_stock
+                        h5.discount-price 已售罄
+                        p.origin-price
+                          del 定價 ： #{book.original_price}
                       - else
                         h5.discount-price 尚未開放購買
                         p.origin-price
