@@ -1,6 +1,6 @@
 ActiveAdmin.register Book do
 
-  permit_params :supplier_code, :price, :isbn, :created_at, :updated_at, :deleted_at, :organization_code, :internal_code, :behalf, :buyable, :display_order, :out_of_stock
+  permit_params :supplier_code, :price, :isbn, :created_at, :updated_at, :deleted_at, :organization_code, :internal_code, :behalf, :buyable, :display_order, :out_of_stock, :post_serial_no
 
   controller do
     def scoped_collection
@@ -8,7 +8,9 @@ ActiveAdmin.register Book do
     end
   end
 
+  filter :id
   filter :isbn
+  filter :post_serial_no
   filter :data_name,  as: :string
   filter :data_author,  as: :string
   filter :data_known_supplier,  as: :string
@@ -27,6 +29,7 @@ ActiveAdmin.register Book do
     selectable_column
 
     column(:id)
+    column(:post_serial_no)
     column('Book Name') { |book| a book.data.name, href: admin_book_data_url(book.data) }
     column('Author') { |book| book.data.author }
     column('Publisher') { |book| book.data.publisher }
@@ -46,6 +49,7 @@ ActiveAdmin.register Book do
   form do |f|
     f.inputs '上書資料' do
       f.input :supplier_code
+      f.input :post_serial_no
       f.input :price
       f.input :isbn
       f.input :organization_code

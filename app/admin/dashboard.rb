@@ -17,7 +17,7 @@ ActiveAdmin.register_page "Dashboard" do
             tbody do
               Bill.order('id desc').first(20).map do |bill|
                 tr do
-                  td bill.id
+                  td { a bill.id, href: admin_bill_path(bill) }
                   td { a bill.user.name, href: admin_user_path(bill.user) }
                   td bill.amount
                   td do
