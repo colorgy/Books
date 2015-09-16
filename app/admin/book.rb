@@ -1,6 +1,6 @@
 ActiveAdmin.register Book do
 
-  permit_params :supplier_code, :price, :isbn, :created_at, :updated_at, :deleted_at, :organization_code, :internal_code, :behalf, :buyable, :display_order
+  permit_params :supplier_code, :price, :isbn, :created_at, :updated_at, :deleted_at, :organization_code, :internal_code, :behalf, :buyable, :display_order, :out_of_stock
 
   controller do
     def scoped_collection
@@ -21,6 +21,7 @@ ActiveAdmin.register Book do
   filter :internal_code
   filter :buyable
   filter :behave
+  filter :out_of_stock
 
   index do
     selectable_column
@@ -34,6 +35,7 @@ ActiveAdmin.register Book do
     column(:organization_code)
     column(:buyable)
     column(:behalf)
+    column(:out_of_stock)
     column(:supplier_code)
     column(:created_at)
     column(:updated_at)
@@ -50,6 +52,7 @@ ActiveAdmin.register Book do
       f.input :internal_code
       f.input :behalf
       f.input :buyable
+      f.input :out_of_stock
       f.input :display_order
 
       f.actions

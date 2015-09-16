@@ -62,7 +62,7 @@ ActiveAdmin.register Bill do
       item_price_h = Hash[PackageAdditionalItem.all.map{|item| [item.id.to_s, item.price]}]
       item_name_h = Hash[PackageAdditionalItem.all.map{|item| [item.id.to_s, item.name]}]
 
-      organizations = Organization.all
+      organizations = Organization.all;
 
       lines << %w(bill_id order_id sid user_id org user_name receive_name mobile original_price price state isbn 書名 supplier_code pickup course_name lecturer course_ucode pickup_address ordered package_course_ucode);
       orders.order(:user_id).each do |order|
@@ -90,7 +90,7 @@ ActiveAdmin.register Bill do
           "",
           "",
         ]
-      end
+      end;
 
       orders.map(&:package).uniq.each do |package|
         order = orders.first;
