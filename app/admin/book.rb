@@ -30,7 +30,13 @@ ActiveAdmin.register Book do
 
     id_column
     column(:post_serial_no)
-    column('Book Name') { |book| a book.data.name, href: admin_book_data_url(book.data) }
+    column('Book Name') do |book|
+      if book.data.present?
+        a book.data.name, href: admin_book_data_url(book.data)
+      else
+        book.isbn
+      end
+    end
     column('Author') { |book| book.data.author }
     column('Publisher') { |book| book.data.publisher }
     column(:price)

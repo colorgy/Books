@@ -16,6 +16,7 @@ ActiveAdmin.register Order do
   filter :price
   filter :state
   filter :bill_uuid
+  filter :bill_id, as: :string
   filter :course_ucode
   filter :course_name, as: :string
   filter :package_course_ucode

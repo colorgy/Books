@@ -152,6 +152,10 @@ ActiveAdmin.register Bill do
     download_orders(Order.order('orders.course_ucode').by_supplier_code.where('orders.created_at > ?', Date.new(2015, 8, 1)).where(state: :ready))
   end
 
+  collection_action :download_cave_base, :method => :get do
+    download_orders(Order.order('orders.course_ucode').by_supplier_code.where('orders.created_at > ?', Date.new(2015, 8, 1)).where('state = ?', 'ready').where(order_date: nil))
+  end
+
   action_item only: [:index] do
     link_to "匯出發票", invoice_export_path
   end
@@ -166,6 +170,10 @@ ActiveAdmin.register Bill do
 
   action_item only: :index do
     link_to('出貨表單（全部）', params.merge(action: :download_packing_list) )
+  end
+
+  action_item only: :index do
+    link_to('出貨表單（敦煌基底）', params.merge(action: :download_cave_base) )
   end
 
   index do
