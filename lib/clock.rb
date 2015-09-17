@@ -8,7 +8,7 @@ module Clockwork
     config[:logger] = Rails.logger
   end
 
-  every(3.hours, 'course.sync') { CourseSyncWorker.perform_async }
+  # every(3.hours, 'course.sync') { CourseSyncWorker.perform_async }
 
   every(10.minutes, 'group.state_check.end') { GroupEndCheckWorker.perform_async }
   every(10.minutes, 'group.state_check.ready') { GroupReadyCheckWorker.perform_async }
