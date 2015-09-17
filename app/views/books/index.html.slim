@@ -1,4 +1,4 @@
-- if @cached_page
+- if @cached_page && false
   = @cached_page.html_safe
 
 - else
@@ -64,6 +64,17 @@
             = image_tag('sponsors/tutorabc/left_banner.jpg')
 
       .col.m8.s12
+        .product-list
+          .product-list-inner
+            blockquote style="text-align: center;background-color: #fff;margin: 12px 0;border-right: 1px solid #EEE;border-top: 1px solid #EEE;border-bottom: 1px solid #EEE;"
+              - if current_org_code
+                | 您目前的學校為 #{current_org_code}，如果不正確可以到
+                a(href="https://colorgy.io/my-account/") 這裡
+                | 「自訂身份／編輯」更改，才能搜尋到正確的書唷！
+              - else
+                | 您目前尚未設定學校，請到
+                a(href="https://colorgy.io/my-account/") 這裡
+                | 「自訂身份／編輯」選擇學校，才能搜尋到正確的書唷！
         - @books.each do |book|
           .product-list
             .product-list-inner

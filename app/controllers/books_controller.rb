@@ -2,7 +2,7 @@ class BooksController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @cached_page = Rails.cache.fetch("#{current_org_code}/books_page/#{params[:q]}/#{params[:page]}", expires_in: 10.minutes) do
+    # @cached_page = Rails.cache.fetch("#{current_org_code}/books_page/#{params[:q]}/#{params[:page]}", expires_in: 10.minutes) do
 
       if params[:q].present? && params[:q].is_a?(String)
         @books = books_collection.simple_search(params[:q], current_org_code).page(params[:page])
@@ -12,8 +12,8 @@ class BooksController < ApplicationController
         @books = books_collection.order(:display_order).page(params[:page])
       end
 
-      render_to_string(layout: false)
-    end
+      # render_to_string(layout: false)
+    # end
   end
 
   def show
@@ -41,7 +41,11 @@ class BooksController < ApplicationController
   private
 
   def books_collection
-    Book.for_org(current_org_code).includes_full_data
+    if ["NCKU", "NCU", "NCHU", "YZU", "FJU", "TKU", "CCU", "NSYSU", "NTHU", "NCTU", "NTUST", "NTUT", "CYCU", "NTU", "NTNU"].include?(current_org_code)
+      Book.for_org(current_org_code).includes_full_data
+    else
+      Book.where(id: [802410, 389478])
+    end
   end
 
   def courses_collection
