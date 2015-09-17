@@ -1,7 +1,7 @@
 ActiveAdmin.register Package do
 
 
-  permit_params :user_id, :recipient_name, :pickup_address, :recipient_mobile, :pickup_datetime, :orders_count, :state, :price, :amount, :shipping_fee, :shipped_at, :received_at, :created_at, :updated_at, :additional_items
+  permit_params :user_id, :recipient_name, :pickup_address, :recipient_mobile, :pickup_datetime, :orders_count, :state, :price, :amount, :shipping_fee, :shipped_at, :received_at, :created_at, :updated_at #, :additional_items
 
   filter :user_id
   filter :user_name, as: :string

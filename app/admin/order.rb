@@ -9,6 +9,7 @@ ActiveAdmin.register Order do
 
   filter :user_id
   filter :user_name, as: :string
+  filter :book_id
   filter :book_isbn, as: :string
   filter :book_data_name, as: :string
   filter :bill_id
