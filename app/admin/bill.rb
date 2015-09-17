@@ -220,7 +220,7 @@ ActiveAdmin.register Bill do
       table do
         thead do
           tr do
-            %w(no book_name quantity book_price book_isbn state course_name lecturer package_id course_ucode created_at updated_at).each(&method(:th))
+            %w(no book_name supplier_code quantity book_price book_isbn state course_name lecturer package_id course_ucode created_at updated_at).each(&method(:th))
           end
         end
 
@@ -237,10 +237,23 @@ ActiveAdmin.register Bill do
 
           tr do
             td { index+1 }
-            td { a book.name, href: admin_book_path(book) }
+            td do
+              if book.present?
+                a book.name, href: admin_book_path(book)
+              else
+                book_id
+              end
+            end
+            td { book && book.supplier_code }
             td { quantity }
             td { order.price }
-            td { a book.isbn, href: admin_book_data_path(book.data) }
+            td do
+              if book.present?
+                a book.isbn, href: admin_book_data_path(book.data)
+              else
+                nil
+              end
+            end
             td { order.state }
             td {
               if course.present?
