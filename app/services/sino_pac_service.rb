@@ -70,7 +70,7 @@ module SinoPacService
       response = post(target_url, xml_context)
       response = Hash.from_xml(response)
 
-      status_code = response['QueryTradeStatusResponse']['ECWebAPI']['PayStatus'].to_i
+      status_code = (response['QueryTradeStatusResponse'] && response['QueryTradeStatusResponse']['ECWebAPI'] && response['QueryTradeStatusResponse']['ECWebAPI']['PayStatus']).to_i
 
       if status_code > 15 && status_code < 100
         return true
