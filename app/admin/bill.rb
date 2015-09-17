@@ -376,11 +376,36 @@ ActiveAdmin.register Bill do
       end
     end
 
-    # panel "同使用者其它訂單"
-    #   attributes_table_for bill.user.bills.reject(bill) do
-
-    #   end
-    # end
+    panel "其它帳單" do
+      table_for bill.user.bills.where('id <> ?', bill.id) do
+        column(:id) {|bill| a bill.id, href: admin_bill_path(bill)}
+        column(:user)
+        column(:price)
+        column(:amount)
+        column(:state) do |bill|
+          tag = nil
+          case bill.state
+          when "paid"
+            tag = :ok
+          when "payment_pending"
+            tag = :warning
+          end
+          tag.nil? ? status_tag(bill.state) : status_tag(bill.state, tag)
+        end
+        column(:type)
+        column("Payment Info") { |bill| bill.payment_code || bill.virtual_account }
+        column(:used_credits)
+        column(:processing_fee)
+        column(:deadline)
+        column(:paid_at)
+        column(:created_at)
+        column(:updated_at)
+        column do |bill|
+          a '檢視', href: admin_bill_path(bill)
+          # a '編輯', href: edit_admin_bill_path(bill)
+        end
+      end
+    end
 
   end
 
@@ -389,6 +414,16 @@ ActiveAdmin.register Bill do
       row(:uuid)
       row(:user_id)
       row(:user_fbid) { |bill| a bill.user.fbid, href: "https://www.facebook.com/#{bill.user.fbid}" }
+      row(:state) do |bill|
+        tag = nil
+        case bill.state
+        when "paid"
+          tag = :ok
+        when "payment_pending"
+          tag = :warning
+        end
+        tag.nil? ? status_tag(bill.state) : status_tag(bill.state, tag)
+      end
       row(:type)
       row(:price)
       row(:amount)
@@ -396,7 +431,6 @@ ActiveAdmin.register Bill do
       row(:invoice_type)
       row(:invoice_data)
       row(:data)
-      row(:state)
       row(:deleted_at)
       row(:created_at)
       row(:updated_at)
