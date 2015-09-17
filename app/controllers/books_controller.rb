@@ -17,7 +17,7 @@ class BooksController < ApplicationController
   end
 
   def show
-    @book = Book.includes(:data).find(params[:id])
+    @book = books_collection.includes(:data).find(params[:id])
     @book_groups = @book.groups.grouping.in_org(current_org_code)
     @book_group_course_ucodes = @book_groups.map(&:course_ucode)
     @book_groups = ActiveModel::ArraySerializer.new(@book_groups, each_serializer: GroupSerializer).as_json
@@ -41,7 +41,7 @@ class BooksController < ApplicationController
   private
 
   def books_collection
-    if ["NCKU", "NCU", "NCHU", "YZU", "FJU", "TKU", "CCU", "NSYSU", "NTHU", "NCTU", "NTUST", "NTUT", "CYCU", "NTU", "NTNU"].include?(current_org_code)
+    if ["TTU", "CGU", "GCU", "NTPU", "NCKU", "NCU", "NCHU", "YZU", "FJU", "TKU", "CCU", "NSYSU", "NTHU", "NCTU", "NTUST", "NTUT", "CYCU", "NTU", "NTNU"].include?(current_org_code)
       Book.for_org(current_org_code).includes_full_data
     else
       Book.where(id: [802410, 389478])
