@@ -119,7 +119,7 @@ ActiveAdmin.register Bill do
           order.bill.amount,
           order.bill.price,
           order.bill.created_at.strftime('%Y-%-m-%-d'),
-          "",
+          order.order_date,
           # "",
         ]
       end;
@@ -182,7 +182,7 @@ ActiveAdmin.register Bill do
   end
 
   collection_action :download_all_packing_list, :method => :get do
-    download_orders(Order.order('orders.course_ucode').by_supplier_code.where('orders.created_at > ?', Date.new(2015, 8, 1)).where(order_date: nil).where('state = ? OR state = ?', 'ready', 'new').where(order_date: nil))
+    download_orders(Order.order('orders.course_ucode').by_supplier_code.where('orders.created_at > ?', Date.new(2015, 8, 1)).where(order_date: nil).where('state = ? OR state = ?', 'ready', 'new'))
   end
 
   collection_action :download_cave_base, :method => :get do
