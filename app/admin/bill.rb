@@ -170,19 +170,19 @@ ActiveAdmin.register Bill do
 
 
   collection_action :download_packing_list_without_ouya, :method => :get do
-    download_orders(Order.order('orders.course_ucode').by_supplier_code.where('orders.created_at > ? AND books.supplier_code != ?', Date.new(2015, 8, 1), 'ouya').where(state: :ready))
+    download_orders(Order.order('orders.course_ucode').by_supplier_code.where('orders.created_at > ? AND books.supplier_code != ?', Date.new(2015, 8, 1), 'ouya').where(state: :ready).where(order_date: nil))
   end
 
   collection_action :download_ouya_packing_list, :method => :get do
-    download_orders(Order.by_supplier_code.order('orders.course_ucode').where('orders.created_at > ? AND books.supplier_code = ? AND (orders.state = ? OR orders.state = ?)', Date.new(2015, 8, 1), 'ouya', 'new', 'ready'))
+    download_orders(Order.by_supplier_code.order('orders.course_ucode').where('orders.created_at > ? AND books.supplier_code = ? AND (orders.state = ? OR orders.state = ?)', Date.new(2015, 8, 1), 'ouya', 'new', 'ready').where(order_date: nil))
   end
 
   collection_action :download_packing_list, :method => :get do
-    download_orders(Order.order('orders.course_ucode').by_supplier_code.where('orders.created_at > ?', Date.new(2015, 8, 1)).where(state: :ready))
+    download_orders(Order.order('orders.course_ucode').by_supplier_code.where('orders.created_at > ?', Date.new(2015, 8, 1)).where(state: :ready).where(order_date: nil))
   end
 
   collection_action :download_all_packing_list, :method => :get do
-    download_orders(Order.order('orders.course_ucode').by_supplier_code.where('orders.created_at > ?', Date.new(2015, 8, 1)).where(order_date: nil).where('state = ? OR state = ?', 'ready', 'new'))
+    download_orders(Order.order('orders.course_ucode').by_supplier_code.where('orders.created_at > ?', Date.new(2015, 8, 1)).where(order_date: nil).where('state = ? OR state = ?', 'ready', 'new').where(order_date: nil))
   end
 
   collection_action :download_cave_base, :method => :get do
