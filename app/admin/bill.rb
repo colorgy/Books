@@ -64,7 +64,34 @@ ActiveAdmin.register Bill do
 
       organizations = Organization.all;
 
-      lines << %w(bill_id order_id sid user_id org user_name receive_name mobile original_price price state isbn 書名 supplier_code pickup course_name lecturer course_ucode pickup_address fee amount price created_at ordered package_course_ucode);
+      lines << [
+        "帳單編號",
+        "訂單編號",
+        "Sid",
+        "uid",
+        "學校",
+        "姓名",
+        "收件人姓名",
+        "手機",
+        "原價",
+        "售價",
+        "狀態",
+        "isbn",
+        "書名",
+        "作者",
+        "代理商",
+        "取件日期",
+        "課程名稱",
+        "課程老師",
+        "課程代碼",
+        "收件住址",
+        "手續費",
+        "帳單總金額",
+        "price",
+        "下定日期",
+        "處裡日期",
+        # "package_course_ucode"
+      ];
       orders.order(:user_id).each do |order|
         org_code = order.user.organization_code || order.course && order.course.organization_code;
         lines << [
@@ -81,6 +108,7 @@ ActiveAdmin.register Bill do
           order.state,
           order.book_isbn,
           order.book && order.book.name,
+          order.book && order.book.author,
           order.book.supplier_code,
           order.package.pickup_datetime.strftime('%Y-%-m-%-d'),
           order.course && order.course.name,
@@ -92,7 +120,7 @@ ActiveAdmin.register Bill do
           order.bill.price,
           order.bill.created_at.strftime('%Y-%-m-%-d'),
           "",
-          "",
+          # "",
         ]
       end;
 
@@ -115,6 +143,7 @@ ActiveAdmin.register Bill do
             nil,
             item_name_h[addtional_item_id],
             nil,
+            nil,
             package.pickup_datetime.strftime('%Y-%-m-%-d'),
             # order.course && order.course.name,
             # order.course && order.course.lecturer_name,
@@ -125,7 +154,7 @@ ActiveAdmin.register Bill do
             order.bill.price,
             order.bill.created_at.strftime('%Y-%-m-%-d'),
             "",
-            "",
+            # "",
           ]
         end
       end;
@@ -228,7 +257,7 @@ ActiveAdmin.register Bill do
       table do
         thead do
           tr do
-            %w(no book_name supplier_code quantity book_price book_isbn state course_name lecturer package_id course_ucode created_at updated_at).each(&method(:th))
+            %w(no book_name supplier_code quantity orders book_price book_isbn state course_name lecturer package_id course_ucode created_at updated_at).each(&method(:th))
           end
         end
 
@@ -236,8 +265,9 @@ ActiveAdmin.register Bill do
         orders = bill.orders
         orders.pluck(:book_id).group_by(&:itself).each_with_index do |(book_id, id_arr), index|
           quantity = id_arr.size
-          order = orders.find_by(book_id: book_id)
-          book = Book.find(book_id)
+          book_orders = orders.where(book_id: book_id)
+          order = book_orders.first
+          book = Book.find_by(id: book_id)
           course = order.course
 
           total_price += quantity * order.price
@@ -246,7 +276,7 @@ ActiveAdmin.register Bill do
           tr do
             td { index+1 }
             td do
-              if book.present?
+              if book.present? && book.data.present?
                 a book.name, href: admin_book_path(book)
               else
                 book_id
@@ -254,6 +284,11 @@ ActiveAdmin.register Bill do
             end
             td { book && book.supplier_code }
             td { quantity }
+            td do
+              book_orders.each do |_ord|
+                a _ord.id, href: admin_order_path(_ord)
+              end
+            end
             td { order.price }
             td do
               if book.present?
@@ -340,6 +375,12 @@ ActiveAdmin.register Bill do
         end
       end
     end
+
+    # panel "同使用者其它訂單"
+    #   attributes_table_for bill.user.bills.reject(bill) do
+
+    #   end
+    # end
 
   end
 
