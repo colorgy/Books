@@ -182,7 +182,7 @@ ActiveAdmin.register Bill do
   end
 
   collection_action :download_all_packing_list, :method => :get do
-    download_orders(Order.order('orders.course_ucode').by_supplier_code.where('orders.created_at > ?', Date.new(2015, 8, 1)).where(order_date: nil).where('state = ? OR state = ?', 'ready', 'new'))
+    download_orders(Order.order('orders.course_ucode').by_supplier_code.where('orders.created_at > ?', Date.new(2015, 8, 1)).where('state = ? OR state = ?', 'ready', 'new'))
   end
 
   collection_action :download_cave_base, :method => :get do
@@ -206,7 +206,7 @@ ActiveAdmin.register Bill do
   end
 
   action_item only: :index do
-    link_to('出貨表單（所有的入門的）', params.merge(action: :download_all_packing_list) )
+    link_to('所有資料下載', params.merge(action: :download_all_packing_list) )
   end
 
   action_item only: :index do
