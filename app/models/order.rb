@@ -100,6 +100,19 @@ class Order < ActiveRecord::Base
       end
     end
 
+    event :mark_refund do
+      transitions :from => :paid, :to => :refund
+      transitions :from => :ready, :to => :refund
+      transitions :from => :delivering, :to => :refund
+      transitions :from => :leader_received, :to => :refund
+      transitions :from => :delivered, :to => :refund
+      transitions :from => :received, :to => :refund
+    end
+
+    event :refund_done do
+      transitions :from => :refund, :to => :refund_done
+    end
+
     event :revert do
       transitions :from => :delivering, :to => :paid, :if => :recently_updated
       transitions :from => :leader_received, :to => :delivering, :if => :recently_updated
