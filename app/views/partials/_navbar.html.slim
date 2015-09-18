@@ -35,7 +35,7 @@
             li
               a.tooltipped data-delay="0" data-position="bottom" data-tooltip="查看你的所有訂單！" href=orders_path
                 | 我的訂單
-            li
+            li.hide
               a.tooltipped data-delay="0" data-position="bottom" data-tooltip="書籍有問題嗎？來退換書籍專區回報吧！" href=returns_refunds_forms_path
                 | 退換書籍
             li.nav-bar-drop-down
@@ -104,7 +104,7 @@
                 .icon style="width: 24px; vertical-align: middle; margin-right: 4px;"
                   =image_tag('icons/document.png')
                 | 訂單查詢
-            li
+            li.hide
               a href=returns_refunds_forms_path
                 .icon style="width: 24px; vertical-align: middle; margin-right: 4px;"
                   =image_tag('icons/aperture.png')
