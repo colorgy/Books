@@ -38,11 +38,11 @@ AddBookToCart = React.createClass
       false
     else if (@state.purchaseMethod == 'package')
       if @props.book.course_required
-        @state.courseUCode && @state.purchaseMethod && @state.quantity && (@state.quantity > 0)
+        @state.courseUCode && @state.purchaseMethod && @state.quantity && (@state.quantity > 0) && (@state.quantity < 12)
       else
-        @state.purchaseMethod && @state.quantity && (@state.quantity > 0)
+        @state.purchaseMethod && @state.quantity && (@state.quantity > 0) && (@state.quantity < 12)
     else
-      @state.purchaseMethod && @state.quantity && (@state.quantity > 0)
+      @state.purchaseMethod && @state.quantity && (@state.quantity > 0) && (@state.quantity < 12)
 
   submit: ->
     return unless @canSubmit()
@@ -146,6 +146,10 @@ AddBookToCart = React.createClass
     else
       groupTitle = ''
 
+    groupLink = ''
+    if @state.quantity > 10
+      groupLink = `<a href={'/group_buy_forms/new?book_isbn=' + this.props.book.isbn}>&nbsp;&nbsp;大量購買？填寫大量訂購單</a>`
+
     `<div>
       <div className="package-field">
         <div className="under-line-title">
@@ -172,6 +176,7 @@ AddBookToCart = React.createClass
           id="add-to-cart">
           放入購物書包
         </button>
+        {groupLink}
       </div>
     </div>`
 

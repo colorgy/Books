@@ -10,22 +10,20 @@ style
     = form_for @returns_refunds_form, :html => {:id => 'returns_refunds_form', :class => 'row default-form', multipart: true} do |f|
       .row
         .col.m12.s12
-          label 申請手續：請問您要換書還是退書呢？
-          select.browser-default name="returns_refunds_form[condition]" id="returns_refunds_form_condition"
+          label 申請手續：請問您要退的是哪本書？
+          select.browser-default name="returns_refunds_form[order_id]" id="returns_refunds_form_order_id"
             option value="" disabled="" selected="" 請選擇
-            option value="換書" 換書
-            option value="退書" 退書
+            = options_for_select @orders.map { |order| ["#{order.book.name} (#{order.course_name})", order.id] }
+          blockquote.small 若您的訂單尚未繳費，就不需要在此申請退款囉！直接不繳費、並重新下訂正確的書籍即可。
       .row
         .col.m12.s12
-          label 書本是否已經送達?
-          select.browser-default name="returns_refunds_form[if_delivered]" id="returns_refunds_form_if_delivered"
-            option value="" disabled="" selected="" 請選擇
-            option value="true" 是
-            option value="false" 否
-      #row-bill-uuid.row.hide
+          label 我們會在每週一、四將處理完畢的退書費用匯款到您的帳戶，請問您要匯到哪個帳號呢？
+          input.form-control name="returns_refunds_form[refund_account]" id="returns_refunds_form_refund_account"
+          blockquote.small 請填寫完整的銀行代碼＋帳號喔！
+      .row
         .col.m12.s12
-          = f.label :bill_uuid,'訂單編號(可至我的訂單查詢)'
-          = f.text_field :bill_uuid, :class => 'form-control'
+          = f.label :reason, '退書原因'
+          = f.text_field :reason, :class => 'form-control'
 
       #row-phone-number.row.hide
         .col.m12.s12

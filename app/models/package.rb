@@ -13,6 +13,7 @@ class Package < ActiveRecord::Base
   has_many :orders
 
   after_initialize :mark_paid_if_all_paid
+  before_create :init_pickup_datetime
 
   aasm column: :state do
     state :new, initial: true
@@ -92,8 +93,12 @@ class Package < ActiveRecord::Base
   end
 
   def bill_deadline
-    return pickup_datetime - 5.days if pickup_datetime
-    1.week.from_now
+    # return pickup_datetime - 5.days if pickup_datetime
+    3.days.from_now.change(hour: 23, min: 59, sec: 59)
+  end
+
+  def init_pickup_datetime
+    self.pickup_datetime = 1.days.from_now
   end
 
   def mark_paid_if_all_paid

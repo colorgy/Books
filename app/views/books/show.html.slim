@@ -39,6 +39,7 @@ style
                   br
                   span.courses= @book.course_titles_in(current_user.organization_code).map { |c| "<span class=\"label\">#{c}</span>" }.join(' 、 ').html_safe
                   =<> link_to '》回報更多使用這本書的課程《', new_user_course_book_path(book_isbn: @book.isbn)
+                  =<> link_to '》班代大量訂購本書《', new_group_buy_form_path(book_isbn: @book.isbn)
                 - if @book.behalf
                   | ＊代統計 (系會或是系上班代無合作請勿購買)：代統計書籍表示此書 Colorgy 網站無法直接販賣此書，僅提供班代、系會做統計、收款使用。
                   br

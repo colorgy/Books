@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150916090508) do
+ActiveRecord::Schema.define(version: 20150918233625) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -182,6 +182,19 @@ ActiveRecord::Schema.define(version: 20150916090508) do
     t.datetime "created_at",                         null: false
     t.datetime "updated_at",                         null: false
   end
+
+  create_table "group_buy_forms", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "book_isbn"
+    t.string   "course_name"
+    t.string   "course_ucode"
+    t.string   "mobile"
+    t.integer  "quantity"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "group_buy_forms", ["user_id"], name: "index_group_buy_forms_on_user_id", using: :btree
 
   create_table "groups", force: :cascade do |t|
     t.string   "code",                                     null: false

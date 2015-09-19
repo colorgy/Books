@@ -15,6 +15,7 @@ class ReturnsRefundsFormsController < ApplicationController
 
 	def new
 		@returns_refunds_form = current_user.returns_refunds_forms.new
+    @orders = current_user.orders.has_paid
 	end
 
 	def create
