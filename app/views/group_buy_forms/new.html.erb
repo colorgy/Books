@@ -1,0 +1,26 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="content-strip primary">
+      <div class="content-strip-inner">
+        <h4 class="strip-title">班代大量訂購</h4>
+        <p class="strip-description"></p>
+      </div>
+    </div>
+  </div>
+  <div class="row row-inner-m">
+    <div class="col m12 s12">
+      <div class="groupon-field">
+        <div class="groupon-field-inner">
+          <div class="groupleader-form">
+            <p>班代想大量購買 (20 本或兩萬元以上) 嗎？請填寫此表單讓我們幫您找到書。</p>
+            <p>&nbsp;</p>
+            <span class="under-line-title">大量購買需求</span>
+            <%= simple_form_for @group_buy_form, url: group_buy_forms_path do |f| %>
+              <%= react_component 'NewGroupBuyFrom', course_ucode: @group_buy_form.course_ucode, book_isbn: @group_buy_form.book_isbn %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

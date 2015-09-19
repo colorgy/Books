@@ -122,6 +122,8 @@ Rails.application.routes.draw do
   resources :book_selections
   resources :course_selections
 
+  resources :group_buy_forms
+
   post '/my-account' => 'users/my_account#invoice_subsume_confirm'
   post '/invoice_subsume_confirm' => 'users/my_account#invoice_subsume_confirm'
 

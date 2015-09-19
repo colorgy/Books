@@ -37,7 +37,6 @@ CartItemsCashier = React.createClass
   canSubmit: ->
     if @packageBookCount > 0
       return false unless @state.packageRecipientName &&
-                          @state.packagePickupDatetime &&
                           @state.packageRecipientMobile &&
                           @state.packageRecipientMobile.length >= 10
     if @state.packagePickupAddressType == 'dorm'
@@ -157,7 +156,7 @@ CartItemsCashier = React.createClass
       if @state.packagePickupAddressType == 'dorm'
         packagePickupAddressInput =
           `<div className="row dorm-address">
-            <input type="hidden" name="package[pickup_address]" value={this.state.packagePickupAddress} />
+            <input type="hide" name="package[pickup_address]" value={this.state.packagePickupAddress} />
             <div className="col m4 s12">
               <select className="browser-default" onChange={this.handlePackagePickupAddressDormTypeChange} value={this.state.packagePickupAddressDormType}>
                 <option value="" disabled selected>宿舍別</option>
@@ -286,7 +285,7 @@ CartItemsCashier = React.createClass
                   </div>
                 </div>
               </div>
-              <div className="form-group">
+              <div className="form-group hidden">
                 <label className="string control-label" htmlFor="group_recipient_name">預計收件日期/時間</label>
                 <input className="string form-control datepicker packagePickupDatetime"
                   type="text"

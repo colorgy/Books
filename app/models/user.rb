@@ -11,6 +11,7 @@ class User < ActiveRecord::Base
   has_many :taiwan_mobile_imgs
   has_many :tutor_abc_forms
   has_many :gjun_forms
+  has_many :group_buy_forms
   has_many :returns_refunds_forms
   after_create :add_initial_credits
 
