@@ -942,7 +942,7 @@ i{
     }
 }
 
-.sponsor-item {
+.isotope-item {
     padding: 8px;
     background-color: #fff;
     border: 1px solid #DDD;
@@ -1396,8 +1396,8 @@ blockquote{
   float: left;
 }
 
-@media screen and (min-width: 1425px ){  .isotope-item { width: 48%; } }
-@media (max-width: 1425px ) and (min-width: 800px ){ .isotope-item { width: 48%; } }
+@media screen and (min-width: 1425px ){  .isotope-item { width: 31%; } }
+@media (max-width: 1425px ) and (min-width: 800px ){ .isotope-item { width: 31%; } }
 @media (max-width: 800px ) and (min-width: 320px ){ .isotope-item { width: 48%; } }
 @media screen and (max-width: 508px){  .isotope-item { width: 98%; } }
 
