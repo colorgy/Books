@@ -90,6 +90,8 @@ ActiveAdmin.register Bill do
         "price",
         "下定日期",
         "處裡日期",
+        "post_serial_no",
+        "paid_at"
         # "package_course_ucode"
       ];
       orders.order(:user_id).each do |order|
@@ -120,6 +122,8 @@ ActiveAdmin.register Bill do
           order.bill.price,
           order.bill.created_at.strftime('%Y-%-m-%-d'),
           order.order_date,
+          order.book.post_serial_no,
+          order.bill.paid_at
           # "",
         ]
       end;
@@ -140,20 +144,22 @@ ActiveAdmin.register Bill do
             item_price_h[addtional_item_id],
             item_price_h[addtional_item_id],
             order.state,
-            nil,
+            "",
             item_name_h[addtional_item_id],
-            nil,
-            nil,
+            "",
+            "",
             package.pickup_datetime.strftime('%Y-%-m-%-d'),
-            # order.course && order.course.name,
-            # order.course && order.course.lecturer_name,
-            # order.course_ucode,
+            "", # order.course && order.course.name,
+            "", # order.course && order.course.lecturer_name,
+            "", # order.course_ucode,
             (order.package && order.package.pickup_address == 'caves') ? '敦煌' : order.package && order.package.pickup_address,
             order.bill.processing_fee,
             order.bill.amount,
             order.bill.price,
             order.bill.created_at.strftime('%Y-%-m-%-d'),
             "",
+            order.book.post_serial_no,
+            order.bill.paid_at
             # "",
           ]
         end
@@ -267,7 +273,9 @@ ActiveAdmin.register Bill do
           quantity = id_arr.size
           book_orders = orders.where(book_id: book_id)
           order = book_orders.first
-          book = Book.find_by(id: book_id)
+          # book = Book.find_by(id: book_id)
+          book = order.book
+
           course = order.course
 
           total_price += quantity * order.price
