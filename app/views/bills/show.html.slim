@@ -5,6 +5,7 @@
         h4.strip-title 完成訂購！
         p.strip-description 您已完成訂購程序！請在繳款期限內繳費完畢，剩下就只要等書來就可以囉！ :D
   .row.row-inner
+    blockquote 寄送時間調整公告：應開學大量訂購及颱風連假影響，在 9/14 ~ 18 付款完成的書籍，大部份已在 9/22 ~ 25 號之間出貨，若是在 9/19 ~ 24 間付款完成、或尚未出貨的書籍，會在連假過後由郵局陸續寄出，9/24 後付款完成者將在 10/7 出貨。郵局完成出貨後，我們會將郵局物流追蹤編號以簡訊寄發到各位同學手上，供同學們做追蹤確認。不好意思造成同學們的不便！
     .order-complete
       .payment
         .under-line-title 付款資訊
@@ -81,7 +82,6 @@
             = render "partials/package_additional_items_table"
 
         .bill-user-info
-          p 書會在付款後五日內送達您手上！
           label 收件人姓名
           p #{package.recipient_name}
           label 收件地址
