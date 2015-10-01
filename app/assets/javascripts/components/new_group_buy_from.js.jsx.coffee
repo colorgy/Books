@@ -8,7 +8,7 @@ NewGroupBuyFrom = React.createClass
   getInitialState: ->
     course_ucode: @props.course_ucode
     book_isbn: @props.book_isbn
-    quantity: 0
+    quantity: 20
 
   getBookData: (input, callback) ->
     $.ajax
@@ -94,7 +94,7 @@ NewGroupBuyFrom = React.createClass
     @refs.courseSelect.autoloadAsyncOptions()
 
   canSubmit: ->
-    @state.course_name && @state.book_isbn && @state.quantity > 10
+    @state.course_name && @state.book_isbn && @state.quantity > 10 && @state.mobile && @state.mobile.length >= 10
 
   handleSubmit: ->
     return true if @canSubmit()
@@ -110,7 +110,7 @@ NewGroupBuyFrom = React.createClass
 
     `<div>
       <div className={classNames({ 'form-group': true })}>
-        <label>輸入課程名稱</label>
+        <label>輸入課程名稱 (請填寫課程名稱與授課教師)</label>
         <input name="group_buy_form[course_name]" className="form-control" valueLink={this.linkState('course_name')} />
       </div>
       <div className={classNames({ 'form-group': true })}>
@@ -125,8 +125,12 @@ NewGroupBuyFrom = React.createClass
         />
       </div>
       <div className={classNames({ 'form-group': true })}>
-        <label>數量</label>
+        <label>訂書數量</label>
         <input name="group_buy_form[quantity]" className="form-control" type="number" valueLink={this.linkState('quantity')} />
+      </div>
+      <div className={classNames({ 'form-group': true })}>
+        <label>訂購人手機 (必填)</label>
+        <input name="group_buy_form[mobile]" className="form-control" valueLink={this.linkState('mobile')} />
       </div>
       <p>
         找不到書嗎？請<a href="https://www.facebook.com/pages/Colorgy/1529686803975150" target="_blank">向我們回報</a>！

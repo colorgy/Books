@@ -8,5 +8,7 @@
 
 .container-fluid.cart-items
   = form_tag(orders_path, method: 'POST', onsubmit: 'return window.cartItemsCashier.canSubmit();') do
-
-    = react_component 'CartItemsCashier', cartItems: @cart_items_data, billTypeSelections: Bill.type_selections, billTypeFeeEquations: Bill::TYPE_FEE_EQUATIONS, packageShippingFee: Package::SHIPPING_FEE, packageRShippingFeeMinI: Package::RELIEVE_SHIPPING_FEE_IF_ITEMS_MORE_THEN, packageAdditionalItems: PackageAdditionalItem.all, orgName: current_user.organization_code && Organization.find(current_user.organization_code).name, currentUserGjunCredits: current_user.gjun_credits, currentUserTutorabcCheckCredits: current_user.tutorabc_check_credits
+    - if Settings.open_for_orders
+      = react_component 'CartItemsCashier', cartItems: @cart_items_data, billTypeSelections: Bill.type_selections, billTypeFeeEquations: Bill::TYPE_FEE_EQUATIONS, packageShippingFee: Package::SHIPPING_FEE, packageRShippingFeeMinI: Package::RELIEVE_SHIPPING_FEE_IF_ITEMS_MORE_THEN, packageAdditionalItems: PackageAdditionalItem.all, orgName: current_user.organization_code && Organization.find(current_user.organization_code).name, currentUserGjunCredits: current_user.gjun_credits, currentUserTutorabcCheckCredits: current_user.tutorabc_check_credits
+    - else
+      | 系統目前未開放購買

@@ -24,6 +24,6 @@ class GroupBuyFormsController < ApplicationController
   private
 
   def group_buy_form_params
-    params.require(:group_buy_form).permit(:book_isbn, :course_ucode, :course_name, :quantity)
+    params.require(:group_buy_form).permit(:book_isbn, :course_ucode, :course_name, :quantity, :mobile)
   end
 end

@@ -21,6 +21,7 @@ zh-TW:
   bill_states:
     payment_pending: 待付款
     paid: 已付款
+    expired: 已過期
   order_states:
     new: 新建立
     payment_pending: 待付款

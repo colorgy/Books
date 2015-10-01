@@ -42,7 +42,11 @@ class BooksController < ApplicationController
 
   def books_collection
     if ["TTU", "CGU", "GCU", "NTPU", "NCKU", "NCU", "NCHU", "YZU", "FJU", "TKU", "CCU", "NSYSU", "NTHU", "NCTU", "NTUST", "NTUT", "CYCU", "NTU", "NTNU"].include?(current_org_code)
-      Book.for_org(current_org_code).includes_full_data
+      if %w(NCU NCHU YZU FJU).include?(current_org_code)
+        Book.for_org(current_org_code).where.not(isbn: '9789574328154').includes_full_data
+      else
+        Book.for_org(current_org_code).includes_full_data
+      end
     else
       Book.where(id: [802410, 389478])
     end

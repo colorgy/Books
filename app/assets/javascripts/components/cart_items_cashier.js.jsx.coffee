@@ -227,7 +227,7 @@ CartItemsCashier = React.createClass
       else if @state.packagePickupAddressType == 'caves'
         packagePickupAddressInput =
           `<div className="row">
-            <div style={{ paddingTop: '12px' }}>僅限敦煌書局合作學校（中央、中興、元智、輔大）使用。</div>
+            <div style={{ paddingTop: '12px' }}>僅限敦煌書局合作學校（中央、中興、元智、輔大）使用 (最快五天可送達，到貨時會以簡訊通知)。</div>
             <input className="string form-control"
               type="hidden"
               value="caves"
