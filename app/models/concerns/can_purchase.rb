@@ -203,7 +203,7 @@ module CanPurchase
     bill.calculate_amount
 
     # HERE
-    bill.deadline = Time.new(2015, 10, 3, 11, 59)
+    bill.deadline = Time.new(2015, 10, 4, 3, 59)
 
     reload
 
