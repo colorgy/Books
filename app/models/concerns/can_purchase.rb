@@ -202,6 +202,9 @@ module CanPurchase
 
     bill.calculate_amount
 
+    # HERE
+    bill.deadline = Time.new(2015, 10, 3, 11, 59)
+
     reload
 
     data = { orders: orders, bill: bill }
