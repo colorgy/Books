@@ -285,7 +285,7 @@ CartItemsCashier = React.createClass
                   </div>
                 </div>
               </div>
-              <div className="form-group hidden">
+              <div className="form-group hidden hide">
                 <label className="string control-label" htmlFor="group_recipient_name">預計收件日期/時間</label>
                 <input className="string form-control datepicker packagePickupDatetime"
                   type="text"
